@@ -9,7 +9,7 @@ The hosted version can be found at: https://devolunch.ey.r.appspot.com/.
 ## Technologies
 DevoLunch is built with the following tools:
 
-- Frontend: React
+- Frontend: React v17
 - Backend: Node.js 14 w/ express
 - Web hosting: GCP w/ [App Engine][appengine]
 
