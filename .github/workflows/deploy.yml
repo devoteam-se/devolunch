@@ -4,7 +4,6 @@ on:
   push:
     branches:
     - 'master'
-    - 'action/deploy'
 
 jobs:
   deploy:
@@ -23,8 +22,3 @@ jobs:
 
     - name: 'Deploy to App Engine'
       uses: 'google-github-actions/deploy-appengine@v0'
-      with:
-        deliverables: 'app.yaml'
-
-    - name: 'Show Output'
-      run: 'echo ${{ steps.deploy.outputs.url }}'
