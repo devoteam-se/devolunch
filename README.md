@@ -10,8 +10,8 @@ The hosted version can be found at: https://devolunch.web.app/.
 DevoLunch is built with the following tools:
 
 - Frontend: React
-- Backend: NodeJS/Express
-- Web hosting: GCP - [App Engine][appengine]
+- Backend: Node.js 14 w/ express
+- Web hosting: GCP w/ [App Engine][appengine]
 
 ## Setup
 
