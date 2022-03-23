@@ -4,7 +4,6 @@ on:
   push:
     branches:
     - 'master'
-    - 'feature/add-docker'
 
 env:
   PROJECT_ID: devolunch
@@ -41,12 +40,17 @@ jobs:
     - name: Authorize Docker push
       run: gcloud auth configure-docker
 
+    # Docker Layer Caching in GitHub Actions
+    - uses: satackey/action-docker-layer-caching@v0.0.11
+      continue-on-error: true
+
     - name: Build and Push Container
       run: |-
         docker build --quiet --tag gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{ github.sha }} .
         docker push --quiet gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{ github.sha }}
 
     - name: 'Deploy to Cloud Run'
+      id: deploy
       uses: 'google-github-actions/deploy-cloudrun@v0'
       with:
         service: ${{ env.SERVICE }}
