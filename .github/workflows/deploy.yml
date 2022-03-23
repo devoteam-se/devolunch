@@ -5,6 +5,11 @@ on:
     branches:
     - 'master'
 
+env:
+  PROJECT_ID: devolunch
+  SERVICE: devolunch
+  REGION: europe-west3
+
 jobs:
   deploy:
     permissions:
@@ -20,5 +25,37 @@ jobs:
       with:
         credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
 
-    - name: 'Deploy to App Engine'
-      uses: 'google-github-actions/deploy-appengine@v0'
+    # - name: 'Deploy to App Engine'
+    #   uses: 'google-github-actions/deploy-appengine@v0'
+
+    # - name: 'Run Cloud Build'
+    #   run: |-
+    #     gcloud builds submit \
+    #       --quiet \
+    #       --tag gcr.io/devolunch/devolunch:$GITHUB_SHA
+
+    - name: 'Set up Cloud SDK'
+      uses: 'google-github-actions/setup-gcloud@v0'
+
+    - name: Authorize Docker push
+      run: gcloud auth configure-docker
+
+    # Docker Layer Caching in GitHub Actions
+    - uses: satackey/action-docker-layer-caching@v0.0.11
+      continue-on-error: true
+
+    - name: Build and Push Container
+      run: |-
+        docker build --quiet --tag gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{ github.sha }} .
+        docker push --quiet gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{ github.sha }}
+
+    - name: 'Deploy to Cloud Run'
+      id: deploy
+      uses: 'google-github-actions/deploy-cloudrun@v0'
+      with:
+        service: ${{ env.SERVICE }}
+        image: gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{ github.sha }}
+        region: ${{ env.REGION }}
+
+    - name: Show Output
+      run: echo ${{ steps.deploy.outputs.url }}
