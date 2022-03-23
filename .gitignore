@@ -1,6 +1,6 @@
 # Exclude compiled files
-build/
-dist/
+**/build/
+**/dist/
 
 # Exclude dependencies
-node_modules/
+**/node_modules/
