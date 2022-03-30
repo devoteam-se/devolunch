@@ -3,7 +3,7 @@
 ## Description
 DevoLunch is an lunch app used for providing the todays lunch menus nearby the office.
 
-The hosted version can be found at: https://devolunch.ey.r.appspot.com/.
+The hosted version can be found at: https://devolunch-wbsypybpra-ey.a.run.app/.
 
 
 ## Technologies
