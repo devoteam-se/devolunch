@@ -25,15 +25,6 @@ jobs:
       with:
         credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
 
-    # - name: 'Deploy to App Engine'
-    #   uses: 'google-github-actions/deploy-appengine@v0'
-
-    # - name: 'Run Cloud Build'
-    #   run: |-
-    #     gcloud builds submit \
-    #       --quiet \
-    #       --tag gcr.io/devolunch/devolunch:$GITHUB_SHA
-
     - name: 'Set up Cloud SDK'
       uses: 'google-github-actions/setup-gcloud@v0'
 
