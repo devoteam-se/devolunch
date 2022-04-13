@@ -1,17 +1,18 @@
 # DevoLunch
 
 ## Description
+
 DevoLunch is an lunch app used for providing the todays lunch menus nearby the office.
 
-The hosted version can be found at: https://devolunch.ey.r.appspot.com/.
-
+The hosted version can be found at: https://devolunch-wbsypybpra-ey.a.run.app/.
 
 ## Technologies
+
 DevoLunch is built with the following tools:
 
 - Frontend: React v17
 - Backend: Node.js 14 w/ express
-- Web hosting: GCP w/ [Cloud Run][https://cloud.google.com/run/docs]
+- Web hosting: Docker in GCP w/ [Cloud Run](https://cloud.google.com/run/docs)
 
 ## Setup
 
@@ -21,26 +22,16 @@ DevoLunch is built with the following tools:
 
 ## Running locally in development mode
 
-- Run the program
+- Run the program:
 
         npm run dev
 
 ## Running locally in production mode
 
-1. Perform the build step:
+- Run the program in Docker:
 
-        npm run gcp-build
+        docker-compose up
 
-2. Run the completed program
+## Deploy to production
 
-        npm start
-
-## Deploy with Google Cloud SDK
-
-1. Initialise your SDK:
-
-        gcloud init
-
-2. Deploying to App Engine:
-
-        gcloud app deploy
+Push the code to `master`-branch

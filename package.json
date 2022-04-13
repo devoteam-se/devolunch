@@ -4,7 +4,6 @@
   "description": "DevoLunch is an lunch app used for providing the todays lunch menus nearby the office.",
   "scripts": {
     "start": "node ./server/dist/index.js",
-    "gcp-build": "npm-run-all build:**",
     "build:client": "cd client && npm run build",
     "build:server": "cd server && npm run build",
     "postinstall": "npm-run-all --parallel install:**",
