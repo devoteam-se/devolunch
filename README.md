@@ -11,7 +11,7 @@ DevoLunch is built with the following tools:
 
 - Frontend: React v17
 - Backend: Node.js 14 w/ express
-- Web hosting: GCP w/ [Cloud Run][https://cloud.google.com/run/docs]
+- Web hosting: GCP w/ [Cloud Run](https://cloud.google.com/run/docs)
 
 ## Setup
 
