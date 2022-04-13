@@ -8,7 +8,7 @@ on:
 env:
   PROJECT_ID: devolunch
   SERVICE: devolunch
-  REGION: europe-west3
+  REGION: europe-west1
 
 jobs:
   deploy:
