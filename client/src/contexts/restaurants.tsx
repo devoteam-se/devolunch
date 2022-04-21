@@ -11,7 +11,7 @@ enum Endpoints {
 }
 
 const API_ROOT_PROD = "https://lunch.jayway.com/api";
-const API_ROOT_DEV = "https://lunch.jayway.com/api";
+const API_ROOT_DEV = "http://localhost:8080/api";
 
 const RestaurantsContext = React.createContext<ContextType | null>(null);
 
