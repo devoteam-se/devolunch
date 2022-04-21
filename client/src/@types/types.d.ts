@@ -2,6 +2,7 @@ declare namespace App {
   enum DishType {
     MEAT = "meat",
     VEG = "veg",
+    FISH = 'fish'
   }
   type Dish = {
     description: string;

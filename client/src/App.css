@@ -137,6 +137,9 @@ body {
 .dish-title-icon[data-veg='true'] {
   color: #449856;
 }
+.dish-title-icon[data-fish='true'] {
+  color: #457b9d;
+}
 
 .dish-header-icon {
   color: #000000;

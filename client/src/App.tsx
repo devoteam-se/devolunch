@@ -8,9 +8,6 @@ import { useRestaurants } from './contexts/restaurants';
 function App() {
   const { restaurants, loading } = useRestaurants();
 
-  //Example with lax
-  // const { isFish } = useIsFish('lax');
-
   useEffect(() => {
     if (loading) {
       const timeout = setTimeout(() => {}, 4000);

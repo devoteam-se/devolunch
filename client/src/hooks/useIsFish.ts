@@ -7,11 +7,12 @@ export const useIsFish = (description: String) => {
     const fishData = data.query.categorymembers;
     let fishes: string[] = []
     fishData.map((fish: { title: string; }) => {
-      if(fish.title.includes('lax')) {
+      if (fish.title.toLowerCase().includes('lax')) {
         return fishes.push('lax')
-      } 
-      return fishes.push(fish.title.toLowerCase())})
-    const isFish = fishes.map(fish => description.toLowerCase().includes(fish))
+      }
+      return fishes.push(fish.title.toLowerCase())
+    })
+    const isFish = fishes.map(fish => description.toLowerCase().includes(fish) || description.toLowerCase().includes('fisk'))
     return isFish.includes(true)
   });
 
