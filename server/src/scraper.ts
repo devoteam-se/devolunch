@@ -9,8 +9,9 @@ const getSlagtHuset = async (page: puppeteer.Page) => {
   await page.goto('https://www.slagthuset.se/restaurang/');
   return page.evaluate(() => {
     const raw = [
-      ...document?.querySelectorAll('h2')
-    ] // @ts-ignore 
+      ...document.querySelectorAll('h2')
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    ] // @ts-ignore
     ?.find(e => e.innerText === 'Lunch')?.parentNode?.parentNode?.nextElementSibling?.innerText
     .split('\n');
     
@@ -34,9 +35,9 @@ const getSlagtHuset = async (page: puppeteer.Page) => {
     }
     
     const elements = {
-      name: 'Slagthuset',
+      title: 'Slagthuset',
       description: 'Three courses to choose from, soup, newly baked bread and a salad buffet',
-      imageUrl: 'https://www.slagthuset.se/wp-content/uploads/2022/03/Hemsidan_restaurang_overlay.jpg',
+      imgUrl: 'https://www.slagthuset.se/wp-content/uploads/2022/03/Hemsidan_restaurang_overlay.jpg',
       dishes
     };
 
