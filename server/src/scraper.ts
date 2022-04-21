@@ -39,7 +39,7 @@ const getSlagtHuset = async (page: puppeteer.Page) => {
 
     const elements = {
       title: 'Slagthuset',
-      description: 'Three courses to choose from, soup, newly baked bread and a salad buffet',
+      description: '',
       imgUrl: 'https://www.slagthuset.se/wp-content/uploads/2022/03/Hemsidan_restaurang_overlay.jpg',
       dishes
     };
@@ -77,7 +77,7 @@ const getMiaMarias = async (page: puppeteer.Page) => {
 
     return {
       title: "MiaMarias",
-      description: "Idk?",
+      description: "",
       imgUrl: "http://www.miamarias.nu/wp-content/uploads/2018/07/logo_new.png",
       dishes,
     };
@@ -92,7 +92,7 @@ const getSaltimporten = async (page: puppeteer.Page) => {
 
     return {
       title: "Saltimporten",
-      description: "Idk idk idk?",
+      description: "",
       imgUrl: "https://www.saltimporten.com/media/IMG_6253-512x512.jpg",
       dishes: [
         {
@@ -136,7 +136,7 @@ const getSpill = async (page: puppeteer.Page) => {
 
     return {
       title: "Spill",
-      description: "Only henrik eats here?",
+      description: "",
       imgUrl: "https://restaurangspill.se/assets/images/screenshot2-479x423.png",
       dishes: [...meat, ...veg],
     };
@@ -154,7 +154,7 @@ const getValfarden = async (page: puppeteer.Page) => {
 
     return {
       title: "Välfärden",
-      description: "Idk idk idk?",
+      description: "",
       imgUrl: "https://valfarden.nu/wp-content/uploads/2015/01/hylla.jpg",
       dishes: [{
         "type": "meat",
@@ -179,7 +179,7 @@ const getStoraVarvsgatan = async (page: puppeteer.Page) => {
 
     return {
       title: "Stora Varvsgatan 6",
-      description: "Idk idk idk?",
+      description: "",
       imgUrl: "https://storavarvsgatan6.se/____impro/1/onewebmedia/foodiesfeed.com_close-up-on-healthy-green-broccoli%20%28kopia%29.jpg?etag=%226548df-5f256567%22&sourceContentType=image%2Fjpeg&ignoreAspectRatio&resize=1900%2B1267&extract=81%2B0%2B939%2B1190&quality=85",
       dishes: [{
         "type": "meat",
