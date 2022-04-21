@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useAsync } from "react-use";
 
 type ContextType = {
   loading: boolean;
