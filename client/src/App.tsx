@@ -1,4 +1,5 @@
 import './App.css';
+import { Header } from './components/Header';
 import { RestaurantList } from './components/RestuarantList';
 import { useRestaurants } from './contexts/restaurants';
 import { useIsFish } from "./hooks/useIsFish";
@@ -11,6 +12,7 @@ function App() {
 
   return (
     <div className="App">
+      <Header />
       <RestaurantList restaurants={restaurants} />
     </div>
   );
