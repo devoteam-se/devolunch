@@ -17,14 +17,19 @@ export const useRestaurants = () => {
 };
 
 const RestaurantsProvider = ({ children }: any) => {
-  const { loading, value } = useAsync(async () => {
-    const res = await fetch("http://localhost:8080/api");
-    console.log("res", res.json());
-    return res.json();
+  const { loading, value, error } = useAsync(async () => {
+    const res = await fetch("http://localhost:8080/api"); // TODO: Use prod endpoint
+    const data = await res.json();
+    return data;
   });
-  const restaurants: App.Restaurant[] = [];
+
+  if (error) {
+    console.error(error);
+    return null;
+  }
+
   return (
-    <RestaurantsContext.Provider value={{ restaurants, loading }}>
+    <RestaurantsContext.Provider value={{ restaurants: value || [], loading }}>
       {children}
     </RestaurantsContext.Provider>
   );
