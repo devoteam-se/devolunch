@@ -73,41 +73,80 @@ const getMiaMarias = async (page: puppeteer.Page) => {
   });
 };
 
-
 const getSaltimporten = async (page: puppeteer.Page) => {
   await page.goto("https://www.saltimporten.com/");
   return page.evaluate(() => {
-    const meat = document.querySelector('li.current')?.querySelector('div.meal')?.textContent;
-    const veg = document.querySelector('div.veg')?.nextSibling?.textContent;
+    const meat = document.querySelector("li.current")?.querySelector("div.meal")?.textContent;
+    const veg = document.querySelector("div.veg")?.nextSibling?.textContent;
 
     return {
       title: "Saltimporten",
       description: "Idk idk idk?",
       imgUrl: "https://www.saltimporten.com/media/IMG_6253-512x512.jpg",
-      dishes: [{
-        "type": "meat",
-        "description": meat,
-      },{
-        "type": "veg",
-        "description": veg 
-      },
-    ]
-    }
-  })
-}
+      dishes: [
+        {
+          type: "meat",
+          description: meat,
+        },
+        {
+          type: "veg",
+          description: veg,
+        },
+      ],
+    };
+  });
+};
+
+const getSpill = async (page: puppeteer.Page) => {
+  await page.goto("https://restaurangspill.se/");
+  return page.evaluate(() => {
+    const container = Array.from(document.querySelectorAll(".container"));
+    const paragraphs = Array.from(
+      container.find((e) => e.textContent?.includes("Dagens Lunch"))?.querySelectorAll("p") || []
+    );
+    const dishes = paragraphs
+      .slice(1, 3)
+      .map((e) => e.innerText)
+      .flatMap((e) => e.split("\n"))
+      .filter((e) => e.trim());
+    const price = Number(
+      paragraphs
+        .find((e) => e.textContent?.includes("kostar"))
+        ?.textContent?.match(/([0-9]+)kr/)
+        ?.slice(1, 2)
+    );
+
+    const meat = dishes
+      .filter((dish) => !dish.toLowerCase().includes("vegetarisk"))
+      .map((description) => ({ type: "meat", price, description }));
+    const veg = dishes
+      .filter((dish) => dish.toLowerCase().includes("vegetarisk"))
+      .map((description) => ({ type: "veg", price, description }));
+
+    return {
+      title: "Spill",
+      description: "Only henrik eats here?",
+      imgUrl: "https://restaurangspill.se/assets/images/screenshot2-479x423.png",
+      dishes: [...meat, ...veg],
+    };
+  });
+};
 
 (async () => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
-    
-  const slagthuset = await getSlagtHuset(page)
+
+  const slagthuset = await getSlagtHuset(page);
   console.log(slagthuset);
 
-  const miamarias = await getMiaMarias(page)
+  const miamarias = await getMiaMarias(page);
   console.log(miamarias);
 
-  const saltimporten = await getSaltimporten(page)
+  const saltimporten = await getSaltimporten(page);
   console.log(saltimporten);
+
+  const spill = await getSpill(page);
+  console.log(spill);
 
   await browser.close();
 })();
