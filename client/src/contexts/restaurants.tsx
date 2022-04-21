@@ -18,7 +18,7 @@ export const useRestaurants = () => {
 
 const RestaurantsProvider = ({ children }: any) => {
   const { loading, value, error } = useAsync(async () => {
-    const res = await fetch("http://localhost:8080/api"); // TODO: Use prod endpoint
+    const res = await fetch("http://localhost:8080/api/restaurants"); // TODO: Use prod endpoint
     const data = await res.json();
     return data;
   });
