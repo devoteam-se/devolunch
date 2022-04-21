@@ -1,6 +1,7 @@
 import express = require('express');
 import path = require('path');
 const cors = require('cors');
+import Routes from "./routes"
 
 const PORT = Number(process.env.PORT) || 8080;
 const CLIENT_DIR = path.resolve(__dirname, '..', '..', 'client');
@@ -18,6 +19,8 @@ app.get('/api', (req, res) => {
 app.get('/api/restaurants', (req, res) => {
   res.send(mock);
 });
+
+Routes({ app });
 
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(CLIENT_DIR, 'build', 'index.html'));

@@ -1,4 +1,9 @@
-import puppeteer = require("puppeteer")
+import puppeteer = require("puppeteer");
+import { Storage } from "@google-cloud/storage";
+
+const BUCKET_NAME = "devolunch"
+
+const storage = new Storage();
 
 const getSlagtHuset = async (page: puppeteer.Page) => {
   await page.goto('https://www.slagthuset.se/restaurang/');
@@ -182,7 +187,7 @@ const getStoraVarvsgatan = async (page: puppeteer.Page) => {
   })
 }
 
-(async () => {
+const scrape = async () => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
 
@@ -205,4 +210,11 @@ const getStoraVarvsgatan = async (page: puppeteer.Page) => {
   console.log(spill);
 
   await browser.close();
-})();
+
+  const bucket = storage.bucket(BUCKET_NAME)
+  await bucket
+    .file("restaurants.json")
+    .save(JSON.stringify([slagthuset, miamarias, saltimporten, valfarden, storavarvsgatan6, spill]));
+}
+
+export default scrape
