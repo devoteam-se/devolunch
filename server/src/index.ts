@@ -12,6 +12,10 @@ app.use(cors());
 app.use(express.static(path.resolve(CLIENT_DIR, "build")));
 
 app.get("/api", (req, res) => {
+  res.send('Hello API');
+});
+
+app.get("/api/restaurants", (req, res) => {
   res.send(mock);
 });
 
