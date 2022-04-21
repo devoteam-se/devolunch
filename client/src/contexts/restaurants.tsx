@@ -35,26 +35,22 @@ const fetchRestaurants = async () => {
 
 const RestaurantsProvider = ({ children }: any) => {
   const [restaurants, setRestaurants] = useState<App.Restaurant[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    const initialFetch = async () => {
+    const get = async () => {
+      setLoading(true);
       const r = await fetchRestaurants();
       setRestaurants(r);
+      setLoading(false);
     };
-    initialFetch();
-  }, []);
 
-  const { loading, error } = useAsync(async () => {
+    get();
+
     setInterval(async () => {
-      const data = await fetchRestaurants();
-      setRestaurants(data);
+      await get();
     }, 60000);
-  });
-
-  if (error) {
-    console.error(error);
-    return null;
-  }
+  }, []);
 
   return (
     <RestaurantsContext.Provider value={{ restaurants, loading }}>
