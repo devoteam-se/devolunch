@@ -28,7 +28,7 @@ export const useRestaurants = () => {
 const RestaurantsProvider = ({ children }: any) => {
   const rootUrl = isDev ? API_ROOT_DEV : API_ROOT_PROD;
   const { loading, value, error } = useAsync(async () => {
-    const res = await fetch(`${rootUrl}${Endpoints.RESTAURANTS}`); // TODO: Use prod endpoint
+    const res = await fetch(`${rootUrl}${Endpoints.RESTAURANTS}`);
     const data = await res.json();
     return data;
   });
