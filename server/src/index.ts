@@ -3,6 +3,12 @@ import path = require("path");
 import cors from "cors";
 import Routes from "./routes";
 
+import { Storage } from "@google-cloud/storage";
+
+const BUCKET_NAME = "devolunch";
+
+const storage = new Storage();
+
 const PORT = Number(process.env.PORT) || 8080;
 const CLIENT_DIR = path.resolve(__dirname, "..", "..", "client");
 
@@ -16,8 +22,12 @@ app.get("/api", (req, res) => {
   res.send("Hello API");
 });
 
-app.get("/api/restaurants", (req, res) => {
-  res.send(mock);
+app.get("/api/restaurants", async (req, res) => {
+  const bucket = storage.bucket(BUCKET_NAME);
+  const file = await bucket
+    .file("restaurants.json")
+    .download();
+  res.send(JSON.parse(file[0].toString('utf8')));
 });
 
 Routes({ app });
@@ -29,95 +39,3 @@ app.get("*", (req, res) => {
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);
 });
-
-const mock = [
-  {
-    title: "Spill",
-    description: "Gourmet sustainable food using recycled food",
-    imgUrl:
-      "https://media-cdn.tripadvisor.com/media/photo-s/17/fa/8e/94/today-s-special.jpg",
-    dishes: [
-      {
-        type: "meat",
-        description:
-          "Roast beef with mashed potatoes, red wine sauce & tomato / broccoli salad",
-      },
-      {
-        type: "veg",
-        description:
-          "Breaded grilled cheese with mashed potatoes, red wine sauce & tomato / broccoli salad",
-      },
-    ],
-  },
-  {
-    title: "Aster",
-    description: "Local food made gourmet",
-    imgUrl:
-      "https://media-cdn.tripadvisor.com/media/photo-s/0e/4d/68/73/aster-restaurant.jpg",
-    dishes: [
-      {
-        type: "meat",
-        description:
-          "Roast beef with mashed potatoes, red wine sauce & tomato / broccoli salad",
-      },
-      {
-        type: "veg",
-        description:
-          "Breaded grilled cheese with mashed potatoes, red wine sauce & tomato / broccoli salad",
-      },
-    ],
-  },
-  {
-    title: "Saltimporten",
-    description: "Food with low impact ",
-    imgUrl: "https://www.saltimporten.com/media/IMG_6253-512x512.jpg",
-    dishes: [
-      {
-        type: "meat",
-        description:
-          "Roast beef with mashed potatoes, red wine sauce & tomato / broccoli salad",
-      },
-      {
-        type: "veg",
-        description:
-          "Breaded grilled cheese with mashed potatoes, red wine sauce & tomato / broccoli salad",
-      },
-    ],
-  },
-  {
-    title: "Miamarias",
-    description: "Food made easy and local",
-    imgUrl:
-      "https://i0.wp.com/www.takemetosweden.be/wp-content/uploads/2019/07/MiaMarias-Malm%C3%B6-1.png?resize=650%2C975&ssl=1",
-    dishes: [
-      {
-        type: "meat",
-        description:
-          "Roast beef with mashed potatoes, red wine sauce & tomato / broccoli salad",
-      },
-      {
-        type: "veg",
-        description:
-          "Breaded grilled cheese with mashed potatoes, red wine sauce & tomato / broccoli salad",
-      },
-    ],
-  },
-  {
-    title: "Johan",
-    description: "Food made easy and local",
-    imgUrl:
-      "https://i0.wp.com/www.takemetosweden.be/wp-content/uploads/2019/07/MiaMarias-Malm%C3%B6-1.png?resize=650%2C975&ssl=1",
-    dishes: [
-      {
-        type: "meat",
-        description:
-          "Roast torsk with mashed potatoes, red wine sauce & tomato / broccoli salad",
-      },
-      {
-        type: "veg",
-        description:
-          "Breaded grilled cheese with mashed potatoes, red wine sauce & tomato / broccoli salad",
-      },
-    ],
-  },
-];
