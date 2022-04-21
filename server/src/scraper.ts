@@ -141,7 +141,7 @@ const getValfarden = async (page: puppeteer.Page) => {
   await page.goto("https://valfarden.nu/dagens-lunch/");
   return page.evaluate(() => {
     const today = [
-      ...document?.querySelectorAll('p')
+      ...document.querySelectorAll('p')
     ]?.find((e) => e?.textContent?.toLowerCase()?.includes(new Date()?.toLocaleString('sv-SE', { weekday: 'long' })));
     const meat = today?.nextElementSibling?.textContent;
     const veg = today?.nextElementSibling?.nextElementSibling?.nextElementSibling?.textContent;
