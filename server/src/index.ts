@@ -111,7 +111,7 @@ const mock = [
       {
         type: "meat",
         description:
-          "Roast beef with mashed potatoes, red wine sauce & tomato / broccoli salad",
+          "Roast torsk with mashed potatoes, red wine sauce & tomato / broccoli salad",
       },
       {
         type: "veg",
