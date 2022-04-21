@@ -1,6 +1,4 @@
-import { DishI } from '../../models/api';
-
-export const Dish = ({ type, description }: DishI) => {
+export const Dish = ({ type, description }: App.Dish) => {
   return (
     <div className="dish">
       <div className="dish-title-wrapper">

@@ -1,17 +1,15 @@
-import { RestaurantI } from '../../models/api';
 import { Restaurant } from './Restaurant';
 
 interface RestaurantListI {
-  restaurants: RestaurantI[];
+  restaurants: App.Restaurant[];
 }
 
 export const RestaurantList = ({ restaurants }: RestaurantListI) => {
-  console.log(restaurants);
-
   return (
     <div className="restaurant-list">
-      {restaurants.map((restaurant) => (
+      {restaurants.map((restaurant, index) => (
         <Restaurant
+          key={`rest-${index}`}
           title={restaurant.title}
           description={restaurant.description}
           imgUrl={restaurant.imgUrl}

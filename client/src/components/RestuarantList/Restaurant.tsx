@@ -1,4 +1,3 @@
-import { RestaurantI } from '../../models/api';
 import { Dish } from './Dish';
 
 export const Restaurant = ({
@@ -6,7 +5,7 @@ export const Restaurant = ({
   description,
   imgUrl,
   dishes,
-}: RestaurantI) => {
+}: App.Restaurant) => {
   return (
     <div className="restaurant">
       <div className="rest-wrapper">
@@ -14,8 +13,12 @@ export const Restaurant = ({
         <p className="rest-descr">{description}</p>
       </div>
       <img src={imgUrl} className="restaurant-image" alt="res" />
-      {dishes.map((dish) => (
-        <Dish type={dish.type} description={dish.description} />
+      {dishes.map((dish, index) => (
+        <Dish
+          key={`dish-${index}`}
+          type={dish.type}
+          description={dish.description}
+        />
       ))}
     </div>
   );
