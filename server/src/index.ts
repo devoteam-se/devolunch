@@ -1,10 +1,12 @@
 import express = require("express");
 import path = require("path");
+const cors = require("cors");
 
 const PORT = Number(process.env.PORT) || 8080;
-const CLIENT_DIR = path.resolve(__dirname, "..", "..", "client")
+const CLIENT_DIR = path.resolve(__dirname, "..", "..", "client");
 
 const app = express();
+app.use(cors());
 
 // Serve static files
 app.use(express.static(path.resolve(CLIENT_DIR, "build")));
