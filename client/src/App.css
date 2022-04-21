@@ -1,5 +1,6 @@
 .App {
   background-color: #fdfdf2;
+  height: 100vh;
 }
 
 .restaurant-list {
