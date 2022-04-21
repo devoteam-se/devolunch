@@ -4,7 +4,7 @@ import './Header.css'
 export const Header = () => {
   return (
     <div className="header-wrapper">
-      <p className="header-text">Lunch Time menu</p>
+      <p className="header-text">Lunch menu</p>
       <Icon className="header-icon"/>
       <p className="header-text frequency">Daily</p>
     </div>
