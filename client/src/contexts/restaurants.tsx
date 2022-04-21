@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useAsync } from "react-use";
 
 type ContextType = {
@@ -25,12 +25,30 @@ export const useRestaurants = () => {
   return context;
 };
 
+const rootUrl = isDev ? API_ROOT_DEV : API_ROOT_PROD;
+
+const fetchRestaurants = async () => {
+  const res = await fetch(`${rootUrl}${Endpoints.RESTAURANTS}`);
+  const data = await res.json();
+  return data as App.Restaurant[];
+};
+
 const RestaurantsProvider = ({ children }: any) => {
-  const rootUrl = isDev ? API_ROOT_DEV : API_ROOT_PROD;
-  const { loading, value, error } = useAsync(async () => {
-    const res = await fetch(`${rootUrl}${Endpoints.RESTAURANTS}`);
-    const data = await res.json();
-    return data;
+  const [restaurants, setRestaurants] = useState<App.Restaurant[]>([]);
+
+  useEffect(() => {
+    const initialFetch = async () => {
+      const r = await fetchRestaurants();
+      setRestaurants(r);
+    };
+    initialFetch();
+  }, []);
+
+  const { loading, error } = useAsync(async () => {
+    setInterval(async () => {
+      const data = await fetchRestaurants();
+      setRestaurants(data);
+    }, 60000);
   });
 
   if (error) {
@@ -39,7 +57,7 @@ const RestaurantsProvider = ({ children }: any) => {
   }
 
   return (
-    <RestaurantsContext.Provider value={{ restaurants: value || [], loading }}>
+    <RestaurantsContext.Provider value={{ restaurants, loading }}>
       {children}
     </RestaurantsContext.Provider>
   );
