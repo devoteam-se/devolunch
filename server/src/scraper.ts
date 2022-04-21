@@ -1,7 +1,7 @@
 import puppeteer = require("puppeteer");
 import { Storage } from "@google-cloud/storage";
 
-const BUCKET_NAME = "devolunch"
+const BUCKET_NAME = "devolunch";
 
 const storage = new Storage();
 
@@ -12,11 +12,11 @@ const getSlagtHuset = async (page: puppeteer.Page) => {
       ...document?.querySelectorAll('h2')
     ] // @ts-ignore 
     ?.find(e => e.innerText === 'Lunch')?.parentNode?.parentNode?.nextElementSibling?.innerText
-    .split('\n')
+    .split('\n');
     
-    const rawMenu = raw.slice(raw.findIndex((a: string) => a.includes('Meny vecka')))
+    const rawMenu = raw.slice(raw.findIndex((a: string) => a.includes('Meny vecka')));
     
-    const dishes = []
+    const dishes = [];
     
     for (let i = 0; i < rawMenu.length; i++) {
       if (rawMenu[i].toLowerCase() === new Date().toLocaleString('sv-SE', { weekday: 'long' }) ||
@@ -24,25 +24,25 @@ const getSlagtHuset = async (page: puppeteer.Page) => {
       rawMenu[i].includes('vegetarisk')
       ) {
         const type = rawMenu[i].toLowerCase() === new Date().toLocaleString('sv-SE', { weekday: 'long' }) 
-          ? 'meat' : rawMenu[i].toLowerCase().includes('fisk') ? 'fish' : 'veg'
-        const description = rawMenu[i + 1]
+          ? 'meat' : rawMenu[i].toLowerCase().includes('fisk') ? 'fish' : 'veg';
+        const description = rawMenu[i + 1];
         dishes.push({
           description,
           type
-        })
+        });
       }
     }
     
-    let elements = {
+    const elements = {
       name: 'Slagthuset',
       description: 'Three courses to choose from, soup, newly baked bread and a salad buffet',
       imageUrl: 'https://www.slagthuset.se/wp-content/uploads/2022/03/Hemsidan_restaurang_overlay.jpg',
       dishes
-    }
+    };
 
     return elements;
-  })
-}
+  });
+};
 
 const getMiaMarias = async (page: puppeteer.Page) => {
   await page.goto("http://www.miamarias.nu/");
@@ -142,9 +142,9 @@ const getValfarden = async (page: puppeteer.Page) => {
   return page.evaluate(() => {
     const today = [
       ...document?.querySelectorAll('p')
-    ]?.find((e) => e?.textContent?.toLowerCase()?.includes(new Date()?.toLocaleString('sv-SE', { weekday: 'long' })))
-    const meat = today?.nextElementSibling?.textContent
-    const veg = today?.nextElementSibling?.nextElementSibling?.nextElementSibling?.textContent
+    ]?.find((e) => e?.textContent?.toLowerCase()?.includes(new Date()?.toLocaleString('sv-SE', { weekday: 'long' })));
+    const meat = today?.nextElementSibling?.textContent;
+    const veg = today?.nextElementSibling?.nextElementSibling?.nextElementSibling?.textContent;
 
     return {
       title: "Välfärden",
@@ -158,18 +158,18 @@ const getValfarden = async (page: puppeteer.Page) => {
         "description": veg 
       },
     ]
-    }
-  })
-}
+    };
+  });
+};
 
 const getStoraVarvsgatan = async (page: puppeteer.Page) => {
   await page.goto("https://storavarvsgatan6.se/meny.html");
   return page.evaluate(() => {
     const today = [
       ...document?.querySelectorAll('p')
-    ]?.find((e) => e?.textContent?.toLowerCase()?.includes(new Date()?.toLocaleString('sv-SE', { weekday: 'long' })))
-    const meat = today?.nextElementSibling?.textContent
-    const veg = today?.nextElementSibling?.nextElementSibling?.textContent
+    ]?.find((e) => e?.textContent?.toLowerCase()?.includes(new Date()?.toLocaleString('sv-SE', { weekday: 'long' })));
+    const meat = today?.nextElementSibling?.textContent;
+    const veg = today?.nextElementSibling?.nextElementSibling?.textContent;
 
     return {
       title: "Stora Varvsgatan 6",
@@ -183,9 +183,9 @@ const getStoraVarvsgatan = async (page: puppeteer.Page) => {
         "description": veg 
       },
     ]
-    }
-  })
-}
+    };
+  });
+};
 
 const scrape = async () => {
   const browser = await puppeteer.launch();
@@ -200,10 +200,10 @@ const scrape = async () => {
   const saltimporten = await getSaltimporten(page);
   console.log(saltimporten);
   
-  const valfarden = await getValfarden(page)
+  const valfarden = await getValfarden(page);
   console.log(valfarden);
 
-  const storavarvsgatan6 = await getStoraVarvsgatan(page)
+  const storavarvsgatan6 = await getStoraVarvsgatan(page);
   console.log(storavarvsgatan6);
 
   const spill = await getSpill(page);
@@ -211,10 +211,10 @@ const scrape = async () => {
 
   await browser.close();
 
-  const bucket = storage.bucket(BUCKET_NAME)
+  const bucket = storage.bucket(BUCKET_NAME);
   await bucket
     .file("restaurants.json")
     .save(JSON.stringify([slagthuset, miamarias, saltimporten, valfarden, storavarvsgatan6, spill]));
-}
+};
 
-export default scrape
+export default scrape;
