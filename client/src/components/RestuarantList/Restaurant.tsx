@@ -1,4 +1,5 @@
-import { Dish } from './Dish';
+import { Dish } from "./Dish";
+import { ReactComponent as ArrowIcon } from "../../assets/arrow.svg";
 
 export const Restaurant = ({
   title,
@@ -12,7 +13,10 @@ export const Restaurant = ({
         <p className="rest-title">{title}</p>
         <p className="rest-descr">{description}</p>
       </div>
-      <img src={imgUrl} className="restaurant-image" alt="res" />
+      <div className="restaurant-image-wrapper">
+        <img src={imgUrl} className="restaurant-image" alt="res" />
+        <ArrowIcon className="restaurant-arrow" />
+      </div>
       {dishes.map((dish, index) => (
         <Dish
           key={`dish-${index}`}
