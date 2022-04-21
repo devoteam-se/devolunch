@@ -3,7 +3,7 @@
 #  | (__| |__ | || _|| .` | | |  
 #   \___|____|___|___|_|\_| |_|  
 
-FROM node:14.17.5-slim as build-client
+FROM node:14.17.5-alpine as build-client
 WORKDIR /app
 
 # install client dependencies
@@ -19,7 +19,7 @@ RUN npm run build
 #  \__ \ _||   /\ V /| _||   /
 #  |___/___|_|_\ \_/ |___|_|_\
 
-FROM node:14.17.5-slim as build-server
+FROM node:14.17.5-alpine as build-server
 WORKDIR /app
 
 # install server dependencies
@@ -35,12 +35,18 @@ RUN npm run build
 #  |   / |_| | .` |
 #  |_|_\\___/|_|\_|
 
-FROM node:14.17.5-slim
+FROM node:14.17.5-alpine
 WORKDIR /app/server
 
 # copy built client and server
 COPY --from=build-client /app/build/ /app/client/build
 COPY --from=build-server /app/dist/ /app/server/dist
+
+# install chromium-browser
+RUN apk add --no-cache \
+    udev \
+    ttf-freefont \
+    chromium
 
 # install server dependencies
 COPY server/package*.json ./
