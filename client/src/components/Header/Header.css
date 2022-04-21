@@ -1,0 +1,22 @@
+.header-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+  border: 1px solid black;
+  border-radius: 40px;
+  margin: 20px 30px;
+}
+
+.header-text {
+  margin: 10px 20px;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.header-icon {
+  justify-self: center;
+}
+
+.header-text.frequency {
+  justify-self: flex-end;
+}
