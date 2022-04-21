@@ -1,9 +1,14 @@
 {
+  "extends": "@tsconfig/node14/tsconfig.json",
   "compilerOptions": {
-    "target": "esnext",
-    "module": "commonjs",
-    "outDir": "./dist",
-    "strict": true,
+    "lib": [
+      "es2020",
+      "dom",
+      "dom.iterable"
+    ],
+    "outDir": "./dist"
   },
-  "include": ["src"]
-} 
+  "include": [
+    "src"
+  ]
+}
