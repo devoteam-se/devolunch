@@ -68,6 +68,7 @@
   margin-bottom: 0;
   font-family: 'Azeret Mono', monospace;
   font-weight: 400;
+  text-transform: capitalize;
 }
 
 .dish-title-icon {
