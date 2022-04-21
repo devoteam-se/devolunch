@@ -3,14 +3,36 @@ import puppeteer = require("puppeteer")
 const getSlagtHuset = async (page: puppeteer.Page) => {
   await page.goto('https://www.slagthuset.se/restaurang/');
   return page.evaluate(() => {
+    const raw = [
+      ...document?.querySelectorAll('h2')
+    ] // @ts-ignore 
+    ?.find(e => e.innerText === 'Lunch')?.parentNode?.parentNode?.nextElementSibling?.innerText
+    .split('\n')
+    
+    const rawMenu = raw.slice(raw.findIndex((a: string) => a.includes('Meny vecka')))
+    
+    const dishes = []
+    
+    for (let i = 0; i < rawMenu.length; i++) {
+      if (rawMenu[i].toLowerCase() === new Date().toLocaleString('sv-SE', { weekday: 'long' }) ||
+      rawMenu[i].includes('fisk') ||
+      rawMenu[i].includes('vegetarisk')
+      ) {
+        const type = rawMenu[i].toLowerCase() === new Date().toLocaleString('sv-SE', { weekday: 'long' }) 
+          ? 'meat' : rawMenu[i].toLowerCase().includes('fisk') ? 'fish' : 'veg'
+        const description = rawMenu[i + 1]
+        dishes.push({
+          description,
+          type
+        })
+      }
+    }
+    
     let elements = {
       name: 'Slagthuset',
-      dishes: [
-        ...document?.querySelectorAll('h2')
-      ] // @ts-ignore 
-      ?.find(e => e.innerText === 'Lunch')?.parentNode?.parentNode?.nextElementSibling?.innerText
-      .split('\n')
-      .filter((e: string) => e.toLowerCase().includes(new Date().toLocaleString('sv-SE', { weekday: 'long' })))
+      description: 'Three courses to choose from, soup, newly baked bread and a salad buffet',
+      imageUrl: 'https://www.slagthuset.se/wp-content/uploads/2022/03/Hemsidan_restaurang_overlay.jpg',
+      dishes
     }
 
     return elements;
