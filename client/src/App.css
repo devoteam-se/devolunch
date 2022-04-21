@@ -61,7 +61,12 @@
 
 .dish-title-icon {
   margin: 0;
+  color: #FFAA5B
 }
+
+[data-veg="true"] {
+  color: #449856;
+ }
 
 .dish-descr {
   font-size: 1.2rem;
