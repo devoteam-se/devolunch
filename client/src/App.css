@@ -24,6 +24,7 @@
   height: 328px;
   border-radius: 120px;
   margin: 0 auto;
+  object-fit: cover;
 }
 
 .rest-title {
@@ -38,6 +39,7 @@
   margin: 0;
   font-family: 'Open Sans', sans-serif;
   max-width: 241px;
+  min-height: 3rem;
 }
 
 /* Classes for dishes */
