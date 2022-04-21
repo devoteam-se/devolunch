@@ -2,11 +2,14 @@ import puppeteer = require("puppeteer");
 import { Storage } from "@google-cloud/storage";
 
 const BUCKET_NAME = "devolunch";
+const TIMEOUT = 120000;
 
-const storage = new Storage();
+const storage = new Storage({
+  projectId: 'devolunch'
+});
 
 const getSlagtHuset = async (page: puppeteer.Page) => {
-  await page.goto('https://www.slagthuset.se/restaurang/');
+  await page.goto('https://www.slagthuset.se/restaurang/', {waitUntil: 'load', timeout: TIMEOUT});
   return page.evaluate(() => {
     const raw = [
       ...document.querySelectorAll('h2')
@@ -14,17 +17,17 @@ const getSlagtHuset = async (page: puppeteer.Page) => {
     ] // @ts-ignore
     ?.find(e => e.innerText === 'Lunch')?.parentNode?.parentNode?.nextElementSibling?.innerText
     .split('\n');
-    
+
     const rawMenu = raw.slice(raw.findIndex((a: string) => a.includes('Meny vecka')));
-    
+
     const dishes = [];
-    
+
     for (let i = 0; i < rawMenu.length; i++) {
       if (rawMenu[i].toLowerCase() === new Date().toLocaleString('sv-SE', { weekday: 'long' }) ||
       rawMenu[i].includes('fisk') ||
       rawMenu[i].includes('vegetarisk')
       ) {
-        const type = rawMenu[i].toLowerCase() === new Date().toLocaleString('sv-SE', { weekday: 'long' }) 
+        const type = rawMenu[i].toLowerCase() === new Date().toLocaleString('sv-SE', { weekday: 'long' })
           ? 'meat' : rawMenu[i].toLowerCase().includes('fisk') ? 'fish' : 'veg';
         const description = rawMenu[i + 1];
         dishes.push({
@@ -33,7 +36,7 @@ const getSlagtHuset = async (page: puppeteer.Page) => {
         });
       }
     }
-    
+
     const elements = {
       title: 'Slagthuset',
       description: 'Three courses to choose from, soup, newly baked bread and a salad buffet',
@@ -46,7 +49,7 @@ const getSlagtHuset = async (page: puppeteer.Page) => {
 };
 
 const getMiaMarias = async (page: puppeteer.Page) => {
-  await page.goto("http://www.miamarias.nu/");
+  await page.goto("http://www.miamarias.nu/", {waitUntil: 'load', timeout: TIMEOUT});
   return page.evaluate(() => {
     const dayOfWeek = new Date().getDay();
     const tables = Array.from(document.querySelectorAll("table"));
@@ -61,10 +64,12 @@ const getMiaMarias = async (page: puppeteer.Page) => {
     const dishes = [];
 
     for (let i = 0; i < raw.length; i += 2) {
-      const type = raw[i]
+      const swedishType = raw[i]
         .match(/^[^0-9]+/)
         ?.shift()
         ?.trim();
+      const type = swedishType === 'Fisk' ? 'fish' : swedishType === 'Kött' ? 'meat' : 'veg';
+
       const price = Number(raw[i].match(/([0-9]+)\s?kr/)?.slice(1, 2));
       const description = raw[i + 1];
       dishes.push({ type, price, description });
@@ -80,7 +85,7 @@ const getMiaMarias = async (page: puppeteer.Page) => {
 };
 
 const getSaltimporten = async (page: puppeteer.Page) => {
-  await page.goto("https://www.saltimporten.com/");
+  await page.goto("https://www.saltimporten.com/", {waitUntil: 'load', timeout: TIMEOUT});
   return page.evaluate(() => {
     const meat = document.querySelector("li.current")?.querySelector("div.meal")?.textContent;
     const veg = document.querySelector("div.veg")?.nextSibling?.textContent;
@@ -104,7 +109,7 @@ const getSaltimporten = async (page: puppeteer.Page) => {
 };
 
 const getSpill = async (page: puppeteer.Page) => {
-  await page.goto("https://restaurangspill.se/");
+  await page.goto("https://restaurangspill.se/", {waitUntil: 'load', timeout: TIMEOUT});
   return page.evaluate(() => {
     const container = Array.from(document.querySelectorAll(".container"));
     const paragraphs = Array.from(
@@ -139,7 +144,7 @@ const getSpill = async (page: puppeteer.Page) => {
 };
 
 const getValfarden = async (page: puppeteer.Page) => {
-  await page.goto("https://valfarden.nu/dagens-lunch/");
+  await page.goto("https://valfarden.nu/dagens-lunch/", {waitUntil: 'load', timeout: TIMEOUT});
   return page.evaluate(() => {
     const today = [
       ...document.querySelectorAll('p')
@@ -156,7 +161,7 @@ const getValfarden = async (page: puppeteer.Page) => {
         "description": meat,
       },{
         "type": "veg",
-        "description": veg 
+        "description": veg
       },
     ]
     };
@@ -164,10 +169,10 @@ const getValfarden = async (page: puppeteer.Page) => {
 };
 
 const getStoraVarvsgatan = async (page: puppeteer.Page) => {
-  await page.goto("https://storavarvsgatan6.se/meny.html");
+  await page.goto("https://storavarvsgatan6.se/meny.html", {waitUntil: 'load', timeout: TIMEOUT});
   return page.evaluate(() => {
     const today = [
-      ...document?.querySelectorAll('p')
+      ...document.querySelectorAll('p')
     ]?.find((e) => e?.textContent?.toLowerCase()?.includes(new Date()?.toLocaleString('sv-SE', { weekday: 'long' })));
     const meat = today?.nextElementSibling?.textContent;
     const veg = today?.nextElementSibling?.nextElementSibling?.textContent;
@@ -181,7 +186,7 @@ const getStoraVarvsgatan = async (page: puppeteer.Page) => {
         "description": meat,
       },{
         "type": "veg",
-        "description": veg 
+        "description": veg
       },
     ]
     };
@@ -204,7 +209,7 @@ const scrape = async () => {
 
   const saltimporten = await getSaltimporten(page);
   console.log(saltimporten);
-  
+
   const valfarden = await getValfarden(page);
   console.log(valfarden);
 

@@ -7,7 +7,9 @@ import { Storage } from "@google-cloud/storage";
 
 const BUCKET_NAME = "devolunch";
 
-const storage = new Storage();
+const storage = new Storage({
+  projectId: 'devolunch',
+});
 
 const PORT = Number(process.env.PORT) || 8080;
 const CLIENT_DIR = path.resolve(__dirname, "..", "..", "client");
