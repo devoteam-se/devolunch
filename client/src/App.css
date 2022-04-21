@@ -26,6 +26,7 @@
   border-radius: 120px;
   margin: 0 auto;
   object-fit: cover;
+  margin-bottom: 1.5rem;
 }
 
 .rest-title {
