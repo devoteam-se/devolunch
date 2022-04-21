@@ -132,6 +132,56 @@ const getSpill = async (page: puppeteer.Page) => {
   });
 };
 
+const getValfarden = async (page: puppeteer.Page) => {
+  await page.goto("https://valfarden.nu/dagens-lunch/");
+  return page.evaluate(() => {
+    const today = [
+      ...document?.querySelectorAll('p')
+    ]?.find((e) => e?.textContent?.toLowerCase()?.includes(new Date()?.toLocaleString('sv-SE', { weekday: 'long' })))
+    const meat = today?.nextElementSibling?.textContent
+    const veg = today?.nextElementSibling?.nextElementSibling?.nextElementSibling?.textContent
+
+    return {
+      title: "Välfärden",
+      description: "Idk idk idk?",
+      imgUrl: "https://valfarden.nu/wp-content/uploads/2015/01/hylla.jpg",
+      dishes: [{
+        "type": "meat",
+        "description": meat,
+      },{
+        "type": "veg",
+        "description": veg 
+      },
+    ]
+    }
+  })
+}
+
+const getStoraVarvsgatan = async (page: puppeteer.Page) => {
+  await page.goto("https://storavarvsgatan6.se/meny.html");
+  return page.evaluate(() => {
+    const today = [
+      ...document?.querySelectorAll('p')
+    ]?.find((e) => e?.textContent?.toLowerCase()?.includes(new Date()?.toLocaleString('sv-SE', { weekday: 'long' })))
+    const meat = today?.nextElementSibling?.textContent
+    const veg = today?.nextElementSibling?.nextElementSibling?.textContent
+
+    return {
+      title: "Stora Varvsgatan 6",
+      description: "Idk idk idk?",
+      imgUrl: "https://storavarvsgatan6.se/____impro/1/onewebmedia/foodiesfeed.com_close-up-on-healthy-green-broccoli%20%28kopia%29.jpg?etag=%226548df-5f256567%22&sourceContentType=image%2Fjpeg&ignoreAspectRatio&resize=1900%2B1267&extract=81%2B0%2B939%2B1190&quality=85",
+      dishes: [{
+        "type": "meat",
+        "description": meat,
+      },{
+        "type": "veg",
+        "description": veg 
+      },
+    ]
+    }
+  })
+}
+
 (async () => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
@@ -144,6 +194,12 @@ const getSpill = async (page: puppeteer.Page) => {
 
   const saltimporten = await getSaltimporten(page);
   console.log(saltimporten);
+  
+  const valfarden = await getValfarden(page)
+  console.log(valfarden);
+
+  const storavarvsgatan6 = await getStoraVarvsgatan(page)
+  console.log(storavarvsgatan6);
 
   const spill = await getSpill(page);
   console.log(spill);
