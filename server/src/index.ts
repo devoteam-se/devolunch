@@ -1,6 +1,6 @@
 import express = require("express");
 import path = require("path");
-const cors = require("cors");
+import cors from "cors";
 import Routes from "./routes";
 
 const PORT = Number(process.env.PORT) || 8080;
