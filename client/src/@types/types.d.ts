@@ -1,7 +1,7 @@
 declare namespace App {
   enum DishType {
-    MEAT = "meat",
-    VEG = "veg",
+    MEAT = 'meat',
+    VEG = 'veg',
   }
   type Dish = {
     description: string;
@@ -10,9 +10,9 @@ declare namespace App {
   };
 
   interface Restaurant {
-    name: string;
+    title: string;
     description: string;
-    imageUrl: string;
+    imgUrl: string;
     dishes: Dish[];
     distance?: string;
   }
