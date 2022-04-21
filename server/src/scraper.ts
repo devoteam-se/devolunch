@@ -51,6 +51,29 @@ const getMiaMarias = async (page: puppeteer.Page) => {
   });
 };
 
+
+const getSaltimporten = async (page: puppeteer.Page) => {
+  await page.goto("https://www.saltimporten.com/");
+  return page.evaluate(() => {
+    const meat = document.querySelector('li.current')?.querySelector('div.meal')?.textContent;
+    const veg = document.querySelector('div.veg')?.nextSibling?.textContent;
+
+    return {
+      title: "Saltimporten",
+      description: "Idk idk idk?",
+      imgUrl: "https://www.saltimporten.com/media/IMG_6253-512x512.jpg",
+      dishes: [{
+        "type": "meat",
+        "description": meat,
+      },{
+        "type": "veg",
+        "description": veg 
+      },
+    ]
+    }
+  })
+}
+
 (async () => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
@@ -60,6 +83,9 @@ const getMiaMarias = async (page: puppeteer.Page) => {
 
   const miamarias = await getMiaMarias(page)
   console.log(miamarias);
+
+  const saltimporten = await getSaltimporten(page)
+  console.log(saltimporten);
 
   await browser.close();
 })();
