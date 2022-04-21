@@ -188,7 +188,9 @@ const getStoraVarvsgatan = async (page: puppeteer.Page) => {
 };
 
 const scrape = async () => {
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({
+    args: ['--no-sandbox']
+  });
   const page = await browser.newPage();
 
   const slagthuset = await getSlagtHuset(page);
