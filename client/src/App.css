@@ -62,11 +62,15 @@
 
 .dish-title-icon {
   margin: 0;
-  color: #FFAA5B;
+  color: #ffaa5b;
 }
 
-.dish-title-icon[data-veg="true"] {
+.dish-title-icon[data-veg='true'] {
   color: #449856;
+}
+
+.dish-header-icon {
+  color: #000000;
 }
 
 .dish-descr {
@@ -84,6 +88,7 @@
 .header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 0 16px;
   margin: 16px 32px;
   border-radius: 50px;
