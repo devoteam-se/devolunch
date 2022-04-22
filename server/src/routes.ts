@@ -2,6 +2,7 @@ import { Request, Response, Express } from "express";
 import { Storage } from "@google-cloud/storage";
 
 import scrape from "./scraper";
+import slack from "./slack";
 
 const BUCKET_NAME = "devolunch";
 
@@ -25,6 +26,15 @@ export default ({ app }: { app: Express }) => {
   app.post("/api/restaurants", async (_: Request, res: Response) => {
     try {
       await scrape();
+    } catch (err: any) {
+      return res.status(500).send(err.message);
+    }
+    res.sendStatus(200);
+  });
+
+  app.post("/api/slack", async (_: Request, res: Response) => {
+    try {
+      await slack();
     } catch (err: any) {
       return res.status(500).send(err.message);
     }
