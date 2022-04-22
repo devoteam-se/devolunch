@@ -56,4 +56,4 @@ RUN npm ci --only=production
 EXPOSE 8080
 
 # command to run when intantiate an image
-CMD ["node --trace-warnings", "./dist/index.js"]
+CMD ["node", "--trace-warnings", "./dist/index.js"]
