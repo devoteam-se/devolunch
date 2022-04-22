@@ -1,6 +1,6 @@
 import puppeteer = require("puppeteer");
 import { Storage } from "@google-cloud/storage";
-import { isFish } from "./is-fish";
+import { isFish, fetchFishes } from "./is-fish";
 
 const BUCKET_NAME = "devolunch";
 const TIMEOUT = 120000;
@@ -10,19 +10,14 @@ const storage = new Storage({
 });
 
 const getSlagtHuset = async (page: puppeteer.Page) => {
-  await page.goto("https://www.slagthuset.se/restaurang/", {
-    waitUntil: "load",
-    timeout: TIMEOUT,
-  });
+  await page.goto("https://www.slagthuset.se/restaurang/", { waitUntil: 'load', timeout: TIMEOUT });
   return page.evaluate(() => {
     const raw = [
-      ...document.querySelectorAll("h2"),
+      ...document.querySelectorAll('h2')
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     ] // @ts-ignore
-      ?.find((e) => e.innerText === "Lunch")
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      ?.parentNode?.parentNode?.nextElementSibling?.innerText.split("\n");
+      ?.find(e => e.innerText === 'Lunch')?.parentNode?.parentNode?.nextElementSibling?.innerText
+      .split('\n');
 
     const rawMenu = raw.slice(
       raw.findIndex((a: string) => a.includes("Meny vecka"))
@@ -31,19 +26,17 @@ const getSlagtHuset = async (page: puppeteer.Page) => {
     const dishes = [];
 
     for (let i = 0; i < rawMenu.length; i++) {
-      if (
-        rawMenu[i].toLowerCase() ===
-          new Date().toLocaleString("sv-SE", { weekday: "long" }) ||
-        rawMenu[i].includes("fisk") ||
-        rawMenu[i].includes("vegetarisk")
+      if (rawMenu[i].toLowerCase() === new Date().toLocaleString('sv-SE', { weekday: 'long' }) ||
+        rawMenu[i].includes('fisk') ||
+        rawMenu[i].includes('vegetarisk')
       ) {
         const type =
           rawMenu[i].toLowerCase() ===
-          new Date().toLocaleString("sv-SE", { weekday: "long" })
+            new Date().toLocaleString("sv-SE", { weekday: "long" })
             ? "meat"
             : rawMenu[i].toLowerCase().includes("fisk")
-            ? "fish"
-            : "veg";
+              ? "fish"
+              : "veg";
         const description = rawMenu[i + 1];
         dishes.push({
           description,
@@ -51,10 +44,6 @@ const getSlagtHuset = async (page: puppeteer.Page) => {
         });
       }
     }
-
-    dishes.map(async (dish) => {
-      dish.type = (await isFish(dish.description)) ? "fish" : dish.type;
-    });
 
     const elements = {
       title: "Slagthuset",
@@ -69,10 +58,7 @@ const getSlagtHuset = async (page: puppeteer.Page) => {
 };
 
 const getMiaMarias = async (page: puppeteer.Page) => {
-  await page.goto("http://www.miamarias.nu/", {
-    waitUntil: "load",
-    timeout: TIMEOUT,
-  });
+  await page.goto("http://www.miamarias.nu/", { waitUntil: 'load', timeout: TIMEOUT });
   return page.evaluate(() => {
     const dayOfWeek = new Date().getDay();
     const tables = Array.from(document.querySelectorAll("table"));
@@ -95,17 +81,13 @@ const getMiaMarias = async (page: puppeteer.Page) => {
         swedishType === "Fisk"
           ? "fish"
           : swedishType === "Kött"
-          ? "meat"
-          : "veg";
+            ? "meat"
+            : "veg";
 
       const price = Number(raw[i].match(/([0-9]+)\s?kr/)?.slice(1, 2));
       const description = raw[i + 1];
       dishes.push({ type, price, description });
     }
-
-    dishes.map(async (dish) => {
-      dish.type = (await isFish(dish.description)) ? "fish" : dish.type;
-    });
 
     return {
       title: "MiaMarias",
@@ -117,10 +99,7 @@ const getMiaMarias = async (page: puppeteer.Page) => {
 };
 
 const getSaltimporten = async (page: puppeteer.Page) => {
-  await page.goto("https://www.saltimporten.com/", {
-    waitUntil: "load",
-    timeout: TIMEOUT,
-  });
+  await page.goto("https://www.saltimporten.com/", { waitUntil: 'load', timeout: TIMEOUT });
   return page.evaluate(() => {
     const meat = document
       .querySelector("li.current")
@@ -138,10 +117,6 @@ const getSaltimporten = async (page: puppeteer.Page) => {
       },
     ];
 
-    dishes.map(async (dish) => {
-      dish.type = (await isFish(dish.description)) ? "fish" : dish.type;
-    });
-
     return {
       title: "Saltimporten",
       description: "",
@@ -152,10 +127,7 @@ const getSaltimporten = async (page: puppeteer.Page) => {
 };
 
 const getSpill = async (page: puppeteer.Page) => {
-  await page.goto("https://restaurangspill.se/", {
-    waitUntil: "load",
-    timeout: TIMEOUT,
-  });
+  await page.goto("https://restaurangspill.se/", { waitUntil: 'load', timeout: TIMEOUT });
   return page.evaluate(() => {
     const dishesNodes =
       document.querySelectorAll("#dagens")[0].childNodes[0].childNodes[0]
@@ -178,10 +150,6 @@ const getSpill = async (page: puppeteer.Page) => {
       },
     ];
 
-    dishes.map(async (dish) => {
-      dish.type = (await isFish(dish.description)) ? "fish" : dish.type;
-    });
-
     return {
       title: "Spill",
       description: "Only henrik eats here?",
@@ -193,10 +161,7 @@ const getSpill = async (page: puppeteer.Page) => {
 };
 
 const getValfarden = async (page: puppeteer.Page) => {
-  await page.goto("https://valfarden.nu/dagens-lunch/", {
-    waitUntil: "load",
-    timeout: TIMEOUT,
-  });
+  await page.goto("https://valfarden.nu/dagens-lunch/", { waitUntil: 'load', timeout: TIMEOUT });
   return page.evaluate(() => {
     const today = [...document.querySelectorAll("p")]?.find((e) =>
       e?.textContent
@@ -219,10 +184,6 @@ const getValfarden = async (page: puppeteer.Page) => {
       },
     ];
 
-    dishes.map(async (dish) => {
-      dish.type = (await isFish(dish.description)) ? "fish" : dish.type;
-    });
-
     return {
       title: "Välfärden",
       description: "",
@@ -233,10 +194,7 @@ const getValfarden = async (page: puppeteer.Page) => {
 };
 
 const getStoraVarvsgatan = async (page: puppeteer.Page) => {
-  await page.goto("https://storavarvsgatan6.se/meny.html", {
-    waitUntil: "load",
-    timeout: TIMEOUT,
-  });
+  await page.goto("https://storavarvsgatan6.se/meny.html", { waitUntil: 'load', timeout: TIMEOUT });
   return page.evaluate(() => {
     const today = [...document.querySelectorAll("p")]?.find((e) =>
       e?.textContent
@@ -257,10 +215,6 @@ const getStoraVarvsgatan = async (page: puppeteer.Page) => {
       },
     ];
 
-    dishes.map(async (dish) => {
-      dish.type = (await isFish(dish.description)) ? "fish" : dish.type;
-    });
-
     return {
       title: "Stora Varvsgatan 6",
       description: "",
@@ -274,10 +228,11 @@ const getStoraVarvsgatan = async (page: puppeteer.Page) => {
 const scrape = async () => {
   const browser = await puppeteer.launch({
     headless: true,
-    // executablePath: "/usr/bin/chromium-browser",
-    // args: ["--no-sandbox", "--disable-gpu"],
+    executablePath: '/usr/bin/chromium-browser',
+    args: ['--no-sandbox', '--disable-gpu']
   });
   const page = await browser.newPage();
+  const fishes = await fetchFishes();
 
   const slagthuset = await getSlagtHuset(page);
   console.log(slagthuset);
@@ -297,21 +252,15 @@ const scrape = async () => {
   const spill = await getSpill(page);
   console.log(spill);
 
+  const restaurants = [slagthuset, miamarias, saltimporten, valfarden, storavarvsgatan6, spill];
+  restaurants.map(restaurant => restaurant.dishes.map(dish => dish.type = isFish(dish.description, fishes) ? 'fish' : dish.type));
+
   await browser.close();
 
   const bucket = storage.bucket(BUCKET_NAME);
   await bucket
     .file("restaurants.json")
-    .save(
-      JSON.stringify([
-        slagthuset,
-        miamarias,
-        saltimporten,
-        valfarden,
-        storavarvsgatan6,
-        spill,
-      ])
-    );
+    .save(JSON.stringify(restaurants));
 };
 
 export default scrape;
