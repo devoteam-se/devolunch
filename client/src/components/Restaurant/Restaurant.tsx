@@ -1,5 +1,6 @@
-import { Dish } from "./Dish";
-import { ReactComponent as ArrowIcon } from "../../assets/arrow.svg";
+import { Dish } from '../Dish/Dish';
+import { ReactComponent as ArrowIcon } from '../../assets/arrow.svg';
+import './Restaurant.css';
 
 export const Restaurant = ({
   title,

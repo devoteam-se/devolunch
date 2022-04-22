@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import './App.css';
 import { Header } from './components/Header/Header';
 import { RestaurantList } from './components/RestuarantList';
@@ -7,13 +6,6 @@ import { useRestaurants } from './contexts/restaurants';
 
 function App() {
   const { restaurants, loading } = useRestaurants();
-
-  useEffect(() => {
-    if (loading) {
-      const timeout = setTimeout(() => {}, 4000);
-      return () => clearTimeout(timeout);
-    }
-  }, [loading]);
 
   return (
     <div className="App">

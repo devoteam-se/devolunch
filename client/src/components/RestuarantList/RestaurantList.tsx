@@ -1,4 +1,5 @@
-import { Restaurant } from './Restaurant';
+import { Restaurant } from '../Restaurant/Restaurant';
+import './restaurantList.css';
 
 interface RestaurantListI {
   restaurants: App.Restaurant[];
