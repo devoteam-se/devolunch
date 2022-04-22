@@ -92,7 +92,7 @@ const getMiaMarias = async (page: puppeteer.Page) => {
     return {
       title: "MiaMarias",
       description: "",
-      imgUrl: "http://www.miamarias.nu/wp-content/uploads/2018/07/logo_new.png",
+      imgUrl: "https://i0.wp.com/www.takemetosweden.be/wp-content/uploads/2019/07/MiaMarias-Malm%C3%B6-1.png?w=500&ssl=1",
       dishes,
     };
   });
