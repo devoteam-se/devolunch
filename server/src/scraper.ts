@@ -186,7 +186,7 @@ const getSpill = async (page: puppeteer.Page) => {
       title: "Spill",
       description: "Only henrik eats here?",
       imgUrl:
-        "https://restaurangspill.se/assets/images/screenshot2-479x423.png",
+        "https://restaurangspill.se/static/3b466597bfc0e9c31983055c24912a82/8d77c/278837080_565924558044044_2459276550772784820_n.webp",
       dishes,
     };
   });
