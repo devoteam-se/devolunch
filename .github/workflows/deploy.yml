@@ -49,7 +49,7 @@ jobs:
         region: ${{ env.REGION }}
         flags: --service-account=devolunch-cr@devolunch.iam.gserviceaccount.com
         secrets: |
-          SLACK_WEBHOOK='${{ secrets.SLACK_WEBHOOK }}'
+          SLACK_WEBHOOK=${{ secrets.SLACK_WEBHOOK }}
 
     - name: Show Output
       run: echo ${{ steps.deploy.outputs.url }}
