@@ -1,9 +1,9 @@
-import express = require("express");
+import express, { Request, Response } from "express";
 import path = require("path");
 import cors from "cors";
-import Routes from "./routes";
 
 import { Storage } from "@google-cloud/storage";
+import scrape from "./scraper";
 
 const BUCKET_NAME = "devolunch";
 
@@ -26,13 +26,14 @@ app.get("/api", (req, res) => {
 
 app.get("/api/restaurants", async (req, res) => {
   const bucket = storage.bucket(BUCKET_NAME);
-  const file = await bucket
-    .file("restaurants.json")
-    .download();
-  res.send(JSON.parse(file[0].toString('utf8')));
+  const file = await bucket.file("restaurants.json").download();
+  res.send(JSON.parse(file[0].toString("utf8")));
 });
 
-Routes({ app });
+app.post("/api/restaurants", async (_: Request, res: Response) => {
+  await scrape();
+  res.sendStatus(200);
+});
 
 app.get("*", (req, res) => {
   res.sendFile(path.resolve(CLIENT_DIR, "build", "index.html"));
