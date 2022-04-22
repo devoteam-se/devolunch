@@ -1,6 +1,6 @@
 import { useAsync } from "react-use";
 
-export const useIsFish = (description: String) => {
+export const useIsFish = (description: string) => {
   const { loading, value, error } = useAsync(async () => {
     const res = await fetch("https://sv.wikipedia.org/w/api.php?action=query&format=json&list=categorymembers&cmtitle=Kategori:Matfiskar&cmlimit=64&origin=*");
     const data = await res.json();

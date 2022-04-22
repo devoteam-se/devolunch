@@ -1,5 +1,6 @@
 import puppeteer = require("puppeteer");
 import { Storage } from "@google-cloud/storage";
+import { isFish } from './is-fish';
 
 const BUCKET_NAME = "devolunch";
 const TIMEOUT = 120000;
@@ -36,6 +37,10 @@ const getSlagtHuset = async (page: puppeteer.Page) => {
         });
       }
     }
+    
+    dishes.map(async (dish) => {
+      dish.type = await isFish(dish.description) ? 'fish' : dish.type;
+    });
 
     const elements = {
       title: 'Slagthuset',
@@ -75,6 +80,10 @@ const getMiaMarias = async (page: puppeteer.Page) => {
       dishes.push({ type, price, description });
     }
 
+    dishes.map(async (dish) => {
+      dish.type = await isFish(dish.description) ? 'fish' : dish.type;
+    });
+
     return {
       title: "MiaMarias",
       description: "",
@@ -90,20 +99,24 @@ const getSaltimporten = async (page: puppeteer.Page) => {
     const meat = document.querySelector("li.current")?.querySelector("div.meal")?.textContent;
     const veg = document.querySelector("div.veg")?.nextSibling?.textContent;
 
+    const dishes = [{
+      type: "meat",
+      description: meat,
+    }, {
+      type: "veg",
+      description: veg
+    },
+    ];
+
+    dishes.map(async (dish) => {
+      dish.type = await isFish(dish.description) ? 'fish' : dish.type;
+    });
+
     return {
       title: "Saltimporten",
       description: "",
       imgUrl: "https://www.saltimporten.com/media/IMG_6253-512x512.jpg",
-      dishes: [
-        {
-          type: "meat",
-          description: meat,
-        },
-        {
-          type: "veg",
-          description: veg,
-        },
-      ],
+      dishes
     };
   });
 };
@@ -115,7 +128,7 @@ const getSpill = async (page: puppeteer.Page) => {
     const paragraphs = Array.from(
       container.find((e) => e.textContent?.includes("Dagens Lunch"))?.querySelectorAll("p") || []
     );
-    const dishes = paragraphs
+    const dishNames = paragraphs
       .slice(1, 3)
       .map((e) => e.innerText)
       .flatMap((e) => e.split("\n"))
@@ -127,18 +140,24 @@ const getSpill = async (page: puppeteer.Page) => {
         ?.slice(1, 2)
     );
 
-    const meat = dishes
+    const meat = dishNames
       .filter((dish) => !dish.toLowerCase().includes("vegetarisk"))
       .map((description) => ({ type: "meat", price, description }));
-    const veg = dishes
+    const veg = dishNames
       .filter((dish) => dish.toLowerCase().includes("vegetarisk"))
       .map((description) => ({ type: "veg", price, description }));
 
+    const dishes = [...meat, ...veg];
+
+    dishes.map(async (dish) => {
+      dish.type = await isFish(dish.description) ? 'fish' : dish.type;
+    });
+
     return {
       title: "Spill",
-      description: "",
-      imgUrl: "https://restaurangspill.se/static/029a1e53ee0bebca15c143c063ae4d86/485ec/SPILL_10.jpg",
-      dishes: [...meat, ...veg],
+      description: "Only henrik eats here?",
+      imgUrl: "https://restaurangspill.se/assets/images/screenshot2-479x423.png",
+      dishes,
     };
   });
 };
@@ -152,18 +171,24 @@ const getValfarden = async (page: puppeteer.Page) => {
     const meat = today?.nextElementSibling?.textContent;
     const veg = today?.nextElementSibling?.nextElementSibling?.nextElementSibling?.textContent;
 
+    const dishes = [{
+      type: "meat",
+      description: meat,
+    }, {
+      type: "veg",
+      description: veg
+    },
+    ];
+
+    dishes.map(async (dish) => {
+      dish.type = await isFish(dish.description) ? 'fish' : dish.type;
+    });
+
     return {
       title: "Välfärden",
       description: "",
       imgUrl: "https://valfarden.nu/wp-content/uploads/2015/01/hylla.jpg",
-      dishes: [{
-        "type": "meat",
-        "description": meat,
-      },{
-        "type": "veg",
-        "description": veg
-      },
-    ]
+      dishes,
     };
   });
 };
@@ -177,18 +202,24 @@ const getStoraVarvsgatan = async (page: puppeteer.Page) => {
     const meat = today?.nextElementSibling?.textContent;
     const veg = today?.nextElementSibling?.nextElementSibling?.textContent;
 
+    const dishes = [{
+      type: "meat",
+      description: meat,
+    }, {
+      type: "veg",
+      description: veg
+    },
+    ];
+
+    dishes.map(async (dish) => {
+      dish.type = await isFish(dish.description) ? 'fish' : dish.type;
+    });
+
     return {
       title: "Stora Varvsgatan 6",
       description: "",
       imgUrl: "https://storavarvsgatan6.se/____impro/1/onewebmedia/foodiesfeed.com_close-up-on-healthy-green-broccoli%20%28kopia%29.jpg?etag=%226548df-5f256567%22&sourceContentType=image%2Fjpeg&ignoreAspectRatio&resize=1900%2B1267&extract=81%2B0%2B939%2B1190&quality=85",
-      dishes: [{
-        "type": "meat",
-        "description": meat,
-      },{
-        "type": "veg",
-        "description": veg
-      },
-    ]
+      dishes,
     };
   });
 };
