@@ -1,7 +1,7 @@
-#    ___ _    ___ ___ _  _ _____ 
+#    ___ _    ___ ___ _  _ _____
 #   / __| |  |_ _| __| \| |_   _|
-#  | (__| |__ | || _|| .` | | |  
-#   \___|____|___|___|_|\_| |_|  
+#  | (__| |__ | || _|| .` | | |
+#   \___|____|___|___|_|\_| |_|
 
 FROM node:14.17.5-alpine as build-client
 WORKDIR /app
@@ -14,7 +14,7 @@ RUN npm ci --only=production
 COPY client/ ./
 RUN npm run build
 
-#   ___ ___ _____   _____ ___ 
+#   ___ ___ _____   _____ ___
 #  / __| __| _ \ \ / / __| _ \
 #  \__ \ _||   /\ V /| _||   /
 #  |___/___|_|_\ \_/ |___|_|_\
@@ -30,7 +30,7 @@ RUN npm ci
 COPY server/ ./
 RUN npm run build
 
-#   ___ _   _ _  _ 
+#   ___ _   _ _  _
 #  | _ \ | | | \| |
 #  |   / |_| | .` |
 #  |_|_\\___/|_|\_|
@@ -56,4 +56,4 @@ RUN npm ci --only=production
 EXPOSE 8080
 
 # command to run when intantiate an image
-CMD ["node", "./dist/index.js"]
+CMD ["node --trace-warnings", "./dist/index.js"]

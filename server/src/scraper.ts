@@ -137,7 +137,7 @@ const getSpill = async (page: puppeteer.Page) => {
     return {
       title: "Spill",
       description: "",
-      imgUrl: "https://restaurangspill.se/assets/images/screenshot2-479x423.png",
+      imgUrl: "https://restaurangspill.se/static/029a1e53ee0bebca15c143c063ae4d86/485ec/SPILL_10.jpg",
       dishes: [...meat, ...veg],
     };
   });
