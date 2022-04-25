@@ -33,8 +33,9 @@ const getSlagtHuset = async (page: puppeteer.Page): Promise<Restaurant> => {
       timeout: TIMEOUT,
     });
     dishes = await page.evaluate(() => {
-      const lunchNode = [...document.querySelectorAll("h2")]
-        .find((e) => e.innerText === "Lunch");
+      const lunchNode = [...document.querySelectorAll("h2")].find(
+        (e) => e.innerText === "Lunch"
+      );
       const lunchMenuDiv = lunchNode?.parentNode?.parentNode as HTMLDivElement;
       const htmlElement = lunchMenuDiv.nextElementSibling as HTMLElement;
       const raw = htmlElement.innerText.split("\n");
@@ -44,25 +45,55 @@ const getSlagtHuset = async (page: puppeteer.Page): Promise<Restaurant> => {
       );
 
       const dishes = [];
+      const todaySwedishFormat = new Date()
+        .toLocaleString("sv-SE", {
+          weekday: "long",
+        })
+        .toLowerCase();
 
       for (let i = 0; i < rawMenu.length; i++) {
-        if (
-          rawMenu[i].toLowerCase() ===
-            new Date().toLocaleString("sv-SE", { weekday: "long" }) ||
-          rawMenu[i].includes("fisk") ||
-          rawMenu[i].includes("vegetarisk")
-        ) {
-          const type: DishType =
-            rawMenu[i].toLowerCase() ===
-            new Date().toLocaleString("sv-SE", { weekday: "long" })
-              ? "meat"
-              : rawMenu[i].toLowerCase().includes("fisk")
-              ? "fish"
-              : "veg";
-          const description = rawMenu[i + 1];
+        const description = rawMenu[i + 1];
+        if (rawMenu[i].toLowerCase() === todaySwedishFormat) {
           dishes.push({
             description,
-            type,
+            type: "meat" as const,
+          });
+        }
+        if (rawMenu[i].toLowerCase().includes("veckans fisk")) {
+          const daysBetween = (first: string, last: string) => {
+            let week = [
+              "söndag",
+              "måndag",
+              "tisdag",
+              "onsdag",
+              "torsdag",
+              "fredag",
+              "lördag",
+            ];
+
+            const firstIndex = week.indexOf(first); // Find first day
+            week = week.concat(week.splice(0, firstIndex)); // Shift array so that first day is index 0
+            const lastIndex = week.indexOf(last); // Find last day
+            return week.slice(0, lastIndex + 1); // Cut from first day to last day
+          };
+
+          const daysRaw = rawMenu[i].split(" ")[2];
+          const [startDayRaw, endDayRaw] = daysRaw.split("-");
+          const days = daysBetween(startDayRaw, endDayRaw);
+
+          if (
+            days.map((a) => a.toLowerCase()).indexOf(todaySwedishFormat) > -1
+          ) {
+            dishes.push({
+              description,
+              type: "fish" as const,
+            });
+          }
+        }
+        if (rawMenu[i].toLowerCase().includes("veckans vegetariska")) {
+          dishes.push({
+            description,
+            type: "veg" as const,
           });
         }
       }
