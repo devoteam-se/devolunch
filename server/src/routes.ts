@@ -26,8 +26,8 @@ export default ({ app }: { app: Express }) => {
   app.post("/api/restaurants", async (_: Request, res: Response) => {
     try {
       await scrape();
-    } catch (err: any) {
-      return res.status(500).send(err.message);
+    } catch (err: unknown) {
+      return res.sendStatus(500);
     }
     res.sendStatus(200);
   });
@@ -35,8 +35,8 @@ export default ({ app }: { app: Express }) => {
   app.post("/api/slack", async (_: Request, res: Response) => {
     try {
       await slack();
-    } catch (err: any) {
-      return res.status(500).send(err.message);
+    } catch (err: unknown) {
+      return res.sendStatus(500);
     }
     res.sendStatus(200);
   });

@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "prepare": "npm run build",
-    "dev": "nodemon -e ts --exec ts-node src/index.ts",
+    "dev": "nodemon -e ts --exec ts-node src/index.ts | pino-pretty",
     "lint": "eslint . --ext .ts",
     "build": "tsc -p ."
   },
@@ -14,6 +14,7 @@
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "node-fetch": "^2.6.7",
+    "pino": "^7.10.0",
     "puppeteer": "^13.6.0"
   },
   "devDependencies": {
@@ -26,6 +27,8 @@
     "@typescript-eslint/parser": "^5.20.0",
     "eslint": "^8.13.0",
     "nodemon": "^2.0.15",
+    "pino-pretty": "^7.6.1",
+    "prettier": "2.6.2",
     "ts-node": "^10.7.0",
     "typescript": "^4.6.3"
   }

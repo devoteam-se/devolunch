@@ -2,7 +2,7 @@ import express from "express";
 import path = require("path");
 import cors from "cors";
 import routes from "./routes";
-
+import logger from "./logger";
 import 'dotenv/config';
 
 const PORT = Number(process.env.PORT) || 8080;
@@ -21,5 +21,5 @@ app.get("*", (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`App listening on port ${PORT}`);
+  logger.info(`App listening on port ${PORT}`);
 });
