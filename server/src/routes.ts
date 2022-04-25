@@ -7,7 +7,7 @@ import slack from "./slack";
 const BUCKET_NAME = "devolunch";
 
 const storage = new Storage({
-  projectId: 'devolunch',
+  projectId: "devolunch",
 });
 
 export default ({ app }: { app: Express }) => {
@@ -17,10 +17,8 @@ export default ({ app }: { app: Express }) => {
 
   app.get("/api/restaurants", async (req, res) => {
     const bucket = storage.bucket(BUCKET_NAME);
-    const file = await bucket
-      .file("restaurants.json")
-      .download();
-    res.send(JSON.parse(file[0].toString('utf8')));
+    const file = await bucket.file("restaurants.json").download();
+    res.send(JSON.parse(file[0].toString("utf8")));
   });
 
   app.post("/api/restaurants", async (_: Request, res: Response) => {

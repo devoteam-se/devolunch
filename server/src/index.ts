@@ -3,7 +3,7 @@ import path = require("path");
 import cors from "cors";
 import routes from "./routes";
 import logger from "./logger";
-import 'dotenv/config';
+import "dotenv/config";
 
 const PORT = Number(process.env.PORT) || 8080;
 const CLIENT_DIR = path.resolve(__dirname, "..", "..", "client");
