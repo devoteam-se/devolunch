@@ -1,7 +1,7 @@
 import puppeteer = require("puppeteer");
-import { Storage } from "@google-cloud/storage";
 import { isFish, fetchFishes } from "./is-fish";
 import logger from "./logger";
+import { uploadRestaurants } from "./storage";
 
 export interface Restaurant {
   title: string;
@@ -17,12 +17,7 @@ export interface Dish {
 
 type DishType = "meat" | "fish" | "veg";
 
-const BUCKET_NAME = "devolunch";
 const TIMEOUT = 120000;
-
-const storage = new Storage({
-  projectId: "devolunch",
-});
 
 const getSlagtHuset = async (page: puppeteer.Page): Promise<Restaurant> => {
   const title = "Slagthuset";
@@ -361,8 +356,7 @@ const scrape = async () => {
 
     await browser.close();
 
-    const bucket = storage.bucket(BUCKET_NAME);
-    await bucket.file("restaurants.json").save(JSON.stringify(restaurants));
+    await uploadRestaurants(restaurants);
   } catch (err: unknown) {
     logger.error(err, "Scrape failed");
     throw err;

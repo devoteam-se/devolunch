@@ -1,14 +1,7 @@
 import { Request, Response, Express } from "express";
-import { Storage } from "@google-cloud/storage";
-
-import scrape, { Dish, Restaurant } from "./scraper";
+import scrape from "./scraper";
 import slack from "./slack";
-
-const BUCKET_NAME = "devolunch";
-
-const storage = new Storage({
-  projectId: "devolunch",
-});
+import { getRestaurants } from "./storage";
 
 export default ({ app }: { app: Express }) => {
   app.get("/api", (req, res) => {
@@ -16,21 +9,8 @@ export default ({ app }: { app: Express }) => {
   });
 
   app.get("/api/restaurants", async (req, res) => {
-    const bucket = storage.bucket(BUCKET_NAME);
-    const file = await bucket.file("restaurants.json").download();
-    const restaurants = JSON.parse(file[0].toString("utf8"));
-
-    const compare = (a: Dish, b: Dish) => {
-      const order = { veg: 1, fish: 2, meat: 3 };
-      return order[a.type] - order[b.type];
-    };
-
-    res.send(
-      restaurants.map((r: Restaurant) => ({
-        ...r,
-        dishes: r.dishes.sort(compare),
-      }))
-    );
+    const restaurants = await getRestaurants();
+    res.send(restaurants);
   });
 
   app.post("/api/restaurants", async (_: Request, res: Response) => {

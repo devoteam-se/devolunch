@@ -1,14 +1,8 @@
-import { Storage } from "@google-cloud/storage";
 import fetch from "node-fetch";
 import FormData from "form-data";
 import { Restaurant, Dish } from "./scraper";
 import logger from "./logger";
-
-const BUCKET_NAME = "devolunch";
-
-const storage = new Storage({
-  projectId: "devolunch",
-});
+import { getRestaurants } from "./storage";
 
 const renderMarkdown = (restaurants: Restaurant[]) => {
   let result = "https://lunch.jayway.com\n\n";
@@ -22,48 +16,32 @@ const renderMarkdown = (restaurants: Restaurant[]) => {
 };
 
 const renderItemForMarkdown = (item: Restaurant) => {
-  const typeTranslation = {
-    meat: "Kött",
-    fish: "Fisk",
-    veg: "Veg",
-  };
-
   let result = `*${item.title}*\n\n`;
   if (item.dishes) {
     item.dishes.forEach((dish: Dish) => {
-      result += `• ${typeTranslation[dish.type]}: ${dish.description}\n`;
+      // Capitalize type
+      result += `• ${dish.type.replace(/\b\w/g, (l) => l.toUpperCase())}: ${
+        dish.description
+      }\n`;
     });
   }
   return result;
 };
 
-export default async () => {
+const getTodayNiceFormat = () => {
   let d = new Date();
   const offset = d.getTimezoneOffset();
   d = new Date(d.getTime() - offset * 60 * 1000);
-  const today = d.toISOString().split("T")[0];
+  return d.toISOString().split("T")[0];
+};
 
-  const bucket = storage.bucket(BUCKET_NAME);
-  const file = await bucket.file("restaurants.json").download();
-  const restaurants = JSON.parse(file[0].toString("utf8"));
-
-  const compare = (a: Dish, b: Dish) => {
-    const order = { veg: 1, fish: 2, meat: 3 };
-    return order[a.type] - order[b.type];
-  };
+export default async () => {
+  const restaurants = await getRestaurants();
 
   const form = new FormData();
-  form.append(
-    "content",
-    renderMarkdown(
-      restaurants.map((r: Restaurant) => ({
-        ...r,
-        dishes: r.dishes.sort(compare),
-      }))
-    )
-  );
+  form.append("content", renderMarkdown(restaurants));
   form.append("channels", process.env.SLACK_CHANNEL_ID);
-  form.append("title", `Lunch ${today}`);
+  form.append("title", `Lunch ${getTodayNiceFormat()}`);
   form.append("filetype", "post");
 
   await fetch("https://slack.com/api/files.upload", {
