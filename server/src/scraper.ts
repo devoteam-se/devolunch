@@ -3,14 +3,14 @@ import { Storage } from "@google-cloud/storage";
 import { isFish, fetchFishes } from "./is-fish";
 import logger from "./logger";
 
-interface Restaurant {
+export interface Restaurant {
   title: string;
   description: string;
   imgUrl: string;
   dishes: Dish[];
 }
 
-interface Dish {
+export interface Dish {
   type: DishType;
   description: string | null | undefined;
 }
