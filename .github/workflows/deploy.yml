@@ -32,10 +32,6 @@ jobs:
       - name: Authorize Docker push
         run: gcloud auth configure-docker
 
-      # Docker Layer Caching in GitHub Actions
-      - uses: satackey/action-docker-layer-caching@v0.0.11
-        continue-on-error: true
-
       - name: Build and Push Container
         run: |-
           docker build --tag gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{ github.sha }} .
