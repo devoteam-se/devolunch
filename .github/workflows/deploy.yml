@@ -34,15 +34,15 @@ jobs:
 
       - name: Build and Push Container
         run: |-
-          docker build --tag gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{ github.sha }} .
-          docker push gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{ github.sha }}
+          docker build --tag gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:master .
+          docker push gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:master
 
       - name: "Deploy to Cloud Run"
         id: deploy
         uses: "google-github-actions/deploy-cloudrun@v0"
         with:
           service: ${{ env.SERVICE }}
-          image: gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{ github.sha }}
+          image: gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:master
           region: ${{ env.REGION }}
           flags: --service-account=devolunch-cr@devolunch.iam.gserviceaccount.com
           env_vars: |
