@@ -48,7 +48,7 @@ const RestaurantsProvider = ({ children }: any) => {
 
     setInterval(async () => {
       await get();
-    }, 60000);
+    }, 3600000);
   }, []);
 
   return (
