@@ -1,7 +1,7 @@
 import { Request, Response, Express } from "express";
 import scrape from "./scraper";
 import slack from "./slack";
-import { getRestaurants } from "./storage";
+import { getScrape } from "./storage";
 
 export default ({ app }: { app: Express }) => {
   app.get("/api", (req, res) => {
@@ -9,8 +9,8 @@ export default ({ app }: { app: Express }) => {
   });
 
   app.get("/api/restaurants", async (req, res) => {
-    const restaurants = await getRestaurants();
-    res.send(restaurants);
+    const scrape = await getScrape();
+    res.send(scrape);
   });
 
   app.post("/api/restaurants", async (_: Request, res: Response) => {

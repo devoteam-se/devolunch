@@ -1,7 +1,12 @@
 import puppeteer = require("puppeteer");
 import { isFish, fetchFishes } from "./is-fish";
 import logger from "./logger";
-import { uploadRestaurants } from "./storage";
+import { uploadScrape } from "./storage";
+
+export interface Scrape {
+  date: Date;
+  restaurants: Restaurant[];
+}
 
 export interface Restaurant {
   title: string;
@@ -406,9 +411,14 @@ const scrape = async () => {
       )
     );
 
+    const scrape = {
+      date: new Date(),
+      restaurants,
+    };
+
     await browser.close();
 
-    await uploadRestaurants(restaurants);
+    await uploadScrape(scrape);
   } catch (err: unknown) {
     logger.error(err, "Scrape failed");
     throw err;

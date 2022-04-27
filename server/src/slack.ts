@@ -2,7 +2,7 @@ import fetch from "node-fetch";
 import FormData from "form-data";
 import { Restaurant, Dish } from "./scraper";
 import logger from "./logger";
-import { getRestaurants } from "./storage";
+import { getScrape } from "./storage";
 
 const renderMarkdown = (restaurants: Restaurant[]) => {
   let result = "https://lunch.jayway.com\n\n";
@@ -36,7 +36,7 @@ const getTodayNiceFormat = () => {
 };
 
 export default async () => {
-  const restaurants = await getRestaurants();
+  const restaurants = await getScrape();
 
   const form = new FormData();
   form.append("content", renderMarkdown(restaurants));
