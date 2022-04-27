@@ -39,7 +39,7 @@ export default async () => {
   const restaurants = await getScrape();
 
   const form = new FormData();
-  form.append("content", renderMarkdown(restaurants));
+  form.append("content", renderMarkdown(restaurants.restaurants));
   form.append("channels", process.env.SLACK_CHANNEL_ID);
   form.append("title", `Lunch ${getTodayNiceFormat()}`);
   form.append("filetype", "post");
