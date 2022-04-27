@@ -322,6 +322,56 @@ const getStoraVarvsgatan = async (
   };
 };
 
+const getBistroRoyal = async (page: puppeteer.Page): Promise<Restaurant> => {
+  const title = "Bistro Royal";
+  let dishes: Dish[] = [];
+  try {
+    await page.goto("https://bistroroyal.se/dagens-ratt/", {
+      waitUntil: "load",
+      timeout: TIMEOUT,
+    });
+
+    dishes = await page.evaluate(() => {
+      const todaySwedishFormat = new Date()
+        .toLocaleString("sv-SE", {
+          weekday: "long",
+        })
+        .toLowerCase();
+
+      const lunchNode = [...document.querySelectorAll(".menu_header")].find(
+        (e) => e.textContent?.toLowerCase()?.includes(todaySwedishFormat)
+      );
+      const lunchMenuDiv = lunchNode?.parentNode?.parentNode as HTMLElement;
+      const htmlElement = lunchMenuDiv?.nextElementSibling as HTMLElement;
+      const raw = [...htmlElement.querySelectorAll(".td_title")].map((e) =>
+        e.textContent?.trim()
+      );
+
+      const typeArray = [
+        "meat" as const,
+        "meat" as const,
+        "fish" as const,
+        "veg" as const,
+      ];
+
+      return raw.map((e, i) => ({
+        type: typeArray[i],
+        description: e,
+      }));
+    });
+  } catch (err: unknown) {
+    logger.error(err, `Error parsing ${title}`);
+  }
+
+  return {
+    title,
+    description: "",
+    imgUrl:
+      "https://cdn42.gastrogate.com/files/29072/bistroroyal-bistro-1-1.jpg",
+    dishes,
+  };
+};
+
 const scrape = async () => {
   try {
     const browser = await puppeteer.launch({
@@ -338,6 +388,7 @@ const scrape = async () => {
     const valfarden = await getValfarden(page);
     const storavarvsgatan6 = await getStoraVarvsgatan(page);
     const spill = await getSpill(page);
+    const bistroroyal = await getBistroRoyal(page);
 
     const restaurants = [
       slagthuset,
@@ -346,6 +397,7 @@ const scrape = async () => {
       valfarden,
       storavarvsgatan6,
       spill,
+      bistroroyal,
     ];
     restaurants.map((restaurant) =>
       restaurant.dishes.map(
