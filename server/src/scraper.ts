@@ -11,6 +11,7 @@ export interface Scrape {
 export interface Restaurant {
   title: string;
   description: string;
+  url: string;
   imgUrl: string;
   dishes: Dish[];
 }
@@ -106,6 +107,7 @@ const getSlagtHuset = async (page: puppeteer.Page): Promise<Restaurant> => {
   return {
     title,
     description: "",
+    url: "https://www.slagthuset.se/restaurang/",
     imgUrl:
       "https://www.slagthuset.se/wp-content/uploads/2022/03/Hemsidan_restaurang_overlay.jpg",
     dishes,
@@ -158,6 +160,7 @@ const getMiaMarias = async (page: puppeteer.Page): Promise<Restaurant> => {
   return {
     title,
     description: "",
+    url: "http://www.miamarias.nu/",
     imgUrl:
       "https://i0.wp.com/www.takemetosweden.be/wp-content/uploads/2019/07/MiaMarias-Malm%C3%B6-1.png?w=500&ssl=1",
     dishes,
@@ -198,6 +201,7 @@ const getSaltimporten = async (page: puppeteer.Page): Promise<Restaurant> => {
   return {
     title,
     description: "",
+    url: "http://www.saltimporten.com/",
     imgUrl: "https://www.saltimporten.com/media/IMG_6253-512x512.jpg",
     dishes,
   };
@@ -236,6 +240,7 @@ const getSpill = async (page: puppeteer.Page): Promise<Restaurant> => {
   return {
     title: "Spill",
     description: "",
+    url: "https://restaurangspill.se/",
     imgUrl:
       "https://restaurangspill.se/static/3b466597bfc0e9c31983055c24912a82/8d77c/278837080_565924558044044_2459276550772784820_n.webp",
     dishes,
@@ -279,6 +284,7 @@ const getValfarden = async (page: puppeteer.Page): Promise<Restaurant> => {
   return {
     title,
     description: "",
+    url: "https://valfarden.nu/dagens-lunch/",
     imgUrl: "https://valfarden.nu/wp-content/uploads/2015/01/hylla.jpg",
     dishes,
   };
@@ -321,6 +327,7 @@ const getStoraVarvsgatan = async (
   return {
     title,
     description: "",
+    url: "https://storavarvsgatan6.se/meny.html",
     imgUrl:
       "https://storavarvsgatan6.se/____impro/1/onewebmedia/foodiesfeed.com_close-up-on-healthy-green-broccoli%20%28kopia%29.jpg?etag=%226548df-5f256567%22&sourceContentType=image%2Fjpeg&ignoreAspectRatio&resize=1900%2B1267&extract=81%2B0%2B939%2B1190&quality=85",
     dishes,
@@ -371,6 +378,7 @@ const getBistroRoyal = async (page: puppeteer.Page): Promise<Restaurant> => {
   return {
     title,
     description: "",
+    url: "https://bistroroyal.se/dagens-ratt/",
     imgUrl:
       "https://cdn42.gastrogate.com/files/29072/bistroroyal-bistro-1-1.jpg",
     dishes,

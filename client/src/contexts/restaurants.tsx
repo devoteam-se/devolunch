@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 
 type ContextType = {
   loading: boolean;
+  scrapeDate: Date;
   restaurants: App.Restaurant[];
 };
 
@@ -29,18 +30,20 @@ const rootUrl = isDev ? API_ROOT_DEV : API_ROOT_PROD;
 const fetchRestaurants = async () => {
   const res = await fetch(`${rootUrl}${Endpoints.RESTAURANTS}`);
   const data = await res.json();
-  return data as App.Restaurant[];
+  return data as App.Scrape;
 };
 
 const RestaurantsProvider = ({ children }: any) => {
   const [restaurants, setRestaurants] = useState<App.Restaurant[]>([]);
+  const [scrapeDate, setScrapeDate] = useState<Date>(new Date());
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     const get = async () => {
       setLoading(true);
       const r = await fetchRestaurants();
-      setRestaurants(r);
+      setRestaurants(r.restaurants);
+      setScrapeDate(new Date(r.date));
       setLoading(false);
     };
 
@@ -52,7 +55,7 @@ const RestaurantsProvider = ({ children }: any) => {
   }, []);
 
   return (
-    <RestaurantsContext.Provider value={{ restaurants, loading }}>
+    <RestaurantsContext.Provider value={{ scrapeDate, restaurants, loading }}>
       {children}
     </RestaurantsContext.Provider>
   );

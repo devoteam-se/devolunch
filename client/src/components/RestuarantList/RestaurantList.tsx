@@ -1,5 +1,5 @@
-import { Restaurant } from '../Restaurant/Restaurant';
-import './restaurantList.css';
+import { Restaurant } from "../Restaurant/Restaurant";
+import "./restaurantList.css";
 
 interface RestaurantListI {
   restaurants: App.Restaurant[];
@@ -13,6 +13,7 @@ export const RestaurantList = ({ restaurants }: RestaurantListI) => {
           key={`rest-${index}`}
           title={restaurant.title}
           description={restaurant.description}
+          url={restaurant.url}
           imgUrl={restaurant.imgUrl}
           dishes={restaurant.dishes}
         />

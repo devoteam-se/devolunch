@@ -4,6 +4,10 @@
   padding: 8px;
 }
 
+.restaurant a {
+  text-decoration: none;
+}
+
 .rest-wrapper {
   margin-bottom: 12px;
 }
@@ -28,7 +32,8 @@
 }
 
 .rest-title {
-  font-family: 'Azeret Mono', monospace;
+  color: #000;
+  font-family: "Azeret Mono", monospace;
   font-weight: 500;
   font-size: 1.5rem;
   margin: 0;
@@ -37,7 +42,7 @@
 .rest-descr {
   font-size: 0.8rem;
   margin: 0;
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   max-width: 241px;
   min-height: 3rem;
 }
