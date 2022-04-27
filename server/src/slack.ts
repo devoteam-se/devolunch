@@ -3,11 +3,21 @@ import FormData from "form-data";
 import { Restaurant, Dish } from "./scraper";
 import logger from "./logger";
 import { getScrape } from "./storage";
+import { translateRestaurants } from "./translator";
 
-const renderMarkdown = (restaurants: Restaurant[]) => {
-  let result = "https://lunch.jayway.com\n\n";
+const renderMarkdown = async (restaurants: Restaurant[]) => {
+  let result = "https://lunch.jayway.com (_English version below_)\n\n";
+
+  restaurants = restaurants.filter((item) => item.dishes.length > 0);
+
   restaurants
-    .filter((item) => item.dishes.length > 0)
+    .forEach((item) => {
+      result += renderItemForMarkdown(item);
+    });
+  result += "\n\n*_English_*\n\n";
+
+  // EN
+  (await translateRestaurants(restaurants))
     .forEach((item) => {
       result += renderItemForMarkdown(item);
     });
