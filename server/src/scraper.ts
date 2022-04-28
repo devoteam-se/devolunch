@@ -219,8 +219,8 @@ const getSpill = async (page: puppeteer.Page): Promise<Restaurant> => {
       const dishesNodes =
         document.querySelectorAll("#dagens")[0].childNodes[0].childNodes[0]
           .childNodes[1].childNodes[1].childNodes[1].childNodes;
-      const meat = dishesNodes[0].textContent;
-      const veg = dishesNodes[1].textContent;
+      const meat = dishesNodes[0].textContent?.replace(/(\r\n|\n|\r)/gm, " ");
+      const veg = dishesNodes[1].textContent?.replace(/(\r\n|\n|\r)/gm, " ");
 
       return [
         {
@@ -436,8 +436,8 @@ const scrape = async () => {
   try {
     const browser = await puppeteer.launch({
       headless: true,
-      // executablePath: "/usr/bin/chromium-browser",
-      // args: ["--no-sandbox", "--disable-gpu"],
+      executablePath: "/usr/bin/chromium-browser",
+      args: ["--no-sandbox", "--disable-gpu"],
     });
     const page = await browser.newPage();
     const fishes = await fetchFishes();
@@ -450,7 +450,6 @@ const scrape = async () => {
     const spill = await getSpill(page);
     const bistroroyal = await getBistroRoyal(page);
     const restaurangkp = await getRestaurangKP(page);
-    console.log(restaurangkp);
 
     const restaurants = [
       slagthuset,
