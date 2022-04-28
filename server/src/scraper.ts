@@ -256,15 +256,17 @@ const getValfarden = async (page: puppeteer.Page): Promise<Restaurant> => {
       timeout: TIMEOUT,
     });
     dishes = await page.evaluate(() => {
-      const today = [...document.querySelectorAll("p")]?.find((e) =>
-        e?.textContent
+      const allP = [...document.querySelectorAll("p")];
+      const todayIndex = allP.findIndex((p: HTMLParagraphElement) =>
+        p.textContent
           ?.toLowerCase()
           ?.includes(new Date()?.toLocaleString("sv-SE", { weekday: "long" }))
       );
-      const meat = today?.nextElementSibling?.textContent;
+      const todayMenu = allP[todayIndex + 1];
+
+      const meat = todayMenu?.textContent;
       const veg =
-        today?.nextElementSibling?.nextElementSibling?.nextElementSibling
-          ?.textContent;
+        todayMenu?.nextElementSibling?.nextElementSibling?.textContent;
 
       return [
         {
