@@ -10,8 +10,8 @@ const translate = new v2.Translate({
 const translateSv2en = async (swedishText: Dish['description']) => {
     if (swedishText && swedishText.length > 1) {
         try {
-            const [englishText] = await translate.translate(swedishText, { from: "sv", to: "en" })
-            return englishText
+            const [englishText] = await translate.translate(swedishText, { from: "sv", to: "en" });
+            return englishText;
         } catch (err) {
             logger.error(err);
         }
