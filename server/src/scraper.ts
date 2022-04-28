@@ -387,12 +387,57 @@ const getBistroRoyal = async (page: puppeteer.Page): Promise<Restaurant> => {
   };
 };
 
+const getRestaurangKP = async (page: puppeteer.Page): Promise<Restaurant> => {
+  const title = "Restaurang KP";
+  let dishes: Dish[] = [];
+  try {
+    await page.goto("https://restaurangkp.se/lunchbuffe/", {
+      waitUntil: "load",
+      timeout: TIMEOUT,
+    });
+
+    dishes = await page.evaluate(() => {
+      const todaySwedishFormat = new Date()
+        .toLocaleString("sv-SE", {
+          weekday: "long",
+        })
+        .toLowerCase();
+
+      const lunchNode = [...document.querySelectorAll(".menu_header")].find(
+        (e) => e.textContent?.toLowerCase()?.includes(todaySwedishFormat)
+      );
+      const lunchMenuDiv = lunchNode?.parentNode?.parentNode as HTMLElement;
+      const htmlElement = lunchMenuDiv?.nextElementSibling as HTMLElement;
+      const raw = [...htmlElement.querySelectorAll(".td_title")].map((e) =>
+        e.textContent?.trim()
+      );
+
+      const typeArray = ["meat" as const, "fish" as const, "veg" as const];
+
+      return raw.map((e, i) => ({
+        type: typeArray[i],
+        description: e,
+      }));
+    });
+  } catch (err: unknown) {
+    logger.error(err, `Error parsing ${title}`);
+  }
+
+  return {
+    title,
+    description: "",
+    url: "https://restaurangkp.se/lunchbuffe/",
+    imgUrl: "https://gastrogate.com/thumbs/1494/files/28932/kpstart2019.jpg",
+    dishes,
+  };
+};
+
 const scrape = async () => {
   try {
     const browser = await puppeteer.launch({
       headless: true,
-      executablePath: "/usr/bin/chromium-browser",
-      args: ["--no-sandbox", "--disable-gpu"],
+      // executablePath: "/usr/bin/chromium-browser",
+      // args: ["--no-sandbox", "--disable-gpu"],
     });
     const page = await browser.newPage();
     const fishes = await fetchFishes();
@@ -404,6 +449,8 @@ const scrape = async () => {
     const storavarvsgatan6 = await getStoraVarvsgatan(page);
     const spill = await getSpill(page);
     const bistroroyal = await getBistroRoyal(page);
+    const restaurangkp = await getRestaurangKP(page);
+    console.log(restaurangkp);
 
     const restaurants = [
       slagthuset,
@@ -413,6 +460,7 @@ const scrape = async () => {
       storavarvsgatan6,
       spill,
       bistroroyal,
+      restaurangkp,
     ];
     restaurants.map((restaurant) =>
       restaurant.dishes.map(
