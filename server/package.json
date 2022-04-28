@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@google-cloud/storage": "^5.19.3",
+    "@google-cloud/translate": "^6.3.1",
     "@slack/web-api": "^6.7.1",
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
