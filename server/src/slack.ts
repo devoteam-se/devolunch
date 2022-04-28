@@ -10,17 +10,17 @@ const renderMarkdown = async (restaurants: Restaurant[]) => {
 
   restaurants = restaurants.filter((item) => item.dishes.length > 0);
 
-  restaurants
-    .forEach((item) => {
-      result += renderItemForMarkdown(item);
-    });
-  result += "\n\n*_English_*\n\n";
+  restaurants.forEach((item) => {
+    result += renderItemForMarkdown(item);
+  });
 
-  // EN
-  (await translateRestaurants(restaurants))
-    .forEach((item) => {
-      result += renderItemForMarkdown(item);
-    });
+  // English
+  result += "\n\n*_English_*\n\n";
+  const restaurantsEn = await translateRestaurants(restaurants);
+
+  restaurantsEn.forEach((item) => {
+    result += renderItemForMarkdown(item);
+  });
   result += "\n\n";
   return result;
 };
@@ -47,9 +47,10 @@ const getTodayNiceFormat = () => {
 
 export default async () => {
   const restaurants = await getScrape();
+  const mdText = await renderMarkdown(restaurants.restaurants);
 
   const form = new FormData();
-  form.append("content", renderMarkdown(restaurants.restaurants));
+  form.append("content", mdText);
   form.append("channels", process.env.SLACK_CHANNEL_ID);
   form.append("title", `Lunch ${getTodayNiceFormat()}`);
   form.append("filetype", "post");

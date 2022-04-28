@@ -1,7 +1,7 @@
 import logger from "./logger";
 import { Restaurant, Dish } from "./scraper";
 
-import {v2} from '@google-cloud/translate';
+import { v2 } from '@google-cloud/translate';
 
 const translate = new v2.Translate({
     projectId: "devolunch",
@@ -10,7 +10,8 @@ const translate = new v2.Translate({
 const translateSv2en = async (swedishText: Dish['description']) => {
     if (swedishText && swedishText.length > 1) {
         try {
-            return (await translate.translate(swedishText, {from: "sv", to: "en"}))[0]
+            const [englishText] = await translate.translate(swedishText, { from: "sv", to: "en" })
+            return englishText
         } catch (err) {
             logger.error(err);
         }
@@ -18,12 +19,8 @@ const translateSv2en = async (swedishText: Dish['description']) => {
     return ""
 };
 
-export let translateRestaurants = 
-/**
- * @returns restaurants array, with translated dish descriptions
- */
-async (restaurants: Restaurant[]) => {
-    return await Promise.all(
+export let translateRestaurants =
+    async (restaurants: Restaurant[]) => Promise.all(
         restaurants.map(async restaurant => ({
             ...restaurant,
             dishes: await Promise.all(restaurant.dishes.map(async dish => ({
@@ -32,4 +29,3 @@ async (restaurants: Restaurant[]) => {
             }))
             )
         })));
-};
