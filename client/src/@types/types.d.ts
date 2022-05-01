@@ -14,7 +14,6 @@ declare namespace App {
     dishes: Dish[];
   }
   interface Scrape {
-    defaultLanguage: string;
     date: Date;
     restaurants: Restaurant[];
   }

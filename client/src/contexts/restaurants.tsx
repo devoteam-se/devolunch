@@ -43,7 +43,12 @@ const RestaurantsProvider = ({ children }: any) => {
 
   useEffect(() => {
     const get = async () => {
+      const language = new URLSearchParams(window.location.search).get("lang")
+
       setLoading(true);
+      if (language) {
+        setLanguage(language)
+      }
       const r = await fetchRestaurants();
       setRestaurants(r.restaurants);
       setScrapeDate(new Date(r.date));
