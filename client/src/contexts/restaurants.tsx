@@ -3,6 +3,8 @@ import React, { useContext, useEffect, useState } from "react";
 type ContextType = {
   loading: boolean;
   scrapeDate: Date;
+  language: string;
+  setLanguage: (language: string) => void,
   restaurants: App.Restaurant[];
 };
 
@@ -34,6 +36,7 @@ const fetchRestaurants = async () => {
 };
 
 const RestaurantsProvider = ({ children }: any) => {
+  const [language, setLanguage] = useState<string>("sv");
   const [restaurants, setRestaurants] = useState<App.Restaurant[]>([]);
   const [scrapeDate, setScrapeDate] = useState<Date>(new Date());
   const [loading, setLoading] = useState<boolean>(false);
@@ -55,7 +58,7 @@ const RestaurantsProvider = ({ children }: any) => {
   }, []);
 
   return (
-    <RestaurantsContext.Provider value={{ scrapeDate, restaurants, loading }}>
+    <RestaurantsContext.Provider value={{ setLanguage, language, scrapeDate, restaurants, loading }}>
       {children}
     </RestaurantsContext.Provider>
   );

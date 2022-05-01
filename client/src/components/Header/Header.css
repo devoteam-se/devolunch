@@ -19,10 +19,22 @@
 }
 
 .header-text {
+  display: flex;
   font-family: "Azeret Mono", monospace;
   margin: 10px 0 10px 20px;
   font-size: 18px;
   font-weight: 400;
+}
+
+.header-language-button {
+  display: flex;
+  align-items: center;
+  margin-right: 0.4rem;
+}
+
+.header-language-icon {
+  width: 1.2rem;
+  height: calc(1.2rem / 4 * 3);
 }
 
 .header-icon {

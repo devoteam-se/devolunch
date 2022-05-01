@@ -1,5 +1,5 @@
 import { Storage } from "@google-cloud/storage";
-import { Scrape, Dish, Restaurant } from "./scraper";
+import { Scrape } from "./scraper";
 
 const BUCKET_NAME = "devolunch";
 
@@ -12,20 +12,7 @@ export const getScrape = async () => {
   const file = await bucket.file("scrape.json").download();
   const scrape = JSON.parse(file[0].toString("utf8"));
 
-  const compare = (a: Dish, b: Dish) => {
-    const order = { veg: 1, fish: 2, meat: 3 };
-    return order[a.type] - order[b.type];
-  };
-
-  const restaurants = scrape.restaurants.map((r: Restaurant) => ({
-    ...r,
-    dishes: r.dishes.sort(compare),
-  }));
-
-  return {
-    ...scrape,
-    restaurants,
-  };
+  return scrape;
 };
 
 export const uploadScrape = async (scrape: Scrape) => {

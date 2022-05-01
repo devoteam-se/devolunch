@@ -5,7 +5,7 @@ interface RestaurantListI {
   restaurants: App.Restaurant[];
 }
 
-export const RestaurantList = ({ restaurants }: RestaurantListI) => {
+export const RestaurantList = ({ restaurants}: RestaurantListI) => {
   return (
     <div className="restaurant-list">
       {restaurants.map((restaurant, index) => (
@@ -15,7 +15,7 @@ export const RestaurantList = ({ restaurants }: RestaurantListI) => {
           description={restaurant.description}
           url={restaurant.url}
           imgUrl={restaurant.imgUrl}
-          dishes={restaurant.dishes}
+          dishCollection={restaurant.dishCollection}
         />
       ))}
     </div>

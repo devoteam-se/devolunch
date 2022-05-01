@@ -9,7 +9,12 @@ declare namespace App {
     price?: number;
     type: DishType;
   };
+  interface DishCollection {
+    language: string;
+    dishes: Dish[];
+  }
   interface Scrape {
+    defaultLanguage: string;
     date: Date;
     restaurants: Restaurant[];
   }
@@ -18,7 +23,7 @@ declare namespace App {
     description: string;
     url: string;
     imgUrl: string;
-    dishes: Dish[];
+    dishCollection: DishCollection[];
     distance?: string;
   }
 }
