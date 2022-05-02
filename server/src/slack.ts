@@ -4,7 +4,7 @@ import { Restaurant, Dish } from "./scraper";
 import logger from "./logger";
 import { getScrape } from "./storage";
 
-const renderMarkdown = async (restaurants: Restaurant[]) => {
+const renderMarkdown = (restaurants: Restaurant[]) => {
   let result = "https://lunch.jayway.com (_English version below_)\n\n";
 
   // Swedish
@@ -47,7 +47,7 @@ const getTodayNiceFormat = () => {
 
 export default async () => {
   const scrape = await getScrape();
-  const mdText = await renderMarkdown(scrape.restaurants);
+  const mdText = renderMarkdown(scrape.restaurants);
 
   const form = new FormData();
   form.append("content", mdText);
