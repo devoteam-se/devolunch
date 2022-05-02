@@ -13,7 +13,7 @@ const renderMarkdown = (restaurants: Restaurant[]) => {
   });
 
   // English
-  result += "\n\n*_English_*\n\n";
+  result += "\n\n_English_\n---------------------\n\n";
   restaurants.forEach((restaurant) => {
     result += renderItemForMarkdown("en", restaurant);
   });
