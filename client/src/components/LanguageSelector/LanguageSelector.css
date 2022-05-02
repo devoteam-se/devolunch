@@ -1,0 +1,25 @@
+@keyframes load {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.language-selector-wrapper {
+  display: flex;
+  margin-bottom: 2rem;
+}
+
+.language-selector-button {
+  background: none;
+  border: 0;
+  color: inherit;
+  font: inherit;
+  line-height: normal;
+  overflow: visible;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline;
+}

@@ -1,14 +1,17 @@
 import { Dish } from "../Dish/Dish";
 import { ReactComponent as ArrowIcon } from "../../assets/arrow.svg";
 import "./Restaurant.css";
+import { useRestaurants } from "../../contexts/restaurants";
 
 export const Restaurant = ({
   title,
   description,
   url,
   imgUrl,
-  dishes,
+  dishCollection,
 }: App.Restaurant) => {
+  const { language } = useRestaurants()
+
   return (
     <div className="restaurant">
       <a href={url}>
@@ -21,7 +24,7 @@ export const Restaurant = ({
           <ArrowIcon className="restaurant-arrow" />
         </div>
       </a>
-      {dishes.map((dish, index) => (
+      {dishCollection.find((dc) => dc.language === language)?.dishes.map((dish, index) => (
         <Dish
           key={`dish-${index}`}
           type={dish.type}

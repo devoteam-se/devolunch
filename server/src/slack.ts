@@ -3,32 +3,32 @@ import FormData from "form-data";
 import { Restaurant, Dish } from "./scraper";
 import logger from "./logger";
 import { getScrape } from "./storage";
-import { translateRestaurants } from "./translator";
 
 const renderMarkdown = async (restaurants: Restaurant[]) => {
   let result = "https://lunch.jayway.com (_English version below_)\n\n";
 
-  restaurants = restaurants.filter((item) => item.dishes.length > 0);
-
-  restaurants.forEach((item) => {
-    result += renderItemForMarkdown(item);
+  // Swedish
+  restaurants.forEach((restaurant) => {
+    result += renderItemForMarkdown("sv", restaurant);
   });
 
   // English
   result += "\n\n*_English_*\n\n";
-  const restaurantsEn = await translateRestaurants(restaurants);
-
-  restaurantsEn.forEach((item) => {
-    result += renderItemForMarkdown(item);
+  restaurants.forEach((restaurant) => {
+    result += renderItemForMarkdown("en", restaurant);
   });
+
   result += "\n\n";
   return result;
 };
 
-const renderItemForMarkdown = (item: Restaurant) => {
-  let result = `*${item.title}*\n\n`;
-  if (item.dishes) {
-    item.dishes.forEach((dish: Dish) => {
+const renderItemForMarkdown = (language: string, restaurant: Restaurant) => {
+  let result = `*${restaurant.title}*\n\n`;
+  const dishCollection = restaurant.dishCollection.find(
+    (dc) => dc.language === language
+  );
+  if (dishCollection?.dishes) {
+    dishCollection.dishes.forEach((dish: Dish) => {
       // Capitalize type
       result += `• ${dish.type.replace(/\b\w/g, (l) => l.toUpperCase())}: ${
         dish.description
@@ -46,8 +46,8 @@ const getTodayNiceFormat = () => {
 };
 
 export default async () => {
-  const restaurants = await getScrape();
-  const mdText = await renderMarkdown(restaurants.restaurants);
+  const scrape = await getScrape();
+  const mdText = await renderMarkdown(scrape.restaurants);
 
   const form = new FormData();
   form.append("content", mdText);
