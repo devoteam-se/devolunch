@@ -3,6 +3,7 @@ declare namespace App {
     MEAT = "meat",
     VEG = "veg",
     FISH = "fish",
+    MISC = "misc",
   }
   type Dish = {
     description: string;

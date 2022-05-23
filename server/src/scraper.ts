@@ -27,7 +27,7 @@ export interface Dish {
   description: string | null | undefined;
 }
 
-type DishType = "meat" | "fish" | "veg";
+type DishType = "meat" | "fish" | "veg" | "misc";
 
 const TIMEOUT = 120000;
 
@@ -279,7 +279,7 @@ const getSpill = async (page: puppeteer.Page): Promise<Restaurant> => {
     description: "",
     url: "https://restaurangspill.se/",
     imgUrl:
-      "https://restaurangspill.se/static/3b466597bfc0e9c31983055c24912a82/8d77c/278837080_565924558044044_2459276550772784820_n.webp",
+      "https://restaurangspill.se/static/0de07c5b4f98bc003befad5e872686b4/9bbaf/SPILL_09.jpg",
     dishCollection: [
       {
         language: "sv",
@@ -498,6 +498,58 @@ const getRestaurangKP = async (page: puppeteer.Page): Promise<Restaurant> => {
   };
 };
 
+const getNiagara = async (page: puppeteer.Page): Promise<Restaurant> => {
+  const title = "Niagara";
+  let dishes: Dish[] = [];
+  try {
+    await page.goto("https://restaurangniagara.se/lunch/", {
+      waitUntil: "load",
+      timeout: TIMEOUT,
+    });
+
+    dishes = await page.evaluate(() => {
+      const todaySwedishFormat = new Date()
+        .toLocaleString("sv-SE", {
+          weekday: "long",
+        })
+        .toLowerCase();
+
+      const lunchNode = [...document.querySelectorAll("div.lunch h3")].find(
+        (a) => a.textContent?.toLowerCase() === todaySwedishFormat
+      )?.nextElementSibling;
+
+      if (lunchNode) {
+        const foods = [...lunchNode.querySelectorAll("tr")].map((a) => ({
+          type: "misc" as const,
+          description: `${a.querySelector("td:nth-child(1)")?.textContent} - ${
+            a.querySelector("td:nth-child(2)")?.textContent?.split("\n")[0]
+          }`,
+          price: a.querySelector("td:nth-child(3)")?.textContent,
+        }));
+
+        return foods;
+      }
+      return [];
+    });
+  } catch (err: unknown) {
+    logger.error(err, `Error parsing ${title}`);
+  }
+
+  return {
+    title,
+    description: "",
+    url: "https://restaurangniagara.se/lunch/",
+    imgUrl:
+      "https://restaurangniagara.se/wp-content/uploads/sites/4/2015/08/Lunch-meny-Niagara1.jpg",
+    dishCollection: [
+      {
+        language: "sv",
+        dishes: dishes,
+      },
+    ],
+  };
+};
+
 const scrape = async () => {
   try {
     const browser = await puppeteer.launch({
@@ -516,9 +568,10 @@ const scrape = async () => {
     const spill = await getSpill(page);
     const bistroroyal = await getBistroRoyal(page);
     const restaurangkp = await getRestaurangKP(page);
+    const niagara = await getNiagara(page);
 
     const compare = (a: Dish, b: Dish) => {
-      const order = { veg: 1, fish: 2, meat: 3 };
+      const order = { veg: 1, fish: 2, meat: 3, misc: 4 };
       return order[a.type] - order[b.type];
     };
 
@@ -531,6 +584,7 @@ const scrape = async () => {
       spill,
       bistroroyal,
       restaurangkp,
+      niagara,
     ].map((restaurant) => ({
       ...restaurant,
       dishCollection: restaurant.dishCollection.map((dishCollection) => ({
