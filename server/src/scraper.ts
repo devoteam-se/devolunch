@@ -31,6 +31,32 @@ type DishType = "meat" | "fish" | "veg";
 
 const TIMEOUT = 120000;
 
+const daysBetween = (first: string, last: string) => {
+  let week = [
+    "söndag",
+    "måndag",
+    "tisdag",
+    "onsdag",
+    "torsdag",
+    "fredag",
+    "lördag",
+  ];
+
+  const weekShort = ["sön", "mån", "tis", "ons", "tors", "fre", "lör"];
+  // Translate short weekdays to long weekdays
+  if (first.length < 5) {
+    first = week[weekShort.indexOf(first)];
+  }
+  if (last.length < 5) {
+    last = week[weekShort.indexOf(last)];
+  }
+
+  const firstIndex = week.indexOf(first); // Find first day
+  week = week.concat(week.splice(0, firstIndex)); // Shift array so that first day is index 0
+  const lastIndex = week.indexOf(last); // Find last day
+  return week.slice(0, lastIndex + 1); // Cut from first day to last day
+};
+
 const getSlagtHuset = async (page: puppeteer.Page): Promise<Restaurant> => {
   const title = "Slagthuset";
   let dishes: Dish[] = [];
@@ -66,30 +92,17 @@ const getSlagtHuset = async (page: puppeteer.Page): Promise<Restaurant> => {
             type: "meat" as const,
           });
         }
+
         if (rawMenu[i].toLowerCase().includes("veckans fisk")) {
-          const daysBetween = (first: string, last: string) => {
-            let week = [
-              "söndag",
-              "måndag",
-              "tisdag",
-              "onsdag",
-              "torsdag",
-              "fredag",
-              "lördag",
-            ];
-
-            const firstIndex = week.indexOf(first); // Find first day
-            week = week.concat(week.splice(0, firstIndex)); // Shift array so that first day is index 0
-            const lastIndex = week.indexOf(last); // Find last day
-            return week.slice(0, lastIndex + 1); // Cut from first day to last day
-          };
-
           const daysRaw = rawMenu[i].split(" ")[2];
           const [startDayRaw, endDayRaw] = daysRaw.split("-");
-          const days = daysBetween(startDayRaw, endDayRaw);
+          const days = daysBetween(startDayRaw, endDayRaw).map((a) =>
+            a.toLowerCase()
+          );
 
           if (
-            days.map((a) => a.toLowerCase()).indexOf(todaySwedishFormat) > -1
+            days.indexOf(todaySwedishFormat) > -1 ||
+            days.indexOf(todaySwedishFormat) > -1
           ) {
             dishes.push({
               description,
@@ -97,7 +110,10 @@ const getSlagtHuset = async (page: puppeteer.Page): Promise<Restaurant> => {
             });
           }
         }
-        if (rawMenu[i].toLowerCase().includes("veckans vegetariska")) {
+        if (
+          rawMenu[i].toLowerCase().includes("veckans vegetariska") ||
+          rawMenu[i].toLowerCase().includes("vegetariskt")
+        ) {
           dishes.push({
             description,
             type: "veg" as const,
