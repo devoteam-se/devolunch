@@ -31,32 +31,6 @@ type DishType = "meat" | "fish" | "veg";
 
 const TIMEOUT = 120000;
 
-const daysBetween = (first: string, last: string) => {
-  let week = [
-    "söndag",
-    "måndag",
-    "tisdag",
-    "onsdag",
-    "torsdag",
-    "fredag",
-    "lördag",
-  ];
-
-  const weekShort = ["sön", "mån", "tis", "ons", "tors", "fre", "lör"];
-  // Translate short weekdays to long weekdays
-  if (first.length < 5) {
-    first = week[weekShort.indexOf(first)];
-  }
-  if (last.length < 5) {
-    last = week[weekShort.indexOf(last)];
-  }
-
-  const firstIndex = week.indexOf(first); // Find first day
-  week = week.concat(week.splice(0, firstIndex)); // Shift array so that first day is index 0
-  const lastIndex = week.indexOf(last); // Find last day
-  return week.slice(0, lastIndex + 1); // Cut from first day to last day
-};
-
 const getSlagtHuset = async (page: puppeteer.Page): Promise<Restaurant> => {
   const title = "Slagthuset";
   let dishes: Dish[] = [];
@@ -72,6 +46,32 @@ const getSlagtHuset = async (page: puppeteer.Page): Promise<Restaurant> => {
       const lunchMenuDiv = lunchNode?.parentNode?.parentNode as HTMLDivElement;
       const htmlElement = lunchMenuDiv.nextElementSibling as HTMLElement;
       const raw = htmlElement.innerText.split("\n");
+
+      const daysBetween = (first: string, last: string) => {
+        let week = [
+          "söndag",
+          "måndag",
+          "tisdag",
+          "onsdag",
+          "torsdag",
+          "fredag",
+          "lördag",
+        ];
+
+        const weekShort = ["sön", "mån", "tis", "ons", "tors", "fre", "lör"];
+        // Translate short weekdays to long weekdays
+        if (first.length < 5) {
+          first = week[weekShort.indexOf(first)];
+        }
+        if (last.length < 5) {
+          last = week[weekShort.indexOf(last)];
+        }
+
+        const firstIndex = week.indexOf(first); // Find first day
+        week = week.concat(week.splice(0, firstIndex)); // Shift array so that first day is index 0
+        const lastIndex = week.indexOf(last); // Find last day
+        return week.slice(0, lastIndex + 1); // Cut from first day to last day
+      };
 
       const rawMenu = raw.slice(
         raw.findIndex((a: string) => a.includes("Meny vecka"))
