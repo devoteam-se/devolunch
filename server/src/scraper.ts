@@ -58,13 +58,13 @@ const getSlagtHuset = async (page: puppeteer.Page): Promise<Restaurant> => {
           "lördag",
         ];
 
-        const weekShort = ["sön", "mån", "tis", "ons", "tor", "fre", "lör"];
+        const weekShort = [/sön/, /mån/, /tis/, /ons/, /tors?/, /fre/, /lör/];
         // Translate short weekdays to long weekdays
-        if (first.length < 5) {
-          first = week[weekShort.indexOf(first)];
+        if (first?.length <= 4) {
+          first = week[weekShort.findIndex((a) => a.test(first))];
         }
-        if (last.length < 5) {
-          last = week[weekShort.indexOf(last)];
+        if (last?.length <= 4) {
+          last = week[weekShort.findIndex((a) => a.test(last))];
         }
 
         const firstIndex = week.indexOf(first); // Find first day
