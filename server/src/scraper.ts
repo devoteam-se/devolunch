@@ -58,7 +58,7 @@ const getSlagtHuset = async (page: puppeteer.Page): Promise<Restaurant> => {
           "lördag",
         ];
 
-        const weekShort = ["sön", "mån", "tis", "ons", "tors", "fre", "lör"];
+        const weekShort = ["sön", "mån", "tis", "ons", "tor", "fre", "lör"];
         // Translate short weekdays to long weekdays
         if (first.length < 5) {
           first = week[weekShort.indexOf(first)];
