@@ -4,7 +4,7 @@ type ContextType = {
   loading: boolean;
   scrapeDate: Date;
   language: string;
-  setLanguage: (language: string) => void,
+  setLanguage: (language: string) => void;
   restaurants: App.Restaurant[];
 };
 
@@ -12,7 +12,7 @@ enum Endpoints {
   RESTAURANTS = "/restaurants",
 }
 
-const API_ROOT_PROD = "https://lunch.jayway.com/api";
+const API_ROOT_PROD = "/api";
 const API_ROOT_DEV = "http://localhost:8080/api";
 
 const RestaurantsContext = React.createContext<ContextType | null>(null);
@@ -43,11 +43,11 @@ const RestaurantsProvider = ({ children }: any) => {
 
   useEffect(() => {
     const get = async () => {
-      const language = new URLSearchParams(window.location.search).get("lang")
+      const language = new URLSearchParams(window.location.search).get("lang");
 
       setLoading(true);
       if (language) {
-        setLanguage(language)
+        setLanguage(language);
       }
       const r = await fetchRestaurants();
       setRestaurants(r.restaurants);
@@ -63,7 +63,9 @@ const RestaurantsProvider = ({ children }: any) => {
   }, []);
 
   return (
-    <RestaurantsContext.Provider value={{ setLanguage, language, scrapeDate, restaurants, loading }}>
+    <RestaurantsContext.Provider
+      value={{ setLanguage, language, scrapeDate, restaurants, loading }}
+    >
       {children}
     </RestaurantsContext.Provider>
   );
