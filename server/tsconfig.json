@@ -1,14 +1,13 @@
 {
-  "extends": "@tsconfig/node14/tsconfig.json",
+  "extends": "@tsconfig/node16/tsconfig.json",
   "compilerOptions": {
-    "lib": [
-      "es2020",
-      "dom",
-      "dom.iterable"
-    ],
-    "outDir": "./dist"
+    "lib": ["es2020", "dom", "dom.iterable"],
+    "outDir": "./dist",
+    "target": "es2020"
   },
-  "include": [
-    "src"
-  ]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"],
+  "ts-node": {
+    "files": true
+  }
 }

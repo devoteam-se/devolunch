@@ -1,5 +1,4 @@
 import { Storage } from "@google-cloud/storage";
-import { Scrape } from "./scraper";
 
 const BUCKET_NAME = "devolunch";
 

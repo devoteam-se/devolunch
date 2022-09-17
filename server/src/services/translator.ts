@@ -1,7 +1,6 @@
-import logger from "./logger";
-import { Restaurant, Dish } from "./scraper";
-
 import { v2 } from "@google-cloud/translate";
+
+import logger from "../logger";
 
 const translate = new v2.Translate({
   projectId: "devolunch",
@@ -19,7 +18,7 @@ export const translateText = async (
         to,
       });
       return translation;
-    } catch (err) {
+    } catch (err: unknown) {
       logger.error(err);
     }
   }
@@ -39,7 +38,7 @@ const translateRestaurant = async (restaurant: Restaurant) => {
   return restaurant;
 };
 
-export let translateRestaurants = async (restaurants: Restaurant[]) =>
+export const translateRestaurants = async (restaurants: Restaurant[]) =>
   await Promise.all(
     restaurants.map(
       async (restaurant: Restaurant) => await translateRestaurant(restaurant)

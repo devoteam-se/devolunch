@@ -1,8 +1,9 @@
 import fetch from "node-fetch";
 import FormData from "form-data";
-import { Restaurant, Dish } from "./scraper";
-import logger from "./logger";
-import { getScrape } from "./storage";
+
+import logger from "../logger";
+import { getScrape } from "../services/storage";
+import { env } from "../env";
 
 const renderMarkdown = (restaurants: Restaurant[]) => {
   let result = "https://lunch.jayway.com (_English version below_)\n\n";
@@ -25,7 +26,7 @@ const renderMarkdown = (restaurants: Restaurant[]) => {
 const renderItemForMarkdown = (language: string, restaurant: Restaurant) => {
   let result = `*${restaurant.title}*\n\n`;
   const dishCollection = restaurant.dishCollection.find(
-    (dc) => dc.language === language
+    (dc: { language: string }) => dc.language === language
   );
   if (dishCollection?.dishes) {
     dishCollection.dishes.forEach((dish: Dish) => {
@@ -51,7 +52,7 @@ export default async () => {
 
   const form = new FormData();
   form.append("content", mdText);
-  form.append("channels", process.env.SLACK_CHANNEL_ID);
+  form.append("channels", env.SLACK_CHANNEL_ID);
   form.append("title", `Lunch ${getTodayNiceFormat()}`);
   form.append("filetype", "post");
 
@@ -59,7 +60,7 @@ export default async () => {
     method: "POST",
     body: form,
     headers: {
-      Authorization: `Bearer ${process.env.SLACK_OAUTH_TOKEN}`,
+      Authorization: `Bearer ${env.SLACK_OAUTH_TOKEN}`,
     },
   })
     .then((res) => {
