@@ -1,7 +1,7 @@
 import { Page } from "puppeteer";
 
 export const meta = {
-  title: "Bistro Royal",
+  title: "Niagara",
   url: "https://restaurangniagara.se/lunch/",
   imgUrl:
     "https://restaurangniagara.se/wp-content/uploads/sites/4/2015/08/Lunch-meny-Niagara1.jpg",
