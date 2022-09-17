@@ -89,8 +89,6 @@ const scrape = async () => {
     ),
   };
   await uploadScrape(scrape);
-
-  await browser.close();
 };
 
 export default scrape;
