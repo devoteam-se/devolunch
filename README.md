@@ -11,7 +11,7 @@ The hosted version can be found at: https://lunch.jayway.com.
 DevoLunch is built with the following tools:
 
 - Frontend: React v17
-- Backend: Node.js 14 w/ express
+- Backend: Node.js 16 w/ express
 - Web hosting: Docker in GCP w/ [Cloud Run](https://cloud.google.com/run/docs)
 
 ## Setup

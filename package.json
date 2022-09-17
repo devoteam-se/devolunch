@@ -14,7 +14,7 @@
     "dev:client": "cd client && npm run dev"
   },
   "engines": {
-    "node": "14.x.x"
+    "node": "16.x.x"
   },
   "repository": {
     "type": "git",

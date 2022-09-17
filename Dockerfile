@@ -3,7 +3,7 @@
 #  | (__| |__ | || _|| .` | | |
 #   \___|____|___|___|_|\_| |_|
 
-FROM node:14.17.5-alpine as build-client
+FROM node:16-alpine as build-client
 WORKDIR /app
 
 # install client dependencies
@@ -19,7 +19,7 @@ RUN npm run build
 #  \__ \ _||   /\ V /| _||   /
 #  |___/___|_|_\ \_/ |___|_|_\
 
-FROM node:14.17.5-alpine as build-server
+FROM node:16-alpine as build-server
 WORKDIR /app
 
 # install server dependencies
@@ -35,7 +35,7 @@ RUN npm run build
 #  |   / |_| | .` |
 #  |_|_\\___/|_|\_|
 
-FROM node:14.17.5-alpine
+FROM node:16-alpine
 WORKDIR /app/server
 
 # copy built client and server
