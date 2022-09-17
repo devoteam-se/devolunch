@@ -4,6 +4,8 @@ export const meta = {
   title: "Bistro Royal",
   url: "https://bistroroyal.se/dagens-ratt/",
   imgUrl: "https://cdn42.gastrogate.com/files/29072/bistroroyal-bistro-1-1.jpg",
+  latitude: 12.999521057744403,
+  longitude: 55.608996491841665,
 };
 
 export const browserScrapeFunction = (page: Page) =>

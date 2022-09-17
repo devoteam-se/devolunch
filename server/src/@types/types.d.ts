@@ -9,6 +9,8 @@ declare interface Restaurant {
   url: string;
   imgUrl: string;
   dishCollection: DishCollection[];
+  longitude: number;
+  latitude: number;
 }
 
 declare interface DishCollection {

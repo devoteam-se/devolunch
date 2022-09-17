@@ -4,6 +4,8 @@ export const meta = {
   title: "Restaurang KP",
   url: "https://restaurangkp.se/lunchbuffe/",
   imgUrl: "https://gastrogate.com/thumbs/1494/files/28932/kpstart2019.jpg",
+  latitude: 12.99867277475147,
+  longitude: 55.609991683996796,
 };
 
 export const browserScrapeFunction = (page: Page) =>

@@ -5,6 +5,8 @@ export const meta = {
   url: "http://www.miamarias.nu/",
   imgUrl:
     "https://i0.wp.com/www.takemetosweden.be/wp-content/uploads/2019/07/MiaMarias-Malm%C3%B6-1.png?w=500&ssl=1",
+  latitude: 12.992134201401216,
+  longitude: 55.613464681883094,
 };
 
 export const browserScrapeFunction = (page: Page) =>

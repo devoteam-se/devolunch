@@ -5,6 +5,8 @@ export const meta = {
   url: "https://www.slagthuset.se/restaurang/",
   imgUrl:
     "https://www.slagthuset.se/wp-content/uploads/2022/03/Hemsidan_restaurang_overlay.jpg",
+  latitude: 13.002761498368026,
+  longitude: 55.61134419989048,
 };
 
 export const browserScrapeFunction = (page: Page) =>
