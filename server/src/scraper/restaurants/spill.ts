@@ -5,6 +5,8 @@ export const meta = {
   url: "https://restaurangspill.se/",
   imgUrl:
     "https://restaurangspill.se/static/0de07c5b4f98bc003befad5e872686b4/9bbaf/SPILL_09.jpg",
+  latitude: 12.988458042546734,
+  longitude: 55.612746399457436,
 };
 
 export const browserScrapeFunction = (page: Page) =>

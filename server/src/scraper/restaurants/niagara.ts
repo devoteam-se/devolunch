@@ -5,6 +5,8 @@ export const meta = {
   url: "https://restaurangniagara.se/lunch/",
   imgUrl:
     "https://restaurangniagara.se/wp-content/uploads/sites/4/2015/08/Lunch-meny-Niagara1.jpg",
+  latitude: 12.994182713710865,
+  longitude: 55.60874652087178,
 };
 
 export const browserScrapeFunction = (page: Page) =>

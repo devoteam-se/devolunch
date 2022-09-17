@@ -5,13 +5,33 @@ import path from "path";
 import { env } from "../env";
 import { uploadScrape } from "../services/storage";
 import { translateRestaurants } from "../services/translator";
+import { distance } from "./distance";
 
 const restaurantsPath = "./src/scraper/restaurants";
 const TIMEOUT = 120000;
 
-const compare = (a: Dish, b: Dish) => {
+const officeLatitude = 13.003325575170862;
+const officeLongitude = 55.61282608776878;
+
+const compareDish = (a: Dish, b: Dish) => {
   const order = { veg: 1, fish: 2, meat: 3, misc: 4 };
   return order[a.type] - order[b.type];
+};
+
+const compareLocation = (a: Restaurant, b: Restaurant) => {
+  const aDistance = distance(
+    officeLatitude,
+    a.latitude,
+    officeLongitude,
+    a.longitude
+  );
+  const bDistance = distance(
+    officeLatitude,
+    b.latitude,
+    officeLongitude,
+    b.longitude
+  );
+  return aDistance - bDistance;
 };
 
 const scrape = async () => {
@@ -57,11 +77,11 @@ const scrape = async () => {
   const scrape = {
     date: new Date(),
     restaurants: await translateRestaurants(
-      restaurants.map((restaurant: Restaurant) => ({
+      restaurants.sort(compareLocation).map((restaurant: Restaurant) => ({
         ...restaurant,
         dishCollection: restaurant.dishCollection.map((dishCollection) => ({
           ...dishCollection,
-          dishes: dishCollection.dishes.sort(compare).map((dish) => ({
+          dishes: dishCollection.dishes.sort(compareDish).map((dish) => ({
             ...dish,
           })),
         })),
