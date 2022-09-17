@@ -46,6 +46,7 @@ jobs:
           region: ${{ env.REGION }}
           flags: --service-account=devolunch-cr@devolunch.iam.gserviceaccount.com
           env_vars: |
+            NODE_ENV=production
             SLACK_OAUTH_TOKEN=${{ secrets.SLACK_OAUTH_TOKEN }}
             SLACK_CHANNEL_ID=${{ secrets.SLACK_CHANNEL_ID }}
 
