@@ -40,7 +40,7 @@ const scrape = async () => {
       {},
       env.NODE_ENV !== "development" && {
         executablePath: "/usr/bin/chromium-browser",
-        args: ["--disable-gpu"],
+        args: ["--disable-gpu", "--no-sandbox"],
       },
       { headless: true }
     )
