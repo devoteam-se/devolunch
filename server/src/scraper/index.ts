@@ -7,7 +7,7 @@ import { uploadScrape } from "../services/storage";
 import { translateRestaurants } from "../services/translator";
 import { distance } from "./distance";
 
-const restaurantsPath = "./src/scraper/restaurants";
+const restaurantsPath = "./restaurants";
 const TIMEOUT = 120000;
 
 const officeLatitude = 13.003325575170862;
@@ -46,12 +46,14 @@ const scrape = async () => {
     )
   );
 
-  const files = await fs.promises.readdir(restaurantsPath);
+  const files = await fs.promises.readdir(
+    path.join(__dirname, restaurantsPath)
+  );
   const restaurants: Restaurant[] = [];
 
   for (const file of files) {
     const restaurant = await import(
-      path.resolve(path.join(restaurantsPath, file))
+      path.join(__dirname, restaurantsPath, file)
     );
     const page = await browser.newPage();
     page.on("console", (msg) => console.log(msg.text()));
@@ -88,7 +90,6 @@ const scrape = async () => {
       }))
     ),
   };
-  console.log(JSON.stringify(scrape));
   await uploadScrape(scrape);
 };
 
