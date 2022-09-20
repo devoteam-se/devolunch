@@ -39,7 +39,6 @@ const scrape = async () => {
     Object.assign(
       {},
       env.NODE_ENV !== "development" && {
-        executablePath: "/usr/bin/chromium-browser",
         args: ["--disable-gpu"],
       },
       { headless: true }

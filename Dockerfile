@@ -4,7 +4,7 @@
 #   \___|____|___|___|_|\_| |_|
 
 FROM node:16-alpine as build-client
-WORKDIR /app
+WORKDIR /home/runner
 
 # install client dependencies
 COPY client/package*.json ./
@@ -20,7 +20,7 @@ RUN npm run build
 #  |___/___|_|_\ \_/ |___|_|_\
 
 FROM node:16-alpine as build-server
-WORKDIR /app
+WORKDIR /home/runner
 
 # install server dependencies
 COPY server/package*.json ./
@@ -35,30 +35,37 @@ RUN npm run build
 #  |   / |_| | .` |
 #  |_|_\\___/|_|\_|
 
-FROM node:16-slim
-WORKDIR /app/server
+FROM node:16
+WORKDIR /home/runner/server
 
 # copy built client and server
-COPY --from=build-client /app/build/ /app/client/build
-COPY --from=build-server /app/dist/ /app/server/dist
+COPY --from=build-client /home/runner/build/ /home/runner/client/build
+COPY --from=build-server /home/runner/dist/ /home/runner/server/dist
 
-# install chromium-browser
-RUN apk add --no-cache \
-    udev \
-    ttf-freefont \
-    chromium
+# Install latest chrome dev package and fonts to support major charsets (Chinese, Japanese, Arabic, Hebrew, Thai and a few others)
+# Note: this installs the necessary libs to make the bundled version of Chromium that Puppeteer
+# installs, work.
+RUN apt-get update \
+    && apt-get install -y wget gnupg \
+    && wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
+    && sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' \
+    && apt-get update \
+    && apt-get install -y google-chrome-stable fonts-ipafont-gothic fonts-wqy-zenhei fonts-thai-tlwg fonts-khmeros fonts-kacst fonts-freefont-ttf libxss1 \
+      --no-install-recommends \
+    && rm -rf /var/lib/apt/lists/*
 
 # install server dependencies
 COPY server/package*.json ./
 
+# Install node modules
 RUN npm ci --only=production \
-    && groupadd -r pptruser && useradd -r -g pptruser -G audio,video pptruser \
-    && mkdir -p /home/pptruser/Downloads \
-    && chown -R pptruser:pptruser /home/pptruser \
-    && chown -R pptruser:pptruser /app
+    # Add user so we don't need --no-sandbox.
+    # same layer as npm install to keep re-chowned files from using up several hundred MBs more space
+    && groupadd -r runner && useradd -r -g runner -G audio,video runner \
+    && mkdir -p /home/runner/Downloads \
+    && chown -R runner:runner /home/runner
 
-# Run everything after as non-privileged user.
-USER pptruser
+USER runner
 
 # expose the port
 EXPOSE 8080
