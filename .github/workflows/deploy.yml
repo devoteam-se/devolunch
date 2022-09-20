@@ -10,6 +10,8 @@ env:
   PROJECT_ID: devolunch
   SERVICE: devolunch
   REGION: europe-west1
+  IMAGE: gcr.io/${{ secrets.GCP_PROJECT }}/prod_data_pipeline
+  MEMORY: 1G
 
 jobs:
   deploy:
@@ -37,18 +39,15 @@ jobs:
           docker build --tag gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:master .
           docker push gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:master
 
-      - name: "Deploy to Cloud Run"
-        id: deploy
-        uses: "google-github-actions/deploy-cloudrun@v0"
-        with:
-          service: ${{ env.SERVICE }}
-          image: gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:master
-          region: ${{ env.REGION }}
-          flags: --service-account=devolunch-cr@devolunch.iam.gserviceaccount.com
-          env_vars: |
-            NODE_ENV=production
-            SLACK_OAUTH_TOKEN=${{ secrets.SLACK_OAUTH_TOKEN }}
-            SLACK_CHANNEL_ID=${{ secrets.SLACK_CHANNEL_ID }}
+      - name: Deploy to Cloud Run
+        run: |
+          gcloud run deploy ${{ env.SERVICE }} \
+            --project ${{ env.PROJECT_ID }} \
+            --region ${{ env.REGION }} \
+            --image gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:master \
+            --service-account=devolunch-cr@devolunch.iam.gserviceaccount.com \
+            --memory ${{ env.MEMORY }} \
+            --update-env-vars NODE_ENV=production,SLACK_OAUTH_TOKEN=${{ secrets.SLACK_OAUTH_TOKEN }},SLACK_CHANNEL_ID=${{ secrets.SLACK_CHANNEL_ID }}
 
       - name: Show Output
         run: echo ${{ steps.deploy.outputs.url }}
