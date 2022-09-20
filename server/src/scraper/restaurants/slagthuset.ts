@@ -104,5 +104,6 @@ export const browserScrapeFunction = (page: Page) =>
         }
       }
     }
+    console.log(dishes);
     return dishes;
   });

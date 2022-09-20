@@ -35,7 +35,7 @@ RUN npm run build
 #  |   / |_| | .` |
 #  |_|_\\___/|_|\_|
 
-FROM node:16-alpine
+FROM node:16-slim
 WORKDIR /app/server
 
 # copy built client and server
@@ -50,7 +50,15 @@ RUN apk add --no-cache \
 
 # install server dependencies
 COPY server/package*.json ./
-RUN npm ci --only=production
+
+RUN npm ci --only=production \
+    && groupadd -r pptruser && useradd -r -g pptruser -G audio,video pptruser \
+    && mkdir -p /home/pptruser/Downloads \
+    && chown -R pptruser:pptruser /home/pptruser \
+    && chown -R pptruser:pptruser /app
+
+# Run everything after as non-privileged user.
+USER pptruser
 
 # expose the port
 EXPOSE 8080

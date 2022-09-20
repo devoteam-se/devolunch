@@ -40,7 +40,7 @@ const scrape = async () => {
       {},
       env.NODE_ENV !== "development" && {
         executablePath: "/usr/bin/chromium-browser",
-        args: ["--disable-gpu", "--no-sandbox"],
+        args: ["--disable-gpu"],
       },
       { headless: true }
     )
@@ -90,6 +90,9 @@ const scrape = async () => {
       }))
     ),
   };
+
+  console.log(scrape);
+
   await uploadScrape(scrape);
 };
 
