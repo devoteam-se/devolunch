@@ -3,11 +3,26 @@ import express from "express";
 
 import scrape from "../scraper";
 import { getScrape } from "../services/storage";
+import { distance } from "../scraper/distance";
 
 const router = express.Router();
 
-router.get("/", async (req, res) => {
+router.get("/", async (req: Request, res: Response) => {
   const scrape = await getScrape();
+
+  const { query } = req;
+  const latitude: number = parseFloat(query.latitude as string);
+  const longitude: number = parseFloat(query.longitude as string);
+
+  console.log(latitude, longitude);
+
+  scrape.restaurants = scrape.restaurants
+    .map((r: { latitude: number; longitude: number }) => ({
+      ...r,
+      distance: distance(latitude, r.latitude, longitude, r.longitude),
+    }))
+    .sort((a: Restaurant, b: Restaurant) => a.distance - b.distance);
+
   res.send(scrape);
 });
 

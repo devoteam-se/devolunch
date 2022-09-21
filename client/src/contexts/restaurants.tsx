@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 type ContextType = {
   loading: boolean;
   scrapeDate: Date;
+  realPosition: boolean;
   language: string;
   setLanguage: (language: string) => void;
   restaurants: App.Restaurant[];
@@ -29,8 +30,10 @@ export const useRestaurants = () => {
 
 const rootUrl = isDev ? API_ROOT_DEV : API_ROOT_PROD;
 
-const fetchRestaurants = async () => {
-  const res = await fetch(`${rootUrl}${Endpoints.RESTAURANTS}`);
+const fetchRestaurants = async (latitude: number, longitude: number) => {
+  const res = await fetch(
+    `${rootUrl}${Endpoints.RESTAURANTS}?latitude=${latitude}&longitude=${longitude}`
+  );
   const data = await res.json();
   return data as App.Scrape;
 };
@@ -40,6 +43,7 @@ const RestaurantsProvider = ({ children }: any) => {
   const [restaurants, setRestaurants] = useState<App.Restaurant[]>([]);
   const [scrapeDate, setScrapeDate] = useState<Date>(new Date());
   const [loading, setLoading] = useState<boolean>(false);
+  const [realPosition, setRealPosition] = useState<boolean>(false);
 
   useEffect(() => {
     const get = async () => {
@@ -49,7 +53,27 @@ const RestaurantsProvider = ({ children }: any) => {
       if (language) {
         setLanguage(language);
       }
-      const r = await fetchRestaurants();
+
+      const getPosition = (options: PositionOptions | undefined) => {
+        return new Promise<GeolocationPosition>((resolve, reject) => {
+          navigator.geolocation.getCurrentPosition(resolve, reject, options);
+        });
+      };
+
+      let position = {} as GeolocationPosition;
+      try {
+        position = await getPosition({});
+      } catch (err) {
+        console.log(err);
+      }
+
+      const r = await fetchRestaurants(
+        position?.coords?.latitude || 55.61282608776878,
+        position?.coords?.longitude || 13.003325575170862
+      );
+      if (position?.coords?.latitude && position?.coords?.longitude) {
+        setRealPosition(true);
+      }
       setRestaurants(r.restaurants);
       setScrapeDate(new Date(r.date));
       setLoading(false);
@@ -64,7 +88,14 @@ const RestaurantsProvider = ({ children }: any) => {
 
   return (
     <RestaurantsContext.Provider
-      value={{ setLanguage, language, scrapeDate, restaurants, loading }}
+      value={{
+        setLanguage,
+        language,
+        realPosition,
+        scrapeDate,
+        restaurants,
+        loading,
+      }}
     >
       {children}
     </RestaurantsContext.Provider>
