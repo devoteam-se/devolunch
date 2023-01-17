@@ -3,17 +3,14 @@ import { Page } from "puppeteer";
 export const meta = {
   title: "Slagthuset",
   url: "https://www.slagthuset.se/restaurang/",
-  imgUrl:
-    "https://www.slagthuset.se/wp-content/uploads/2022/03/Hemsidan_restaurang_overlay.jpg",
+  imgUrl: "https://www.slagthuset.se/wp-content/uploads/2022/03/Hemsidan_restaurang_overlay.jpg",
   latitude: 13.002761498368026,
   longitude: 55.61134419989048,
 };
 
 export const browserScrapeFunction = (page: Page) =>
   page.evaluate(() => {
-    const lunchNode = [...document.querySelectorAll("h2")].find(
-      (e) => e.innerText === "Lunch"
-    );
+    const lunchNode = [...document.querySelectorAll("h2")].find((e) => e.innerText === "Lunch");
 
     const lunchMenuDiv = lunchNode?.parentNode?.parentNode as HTMLDivElement;
 
@@ -21,15 +18,7 @@ export const browserScrapeFunction = (page: Page) =>
     const raw = htmlElement.innerText.split("\n");
 
     const daysBetween = (first: string, last: string) => {
-      let week = [
-        "söndag",
-        "måndag",
-        "tisdag",
-        "onsdag",
-        "torsdag",
-        "fredag",
-        "lördag",
-      ];
+      let week = ["söndag", "måndag", "tisdag", "onsdag", "torsdag", "fredag", "lördag"];
 
       const weekShort = [/sön/, /mån/, /tis/, /ons/, /tors?/, /fre/, /lör/];
       // Translate short weekdays to long weekdays
@@ -46,9 +35,7 @@ export const browserScrapeFunction = (page: Page) =>
       return week.slice(0, lastIndex + 1); // Cut from first day to last day
     };
 
-    const rawMenu = raw.slice(
-      raw.findIndex((a: string) => a.includes("Lunch v."))
-    );
+    const rawMenu = raw.slice(raw.findIndex((a: string) => a.includes("Vecka ")));
 
     const dishes = [];
     const todaySwedishFormat = new Date()
@@ -66,37 +53,29 @@ export const browserScrapeFunction = (page: Page) =>
         });
       }
 
-      if (rawMenu[i].toLowerCase().includes("veckans fisk")) {
+      if (rawMenu[i].toLowerCase().includes("dagens fisk") || rawMenu[i].toLowerCase().includes("veckans fisk")) {
         const daysRaw = rawMenu[i].split(" ")[2];
         const [startDayRaw, endDayRaw] = daysRaw.split("-");
-        const days = daysBetween(startDayRaw, endDayRaw).map((a) =>
-          a.toLowerCase()
-        );
+        const days = daysBetween(startDayRaw, endDayRaw).map((a) => a.toLowerCase());
 
-        if (
-          days.indexOf(todaySwedishFormat) > -1 ||
-          days.indexOf(todaySwedishFormat) > -1
-        ) {
+        if (days.indexOf(todaySwedishFormat) > -1 || days.indexOf(todaySwedishFormat) > -1) {
           dishes.push({
             description,
             type: "fish" as const,
           });
         }
       }
+
       if (
+        rawMenu[i].toLowerCase().includes("dagens vegetariska") ||
         rawMenu[i].toLowerCase().includes("veckans vegetariska") ||
         rawMenu[i].toLowerCase().includes("vegetariskt")
       ) {
         const daysRaw = rawMenu[i].split(" ")[2];
         const [startDayRaw, endDayRaw] = daysRaw.split("-");
-        const days = daysBetween(startDayRaw, endDayRaw).map((a) =>
-          a.toLowerCase()
-        );
+        const days = daysBetween(startDayRaw, endDayRaw).map((a) => a.toLowerCase());
 
-        if (
-          days.indexOf(todaySwedishFormat) > -1 ||
-          days.indexOf(todaySwedishFormat) > -1
-        ) {
+        if (days.indexOf(todaySwedishFormat) > -1 || days.indexOf(todaySwedishFormat) > -1) {
           dishes.push({
             description,
             type: "veg" as const,
