@@ -31,8 +31,14 @@
   padding: 0;
 }
 
+.header-logo {
+  display: flex;
+  justify-content: center;
+}
+
 .header-icon {
   justify-self: center;
+  width: 12rem;
 }
 
 .header-text.frequency {

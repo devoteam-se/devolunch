@@ -1,4 +1,4 @@
-import { ReactComponent as Icon } from "../../assets/sun.svg";
+import { ReactComponent as Icon } from "../../assets/devoteam.svg";
 import "./Header.css";
 
 interface HeaderI {
@@ -22,7 +22,11 @@ export const Header = ({ scrapeDate }: HeaderI) => {
           })}
         </p>
       </div>
-      <div className="header-logo">Devoteam</div>
+      <div className="header-logo">
+        <a href="https://se.devoteam.com/">
+          <Icon className="header-icon" />
+        </a>
+      </div>
     </div>
   );
 };
