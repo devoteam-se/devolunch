@@ -5,33 +5,13 @@ import path from "path";
 import { env } from "../env";
 import { uploadScrape } from "../services/storage";
 import { translateRestaurants } from "../services/translator";
-import { distance } from "./distance";
 
 const restaurantsPath = "./restaurants";
 const TIMEOUT = 120000;
 
-const officeLatitude = 13.003325575170862;
-const officeLongitude = 55.61282608776878;
-
 const compareDish = (a: Dish, b: Dish) => {
   const order = { veg: 1, fish: 2, meat: 3, misc: 4 };
   return order[a.type] - order[b.type];
-};
-
-const compareLocation = (a: Restaurant, b: Restaurant) => {
-  const aDistance = distance(
-    officeLatitude,
-    a.latitude,
-    officeLongitude,
-    a.longitude
-  );
-  const bDistance = distance(
-    officeLatitude,
-    b.latitude,
-    officeLongitude,
-    b.longitude
-  );
-  return aDistance - bDistance;
 };
 
 const scrape = async () => {
@@ -45,15 +25,11 @@ const scrape = async () => {
     )
   );
 
-  const files = await fs.promises.readdir(
-    path.join(__dirname, restaurantsPath)
-  );
+  const files = await fs.promises.readdir(path.join(__dirname, restaurantsPath));
   const restaurants: Restaurant[] = [];
 
   for (const file of files) {
-    const restaurant = await import(
-      path.join(__dirname, restaurantsPath, file)
-    );
+    const restaurant = await import(path.join(__dirname, restaurantsPath, file));
     const page = await browser.newPage();
     page.on("console", (msg) => console.log(msg.text()));
     await page.goto(restaurant.meta.url, {
@@ -61,16 +37,20 @@ const scrape = async () => {
       timeout: TIMEOUT,
     });
 
-    const dishes = await restaurant.browserScrapeFunction(page);
-    restaurants.push({
-      ...restaurant.meta,
-      dishCollection: [
-        {
-          language: "sv",
-          dishes: dishes,
-        },
-      ],
-    });
+    try {
+      const dishes = await restaurant.browserScrapeFunction(page);
+      restaurants.push({
+        ...restaurant.meta,
+        dishCollection: [
+          {
+            language: "sv",
+            dishes: dishes,
+          },
+        ],
+      });
+    } catch (err: unknown) {
+      console.log(err);
+    }
   }
 
   await browser.close();
@@ -78,7 +58,7 @@ const scrape = async () => {
   const scrape = {
     date: new Date(),
     restaurants: await translateRestaurants(
-      restaurants.sort(compareLocation).map((restaurant: Restaurant) => ({
+      restaurants.map((restaurant: Restaurant) => ({
         ...restaurant,
         dishCollection: restaurant.dishCollection.map((dishCollection) => ({
           ...dishCollection,
@@ -89,8 +69,6 @@ const scrape = async () => {
       }))
     ),
   };
-
-  console.log(scrape);
 
   await uploadScrape(scrape);
 };
