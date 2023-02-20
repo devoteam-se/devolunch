@@ -53,8 +53,16 @@ export const browserScrapeFunction = (page: Page) =>
         });
       }
 
-      if (rawMenu[i].toLowerCase().includes("dagens fisk") || rawMenu[i].toLowerCase().includes("veckans fisk")) {
-        const daysRaw = rawMenu[i].split(" ")[2];
+      if (
+        rawMenu[i].toLowerCase().includes("fisk") ||
+        rawMenu[i].toLowerCase().includes("dagens fisk") ||
+        rawMenu[i].toLowerCase().includes("veckans fisk")
+      ) {
+        const numWords = rawMenu[i].split(" ").length;
+        if (numWords > 2) {
+          continue;
+        }
+        const daysRaw = rawMenu[i].split(" ")[numWords - 1];
         const [startDayRaw, endDayRaw] = daysRaw.split("-");
         const days = daysBetween(startDayRaw, endDayRaw).map((a) => a.toLowerCase());
 
@@ -71,7 +79,11 @@ export const browserScrapeFunction = (page: Page) =>
         rawMenu[i].toLowerCase().includes("veckans vegetariska") ||
         rawMenu[i].toLowerCase().includes("vegetariskt")
       ) {
-        const daysRaw = rawMenu[i].split(" ")[2];
+        const numWords = rawMenu[i].split(" ").length;
+        if (numWords > 2) {
+          continue;
+        }
+        const daysRaw = rawMenu[i].split(" ")[numWords - 1];
         const [startDayRaw, endDayRaw] = daysRaw.split("-");
         const days = daysBetween(startDayRaw, endDayRaw).map((a) => a.toLowerCase());
 
