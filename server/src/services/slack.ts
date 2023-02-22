@@ -6,7 +6,7 @@ import { getScrape } from "../services/storage";
 import { env } from "../env";
 
 const renderMarkdown = (restaurants: Restaurant[]) => {
-  let result = "https://lunch.jayway.com (_English version below_)\n\n";
+  let result = "";
 
   // Swedish
   restaurants.forEach((restaurant) => {
@@ -25,15 +25,11 @@ const renderMarkdown = (restaurants: Restaurant[]) => {
 
 const renderItemForMarkdown = (language: string, restaurant: Restaurant) => {
   let result = `*${restaurant.title}*\n\n`;
-  const dishCollection = restaurant.dishCollection.find(
-    (dc: { language: string }) => dc.language === language
-  );
+  const dishCollection = restaurant.dishCollection.find((dc: { language: string }) => dc.language === language);
   if (dishCollection?.dishes) {
     dishCollection.dishes.forEach((dish: Dish) => {
       // Capitalize type
-      result += `• ${dish.type.replace(/\b\w/g, (l) => l.toUpperCase())}: ${
-        dish.description
-      }\n`;
+      result += `• ${dish.type.replace(/\b\w/g, (l) => l.toUpperCase())}: ${dish.description}\n`;
     });
   }
   return result;
@@ -51,6 +47,7 @@ export default async () => {
   const mdText = renderMarkdown(scrape.restaurants);
 
   const form = new FormData();
+  form.append("initial_comment", "https://www.malmolunch.se (_English version below_)");
   form.append("content", mdText);
   form.append("channels", env.SLACK_CHANNEL_ID);
   form.append("title", `Lunch ${getTodayNiceFormat()}`);
