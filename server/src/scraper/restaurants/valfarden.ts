@@ -12,14 +12,24 @@ export const browserScrapeFunction = (page: Page) =>
   page.evaluate(() => {
     const allP = [...document.querySelectorAll("p")];
     const todayIndex = allP.findIndex((p: HTMLParagraphElement) =>
-      p.textContent
-        ?.toLowerCase()
-        ?.includes(new Date()?.toLocaleString("sv-SE", { weekday: "long" }))
+      p.textContent?.toLowerCase()?.includes(new Date()?.toLocaleString("sv-SE", { weekday: "long" }))
     );
-    const todayMenu = allP[todayIndex + 1];
 
-    const meat = todayMenu?.textContent;
-    const veg = todayMenu?.nextElementSibling?.nextElementSibling?.textContent;
+    let meat = "";
+    let veg = "";
+    for (let i = todayIndex + 2; i <= allP.length; i++) {
+      const textContent: string = allP[i]?.textContent || "";
+      if (textContent.length > 5) {
+        if (meat.length && veg.length) {
+          break;
+        }
+        if (meat.length) {
+          veg = allP[i]?.textContent || "";
+          break;
+        }
+        meat = allP[i]?.textContent || "";
+      }
+    }
 
     return [
       {

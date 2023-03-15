@@ -25,8 +25,14 @@ const scrape = async () => {
     )
   );
 
-  const files = await fs.promises.readdir(path.join(__dirname, restaurantsPath));
+  let files = await fs.promises.readdir(path.join(__dirname, restaurantsPath));
   const restaurants: Restaurant[] = [];
+
+  // const filesOverride: string[] = ["valfarden.ts"];
+  const filesOverride: string[] = [];
+  if (filesOverride.length) {
+    files = filesOverride;
+  }
 
   for (const file of files) {
     const restaurant = await import(path.join(__dirname, restaurantsPath, file));
