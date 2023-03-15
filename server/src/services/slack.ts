@@ -6,7 +6,7 @@ import { getScrape } from "../services/storage";
 import { env } from "../env";
 
 const renderMarkdown = (restaurants: Restaurant[]) => {
-  let result = "";
+  let result = "_English version below_\n\n";
 
   // Swedish
   restaurants.forEach((restaurant) => {
@@ -47,7 +47,7 @@ export default async () => {
   const mdText = renderMarkdown(scrape.restaurants);
 
   const form = new FormData();
-  form.append("initial_comment", "https://www.malmolunch.se (_English version below_)");
+  form.append("initial_comment", "https://www.malmolunch.se");
   form.append("content", mdText);
   form.append("channels", env.SLACK_CHANNEL_ID);
   form.append("title", `Lunch ${getTodayNiceFormat()}`);

@@ -38,6 +38,7 @@ const scrape = async () => {
     });
 
     try {
+      console.log("scraping", restaurant.meta.url);
       const dishes = await restaurant.browserScrapeFunction(page);
       restaurants.push({
         ...restaurant.meta,
