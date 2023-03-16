@@ -1,5 +1,5 @@
 import puppeteer = require("puppeteer");
-import fs from "fs";
+import fs from "fs/promises";
 import path from "path";
 
 import { env } from "../env";
@@ -10,26 +10,21 @@ const restaurantsPath = "./restaurants";
 const TIMEOUT = 120000;
 
 const compareDish = (a: Dish, b: Dish) => {
-  const order = { veg: 1, fish: 2, meat: 3, misc: 4 };
+  const order: { [key: string]: number } = { veg: 1, fish: 2, meat: 3, misc: 4 };
   return order[a.type] - order[b.type];
 };
 
 const scrape = async () => {
-  const browser = await puppeteer.launch(
-    Object.assign(
-      {},
-      env.NODE_ENV !== "development" && {
-        args: ["--disable-gpu"],
-      },
-      { headless: true }
-    )
-  );
+  const browser = await puppeteer.launch({
+    args: env.NODE_ENV !== "development" ? ["--disable-gpu"] : [],
+    headless: true,
+  });
 
-  let files = await fs.promises.readdir(path.join(__dirname, restaurantsPath));
+  let files = await fs.readdir(path.join(__dirname, restaurantsPath));
   const restaurants: Restaurant[] = [];
 
-  // const filesOverride: string[] = ["saltimporten.ts"];
-  const filesOverride: string[] = [];
+  const filesOverride: string[] = ["slagthuset.ts"];
+  // const filesOverride: string[] = [];
   if (filesOverride.length) {
     files = filesOverride;
   }
@@ -57,6 +52,8 @@ const scrape = async () => {
       });
     } catch (err: unknown) {
       console.log(err);
+    } finally {
+      await page.close();
     }
   }
 
