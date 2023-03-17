@@ -23,8 +23,8 @@ const scrape = async () => {
   let files = await fs.readdir(path.join(__dirname, restaurantsPath));
   const restaurants: Restaurant[] = [];
 
-  const filesOverride: string[] = ["slagthuset.ts"];
-  // const filesOverride: string[] = [];
+  // const filesOverride: string[] = ["slagthuset.ts"];
+  const filesOverride: string[] = [];
   if (filesOverride.length) {
     files = filesOverride;
   }
