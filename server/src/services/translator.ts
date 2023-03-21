@@ -6,11 +6,7 @@ const translate = new v2.Translate({
   projectId: "devolunch",
 });
 
-export const translateText = async (
-  from: string,
-  to: string,
-  originalText: Dish["description"]
-) => {
+export const translateText = async (from: string, to: string, originalText: Dish["description"]) => {
   if (originalText && originalText.length > 0) {
     try {
       const [translation] = await translate.translate(originalText, {
@@ -19,7 +15,7 @@ export const translateText = async (
       });
       return translation;
     } catch (err: unknown) {
-      logger.error(err);
+      logger.error("Can't reach google translate service");
     }
   }
   return "";
@@ -39,8 +35,4 @@ const translateRestaurant = async (restaurant: Restaurant) => {
 };
 
 export const translateRestaurants = async (restaurants: Restaurant[]) =>
-  await Promise.all(
-    restaurants.map(
-      async (restaurant: Restaurant) => await translateRestaurant(restaurant)
-    )
-  );
+  await Promise.all(restaurants.map(async (restaurant: Restaurant) => await translateRestaurant(restaurant)));

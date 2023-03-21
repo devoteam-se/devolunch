@@ -16,16 +16,14 @@ export const browserScrapeFunction = (page: Page) =>
       })
       .toLowerCase();
 
-    const todayNode = [...document.querySelectorAll("p")].find((e) =>
-      e.innerText.toLowerCase().includes(todaySwedishFormat)
+    const todayNode = [...document.querySelectorAll('div[class="elementor-widget-container"] div p')].find((e) =>
+      (e as HTMLElement).innerText.toLowerCase().includes(todaySwedishFormat)
     );
-
-    console.log(todayNode?.textContent);
 
     const meat = todayNode?.textContent?.split(todaySwedishFormat.toUpperCase())[1].trim();
 
-    const veg = [...document.querySelectorAll("p")]
-      .find((e) => e.innerText.toLowerCase().includes("veckans vegetariska"))
+    const veg = [...document.querySelectorAll('div[class="elementor-widget-container"] div p')]
+      .find((e) => (e as HTMLElement).innerText.toLowerCase().includes("veckans vegetariska"))
       ?.textContent?.split("veckans vegetariska".toUpperCase())[1]
       .trim();
 

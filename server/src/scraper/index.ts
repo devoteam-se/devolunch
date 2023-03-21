@@ -9,7 +9,7 @@ import { translateRestaurants } from "../services/translator";
 const restaurantsPath = "./restaurants";
 const TIMEOUT = 120000;
 
-const compareDish = (a: Dish, b: Dish) => {
+const compareDish = (a: Dish, b: Dish): number => {
   const order: { [key: string]: number } = { veg: 1, fish: 2, meat: 3, misc: 4 };
   return order[a.type] - order[b.type];
 };
@@ -23,8 +23,8 @@ const scrape = async () => {
   let files = await fs.readdir(path.join(__dirname, restaurantsPath));
   const restaurants: Restaurant[] = [];
 
-  // const filesOverride: string[] = ["slagthuset.ts"];
-  const filesOverride: string[] = [];
+  const filesOverride: string[] = ["saltimporten.ts"];
+  // const filesOverride: string[] = [];
   if (filesOverride.length) {
     files = filesOverride;
   }
@@ -51,7 +51,7 @@ const scrape = async () => {
         ],
       });
     } catch (err: unknown) {
-      console.log(err);
+      console.error(err);
     } finally {
       await page.close();
     }
