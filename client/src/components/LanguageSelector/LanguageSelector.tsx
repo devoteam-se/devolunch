@@ -13,20 +13,14 @@ export const LanguageSelector = () => {
   return (
     <div className="language-selector-wrapper">
       <button
-        className={
-          "language-selector-button " +
-          (language === "sv" ? "language-selector-button--active" : "")
-        }
+        className={"language-selector-button " + (language === "sv" ? "language-selector-button--active" : "")}
         onClick={() => setLang("sv")}
       >
         SE
       </button>
-      &nbsp;|&nbsp;
+      |
       <button
-        className={
-          "language-selector-button " +
-          (language === "en" ? "language-selector-button--active" : "")
-        }
+        className={"language-selector-button " + (language === "en" ? "language-selector-button--active" : "")}
         onClick={() => setLang("en")}
       >
         EN

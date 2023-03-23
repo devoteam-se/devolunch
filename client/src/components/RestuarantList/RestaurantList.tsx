@@ -16,6 +16,8 @@ export const RestaurantList = ({ restaurants }: RestaurantListI) => {
           url={restaurant.url}
           imgUrl={restaurant.imgUrl}
           dishCollection={restaurant.dishCollection}
+          latitude={restaurant.latitude}
+          longitude={restaurant.longitude}
         />
       ))}
     </div>

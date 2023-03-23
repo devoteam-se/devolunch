@@ -10,11 +10,11 @@ const router = express.Router();
 router.get("/", async (req: Request, res: Response) => {
   const scrape = await getScrape();
 
+  console.log(JSON.stringify(scrape));
+
   const { query } = req;
   const latitude: number = parseFloat(query.latitude as string);
   const longitude: number = parseFloat(query.longitude as string);
-
-  console.log(latitude, longitude);
 
   scrape.restaurants = scrape.restaurants
     .map((r: { latitude: number; longitude: number }) => ({

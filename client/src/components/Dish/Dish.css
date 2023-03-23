@@ -6,30 +6,37 @@
 }
 
 .dish-title {
-  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  font-size: 0.875rem;
   margin-right: 8px;
   margin-top: 0;
   margin-bottom: 0;
   font-family: "Azeret Mono", monospace;
   font-weight: 400;
-  text-transform: capitalize;
+  text-transform: uppercase;
 }
 
 .dish-title-icon {
+  width: 1rem;
+  height: 1rem;
   margin: 0;
-  color: #ffaa5b;
+  background-color: #ffaa5b;
+  border-radius: 50%;
+  border: 1px solid #000;
+  margin-right: 0.5rem;
 }
 
 .dish-title-icon[data-veg="true"] {
-  color: #449856;
+  background-color: #449856;
 }
 
 .dish-title-icon[data-fish="true"] {
-  color: #457b9d;
+  background-color: #457b9d;
 }
 
 .dish-title-icon[data-misc="true"] {
-  color: #bc8f8f;
+  background-color: #bc8f8f;
 }
 
 .dish-header-icon {
