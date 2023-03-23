@@ -12,10 +12,12 @@ export const RestaurantList = ({ restaurants }: RestaurantListI) => {
         <Restaurant
           key={`rest-${index}`}
           title={restaurant.title}
-          description={restaurant.description}
+          distance={restaurant.distance}
           url={restaurant.url}
           imgUrl={restaurant.imgUrl}
           dishCollection={restaurant.dishCollection}
+          latitude={restaurant.latitude}
+          longitude={restaurant.longitude}
         />
       ))}
     </div>

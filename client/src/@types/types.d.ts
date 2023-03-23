@@ -20,10 +20,11 @@ declare namespace App {
   }
   interface Restaurant {
     title: string;
-    description: string;
     url: string;
     imgUrl: string;
     dishCollection: DishCollection[];
-    distance?: string;
+    distance?: number;
+    latitude?: number;
+    longitude?: number;
   }
 }

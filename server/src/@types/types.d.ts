@@ -11,6 +11,7 @@ declare interface Restaurant {
   dishCollection: DishCollection[];
   longitude: number;
   latitude: number;
+  distance: number;
 }
 
 declare interface DishCollection {

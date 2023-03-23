@@ -5,8 +5,8 @@ export const meta = {
   url: "https://storavarvsgatan6.se/meny.html",
   imgUrl:
     "https://storavarvsgatan6.se/____impro/1/onewebmedia/foodiesfeed.com_close-up-on-healthy-green-broccoli%20%28kopia%29.jpg?etag=%226548df-5f256567%22&sourceContentType=image%2Fjpeg&ignoreAspectRatio&resize=1900%2B1267&extract=81%2B0%2B939%2B1190&quality=85",
-  latitude: 12.991505487495564,
-  longitude: 55.612390477729015,
+  latitude: 55.612390477729015,
+  longitude: 12.991505487495564,
 };
 
 export const browserScrapeFunction = (page: Page) =>

@@ -10,16 +10,25 @@
 .language-selector-wrapper {
   display: flex;
   margin-bottom: 2rem;
+  margin-left: auto;
+  font-size: 1.4rem;
+  font-family: "Azeret Mono", monospace;
 }
 
 .language-selector-button {
   background: none;
   border: 0;
-  color: inherit;
+  color: #4a8cca;
   font: inherit;
   line-height: normal;
   overflow: visible;
   padding: 0;
   cursor: pointer;
   text-decoration: underline;
+}
+
+.language-selector-button--active {
+  color: inherit;
+  text-decoration: none;
+  cursor: auto;
 }
