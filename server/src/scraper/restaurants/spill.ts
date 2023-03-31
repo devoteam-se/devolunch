@@ -10,9 +10,10 @@ export const meta = {
 
 export const browserScrapeFunction = (page: Page) =>
   page.evaluate(() => {
-    const dishesNodes =
-      document.querySelectorAll("#dagens")[0]?.childNodes[0]?.childNodes[0]?.childNodes[1]?.childNodes[0]?.childNodes[1]
-        ?.childNodes[1].textContent;
+    const dishesNodes = [...document.querySelectorAll("div h2")].find(
+      (a) => a.textContent?.toLowerCase() === "dagens lunch"
+    )?.nextElementSibling?.childNodes[0].childNodes[1].childNodes[1].textContent;
+
     const a = dishesNodes?.split(/Vegetariskt?:/gm);
     const meat = a?.[0]?.replace(/(\r\n|\n|\r)/gm, " ").trim();
     const veg = a?.[1]?.replace(/(\r\n|\n|\r)/gm, " ").trim();
