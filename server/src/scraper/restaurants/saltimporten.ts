@@ -20,7 +20,8 @@ export const browserScrapeFunction = (page: Page) =>
       (e as HTMLElement).innerText.toLowerCase().includes(todaySwedishFormat)
     );
 
-    const meat = todayNode?.textContent?.split(todaySwedishFormat)[1].trim();
+    const regex = new RegExp(todaySwedishFormat, "i");
+    const meat = todayNode?.textContent?.split(regex)[1].trim();
 
     const veg = [...document.querySelectorAll('div[class="elementor-widget-container"] div p')]
       .find((e) => (e as HTMLElement).innerText.toLowerCase().includes("veckans vegetariska"))
