@@ -7,7 +7,7 @@ export const Dish = ({ type, description }: App.Dish) => {
   return (
     <div className="dish">
       <div className="dish-title-wrapper">
-        <div className="dish-title">
+        <h3 className="dish-title">
           <div
             className="dish-title-icon"
             data-veg={type === "veg"}
@@ -15,7 +15,7 @@ export const Dish = ({ type, description }: App.Dish) => {
             data-misc={type === "misc"}
           />
           {type}
-        </div>
+        </h3>
       </div>
       <p className="dish-descr">{description}</p>
     </div>

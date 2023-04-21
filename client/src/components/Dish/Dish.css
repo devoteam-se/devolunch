@@ -1,7 +1,7 @@
 /* Classes for dishes */
 
 .dish {
-  margin-top: 8px;
+  padding: 0.75rem 0;
   border-bottom: 1px solid #000000;
 }
 
@@ -47,9 +47,11 @@
   font-size: 0.9rem;
   font-family: "Open Sans", sans-serif;
   max-width: 241px;
+  margin: 0;
 }
 
 .dish-title-wrapper {
+  margin-bottom: 0.5rem;
   display: flex;
   justify-content: flex-start;
   align-items: center;
