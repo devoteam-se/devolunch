@@ -3,8 +3,8 @@ import { Page } from "puppeteer";
 export const meta = {
   title: "MiaMarias",
   url: "http://www.miamarias.nu/",
-  imgUrl:
-    "https://i0.wp.com/www.takemetosweden.be/wp-content/uploads/2019/07/MiaMarias-Malm%C3%B6-1.png?w=500&ssl=1",
+  imgUrl: "https://i0.wp.com/www.takemetosweden.be/wp-content/uploads/2019/07/MiaMarias-Malm%C3%B6-1.png?w=500&ssl=1",
+  googleMapsUrl: "https://goo.gl/maps/RrRffZzgebREQpwB7",
   latitude: 55.613464681883094,
   longitude: 12.992134201401216,
 };
@@ -28,12 +28,7 @@ export const browserScrapeFunction = (page: Page) =>
         .match(/^[^0-9]+/)
         ?.shift()
         ?.trim();
-      const type: DishType =
-        swedishType === "Fisk"
-          ? "fish"
-          : swedishType === "Kött"
-          ? "meat"
-          : "veg";
+      const type: DishType = swedishType === "Fisk" ? "fish" : swedishType === "Kött" ? "meat" : "veg";
 
       const price = Number(raw[i].match(/([0-9]+)\s?kr/)?.slice(1, 2));
       const description = raw[i + 1];

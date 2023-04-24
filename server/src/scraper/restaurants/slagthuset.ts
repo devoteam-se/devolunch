@@ -4,6 +4,7 @@ export const meta = {
   title: "Slagthuset",
   url: "https://slagthuset.se/restaurangen/",
   imgUrl: "https://slagthuset.se/static/d18f8e233d657ea77a2e7aeb3aa65eec/cc3b1/Sodra-Hallen01-1.jpg",
+  googleMapsUrl: "https://goo.gl/maps/ZMLMAHi8XhVss2At5",
   latitude: 55.61134419989048,
   longitude: 13.002761498368026,
 };

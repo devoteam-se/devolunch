@@ -4,6 +4,7 @@ export const meta = {
   title: "Spill",
   url: "https://restaurangspill.se/",
   imgUrl: "https://restaurangspill.se/static/0de07c5b4f98bc003befad5e872686b4/9bbaf/SPILL_09.jpg",
+  googleMapsUrl: "https://goo.gl/maps/bZ8yDN3PD3fjvNGw5",
   latitude: 55.612746399457436,
   longitude: 12.988458042546734,
 };

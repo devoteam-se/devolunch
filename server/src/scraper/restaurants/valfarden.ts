@@ -4,6 +4,7 @@ export const meta = {
   title: "Välfärden",
   url: "https://valfarden.nu/dagens-lunch/",
   imgUrl: "https://valfarden.nu/wp-content/uploads/2015/01/hylla.jpg",
+  googleMapsUrl: "https://goo.gl/maps/cLAKuD2B95N8bqr19",
   latitude: 55.61123819992324,
   longitude: 12.994400413711007,
 };

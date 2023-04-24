@@ -3,8 +3,8 @@ import { Page } from "puppeteer";
 export const meta = {
   title: "Niagara",
   url: "https://restaurangniagara.se/lunch/",
-  imgUrl:
-    "https://restaurangniagara.se/wp-content/uploads/sites/4/2015/08/Lunch-meny-Niagara1.jpg",
+  imgUrl: "https://restaurangniagara.se/wp-content/uploads/sites/4/2015/08/Lunch-meny-Niagara1.jpg",
+  googleMapsUrl: "https://goo.gl/maps/5SAyzPUHhb2xrNXRA",
   latitude: 55.60874652087178,
   longitude: 12.994182713710865,
 };
