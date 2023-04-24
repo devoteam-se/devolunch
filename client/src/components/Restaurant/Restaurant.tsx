@@ -5,35 +5,31 @@ import { ReactComponent as DirectionIcon } from "../../assets/direction.svg";
 import "./Restaurant.css";
 import { useRestaurants } from "../../contexts/restaurants";
 
-export const Restaurant = ({ title, distance, url, imgUrl, dishCollection, latitude, longitude }: App.Restaurant) => {
+export const Restaurant = ({ title, distance, url, imgUrl, dishCollection, googleMapsUrl }: App.Restaurant) => {
   const { language } = useRestaurants();
 
   return (
     <div className="restaurant">
       <a href={url}>
-        <div className="rest-wrapper">
-          <p className="rest-title">{title}</p>
-          <p className="rest-distance">
-            <LocationIcon className="location-icon" />
-            {distance?.toFixed(2)} km
-          </p>
+        <h2 className="restaurant-title">{title}</h2>
+        <div className="restaurant-distance">
+          <LocationIcon className="location-icon" />
+          {distance?.toFixed(2)} km
         </div>
-        <div className="restaurant-image-wrapper">
-          <img src={imgUrl} className="restaurant-image" alt="res" />
-        </div>
+        <img src={imgUrl} className="restaurant-image" alt="res" />
       </a>
       {dishCollection
         .find((dc) => dc.language === language)
         ?.dishes.map((dish, index) => (
           <Dish key={`dish-${index}`} type={dish.type} description={dish.description} />
         ))}
-      <div className="rest-links">
+      <div className="restaurant-links">
         <a href={url} className="website">
-          <ExternalLinkIcon className="rest-links-icon" />
+          <ExternalLinkIcon className="restaurant-links-icon" />
           Website
         </a>
-        <a href={`https://maps.google.com/?q=${latitude},${longitude}`} className="direction">
-          <DirectionIcon className="rest-links-icon" />
+        <a href={googleMapsUrl} className="direction">
+          <DirectionIcon className="restaurant-links-icon" />
           Directions
         </a>
       </div>

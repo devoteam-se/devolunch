@@ -7,11 +7,12 @@
 
 .dish-title {
   display: flex;
+  justify-content: flex-start;
   align-items: center;
   font-size: 0.875rem;
   margin-right: 8px;
   margin-top: 0;
-  margin-bottom: 0;
+  margin-bottom: 0.5rem;
   font-family: "Azeret Mono", monospace;
   font-weight: 400;
   text-transform: uppercase;
@@ -43,7 +44,7 @@
   color: #000000;
 }
 
-.dish-descr {
+.dish-description {
   font-size: 0.9rem;
   font-family: "Open Sans", sans-serif;
   max-width: 241px;
@@ -51,8 +52,4 @@
 }
 
 .dish-title-wrapper {
-  margin-bottom: 0.5rem;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
 }

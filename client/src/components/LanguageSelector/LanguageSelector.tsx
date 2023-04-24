@@ -11,7 +11,7 @@ export const LanguageSelector = () => {
   };
 
   return (
-    <div className="language-selector-wrapper">
+    <div className="language-selector">
       <button
         className={"language-selector-button " + (language === "sv" ? "language-selector-button--active" : "")}
         onClick={() => setLang("sv")}

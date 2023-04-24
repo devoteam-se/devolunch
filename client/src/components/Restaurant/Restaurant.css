@@ -1,15 +1,11 @@
 .restaurant {
   display: flex;
   flex-direction: column;
-  padding: 8px;
+  padding: 0.5rem;
 }
 
 .restaurant a {
   text-decoration: none;
-}
-
-.rest-wrapper {
-  margin-bottom: 12px;
 }
 
 .restaurant-image-wrapper {
@@ -26,7 +22,7 @@
   object-fit: cover;
 }
 
-.rest-title {
+.restaurant-title {
   color: #000;
   font-family: "Azeret Mono", monospace;
   font-weight: 500;
@@ -36,34 +32,26 @@
   border-bottom: 1px solid #000;
 }
 
-.rest-descr {
-  font-size: 0.8rem;
-  margin: 0;
-  font-family: "Open Sans", sans-serif;
-  max-width: 241px;
-  min-height: 3rem;
-}
-
-.rest-distance {
+.restaurant-distance {
   display: flex;
   align-items: center;
   color: #000;
   font-size: 0.875rem;
-  margin: 0.5rem 0;
+  margin: 0.75rem 0;
 }
 
-.rest-links {
+.restaurant-links {
   display: flex;
   justify-content: flex-end;
   margin-top: 1rem;
 }
 
-.rest-links-icon {
+.restaurant-links-icon {
   width: 1rem;
   height: 1rem;
 }
 
-.rest-links > a {
+.restaurant-links > a {
   display: flex;
   align-items: center;
   font-size: 1rem;
@@ -74,7 +62,7 @@
   margin-left: 0.5rem;
 }
 
-.rest-links > a:hover {
+.restaurant-links > a:hover {
   background-color: #ffaa5b;
 }
 

@@ -7,7 +7,7 @@
   }
 }
 
-.language-selector-wrapper {
+.language-selector {
   display: flex;
   align-items: center;
   height: 6rem;
@@ -35,7 +35,7 @@
 }
 
 @media only screen and (max-width: 430px) {
-  .language-selector-wrapper {
+  .language-selector {
     height: 4rem;
   }
 }

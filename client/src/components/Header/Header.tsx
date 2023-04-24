@@ -10,7 +10,7 @@ export const Header = ({ scrapeDate }: HeaderI) => {
     <div className="header">
       <div className="header-heading">
         <h1>Lunch Menu</h1>
-        <p className="header-text frequency">
+        <div className="header-text frequency">
           Updated&nbsp;
           {scrapeDate.toLocaleDateString("us-EN", {
             weekday: "short",
@@ -20,7 +20,7 @@ export const Header = ({ scrapeDate }: HeaderI) => {
             hour: "numeric",
             minute: "numeric",
           })}
-        </p>
+        </div>
       </div>
       <div className="header-logo">
         <a href="https://se.devoteam.com/">
