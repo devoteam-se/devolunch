@@ -1,3 +1,4 @@
+import { distance } from "@/utils/distance";
 import React, { useContext, useEffect, useState } from "react";
 
 type ContextType = {
@@ -7,6 +8,7 @@ type ContextType = {
   language: string;
   setLanguage: (language: string) => void;
   restaurants: App.Restaurant[];
+  setRestaurants: (restaurants: App.Restaurant[]) => void;
 };
 
 enum Endpoints {
@@ -18,7 +20,7 @@ const API_ROOT_DEV = "http://localhost:8080/api";
 
 const RestaurantsContext = React.createContext<ContextType | null>(null);
 
-const isDev = process.env.NODE_ENV === "development";
+const isDev = import.meta.env.DEV;
 
 export const useRestaurants = () => {
   const context = useContext(RestaurantsContext);
@@ -30,8 +32,8 @@ export const useRestaurants = () => {
 
 const rootUrl = isDev ? API_ROOT_DEV : API_ROOT_PROD;
 
-const fetchRestaurants = async (latitude: number, longitude: number) => {
-  const res = await fetch(`${rootUrl}${Endpoints.RESTAURANTS}?latitude=${latitude}&longitude=${longitude}`);
+const fetchRestaurants = async () => {
+  const res = await fetch(`${rootUrl}${Endpoints.RESTAURANTS}`);
   const data = await res.json();
   return data as App.Scrape;
 };
@@ -52,8 +54,29 @@ const RestaurantsProvider = ({ children }: any) => {
         setLanguage(language);
       }
 
-      const r = await fetchRestaurants(55.61282608776878, 13.003325575170862);
-      setRestaurants(r.restaurants);
+      const position = window.localStorage.getItem("position")?.split(",");
+
+      const savedLatitude = position?.length === 2 && parseFloat(position[0]);
+      const savedLongitude = position?.length === 2 && parseFloat(position[1]);
+
+      let latitude = 55.61282608776878;
+      let longitude = 13.003325575170862;
+
+      if (savedLatitude && savedLongitude) {
+        latitude = savedLatitude;
+        longitude = savedLongitude;
+      }
+
+      const r = await fetchRestaurants();
+
+      setRestaurants(
+        r.restaurants
+          .map((r: App.Restaurant) => ({
+            ...r,
+            distance: distance(latitude, r.latitude, longitude, r.longitude),
+          }))
+          .sort((a: App.Restaurant, b: App.Restaurant) => a.distance - b.distance)
+      );
       setScrapeDate(new Date(r.date));
       setLoading(false);
     };
@@ -68,11 +91,12 @@ const RestaurantsProvider = ({ children }: any) => {
   return (
     <RestaurantsContext.Provider
       value={{
-        setLanguage,
         language,
+        setLanguage,
         realPosition,
         scrapeDate,
         restaurants,
+        setRestaurants,
         loading,
       }}
     >

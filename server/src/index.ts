@@ -15,10 +15,10 @@ const app = express();
 app.use(cors());
 
 // Serve static files
-app.use(express.static(path.resolve(CLIENT_DIR, "build")));
+app.use(express.static(path.resolve(CLIENT_DIR, "dist")));
 
 app.get("/", (req, res) => {
-  res.sendFile(path.resolve(CLIENT_DIR, "build", "index.html"));
+  res.sendFile(path.resolve(CLIENT_DIR, "dist", "index.html"));
 });
 
 app.use("/api", routes);

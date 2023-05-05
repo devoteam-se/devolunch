@@ -2,33 +2,25 @@
   "name": "devolunch-client",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
-    "dev": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config"
   },
   "dependencies": {
-    "@testing-library/jest-dom": "^5.16.2",
-    "@testing-library/react": "^12.1.4",
-    "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.4.1",
-    "@types/node": "^16.11.26",
-    "@types/react": "^17.0.41",
-    "@types/react-dom": "^17.0.14",
-    "lottie-react": "^2.2.1",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-scripts": "5.0.0",
-    "react-use": "^17.3.2",
-    "typescript": "^4.6.2",
-    "web-vitals": "^2.1.4"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+    "@emotion/react": "^11.10.8",
+    "@types/node": "^18.16.1",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.1",
+    "@vitejs/plugin-react": "^4.0.0",
+    "lottie-react": "^2.4.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "typescript": "^5.0.4",
+    "vite-plugin-svgr": "^3.2.0",
+    "web-vitals": "^3.3.1",
+    "vite-plugin-pwa": "^0.14.7"
   },
   "browserslist": {
     "production": [
@@ -43,7 +35,10 @@
     ]
   },
   "devDependencies": {
-    "eslint-config-prettier": "^8.5.0",
-    "prettier": "^2.6.2"
+    "@typescript-eslint/eslint-plugin": "^5.59.2",
+    "@typescript-eslint/parser": "^5.59.2",
+    "eslint-config-prettier": "^8.8.0",
+    "prettier": "^2.8.8",
+    "vite": "^4.3.5"
   }
 }

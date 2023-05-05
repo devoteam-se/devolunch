@@ -3,7 +3,7 @@
 #  | (__| |__ | || _|| .` | | |
 #   \___|____|___|___|_|\_| |_|
 
-FROM node:16-alpine as build-client
+FROM node:18-alpine as build-client
 WORKDIR /home/runner
 
 # install client dependencies
@@ -19,7 +19,7 @@ RUN npm run build
 #  \__ \ _||   /\ V /| _||   /
 #  |___/___|_|_\ \_/ |___|_|_\
 
-FROM node:16-alpine as build-server
+FROM node:18-alpine as build-server
 WORKDIR /home/runner
 
 # install server dependencies
@@ -35,11 +35,11 @@ RUN npm run build
 #  |   / |_| | .` |
 #  |_|_\\___/|_|\_|
 
-FROM node:16
+FROM node:18
 WORKDIR /home/runner/server
 
 # copy built client and server
-COPY --from=build-client /home/runner/build/ /home/runner/client/build
+COPY --from=build-client /home/runner/dist/ /home/runner/client/dist
 COPY --from=build-server /home/runner/dist/ /home/runner/server/dist
 
 # Install latest chrome dev package and fonts to support major charsets (Chinese, Japanese, Arabic, Hebrew, Thai and a few others)

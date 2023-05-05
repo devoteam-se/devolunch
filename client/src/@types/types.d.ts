@@ -23,7 +23,9 @@ declare namespace App {
     url: string;
     imgUrl: string;
     dishCollection: DishCollection[];
-    distance?: number;
+    latitude: number;
+    longitude: number;
+    distance: number;
     googleMapsUrl?: string;
   }
 }
