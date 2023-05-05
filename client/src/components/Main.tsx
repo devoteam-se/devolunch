@@ -16,6 +16,12 @@ const optionsStyles = css`
   height: 6rem;
   align-items: center;
   margin-left: auto;
+
+  @media only screen and (max-width: 430px) {
+    width: 100%;
+    margin-left: 0;
+    justify-content: space-between;
+  }
 `;
 
 interface RestaurantListI {

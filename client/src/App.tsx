@@ -1,8 +1,8 @@
 import { Suspense, lazy } from "react";
 import { css, Global } from "@emotion/react";
 
-const Header = lazy(() => import("@/components/Header"));
-const Main = lazy(() => import("@/components/Main"));
+import Header from "@/components/Header";
+import Main from "@/components/Main";
 import SplashScreen from "@/components/SplashScreen";
 import { useRestaurants } from "@/contexts/restaurants";
 
@@ -33,10 +33,8 @@ function App() {
         <SplashScreen />
       ) : (
         <>
-          <Suspense fallback={<SplashScreen />}>
-            <Header scrapeDate={scrapeDate} />
-            <Main restaurants={restaurants} />
-          </Suspense>
+          <Header scrapeDate={scrapeDate} />
+          <Main restaurants={restaurants} />
         </>
       )}
     </div>

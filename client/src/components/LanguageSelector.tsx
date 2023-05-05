@@ -6,10 +6,6 @@ const languageSelectorStyles = css`
   padding: 0 0.5rem;
   font-size: 1.4rem;
   font-family: "Azeret Mono", monospace;
-
-  @media only screen and (max-width: 430px) {
-    height: 4rem;
-  }
 `;
 
 const languageSelectorButtonStyles = css`
