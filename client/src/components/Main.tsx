@@ -1,7 +1,7 @@
-import { css } from "@emotion/react";
+import { css } from '@emotion/react';
 
-import Options from "@/components/Options";
-import RestaurantList from "@/components/RestaurantList";
+import Options from '@/components/Options';
+import RestaurantList from '@/components/RestaurantList';
 
 const mainStyles = css`
   display: flex;
@@ -28,7 +28,7 @@ interface RestaurantListI {
   restaurants: App.Restaurant[];
 }
 
-export default ({ restaurants }: RestaurantListI) => {
+export default function Main({ restaurants }: RestaurantListI) {
   return (
     <div css={mainStyles}>
       <div css={optionsStyles}>
@@ -37,4 +37,4 @@ export default ({ restaurants }: RestaurantListI) => {
       <RestaurantList restaurants={restaurants} />
     </div>
   );
-};
+}

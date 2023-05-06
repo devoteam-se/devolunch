@@ -1,11 +1,20 @@
 {
-  "extends": "@tsconfig/node16/tsconfig.json",
+  "extends": "@tsconfig/node18/tsconfig.json",
   "compilerOptions": {
-    "lib": ["ESNext", "dom", "dom.iterable"],
     "outDir": "./dist",
-    "target": "ESNext"
+    "target": "ESNext",
+    "strict": true,
+    "strictNullChecks": true,
+    "esModuleInterop": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "noUnusedLocals": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "moduleResolution": "node",
+    "composite": true
   },
-  "include": ["src/**/*"],
+  "include": ["src", ".eslintrc.js"],
   "exclude": ["node_modules"],
   "ts-node": {
     "files": true

@@ -1,6 +1,6 @@
-import { css } from "@emotion/react";
+import { css } from '@emotion/react';
 
-import Restaurant from "@/components/Restaurant";
+import Restaurant from '@/components/Restaurant';
 
 const restaurantListStyles = css`
   display: grid;
@@ -29,7 +29,7 @@ interface RestaurantListI {
   restaurants: App.Restaurant[];
 }
 
-export default ({ restaurants }: RestaurantListI) => {
+export default function RestaurantList({ restaurants }: RestaurantListI) {
   return (
     <div css={restaurantListStyles}>
       {restaurants.map((restaurant, index) => (
@@ -47,4 +47,4 @@ export default ({ restaurants }: RestaurantListI) => {
       ))}
     </div>
   );
-};
+}

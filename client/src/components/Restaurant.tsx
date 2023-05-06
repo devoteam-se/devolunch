@@ -1,11 +1,11 @@
-import { css } from "@emotion/react";
+import { css } from '@emotion/react';
 
-import Dish from "@/components/Dish";
+import Dish from '@/components/Dish';
 
-import { ReactComponent as LocationIcon } from "@/assets/location.svg";
-import { ReactComponent as ExternalLinkIcon } from "@/assets/external-link.svg";
-import { ReactComponent as DirectionIcon } from "@/assets/direction.svg";
-import { useRestaurants } from "@/contexts/restaurants";
+import { ReactComponent as LocationIcon } from '@/assets/location.svg';
+import { ReactComponent as ExternalLinkIcon } from '@/assets/external-link.svg';
+import { ReactComponent as DirectionIcon } from '@/assets/direction.svg';
+import { useRestaurants } from '@/contexts/restaurants';
 
 const restaurantStyles = css`
   display: flex;
@@ -19,7 +19,7 @@ const restaurantStyles = css`
 
 const restaurantTitleStyles = css`
   color: #000;
-  font-family: "Azeret Mono", monospace;
+  font-family: 'Azeret Mono', monospace;
   font-weight: 500;
   font-size: 1.5rem;
   margin: 0;
@@ -82,7 +82,7 @@ const restaurantLinksIconStyles = css`
 
 const restaurantDirectionStyles = css``;
 
-export default ({ title, distance, url, imgUrl, dishCollection, googleMapsUrl }: App.Restaurant) => {
+export default function Restaurant({ title, distance, url, imgUrl, dishCollection, googleMapsUrl }: App.Restaurant) {
   const { language } = useRestaurants();
 
   return (
@@ -112,4 +112,4 @@ export default ({ title, distance, url, imgUrl, dishCollection, googleMapsUrl }:
       </div>
     </div>
   );
-};
+}

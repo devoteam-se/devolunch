@@ -24,4 +24,4 @@ declare interface Dish {
   description: string | null | undefined;
 }
 
-declare type DishType = "meat" | "fish" | "veg" | "misc";
+declare type DishType = 'meat' | 'fish' | 'veg' | 'misc';

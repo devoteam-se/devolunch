@@ -1,14 +1,14 @@
-# DevoLunch
+# Devolunch
 
 ## Description
 
-DevoLunch is an lunch app used for providing the todays lunch menus nearby the office.
+Devolunch is an app that presents today's lunch menu on scraped restaurants. Check [scraper](/server/src/scraper/README.md) for how to add more restaurants.
 
 The hosted version can be found at: https://www.malmolunch.se.
 
 ## Technologies
 
-DevoLunch is built with the following tools:
+Devolunch is built with the following tools:
 
 - Frontend: React v18
 - Backend: Node.js 18 w/ express
@@ -18,13 +18,13 @@ DevoLunch is built with the following tools:
 
 - Install dependencies:
 
-        npm install
+        pnpm install
 
 ## Running locally in development mode
 
 - Run the program:
 
-        npm run dev
+        pnpm dev
 
 ## Running locally in production mode
 
@@ -35,3 +35,11 @@ DevoLunch is built with the following tools:
 ## Deploy to production
 
 Push the code to `master`-branch
+
+## TODO
+
+- [ ] Make open source
+  - [ ] Implement Terraform support
+  - [x] Add instructions on how to make a scraper
+- [x] Add husky/lint-staged and make sure pre-commit is triggered to run lint/tests
+- [ ] Write tests

@@ -1,6 +1,4 @@
-# Client
-
-This client is a React application using Typescript and Vite.
+# Server
 
 ## Requirements
 

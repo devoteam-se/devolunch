@@ -1,11 +1,12 @@
 {
-  "name": "devolunch-client",
+  "name": "@devolunch/client",
   "version": "0.1.0",
-  "private": true,
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
+    "lint": "eslint \"**/*.{ts,tsx}\" --max-warnings 0",
+    "lint:fix": "eslint --fix",
     "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config"
   },
   "dependencies": {
@@ -18,9 +19,9 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "typescript": "^5.0.4",
+    "vite-plugin-pwa": "^0.14.7",
     "vite-plugin-svgr": "^3.2.0",
-    "web-vitals": "^3.3.1",
-    "vite-plugin-pwa": "^0.14.7"
+    "web-vitals": "^3.3.1"
   },
   "browserslist": {
     "production": [
@@ -38,6 +39,9 @@
     "@typescript-eslint/eslint-plugin": "^5.59.2",
     "@typescript-eslint/parser": "^5.59.2",
     "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
     "prettier": "^2.8.8",
     "vite": "^4.3.5"
   }

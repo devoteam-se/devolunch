@@ -4,36 +4,30 @@ export const mockRestaurants: RestaurantI[] = [
   {
     title: 'Spill',
     description: 'Gourmet sustainable food using recycled food',
-    imgUrl:
-      'https://media-cdn.tripadvisor.com/media/photo-s/17/fa/8e/94/today-s-special.jpg',
+    imgUrl: 'https://media-cdn.tripadvisor.com/media/photo-s/17/fa/8e/94/today-s-special.jpg',
     dishes: [
       {
         type: DishTypes.MEAT,
-        description:
-          'Roast beef with mashed potatoes, red wine sauce & tomato / broccoli salad',
+        description: 'Roast beef with mashed potatoes, red wine sauce & tomato / broccoli salad',
       },
       {
         type: DishTypes.VEGETARIAN,
-        description:
-          'Breaded grilled cheese with mashed potatoes, red wine sauce & tomato / broccoli salad',
+        description: 'Breaded grilled cheese with mashed potatoes, red wine sauce & tomato / broccoli salad',
       },
     ],
   },
   {
     title: 'Aster',
     description: 'Local food made gourmet',
-    imgUrl:
-      'https://media-cdn.tripadvisor.com/media/photo-s/0e/4d/68/73/aster-restaurant.jpg',
+    imgUrl: 'https://media-cdn.tripadvisor.com/media/photo-s/0e/4d/68/73/aster-restaurant.jpg',
     dishes: [
       {
         type: DishTypes.MEAT,
-        description:
-          'Roast beef with mashed potatoes, red wine sauce & tomato / broccoli salad',
+        description: 'Roast beef with mashed potatoes, red wine sauce & tomato / broccoli salad',
       },
       {
         type: DishTypes.VEGETARIAN,
-        description:
-          'Breaded grilled cheese with mashed potatoes, red wine sauce & tomato / broccoli salad',
+        description: 'Breaded grilled cheese with mashed potatoes, red wine sauce & tomato / broccoli salad',
       },
     ],
   },
@@ -44,13 +38,11 @@ export const mockRestaurants: RestaurantI[] = [
     dishes: [
       {
         type: DishTypes.MEAT,
-        description:
-          'Roast beef with mashed potatoes, red wine sauce & tomato / broccoli salad',
+        description: 'Roast beef with mashed potatoes, red wine sauce & tomato / broccoli salad',
       },
       {
         type: DishTypes.VEGETARIAN,
-        description:
-          'Breaded grilled cheese with mashed potatoes, red wine sauce & tomato / broccoli salad',
+        description: 'Breaded grilled cheese with mashed potatoes, red wine sauce & tomato / broccoli salad',
       },
     ],
   },
@@ -62,13 +54,11 @@ export const mockRestaurants: RestaurantI[] = [
     dishes: [
       {
         type: DishTypes.MEAT,
-        description:
-          'Roast beef with mashed potatoes, red wine sauce & tomato / broccoli salad',
+        description: 'Roast beef with mashed potatoes, red wine sauce & tomato / broccoli salad',
       },
       {
         type: DishTypes.VEGETARIAN,
-        description:
-          'Breaded grilled cheese with mashed potatoes, red wine sauce & tomato / broccoli salad',
+        description: 'Breaded grilled cheese with mashed potatoes, red wine sauce & tomato / broccoli salad',
       },
     ],
   },

@@ -1,12 +1,12 @@
-import { v2 } from "@google-cloud/translate";
+import { v2 } from '@google-cloud/translate';
 
-import logger from "../logger";
+import logger from '../logger';
 
 const translate = new v2.Translate({
-  projectId: "devolunch",
+  projectId: 'devolunch',
 });
 
-export const translateText = async (from: string, to: string, originalText: Dish["description"]) => {
+export const translateText = async (from: string, to: string, originalText: Dish['description']) => {
   if (originalText && originalText.length > 0) {
     try {
       const [translation] = await translate.translate(originalText, {
@@ -18,17 +18,17 @@ export const translateText = async (from: string, to: string, originalText: Dish
       logger.error("Can't reach google translate service");
     }
   }
-  return "";
+  return '';
 };
 
 const translateRestaurant = async (restaurant: Restaurant) => {
   restaurant.dishCollection.push({
-    language: "en",
+    language: 'en',
     dishes: await Promise.all(
       restaurant.dishCollection[0].dishes.map(async (dish) => ({
         ...dish,
-        description: await translateText("sv", "en", dish.description),
-      }))
+        description: await translateText('sv', 'en', dish.description),
+      })),
     ),
   });
   return restaurant;

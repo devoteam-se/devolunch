@@ -1,9 +1,9 @@
-import React from "react";
-import { css, keyframes } from "@emotion/react";
+import React from 'react';
+import { css, keyframes } from '@emotion/react';
 
-import { ReactComponent as SortIcon } from "@/assets/sort.svg";
-import { useRestaurants } from "@/contexts/restaurants";
-import { distance } from "@/utils/distance";
+import { ReactComponent as SortIcon } from '@/assets/sort.svg';
+import { useRestaurants } from '@/contexts/restaurants';
+import { distance } from '@/utils/distance';
 
 const activeKeyFrame = keyframes`
 	0% {
@@ -41,7 +41,7 @@ const sortButtonStyles = css`
     background-color: #ffaa5b;
   }
 
-  &[data-active="1"] {
+  &[data-active='1'] {
     background-color: #ffaa5b;
     animation: ${activeKeyFrame} 1s infinite;
   }
@@ -54,7 +54,7 @@ const sortIconStyles = css`
   margin-right: 0.25rem;
 `;
 
-export default () => {
+export default function Sort() {
   const { restaurants, setRestaurants } = useRestaurants();
   const [active, setActive] = React.useState(0);
 
@@ -72,15 +72,15 @@ export default () => {
               ...r,
               distance: distance(latitude, r.latitude, longitude, r.longitude),
             }))
-            .sort((a: App.Restaurant, b: App.Restaurant) => a.distance - b.distance)
+            .sort((a: App.Restaurant, b: App.Restaurant) => a.distance - b.distance),
         );
 
-        window.localStorage.setItem("position", `${latitude},${longitude}`);
+        window.localStorage.setItem('position', `${latitude},${longitude}`);
         setActive(0);
       },
       () => {
         setActive(0);
-      }
+      },
     );
   };
 
@@ -92,4 +92,4 @@ export default () => {
       </button>
     </div>
   );
-};
+}

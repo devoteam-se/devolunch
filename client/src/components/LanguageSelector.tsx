@@ -1,11 +1,11 @@
-import { css } from "@emotion/react";
+import { css } from '@emotion/react';
 
-import { useRestaurants } from "@/contexts/restaurants";
+import { useRestaurants } from '@/contexts/restaurants';
 
 const languageSelectorStyles = css`
   padding: 0 0.5rem;
   font-size: 1.4rem;
-  font-family: "Azeret Mono", monospace;
+  font-family: 'Azeret Mono', monospace;
 `;
 
 const languageSelectorButtonStyles = css`
@@ -26,31 +26,31 @@ const languageSelectorButtonActiveStyles = css`
   cursor: auto;
 `;
 
-export default () => {
+export default function LanguageSelector() {
   const { language, setLanguage } = useRestaurants();
 
   const setLang = (lang: string) => {
     const url = new URL(window.location.toString());
-    url.searchParams.set("lang", lang);
-    window.history.pushState(null, "", url.toString());
+    url.searchParams.set('lang', lang);
+    window.history.pushState(null, '', url.toString());
     setLanguage(lang);
   };
 
   return (
     <div css={languageSelectorStyles}>
       <button
-        css={[languageSelectorButtonStyles, language === "sv" && languageSelectorButtonActiveStyles]}
-        onClick={() => setLang("sv")}
+        css={[languageSelectorButtonStyles, language === 'sv' && languageSelectorButtonActiveStyles]}
+        onClick={() => setLang('sv')}
       >
         SE
       </button>
       |
       <button
-        css={[languageSelectorButtonStyles, language === "en" && languageSelectorButtonActiveStyles]}
-        onClick={() => setLang("en")}
+        css={[languageSelectorButtonStyles, language === 'en' && languageSelectorButtonActiveStyles]}
+        onClick={() => setLang('en')}
       >
         EN
       </button>
     </div>
   );
-};
+}

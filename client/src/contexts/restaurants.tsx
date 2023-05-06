@@ -1,5 +1,5 @@
-import { distance } from "@/utils/distance";
-import React, { useContext, useEffect, useState } from "react";
+import { distance } from '@/utils/distance';
+import React, { useContext, useEffect, useState } from 'react';
 
 type ContextType = {
   loading: boolean;
@@ -12,11 +12,11 @@ type ContextType = {
 };
 
 enum Endpoints {
-  RESTAURANTS = "/restaurants",
+  RESTAURANTS = '/restaurants',
 }
 
-const API_ROOT_PROD = "/api";
-const API_ROOT_DEV = "http://localhost:8080/api";
+const API_ROOT_PROD = '/api';
+const API_ROOT_DEV = 'http://localhost:8080/api';
 
 const RestaurantsContext = React.createContext<ContextType | null>(null);
 
@@ -25,7 +25,7 @@ const isDev = import.meta.env.DEV;
 export const useRestaurants = () => {
   const context = useContext(RestaurantsContext);
   if (!context) {
-    throw new Error("context not defined");
+    throw new Error('context not defined');
   }
   return context;
 };
@@ -39,7 +39,7 @@ const fetchRestaurants = async () => {
 };
 
 const RestaurantsProvider = ({ children }: any) => {
-  const [language, setLanguage] = useState<string>("sv");
+  const [language, setLanguage] = useState<string>('sv');
   const [restaurants, setRestaurants] = useState<App.Restaurant[]>([]);
   const [scrapeDate, setScrapeDate] = useState<Date>(new Date());
   const [loading, setLoading] = useState<boolean>(false);
@@ -47,14 +47,14 @@ const RestaurantsProvider = ({ children }: any) => {
 
   useEffect(() => {
     const get = async () => {
-      const language = new URLSearchParams(window.location.search).get("lang");
+      const language = new URLSearchParams(window.location.search).get('lang');
 
       setLoading(true);
       if (language) {
         setLanguage(language);
       }
 
-      const position = window.localStorage.getItem("position")?.split(",");
+      const position = window.localStorage.getItem('position')?.split(',');
 
       const savedLatitude = position?.length === 2 && parseFloat(position[0]);
       const savedLongitude = position?.length === 2 && parseFloat(position[1]);
@@ -75,7 +75,7 @@ const RestaurantsProvider = ({ children }: any) => {
             ...r,
             distance: distance(latitude, r.latitude, longitude, r.longitude),
           }))
-          .sort((a: App.Restaurant, b: App.Restaurant) => a.distance - b.distance)
+          .sort((a: App.Restaurant, b: App.Restaurant) => a.distance - b.distance),
       );
       setScrapeDate(new Date(r.date));
       setLoading(false);

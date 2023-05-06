@@ -1,7 +1,7 @@
-import { css } from "@emotion/react";
+import { css } from '@emotion/react';
 
-import Sort from "@/components/Sort";
-import LanguageSelector from "@/components/LanguageSelector";
+import Sort from '@/components/Sort';
+import LanguageSelector from '@/components/LanguageSelector';
 
 const optionsStyles = css`
   display: flex;
@@ -14,11 +14,11 @@ const optionsStyles = css`
   }
 `;
 
-export default () => {
+export default function Options() {
   return (
     <div css={optionsStyles}>
       <Sort />
       <LanguageSelector />
     </div>
   );
-};
+}

@@ -1,12 +1,12 @@
-import puppeteer = require("puppeteer");
-import fs from "fs/promises";
-import path from "path";
+import puppeteer = require('puppeteer');
+import fs from 'fs/promises';
+import path from 'path';
 
-import { env } from "../env";
-import { uploadScrape } from "../services/storage";
-import { translateRestaurants } from "../services/translator";
+import { env } from '../env';
+import { uploadScrape } from '../services/storage';
+import { translateRestaurants } from '../services/translator';
 
-const restaurantsPath = "./restaurants";
+const restaurantsPath = './restaurants';
 const TIMEOUT = 120000;
 
 const compareDish = (a: Dish, b: Dish): number => {
@@ -16,7 +16,7 @@ const compareDish = (a: Dish, b: Dish): number => {
 
 const scrape = async () => {
   const browser = await puppeteer.launch({
-    args: env.NODE_ENV !== "development" ? ["--disable-gpu"] : [],
+    args: env.NODE_ENV !== 'development' ? ['--disable-gpu'] : [],
     headless: true,
   });
 
@@ -32,20 +32,20 @@ const scrape = async () => {
   for (const file of files) {
     const restaurant = await import(path.join(__dirname, restaurantsPath, file));
     const page = await browser.newPage();
-    page.on("console", (msg) => console.log(msg.text()));
+    page.on('console', (msg) => console.log(msg.text()));
     await page.goto(restaurant.meta.url, {
-      waitUntil: "load",
+      waitUntil: 'load',
       timeout: TIMEOUT,
     });
 
     try {
-      console.log("scraping", restaurant.meta.url);
+      console.log('scraping', restaurant.meta.url);
       const dishes = await restaurant.browserScrapeFunction(page);
       restaurants.push({
         ...restaurant.meta,
         dishCollection: [
           {
-            language: "sv",
+            language: 'sv',
             dishes: dishes,
           },
         ],
@@ -70,7 +70,7 @@ const scrape = async () => {
             ...dish,
           })),
         })),
-      }))
+      })),
     ),
   };
 

@@ -1,7 +1,7 @@
-import { css, keyframes } from "@emotion/react";
-import { useLottie } from "lottie-react";
+import { css, keyframes } from '@emotion/react';
+import { useLottie } from 'lottie-react';
 
-import steamPot from "@/assets/steam-pot.json";
+import steamPot from '@/assets/steam-pot.json';
 
 const splashScreenKeyFrame = keyframes`
   0% {
@@ -27,7 +27,7 @@ const potStyles = css`
   animation: ${splashScreenKeyFrame} 500ms;
 `;
 
-export default () => {
+export default function SplashScreen() {
   const options = {
     animationData: steamPot,
     loop: true,
@@ -36,4 +36,4 @@ export default () => {
 
   const { View } = useLottie(options);
   return <div css={potStyles}>{View}</div>;
-};
+}

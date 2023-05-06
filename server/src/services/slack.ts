@@ -1,25 +1,25 @@
-import fetch from "node-fetch";
-import FormData from "form-data";
+import fetch from 'node-fetch';
+import FormData from 'form-data';
 
-import logger from "../logger";
-import { getScrape } from "../services/storage";
-import { env } from "../env";
+import logger from '../logger';
+import { getScrape } from '../services/storage';
+import { env } from '../env';
 
 const renderMarkdown = (restaurants: Restaurant[]) => {
-  let result = "_English version below_\n\n";
+  let result = '_English version below_\n\n';
 
   // Swedish
   restaurants.forEach((restaurant) => {
-    result += renderItemForMarkdown("sv", restaurant);
+    result += renderItemForMarkdown('sv', restaurant);
   });
 
   // English
-  result += "\n\n_English_\n---------------------\n\n";
+  result += '\n\n_English_\n---------------------\n\n';
   restaurants.forEach((restaurant) => {
-    result += renderItemForMarkdown("en", restaurant);
+    result += renderItemForMarkdown('en', restaurant);
   });
 
-  result += "\n\n";
+  result += '\n\n';
   return result;
 };
 
@@ -39,7 +39,7 @@ const getTodayNiceFormat = () => {
   let d = new Date();
   const offset = d.getTimezoneOffset();
   d = new Date(d.getTime() - offset * 60 * 1000);
-  return d.toISOString().split("T")[0];
+  return d.toISOString().split('T')[0];
 };
 
 export default async () => {
@@ -47,14 +47,14 @@ export default async () => {
   const mdText = renderMarkdown(scrape.restaurants);
 
   const form = new FormData();
-  form.append("initial_comment", "https://www.malmolunch.se");
-  form.append("content", mdText);
-  form.append("channels", env.SLACK_CHANNEL_ID);
-  form.append("title", `Lunch ${getTodayNiceFormat()}`);
-  form.append("filetype", "post");
+  form.append('initial_comment', 'https://www.malmolunch.se');
+  form.append('content', mdText);
+  form.append('channels', env.SLACK_CHANNEL_ID);
+  form.append('title', `Lunch ${getTodayNiceFormat()}`);
+  form.append('filetype', 'post');
 
-  await fetch("https://slack.com/api/files.upload", {
-    method: "POST",
+  await fetch('https://slack.com/api/files.upload', {
+    method: 'POST',
     body: form,
     headers: {
       Authorization: `Bearer ${env.SLACK_OAUTH_TOKEN}`,

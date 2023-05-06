@@ -1,4 +1,4 @@
-import { EnvType, load } from "ts-dotenv";
+import { EnvType, load } from 'ts-dotenv';
 
 export type Env = EnvType<typeof schema>;
 

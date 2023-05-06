@@ -1,5 +1,5 @@
-import { ReactComponent as Icon } from "@/assets/devoteam.svg";
-import { css } from "@emotion/react";
+import { ReactComponent as Icon } from '@/assets/devoteam.svg';
+import { css } from '@emotion/react';
 
 const headerStyles = css`
   display: flex;
@@ -57,20 +57,20 @@ interface HeaderI {
   scrapeDate: Date;
 }
 
-export default ({ scrapeDate }: HeaderI) => {
+export default function Header({ scrapeDate }: HeaderI) {
   return (
     <div css={headerStyles}>
       <div css={headerHeadingStyles}>
         <h1>Lunch Menu</h1>
         <div css={headerUpdatedAtStyles}>
           Updated&nbsp;
-          {scrapeDate.toLocaleDateString("us-EN", {
-            weekday: "short",
-            year: "numeric",
-            month: "short",
-            day: "numeric",
-            hour: "numeric",
-            minute: "numeric",
+          {scrapeDate.toLocaleDateString('us-EN', {
+            weekday: 'short',
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric',
           })}
         </div>
       </div>
@@ -79,4 +79,4 @@ export default ({ scrapeDate }: HeaderI) => {
       </a>
     </div>
   );
-};
+}

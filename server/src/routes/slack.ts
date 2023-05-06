@@ -1,10 +1,10 @@
-import { Request, Response } from "express";
-import express from "express";
-import slack from "../services/slack";
+import { Request, Response } from 'express';
+import express from 'express';
+import slack from '../services/slack';
 
 const router = express.Router();
 
-router.post("/", async (_: Request, res: Response) => {
+router.post('/', async (_: Request, res: Response) => {
   try {
     await slack();
   } catch (err: unknown) {
