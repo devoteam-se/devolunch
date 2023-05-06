@@ -35,6 +35,7 @@ const sortButtonStyles = css`
   border-radius: 1rem;
   font-size: 1rem;
   cursor: pointer;
+  color: #000;
 
   &:hover {
     background-color: #ffaa5b;
