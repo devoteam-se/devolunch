@@ -1,48 +1,92 @@
-import { css } from "@emotion/react";
+import React from "react";
+import { css, keyframes } from "@emotion/react";
 
+import { ReactComponent as SortIcon } from "@/assets/sort.svg";
 import { useRestaurants } from "@/contexts/restaurants";
 import { distance } from "@/utils/distance";
+
+const activeKeyFrame = keyframes`
+	0% {
+		transform: scale(0.95);
+		box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
+	}
+
+	70% {
+		transform: scale(1);
+		box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+	}
+
+	100% {
+		transform: scale(0.95);
+		box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+	}
+`;
 
 const sortStyles = css`
   margin-right: 1rem;
 `;
 
 const sortButtonStyles = css`
+  display: flex;
+  align-items: center;
   background-color: #fff;
   padding: 0.375rem 0.5rem;
   border: 1px solid #000;
   border-radius: 1rem;
+  font-size: 1rem;
   cursor: pointer;
 
   &:hover {
     background-color: #ffaa5b;
   }
+
+  &[data-active="1"] {
+    background-color: #ffaa5b;
+    animation: ${activeKeyFrame} 1s infinite;
+  }
+`;
+
+const sortIconStyles = css`
+  width: 1.125rem;
+  height: 1.125rem;
+  margin-top: 0.125rem;
+  margin-right: 0.25rem;
 `;
 
 export default () => {
   const { restaurants, setRestaurants } = useRestaurants();
+  const [active, setActive] = React.useState(0);
 
   const sortOnLocation = () => {
-    navigator.geolocation.getCurrentPosition(function (position) {
-      const latitude = position.coords.latitude;
-      const longitude = position.coords.longitude;
+    setActive(1);
 
-      setRestaurants(
-        restaurants
-          .map((r: App.Restaurant) => ({
-            ...r,
-            distance: distance(latitude, r.latitude, longitude, r.longitude),
-          }))
-          .sort((a: App.Restaurant, b: App.Restaurant) => a.distance - b.distance)
-      );
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
 
-      window.localStorage.setItem("position", `${latitude},${longitude}`);
-    });
+        setRestaurants(
+          restaurants
+            .map((r: App.Restaurant) => ({
+              ...r,
+              distance: distance(latitude, r.latitude, longitude, r.longitude),
+            }))
+            .sort((a: App.Restaurant, b: App.Restaurant) => a.distance - b.distance)
+        );
+
+        window.localStorage.setItem("position", `${latitude},${longitude}`);
+        setActive(0);
+      },
+      () => {
+        setActive(0);
+      }
+    );
   };
 
   return (
     <div css={sortStyles}>
-      <button css={sortButtonStyles} onClick={sortOnLocation}>
+      <button css={sortButtonStyles} onClick={sortOnLocation} onAnimationEnd={() => setActive(0)} data-active={active}>
+        <SortIcon css={sortIconStyles} />
         Sort by my location
       </button>
     </div>

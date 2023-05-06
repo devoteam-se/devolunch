@@ -47,6 +47,10 @@ const headerUpdatedAtStyles = css`
 const headerIconStyles = css`
   justify-self: center;
   width: 12rem;
+
+  @media only screen and (max-width: 360px) {
+    width: 10rem;
+  }
 `;
 
 interface HeaderI {
