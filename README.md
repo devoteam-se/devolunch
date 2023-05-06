@@ -10,8 +10,8 @@ The hosted version can be found at: https://www.malmolunch.se.
 
 DevoLunch is built with the following tools:
 
-- Frontend: React v17
-- Backend: Node.js 16 w/ express
+- Frontend: React v18
+- Backend: Node.js 18 w/ express
 - Web hosting: Docker in GCP w/ [Cloud Run](https://cloud.google.com/run/docs)
 
 ## Setup
