@@ -76,6 +76,8 @@ const restaurantWebsiteIconStyles = css``;
 const restaurantLinksIconStyles = css`
   width: 1rem;
   height: 1rem;
+  margin-top: 0.125rem;
+  margin-right: 0.25rem;
 `;
 
 const restaurantDirectionStyles = css``;
