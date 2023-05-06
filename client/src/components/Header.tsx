@@ -48,7 +48,7 @@ const headerIconStyles = css`
   justify-self: center;
   width: 12rem;
 
-  @media only screen and (max-width: 360px) {
+  @media only screen and (max-width: 430px) {
     width: 10rem;
   }
 `;
