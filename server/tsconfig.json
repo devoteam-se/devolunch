@@ -1,9 +1,11 @@
 {
   "extends": "@tsconfig/node18/tsconfig.json",
   "compilerOptions": {
+    "lib": ["ESNext", "dom", "dom.iterable"],
     "outDir": "./dist",
     "target": "ESNext",
     "strict": true,
+    "noErrorTruncation": true,
     "strictNullChecks": true,
     "esModuleInterop": true,
     "emitDecoratorMetadata": true,
@@ -12,7 +14,8 @@
     "skipLibCheck": true,
     "sourceMap": true,
     "moduleResolution": "node",
-    "composite": true
+    "composite": false,
+    "baseUrl": "."
   },
   "include": ["src", ".eslintrc.js"],
   "exclude": ["node_modules"],
