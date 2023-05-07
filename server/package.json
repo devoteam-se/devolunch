@@ -6,7 +6,8 @@
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint --fix",
     "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config",
-    "build": "tsc"
+    "build": "tsc -b tsconfig.build.json",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@google-cloud/storage": "^5.19.3",
