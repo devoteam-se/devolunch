@@ -49,7 +49,7 @@ const headerIconStyles = css`
   width: 12rem;
 
   @media only screen and (max-width: 430px) {
-    width: 9rem;
+    width: 8rem;
   }
 `;
 
