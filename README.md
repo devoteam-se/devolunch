@@ -16,21 +16,27 @@ Devolunch is built with the following tools:
 
 ## Setup
 
-- Install dependencies:
+### Install dependencies:
 
-        pnpm install
+```sh
+pnpm install
+```
 
 ## Running locally in development mode
 
-- Run the program:
+### Run the program:
 
-        pnpm dev
+```sh
+pnpm dev
+```
 
 ## Running locally in production mode
 
-- Run the program in Docker:
+### Run the program in Docker:
 
-        docker-compose up
+```sh
+docker-compose up
+```
 
 ## Deploy to production
 
@@ -43,3 +49,4 @@ Push the code to `master`-branch
   - [x] Add instructions on how to make a scraper
 - [x] Add husky/lint-staged and make sure pre-commit is triggered to run lint/tests
 - [ ] Write tests
+- [ ] Move scrape call to Cloud Function
