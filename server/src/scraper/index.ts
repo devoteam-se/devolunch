@@ -20,16 +20,19 @@ const scrape = async () => {
     headless: true,
   });
 
-  let files = await fs.readdir(path.join(__dirname, restaurantsPath));
+  const files = await fs.readdir(path.join(__dirname, restaurantsPath));
+  let targetFiles = files.filter((file) => {
+    return path.extname(file).toLowerCase() === (env.NODE_ENV === 'development' ? '.ts' : '.js');
+  });
   const restaurants: Restaurant[] = [];
 
   // const filesOverride: string[] = ["saltimporten.ts"];
   const filesOverride: string[] = [];
   if (filesOverride.length) {
-    files = filesOverride;
+    targetFiles = filesOverride;
   }
 
-  for (const file of files) {
+  for (const file of targetFiles) {
     const restaurant = await import(path.join(__dirname, restaurantsPath, file));
     const page = await browser.newPage();
     page.on('console', (msg) => console.log(msg.text()));
