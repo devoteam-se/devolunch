@@ -8,7 +8,7 @@ const mainStyles = css`
   flex-direction: column;
   max-width: 80rem;
   margin: 0 auto;
-  padding: 0 2rem 2rem;
+  padding: 0 1.25rem 2rem;
 `;
 
 const optionsStyles = css`

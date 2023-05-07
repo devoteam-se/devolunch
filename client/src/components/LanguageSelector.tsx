@@ -3,7 +3,7 @@ import { css } from '@emotion/react';
 import { useRestaurants } from '@/contexts/restaurants';
 
 const languageSelectorStyles = css`
-  padding: 0 0.5rem;
+  padding: 0;
   font-size: 1.4rem;
   font-family: 'Azeret Mono', monospace;
 `;

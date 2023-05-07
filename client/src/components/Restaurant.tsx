@@ -10,7 +10,7 @@ import { useRestaurants } from '@/contexts/restaurants';
 const restaurantStyles = css`
   display: flex;
   flex-direction: column;
-  padding: 0.5rem;
+  padding: 0;
 
   a {
     text-decoration: none;
