@@ -77,8 +77,6 @@ const scrape = async () => {
     ),
   };
 
-  console.log(JSON.stringify(scrape));
-
   await uploadScrape(scrape);
 };
 

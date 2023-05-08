@@ -11,35 +11,27 @@ export const meta = {
 
 export const browserScrapeFunction = (page: Page) =>
   page.evaluate(() => {
-    const allP = [...document.querySelectorAll('p')];
-    const todayIndex = allP.findIndex((p: HTMLParagraphElement) =>
-      p.textContent?.toLowerCase()?.includes(new Date()?.toLocaleString('sv-SE', { weekday: 'long' })),
-    );
+    const todaySwedishFormat = new Date()
+      .toLocaleString('sv-SE', {
+        weekday: 'long',
+      })
+      .toLowerCase();
 
-    let meat = '';
-    let veg = '';
-    for (let i = todayIndex + 2; i <= allP.length; i++) {
-      const textContent: string = allP[i]?.textContent || '';
-      if (textContent.length > 5) {
-        if (meat.length && veg.length) {
-          break;
-        }
-        if (meat.length) {
-          veg = allP[i]?.textContent || '';
-          break;
-        }
-        meat = allP[i]?.textContent || '';
-      }
-    }
+    const lunchNode = [...document.querySelectorAll('p')].find((a) =>
+      new RegExp(/vecka\s([1-9][0-9]?(\.[0-9]{1,2})?)/).test(a?.innerText.toLowerCase()),
+    );
+    const lunchMenuDiv = lunchNode?.parentNode?.parentNode as HTMLDivElement;
+    const raw = lunchMenuDiv.innerText.split('\n').filter((a) => a.trim() && a !== '—');
+    const todayIndex = raw.findIndex((a) => a.toLowerCase().includes(todaySwedishFormat));
 
     return [
       {
         type: 'meat' as const,
-        description: meat,
+        description: raw[todayIndex + 1],
       },
       {
         type: 'veg' as const,
-        description: veg,
+        description: raw[todayIndex + 2],
       },
     ];
   });

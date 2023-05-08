@@ -17,9 +17,11 @@ export const browserScrapeFunction = (page: Page) =>
         weekday: 'long',
       })
       .toLowerCase();
-    const todayEnglishFormat = new Date().toLocaleString('en-GB', {
-      weekday: 'long',
-    });
+    const todayEnglishFormat = new Date()
+      .toLocaleString('en-GB', {
+        weekday: 'long',
+      })
+      .toLowerCase();
 
     const lunchNode = [...document.querySelectorAll('span')].find((a) => a.innerText?.toLowerCase().includes('lunch'));
 
