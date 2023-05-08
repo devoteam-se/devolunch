@@ -26,15 +26,9 @@ const headerHeadingStyles = css`
     padding: 0;
   }
 
-  @media only screen and (max-width: 430px) {
+  @media only screen and (max-width: 460px) {
     h1 {
       font-size: 1.25rem;
-    }
-  }
-
-  @media only screen and (max-width: 360px) {
-    h1 {
-      font-size: 1rem;
     }
   }
 `;
@@ -50,7 +44,7 @@ const headerIconStyles = css`
   width: 12rem;
 
   @media only screen and (max-width: 430px) {
-    width: 8rem;
+    width: 7.5rem;
   }
 `;
 
@@ -65,14 +59,15 @@ export default function Header({ scrapeDate }: HeaderI) {
         <h1>Lunch Menu</h1>
         <div css={headerUpdatedAtStyles}>
           Updated&nbsp;
-          {scrapeDate.toLocaleDateString('us-EN', {
-            weekday: 'short',
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric',
-            hour: 'numeric',
-            minute: 'numeric',
-          })}
+          {scrapeDate
+            .toLocaleDateString('us-EN', {
+              weekday: 'short',
+              month: 'short',
+              day: 'numeric',
+              hour: 'numeric',
+              minute: 'numeric',
+            })
+            .replace(',', '')}
         </div>
       </div>
       <a href="https://se.devoteam.com/">
