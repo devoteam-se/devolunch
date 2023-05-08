@@ -29,7 +29,7 @@ interface RestaurantListI {
   restaurants: App.Restaurant[];
 }
 
-export default function RestaurantList({ restaurants }: RestaurantListI) {
+export default function RestaurantGrid({ restaurants }: RestaurantListI) {
   return (
     <div css={restaurantListStyles}>
       {restaurants.map((restaurant, index) => (

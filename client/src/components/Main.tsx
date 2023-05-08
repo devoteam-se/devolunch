@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 
 import Options from '@/components/Options';
-import RestaurantList from '@/components/RestaurantList';
+import RestaurantGrid from '@/components/RestaurantGrid';
 
 const mainStyles = css`
   display: flex;
@@ -24,17 +24,17 @@ const optionsStyles = css`
   }
 `;
 
-interface RestaurantListI {
+interface RestaurantGridI {
   restaurants: App.Restaurant[];
 }
 
-export default function Main({ restaurants }: RestaurantListI) {
+export default function Main({ restaurants }: RestaurantGridI) {
   return (
     <div css={mainStyles}>
       <div css={optionsStyles}>
         <Options />
       </div>
-      <RestaurantList restaurants={restaurants} />
+      <RestaurantGrid restaurants={restaurants} />
     </div>
   );
 }

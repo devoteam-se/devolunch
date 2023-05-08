@@ -26,7 +26,7 @@ const scrape = async () => {
   });
   const restaurants: Restaurant[] = [];
 
-  // const filesOverride: string[] = ["saltimporten.ts"];
+  // const filesOverride: string[] = ['hylliebistro.ts'];
   const filesOverride: string[] = [];
   if (filesOverride.length) {
     targetFiles = filesOverride;
@@ -76,6 +76,8 @@ const scrape = async () => {
       })),
     ),
   };
+
+  console.log(JSON.stringify(scrape));
 
   await uploadScrape(scrape);
 };
