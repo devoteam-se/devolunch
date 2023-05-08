@@ -17,12 +17,17 @@ export const browserScrapeFunction = (page: Page) =>
         weekday: 'long',
       })
       .toLowerCase();
+    const todayEnglishFormat = new Date().toLocaleString('en-GB', {
+      weekday: 'long',
+    });
 
     const lunchNode = [...document.querySelectorAll('span')].find((a) => a.innerText?.toLowerCase().includes('lunch'));
 
     const lunchMenuDiv = lunchNode?.parentNode?.parentNode as HTMLDivElement;
     const raw = lunchMenuDiv.innerText.split('\n').filter((a) => a.trim());
-    const todayIndex = raw.findIndex((a) => a.toLowerCase().includes(todaySwedishFormat));
+    const todayIndex = raw.findIndex(
+      (a) => a.toLowerCase().includes(todaySwedishFormat) || a.toLowerCase().includes(todayEnglishFormat),
+    );
 
     return [
       {
