@@ -17,10 +17,11 @@ const headerStyles = css`
 const headerHeadingStyles = css`
   display: flex;
   flex-direction: column;
+  font-family: 'Azeret Mono', monospace;
 
   h1 {
     font-size: 2rem;
-    font-weight: 600;
+    font-weight: 400;
     margin: 0 0.25rem 0 0;
     padding: 0;
   }
