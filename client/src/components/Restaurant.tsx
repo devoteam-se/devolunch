@@ -21,7 +21,7 @@ const restaurantTitleStyles = css`
   color: #000;
   font-family: 'Azeret Mono', monospace;
   font-weight: 500;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   margin: 0;
   padding-bottom: 0.5rem;
   border-bottom: 1px solid #000;
