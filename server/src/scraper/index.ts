@@ -32,38 +32,40 @@ const scrape = async () => {
     targetFiles = filesOverride;
   }
 
-  for (const file of targetFiles) {
-    const restaurant = await import(path.join(__dirname, restaurantsPath, file));
-    const page = await browser.newPage();
-    page.on('console', (msg) => console.log(msg.text()));
-    await page.goto(restaurant.meta.url, {
-      waitUntil: 'load',
-      timeout: TIMEOUT,
-    });
-
-    try {
-      console.log('scraping', restaurant.meta.url);
-      let result = await restaurant.browserScrapeFunction(page);
-
-      if (restaurant.meta.pdf) {
-        result = await restaurant.pdfScrapeFunction(result);
-      }
-
-      restaurants.push({
-        ...restaurant.meta,
-        dishCollection: [
-          {
-            language: 'sv',
-            dishes: result,
-          },
-        ],
+  await Promise.all(
+    targetFiles.map(async (file) => {
+      const restaurant = await import(path.join(__dirname, restaurantsPath, file));
+      const page = await browser.newPage();
+      page.on('console', (msg) => console.log(msg.text()));
+      await page.goto(restaurant.meta.url, {
+        waitUntil: 'load',
+        timeout: TIMEOUT,
       });
-    } catch (err: unknown) {
-      console.error(err);
-    } finally {
-      await page.close();
-    }
-  }
+
+      try {
+        console.log('scraping', restaurant.meta.url);
+        let result = await restaurant.browserScrapeFunction(page);
+
+        if (restaurant.meta.pdf) {
+          result = await restaurant.pdfScrapeFunction(result);
+        }
+
+        restaurants.push({
+          ...restaurant.meta,
+          dishCollection: [
+            {
+              language: 'sv',
+              dishes: result,
+            },
+          ],
+        });
+      } catch (err: unknown) {
+        console.error(err);
+      } finally {
+        await page.close();
+      }
+    }),
+  );
 
   await browser.close();
 
