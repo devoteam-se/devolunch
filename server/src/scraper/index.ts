@@ -26,7 +26,7 @@ const scrape = async () => {
   });
   const restaurants: Restaurant[] = [];
 
-  // const filesOverride: string[] = ['hylliebistro.ts'];
+  // const filesOverride: string[] = ['bise.ts'];
   const filesOverride: string[] = [];
   if (filesOverride.length) {
     targetFiles = filesOverride;
@@ -43,13 +43,18 @@ const scrape = async () => {
 
     try {
       console.log('scraping', restaurant.meta.url);
-      const dishes = await restaurant.browserScrapeFunction(page);
+      let result = await restaurant.browserScrapeFunction(page);
+
+      if (restaurant.meta.pdf) {
+        result = await restaurant.pdfScrapeFunction(result);
+      }
+
       restaurants.push({
         ...restaurant.meta,
         dishCollection: [
           {
             language: 'sv',
-            dishes: dishes,
+            dishes: result,
           },
         ],
       });
