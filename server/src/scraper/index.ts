@@ -26,7 +26,7 @@ const scrape = async () => {
   });
   const restaurants: Restaurant[] = [];
 
-  // const filesOverride: string[] = ['bise.ts'];
+  // const filesOverride: string[] = ['matochchokladstudion.ts'];
   const filesOverride: string[] = [];
   if (filesOverride.length) {
     targetFiles = filesOverride;
