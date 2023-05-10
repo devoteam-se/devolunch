@@ -30,6 +30,7 @@ RUN pnpm --filter server --prod deploy pruned
 RUN pnpm --filter server deploy build 
 WORKDIR '/app/server'
 RUN pnpm build 
+RUN pnpm gcp-build
 
 #   ___ _   _ _  _
 #  | _ \ | | | \| |
@@ -39,9 +40,18 @@ RUN pnpm build
 FROM --platform=linux/amd64 node:18
 
 # copy built client and server
+COPY --from=server-builder /app/server/ /server
 COPY --from=server-builder /app/pruned/node_modules /server/node_modules
-COPY --from=server-builder /app/server/dist/ /server/dist
 COPY --from=client-builder /app/client/dist/ /client/dist
+
+RUN apt-get update && apt-get install -y libnss3 libnspr4 libatk1.0-0 libatk-bridge2.0-0 libcups2 libdrm2 libxkbcommon0 libxcomposite1 libxdamage1 libxfixes3 libxrandr2 libgbm1 libasound2
+
+# Add user so we don't need --no-sandbox.
+# same layer as npm install to keep re-chowned files from using up several hundred MBs more space
+RUN groupadd -r runner && useradd -r -g runner -G audio,video runner \
+    && mkdir -p /home/runner/Downloads \
+    && chown -R runner:runner /home/runner
+USER runner
 
 EXPOSE 8080
 WORKDIR '/server'
