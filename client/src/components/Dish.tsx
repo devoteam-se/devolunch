@@ -9,39 +9,39 @@ const dishTitleStyles = css`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   margin-right: 8px;
   margin-top: 0;
   margin-bottom: 0.5rem;
-  font-family: 'Azeret Mono', monospace;
-  font-weight: 400;
+  font-weight: 600;
   text-transform: uppercase;
+  letter-spacing: 0.0625rem;
 `;
 
 const dishTitleIconStyles = css`
   width: 1rem;
   height: 1rem;
   margin: 0;
-  background-color: #ffaa5b;
+  background-color: #fca2ae;
   border-radius: 50%;
-  border: 1px solid #000;
+  border: 1px solid #3c3c3a;
   margin-right: 0.5rem;
 
   &[data-veg='true'] {
-    background-color: #449856;
+    background-color: #8ab8a5;
   }
 
   &[data-fish='true'] {
-    background-color: #457b9d;
+    background-color: #6f9eca;
   }
 
   &[data-misc='true'] {
-    background-color: #bc8f8f;
+    background-color: #795b8c;
   }
 `;
 
 const dishDescriptionStyles = css`
-  font-size: 0.9rem;
+  font-size: 0.875rem;
   font-family: 'Open Sans', sans-serif;
   max-width: 241px;
   margin: 0;

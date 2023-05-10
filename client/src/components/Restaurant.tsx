@@ -14,6 +14,7 @@ const restaurantStyles = css`
 
   a {
     text-decoration: none;
+    color: #000;
   }
 `;
 
@@ -38,7 +39,6 @@ const restaurantDistanceStyles = css`
 const restaurantLocationIconStyles = css`
   margin-right: 0.25rem;
   width: 1rem;
-  height: 1rem;
 `;
 
 const restaurantImageStyles = css`
@@ -57,12 +57,13 @@ const restaurantLinksStyles = css`
   & > a {
     display: flex;
     align-items: center;
-    font-size: 1rem;
+    font-size: 0.875rem;
+    font-weight: 600;
     background-color: #fff;
-    border: 1px solid #000;
+    border: 1px solid #4a8cca;
     border-radius: 1rem;
-    color: #000;
-    padding: 0.375rem 0.5rem;
+    color: #4a8cca;
+    padding: 0.125rem 0.5rem;
     margin-left: 0.5rem;
   }
 
@@ -74,10 +75,9 @@ const restaurantLinksStyles = css`
 const restaurantWebsiteIconStyles = css``;
 
 const restaurantLinksIconStyles = css`
-  width: 1rem;
-  height: 1rem;
-  margin-top: 0.125rem;
-  margin-right: 0.25rem;
+  width: 0.75rem;
+  margin-right: 0.375rem;
+  fill: #4a8cca;
 `;
 
 const restaurantDirectionStyles = css``;
@@ -91,7 +91,7 @@ export default function Restaurant({ title, distance, url, imgUrl, dishCollectio
         <h2 css={restaurantTitleStyles}>{title}</h2>
         <div css={restaurantDistanceStyles}>
           <LocationIcon css={restaurantLocationIconStyles} />
-          {distance?.toFixed(2)} km
+          {distance < 1 ? `${(distance * 1000)?.toFixed(0)} m` : `${distance?.toFixed(2)} km`}
         </div>
         <img src={imgUrl} css={restaurantImageStyles} alt={title} />
       </a>

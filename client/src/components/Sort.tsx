@@ -30,12 +30,13 @@ const sortButtonStyles = css`
   display: flex;
   align-items: center;
   background-color: #fff;
-  padding: 0.375rem 0.5rem;
-  border: 1px solid #000;
+  padding: 0.125rem 0.5rem;
+  border: 1px solid #4a8cca;
   border-radius: 1rem;
   font-size: 1rem;
+  font-weight: bold;
   cursor: pointer;
-  color: #000;
+  color: #4a8cca;
 
   &:hover {
     background-color: #ffaa5b;
@@ -48,10 +49,9 @@ const sortButtonStyles = css`
 `;
 
 const sortIconStyles = css`
-  width: 1.125rem;
-  height: 1.125rem;
-  margin-top: 0.125rem;
-  margin-right: 0.25rem;
+  width: 0.75rem;
+  margin-right: 0.375rem;
+  fill: #4a8cca;
 `;
 
 export default function Sort() {
