@@ -63,7 +63,7 @@ const restaurantLinksStyles = css`
     border: 1px solid #4a8cca;
     border-radius: 1rem;
     color: #4a8cca;
-    padding: 0.125rem 0.5rem;
+    padding: 0.25rem 0.5rem;
     margin-left: 0.5rem;
   }
 

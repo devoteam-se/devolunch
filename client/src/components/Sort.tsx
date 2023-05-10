@@ -30,7 +30,7 @@ const sortButtonStyles = css`
   display: flex;
   align-items: center;
   background-color: #fff;
-  padding: 0.125rem 0.5rem;
+  padding: 0.25rem 0.5rem;
   border: 1px solid #4a8cca;
   border-radius: 1rem;
   font-size: 1rem;
