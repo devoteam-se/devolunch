@@ -33,16 +33,16 @@ export const browserScrapeFunction = (page: Page) =>
 
     const dishes = [];
 
-    dishes.push({
-      type: 'meat' as const,
-      description: raw[todayIndex + 1],
-    });
-    if (raw[todayIndex + 2].length > 10) {
+    if (raw[todayIndex + 2].length > 25) {
       dishes.push({
         type: 'veg' as const,
         description: raw[todayIndex + 2],
       });
     }
+    dishes.push({
+      type: dishes.length ? ('meat' as const) : ('veg' as const),
+      description: raw[todayIndex + 1],
+    });
 
     return dishes;
   });
