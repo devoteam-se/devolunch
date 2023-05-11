@@ -11,7 +11,7 @@ env:
   SERVICE: devolunch
   REGION: europe-west1
   IMAGE: gcr.io/${{ secrets.GCP_PROJECT }}/prod_data_pipeline
-  MEMORY: 1G
+  MEMORY: 2G
 
 jobs:
   install-and-test:
