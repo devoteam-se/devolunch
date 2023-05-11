@@ -31,14 +31,18 @@ export const browserScrapeFunction = (page: Page) =>
       (a) => a.toLowerCase().includes(todaySwedishFormat) || a.toLowerCase().includes(todayEnglishFormat),
     );
 
-    return [
-      {
-        type: 'meat' as const,
-        description: raw[todayIndex + 1],
-      },
-      {
+    const dishes = [];
+
+    dishes.push({
+      type: 'meat' as const,
+      description: raw[todayIndex + 1],
+    });
+    if (raw[todayIndex + 2].length > 10) {
+      dishes.push({
         type: 'veg' as const,
         description: raw[todayIndex + 2],
-      },
-    ];
+      });
+    }
+
+    return dishes;
   });
