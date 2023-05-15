@@ -69,7 +69,7 @@ const restaurantLinksStyles = css`
   }
 
   & > a:hover {
-    background-color: ${color.orage};
+    background-color: ${color.orange};
   }
 `;
 
