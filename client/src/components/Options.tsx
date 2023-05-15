@@ -2,6 +2,7 @@ import { css } from '@emotion/react';
 
 import Sort from '@/components/Sort';
 import LanguageSelector from '@/components/LanguageSelector';
+import { screenSize } from '@/utils/theme';
 
 const optionsStyles = css`
   display: flex;
@@ -9,7 +10,7 @@ const optionsStyles = css`
   height: 6rem;
   align-items: center;
 
-  @media only screen and (max-width: 430px) {
+  @media only screen and (max-width: ${screenSize.extraSmall}) {
     justify-content: space-between;
   }
 `;

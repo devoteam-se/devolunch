@@ -16,8 +16,8 @@ const splashScreenKeyFrame = keyframes`
 `;
 
 const potStyles = css`
-  width: 200px;
-  height: 200px;
+  width: 12.5rem;
+  height: 12.5rem;
   top: 0;
   left: 0;
   right: 0;

@@ -4,10 +4,11 @@ import Header from '@/components/Header';
 import Main from '@/components/Main';
 import SplashScreen from '@/components/SplashScreen';
 import { useRestaurants } from '@/contexts/restaurants';
+import { color } from './utils/theme';
 
 const globalStyles = css`
   body {
-    background-color: #fdfdf2;
+    background-color: ${color.ivory};
     height: 100vh;
     margin: 0;
     font-family: 'Open Sans', sans-serif, 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
@@ -20,11 +21,6 @@ const globalStyles = css`
 const appStyles = css`
   height: 100%;
   margin: 0 0 2rem;
-
-  @media only screen and (max-width: 768px) {
-    padding: 0;
-    margin: 0;
-  }
 `;
 
 function App() {

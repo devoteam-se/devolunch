@@ -1,16 +1,17 @@
 import { ReactComponent as Icon } from '@/assets/devoteam.svg';
 import { css } from '@emotion/react';
+import { color, screenSize } from '@/utils/theme';
 
 const headerStyles = css`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid ${color.black};
   padding: 0 1.25rem;
   margin: 0;
   animation-name: load;
   animation-duration: 1s;
-  background-color: #fff;
+  background-color: ${color.white};
   height: 5.625rem;
 `;
 
@@ -26,7 +27,7 @@ const headerHeadingStyles = css`
     padding: 0;
   }
 
-  @media only screen and (max-width: 460px) {
+  @media only screen and (max-width: ${screenSize.extraSmall}) {
     h1 {
       font-size: 1.25rem;
     }
@@ -43,7 +44,7 @@ const headerIconStyles = css`
   justify-self: center;
   width: 12rem;
 
-  @media only screen and (max-width: 430px) {
+  @media only screen and (max-width: ${screenSize.extraSmall}) {
     width: 7.5rem;
   }
 `;

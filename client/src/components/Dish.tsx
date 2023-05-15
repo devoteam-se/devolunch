@@ -1,8 +1,9 @@
+import { color } from '@/utils/theme';
 import { css } from '@emotion/react';
 
 const dishStyles = css`
   padding: 0.75rem 0;
-  border-bottom: 1px solid #000000;
+  border-bottom: 1px solid ${color.black};
 `;
 
 const dishTitleStyles = css`
@@ -10,7 +11,7 @@ const dishTitleStyles = css`
   justify-content: flex-start;
   align-items: center;
   font-size: 0.75rem;
-  margin-right: 8px;
+  margin-right: 0.5rem;
   margin-top: 0;
   margin-bottom: 0.5rem;
   font-weight: 600;
@@ -22,28 +23,27 @@ const dishTitleIconStyles = css`
   width: 1rem;
   height: 1rem;
   margin: 0;
-  background-color: #fca2ae;
+  background-color: ${color.foodType.meat};
   border-radius: 50%;
-  border: 1px solid #3c3c3a;
+  border: 1px solid ${color.blackOlive};
   margin-right: 0.5rem;
 
   &[data-veg='true'] {
-    background-color: #8ab8a5;
+    background-color: ${color.foodType.veg};
   }
 
   &[data-fish='true'] {
-    background-color: #6f9eca;
+    background-color: ${color.foodType.fish};
   }
 
   &[data-misc='true'] {
-    background-color: #795b8c;
+    background-color: ${color.foodType.misc};
   }
 `;
 
 const dishDescriptionStyles = css`
   font-size: 0.875rem;
   font-family: 'Open Sans', sans-serif;
-  max-width: 241px;
   margin: 0;
 `;
 

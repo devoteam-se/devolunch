@@ -1,6 +1,7 @@
 import { css } from '@emotion/react';
 
 import Restaurant from '@/components/Restaurant';
+import { screenSize } from '@/utils/theme';
 
 const restaurantListStyles = css`
   display: grid;
@@ -12,15 +13,15 @@ const restaurantListStyles = css`
   animation-name: load;
   animation-duration: 1s;
 
-  @media only screen and (max-width: 1088px) {
+  @media only screen and (max-width: ${screenSize.large}) {
     grid-template-columns: repeat(3, 1fr);
   }
 
-  @media only screen and (max-width: 832px) {
+  @media only screen and (max-width: ${screenSize.medium}) {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  @media only screen and (max-width: 600px) {
+  @media only screen and (max-width: ${screenSize.small}) {
     grid-template-columns: repeat(1, 1fr);
   }
 `;

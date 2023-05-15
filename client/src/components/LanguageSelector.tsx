@@ -1,6 +1,7 @@
 import { css } from '@emotion/react';
 
 import { useRestaurants } from '@/contexts/restaurants';
+import { color } from '@/utils/theme';
 
 const languageSelectorStyles = css`
   padding: 0;
@@ -11,7 +12,7 @@ const languageSelectorStyles = css`
 const languageSelectorButtonStyles = css`
   background: none;
   border: 0;
-  color: #4a8cca;
+  color: ${color.blue};
   font: inherit;
   line-height: normal;
   overflow: visible;

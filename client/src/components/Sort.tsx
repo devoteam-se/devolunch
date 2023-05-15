@@ -4,6 +4,7 @@ import { css, keyframes } from '@emotion/react';
 import { ReactComponent as SortIcon } from '@/assets/sort.svg';
 import { useRestaurants } from '@/contexts/restaurants';
 import { distance } from '@/utils/distance';
+import { color } from '@/utils/theme';
 
 const activeKeyFrame = keyframes`
 	0% {
@@ -29,21 +30,21 @@ const sortStyles = css`
 const sortButtonStyles = css`
   display: flex;
   align-items: center;
-  background-color: #fff;
+  background-color: ${color.white};
   padding: 0.25rem 0.5rem;
-  border: 1px solid #4a8cca;
+  border: 1px solid ${color.blue};
   border-radius: 1rem;
   font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
-  color: #4a8cca;
+  color: ${color.blue};
 
   &:hover {
-    background-color: #ffaa5b;
+    background-color: ${color.orange};
   }
 
   &[data-active='1'] {
-    background-color: #ffaa5b;
+    background-color: ${color.orange};
     animation: ${activeKeyFrame} 1s infinite;
   }
 `;
@@ -51,7 +52,7 @@ const sortButtonStyles = css`
 const sortIconStyles = css`
   width: 0.75rem;
   margin-right: 0.375rem;
-  fill: #4a8cca;
+  fill: ${color.blue};
 `;
 
 export default function Sort() {

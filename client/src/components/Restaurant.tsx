@@ -6,6 +6,7 @@ import { ReactComponent as LocationIcon } from '@/assets/location.svg';
 import { ReactComponent as ExternalLinkIcon } from '@/assets/external-link.svg';
 import { ReactComponent as DirectionIcon } from '@/assets/direction.svg';
 import { useRestaurants } from '@/contexts/restaurants';
+import { color } from '@/utils/theme';
 
 const restaurantStyles = css`
   display: flex;
@@ -14,24 +15,24 @@ const restaurantStyles = css`
 
   a {
     text-decoration: none;
-    color: #000;
+    color: ${color.black};
   }
 `;
 
 const restaurantTitleStyles = css`
-  color: #000;
+  color: ${color.black};
   font-family: 'Azeret Mono', monospace;
   font-weight: 500;
   font-size: 1.25rem;
   margin: 0;
   padding-bottom: 0.5rem;
-  border-bottom: 1px solid #000;
+  border-bottom: 1px solid ${color.black};
 `;
 
 const restaurantDistanceStyles = css`
   display: flex;
   align-items: center;
-  color: #000;
+  color: ${color.black};
   font-size: 0.875rem;
   margin: 0.75rem 0;
 `;
@@ -43,8 +44,8 @@ const restaurantLocationIconStyles = css`
 
 const restaurantImageStyles = css`
   width: 100%;
-  height: 224px;
-  border-radius: 10px;
+  height: 14rem;
+  border-radius: 0.625rem;
   margin: 0 auto;
   object-fit: cover;
 `;
@@ -59,16 +60,16 @@ const restaurantLinksStyles = css`
     align-items: center;
     font-size: 0.875rem;
     font-weight: 600;
-    background-color: #fff;
-    border: 1px solid #4a8cca;
+    background-color: ${color.white};
+    border: 1px solid ${color.blue};
     border-radius: 1rem;
-    color: #4a8cca;
+    color: ${color.blue};
     padding: 0.25rem 0.5rem;
     margin-left: 0.5rem;
   }
 
   & > a:hover {
-    background-color: #ffaa5b;
+    background-color: ${color.orage};
   }
 `;
 
@@ -77,7 +78,7 @@ const restaurantWebsiteIconStyles = css``;
 const restaurantLinksIconStyles = css`
   width: 0.75rem;
   margin-right: 0.375rem;
-  fill: #4a8cca;
+  fill: ${color.blue};
 `;
 
 const restaurantDirectionStyles = css``;
