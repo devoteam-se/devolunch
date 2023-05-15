@@ -23,13 +23,16 @@ export const browserScrapeFunction = (page: Page) =>
       })
       .toLowerCase();
 
-    const lunchNode = [...document.querySelectorAll('span')].find((a) => a.innerText?.toLowerCase().includes('lunch'));
+    const lunchNode = [...document.querySelectorAll("div[data-testid='richTextElement']")].find((a) => {
+      const t = (a as HTMLElement)?.innerText?.toLocaleLowerCase('sv-SE').normalize('NFC');
+      return t.includes(todaySwedishFormat) || t.includes(todayEnglishFormat);
+    });
 
-    const lunchMenuDiv = lunchNode?.parentNode?.parentNode as HTMLDivElement;
-    const raw = lunchMenuDiv.innerText.split('\n').filter((a) => a.trim());
-    const todayIndex = raw.findIndex(
-      (a) => a.toLowerCase().includes(todaySwedishFormat) || a.toLowerCase().includes(todayEnglishFormat),
-    );
+    const raw = (lunchNode as HTMLElement).innerText.split('\n').filter((a) => a.trim());
+    const todayIndex = raw.findIndex((a) => {
+      const t = a.toLocaleLowerCase('sv-SE').normalize('NFC');
+      return t.includes(todaySwedishFormat) || t.includes(todayEnglishFormat);
+    });
 
     const dishes = [];
 
