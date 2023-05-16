@@ -6,7 +6,7 @@ import { env } from '../env';
 import { uploadScrape } from '../services/storage';
 import { translateRestaurants } from '../services/translator';
 
-const restaurantsPath = './restaurants';
+const RESTAURANTS_PATH = './restaurants';
 const TIMEOUT = 120000;
 
 const compareDish = (a: Dish, b: Dish): number => {
@@ -17,10 +17,10 @@ const compareDish = (a: Dish, b: Dish): number => {
 const scrape = async () => {
   const browser = await puppeteer.launch({
     args: env.NODE_ENV !== 'development' ? ['--disable-gpu'] : [],
-    headless: true,
+    headless: 'new',
   });
 
-  const files = await fs.readdir(path.join(__dirname, restaurantsPath));
+  const files = await fs.readdir(path.join(__dirname, RESTAURANTS_PATH));
   let targetFiles = files.filter((file) => {
     return path.extname(file).toLowerCase() === (env.NODE_ENV === 'development' ? '.ts' : '.js');
   });
@@ -34,7 +34,7 @@ const scrape = async () => {
 
   await Promise.all(
     targetFiles.map(async (file) => {
-      const restaurant = await import(path.join(__dirname, restaurantsPath, file));
+      const restaurant = await import(path.join(__dirname, RESTAURANTS_PATH, file));
       const page = await browser.newPage();
       page.on('console', (msg) => console.log(msg.text()));
       await page.goto(restaurant.meta.url, {
@@ -54,7 +54,7 @@ const scrape = async () => {
           ...restaurant.meta,
           dishCollection: [
             {
-              language: 'sv',
+              language: env.DEFAULT_LANGUAGE,
               dishes: result,
             },
           ],

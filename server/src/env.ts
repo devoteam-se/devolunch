@@ -6,6 +6,8 @@ export const schema = {
   NODE_ENV: String,
   SLACK_OAUTH_TOKEN: String,
   SLACK_CHANNEL_ID: String,
+  DEFAULT_LANGUAGE: String,
+  TRANSLATE_LANGUAGES: String,
 };
 
 export let env: Env;

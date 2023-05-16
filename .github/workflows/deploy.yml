@@ -12,6 +12,8 @@ env:
   REGION: europe-west1
   IMAGE: gcr.io/${{ secrets.GCP_PROJECT }}/prod_data_pipeline
   MEMORY: 2G
+  DEFAULT_LANGUAGE: sv
+  TRANSLATE_LANGUAGES: en
 
 jobs:
   install-and-test:
@@ -86,7 +88,7 @@ jobs:
             --image gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:master \
             --service-account=devolunch-cr@devolunch.iam.gserviceaccount.com \
             --memory ${{ env.MEMORY }} \
-            --update-env-vars NODE_ENV=production,SLACK_OAUTH_TOKEN=${{ secrets.SLACK_OAUTH_TOKEN }},SLACK_CHANNEL_ID=${{ secrets.SLACK_CHANNEL_ID }}
+            --update-env-vars NODE_ENV=production,SLACK_OAUTH_TOKEN=${{ secrets.SLACK_OAUTH_TOKEN }},SLACK_CHANNEL_ID=${{ secrets.SLACK_CHANNEL_ID }},DEFAULT_LANGUAGE=${{ env.DEFAULT_LANGUAGE }},TRANSLATE_LANGUAGES=${{ env.TRANSLATE_LANGUAGES }}
 
       - name: Show Output
         run: echo ${{ steps.deploy.outputs.url }}
