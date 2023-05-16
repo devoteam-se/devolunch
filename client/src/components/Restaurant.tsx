@@ -88,12 +88,12 @@ export default function Restaurant({ title, distance, url, imgUrl, dishCollectio
 
   return (
     <div css={restaurantStyles}>
+      <h2 css={restaurantTitleStyles}>{title}</h2>
+      <div css={restaurantDistanceStyles}>
+        <LocationIcon css={restaurantLocationIconStyles} />
+        {distance < 1 ? `${(distance * 1000)?.toFixed(0)} m` : `${distance?.toFixed(2)} km`}
+      </div>
       <a href={url}>
-        <h2 css={restaurantTitleStyles}>{title}</h2>
-        <div css={restaurantDistanceStyles}>
-          <LocationIcon css={restaurantLocationIconStyles} />
-          {distance < 1 ? `${(distance * 1000)?.toFixed(0)} m` : `${distance?.toFixed(2)} km`}
-        </div>
         <img src={imgUrl} css={restaurantImageStyles} alt={title} />
       </a>
       {dishCollection

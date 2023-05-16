@@ -15,6 +15,28 @@ const headerStyles = css`
   height: 5.625rem;
 `;
 
+const linkStyles = css`
+  position: relative;
+  text-decoration: none;
+  color: inherit;
+
+  ::before {
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    width: 14rem;
+    height: 4rem;
+  }
+
+  @media only screen and (max-width: ${screenSize.extraSmall}) {
+    ::before {
+      width: 12.25rem;
+      height: 3rem;
+    }
+  }
+`;
+
 const headerHeadingStyles = css`
   display: flex;
   flex-direction: column;
@@ -23,8 +45,8 @@ const headerHeadingStyles = css`
   h1 {
     font-size: 2rem;
     font-weight: 400;
-    margin: 0 0.25rem 0 0;
-    padding: 0;
+    margin: 0;
+    padding: 0 0.25rem 0 0;
   }
 
   @media only screen and (max-width: ${screenSize.extraSmall}) {
@@ -36,8 +58,12 @@ const headerHeadingStyles = css`
 
 const headerUpdatedAtStyles = css`
   font-size: 0.75rem;
-  margin-top: 0.25rem;
-  margin-bottom: 0;
+  margin: 0;
+  padding-top: 0.25rem;
+
+  a {
+    padding-top: 0.25rem;
+  }
 `;
 
 const headerIconStyles = css`
@@ -57,7 +83,11 @@ export default function Header({ scrapeDate }: HeaderI) {
   return (
     <div css={headerStyles}>
       <div css={headerHeadingStyles}>
-        <h1>Lunch Menu</h1>
+        <h1>
+          <a href="/" css={linkStyles}>
+            Lunch Menu
+          </a>
+        </h1>
         <div css={headerUpdatedAtStyles}>
           Updated&nbsp;
           {scrapeDate
