@@ -10,5 +10,5 @@
 # Puppeteer cache
 .cache
 
-cf.zip
-ns.zip
+# Zip files created to deploy to Cloud Functions
+**/*.zip

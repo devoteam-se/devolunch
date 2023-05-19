@@ -41,18 +41,6 @@ resource "google_project_service" "resourcemanager" {
   disable_on_destroy = false
 }
 
-# This is used so there is some time for the activation of the API's to propagate through
-# Google Cloud before actually calling them.
-resource "time_sleep" "wait_10_seconds" {
-  create_duration = "10s"
-  depends_on = [
-    google_project_service.iam,
-    google_project_service.artifactregistry,
-    google_project_service.cloudrun,
-    google_project_service.resourcemanager
-  ]
-}
-
 # Create Artifact Registry Repository for Docker containers
 resource "google_artifact_registry_repository" "devolunch_repo" {
   provider = google-beta

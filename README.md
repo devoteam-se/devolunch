@@ -8,9 +8,9 @@ The working version can be found at: https://www.malmolunch.se.
 
 This repository consist of three services.
 
-- Scraper
-- Website
-- Slack notifier
+- [Scraper](#scraper)
+- [Website](#website)
+- [Slack notifier](#slack-notifier)
 
 ### <a name="scraper">Scraper</a>
 
@@ -18,7 +18,7 @@ This service is using Puppeteer to scrape all the restaurants that exists in [/s
 
 It's hosted on a Google Cloud Functions v2 and triggered daily at 10:00 using a Google Cloud Scheduler.
 
-Check out [the scraper](/server/src/scraper/README.md) for how to add restaurants.
+Check out [the scraper](/server/functions/scraper) for how to add restaurants.
 
 #### **Technologies**
 
@@ -50,7 +50,7 @@ It's hosted on Cloud Run and is served by a simple Node express app.
 
 _Needs Scraper to work_
 
-The Slack notifier is a simple service that retrieves the data Scraped by the and posts it to a Slack channel. The Terraform setup is configured to create a Google Cloud Scheduler which sends a message at 10:30 AM to the specified Slack channel.
+The Slack notifier is a simple service that retrieves the data scraped by the [Scraper](#scraper) and posts it to a Slack channel. The Terraform setup is configured to create a Google Cloud Scheduler which sends a message at 10:30 AM to the specified Slack channel.
 
 #### **Technologies**
 
@@ -89,21 +89,25 @@ docker-compose up
 
 Go to `/terraform/scraper` and check that the variables are correct in `variables.tf` and make sure to copy `terraform.tfvars.examples` and name it `terraform.tfvars`. Verify that the languages you want to use are correct.
 
-When done, run these commands in that directory to deploy:
+When done, run these commands in that directory to deploy to GCP:
 
 ```sh
 $ terraform init
 $ terraform apply
 ```
 
-To trigger a manual Scrape go to Cloud Scheduler in your project and trigger it manually.
+#### Manual trigger
+
+Go to Cloud Scheduler in your project and select the `scrape-scheduler` and trigger it manually.
 
 ### Website
+
+When you first deploy the website a hello world example is deployed on Cloud Run. The actual deploy only happens when someone pushes changes to the repository. I'm working on fixing this.
 
 Verify that the scraper is up and running, and that the Cloud Schedule to trigger a scrape as been run.
 Next, go to `/terraform/website` and check that the variables are correct in `variables.tf`.
 
-When done, run these commands in that directory to deploy:
+When done, run these commands in that directory to deploy to GCP:
 
 ```sh
 $ terraform init
@@ -117,14 +121,16 @@ You should get a link back as output to the deployed Cloud Run instance.
 Verify that the scraper is up and running, and that the Cloud Schedule to trigger a scrape as been run.
 Go to `/terraform/notify-slack` and check that the variables are correct in `variables.tf` and make sure to copy `terraform.tfvars.examples` and name it `terraform.tfvars`. Verify that the Slack channel ID and the Slack OAuth token are correct.
 
-When done, run these commands in that directory to deploy:
+When done, run these commands in that directory to deploy to GCP:
 
 ```sh
 $ terraform init
 $ terraform apply
 ```
 
-To trigger a manual Slack notification go to Cloud Scheduler in your project and trigger it manually.
+#### Manual trigger
+
+Go to Cloud Scheduler in your project and select the `slack-notifier-scheduler` and trigger it manually.
 
 # TODO
 
@@ -133,4 +139,5 @@ To trigger a manual Slack notification go to Cloud Scheduler in your project and
   - [x] Add instructions on how to make a scraper
   - [x] Move scrape call to Cloud Function
 - [x] Add husky/lint-staged and make sure pre-commit is triggered to run lint/tests
+- [ ] When first deploying the Website, a dummy version is deployed. Fix so it's the actual site.
 - [ ] Write tests

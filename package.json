@@ -4,8 +4,7 @@
   "description": "DevoLunch is an lunch app used for providing the todays lunch menus nearby the office.",
   "license": "MIT",
   "scripts": {
-    "start": "node ./server/dist/index.js",
-    "dev": "pnpm --filter server dev && pnpm --filter client dev",
+    "dev": "concurrently --names 'SERVER,CLIENT' --prefix-colors '#68A063,#61DAFB' 'pnpm --filter server dev' 'wait-on http://127.0.0.1:8080/health && pnpm --filter client dev'",
     "dev:server": "pnpm --filter server dev",
     "dev:client": "pnpm --filter client dev",
     "prepare": "husky install",
@@ -27,9 +26,11 @@
     ]
   },
   "devDependencies": {
+    "concurrently": "8.0.1",
     "husky": "^8.0.0",
     "lint-staged": "^13.2.2",
-    "prettier": "^2.8.8"
+    "prettier": "^2.8.8",
+    "wait-on": "7.0.1"
   },
   "prettier": {
     "singleQuote": true,

@@ -2,7 +2,7 @@
 
 ## Description
 
-Create a new file with the restaurant name in the `restaurants` folder.
+Create a new file with the restaurant name in the `src/restaurants` folder.
 This is an example scraper:
 
 ```js
@@ -41,4 +41,4 @@ export const browserScrapeFunction = (page: Page) =>
 
 ### Debug
 
-If you want to debug your specific scraper you can uncomment the `filesOverride` variable in [index.ts](index.ts)
+If you want to debug your specific scraper you can uncomment the `filesOverride` variable in [src/index.ts](src/index.ts)

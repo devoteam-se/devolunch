@@ -11,6 +11,8 @@ const CLIENT_DIR = resolve(__dirname, '..', '..', 'client');
 const app = express();
 app.use(cors());
 
+app.get('/health', (req, res) => res.send("I'm healthy!"));
+
 // Serve static files
 app.use(express.static(resolve(CLIENT_DIR, 'dist')));
 

@@ -142,13 +142,6 @@ resource "google_cloud_scheduler_job" "job" {
   }
 }
 
-/* resource "null_resource" "cf_file_cleanup" { */
-/*   provisioner "local-exec" { */
-/*     command = "cd ${path.module}/../../server/functions/scraper && rm -f cf.zip" */
-/*   } */
-/*   depends_on = [google_cloudfunctions2_function.function] */
-/* } */
-
 output "function_uri" { 
   value = google_cloudfunctions2_function.function.service_config[0].uri
 }
