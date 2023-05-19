@@ -1,6 +1,6 @@
 # Devolunch
 
-## Description
+<a href="https://github.com/jayway/devolunch/blob/master/LICENSE.md"><img src="https://img.shields.io/npm/l/heroicons.svg" alt="License"></a>
 
 Devolunch is an app that presents today's lunch menu on scraped restaurants. It's hosted on [Google Cloud Platform](https://cloud.google.com/).
 
@@ -12,15 +12,17 @@ This repository consist of three services.
 - [Website](#website)
 - [Slack notifier](#slack-notifier)
 
-### <a name="scraper">Scraper</a>
+If you want to deploy it to GCP, head over to [./terraform](./terraform/).
 
-This service is using Puppeteer to scrape all the restaurants that exists in [/server/functions/scraper/src/restaurants](/server/functions/scraper/src/restaurants), and saves them to a `.json` file hosted on a Google Cloud bucket (to reduce cost).
+## <a name="scraper">Scraper</a>
+
+This service is using Puppeteer to scrape all the restaurants that exists in [./server/functions/scraper/src/restaurants](./server/functions/scraper/src/restaurants), and saves the output to a `.json` file hosted on a Google Cloud Bucket (to reduce cost).
 
 It's hosted on a Google Cloud Functions v2 and triggered daily at 10:00 using a Google Cloud Scheduler.
 
-Check out [the scraper](/server/functions/scraper) for how to add restaurants.
+Check out [the scraper](./server/functions/scraper) on how to add restaurants.
 
-#### **Technologies**
+#### **Technologies:**
 
 - [Node](https://nodejs.org/en) w/ [Typescript](https://www.typescriptlang.org/)
 - [puppeteer](https://pptr.dev/)
@@ -30,14 +32,14 @@ Check out [the scraper](/server/functions/scraper) for how to add restaurants.
 - [Cloud Storage Buckets](https://cloud.google.com/storage/docs/json_api/v1/buckets)
 - [Terraform](https://www.terraform.io/)
 
-### <a name="website">Website</a>
+## <a name="website">Website</a>
 
 _Needs Scraper to work_
 
 The website is a React app built with Typescript that presents the lunch menu of the scraped restaurants.
 It's hosted on Cloud Run and is served by a simple Node express app.
 
-#### **Technologies**
+#### **Technologies:**
 
 - [React](https://react.dev/) w/ [Typescript](https://www.typescriptlang.org/)
 - [Vite](https://vitejs.dev/)
@@ -46,91 +48,24 @@ It's hosted on Cloud Run and is served by a simple Node express app.
 - [Cloud Run](https://cloud.google.com/run)
 - [Terraform](https://www.terraform.io/)
 
-### <a name="notify-slack">Slack notifier</a>
+## <a name="notify-slack">Slack notifier</a>
 
 _Needs Scraper to work_
 
 The Slack notifier is a simple service that retrieves the data scraped by the [Scraper](#scraper) and posts it to a Slack channel. The Terraform setup is configured to create a Google Cloud Scheduler which sends a message at 10:30 AM to the specified Slack channel.
 
-#### **Technologies**
+#### **Technologies:**
 
 - [Node](https://nodejs.org/en) w/ [Typescript](https://www.typescriptlang.org/)
 - [Cloud Functions v2](https://cloud.google.com/functions)
 - [Cloud Scheduler](https://cloud.google.com/scheduler)
 - [Terraform](https://www.terraform.io/)
 
-# Setup
+# Contribute
 
-## Locally
+<a href="https://github.com/jayway/devolunch/pulls" target="_blank"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs Welcome"></a>
 
-### Install dependencies:
-
-```sh
-pnpm install
-```
-
-## Running locally in development mode
-
-### Run the server and the client
-
-```sh
-pnpm dev
-```
-
-### Run the program in Docker:
-
-```sh
-docker-compose up
-```
-
-## Deploy
-
-### Scraper
-
-Go to `/terraform/scraper` and check that the variables are correct in `variables.tf` and make sure to copy `terraform.tfvars.examples` and name it `terraform.tfvars`. Verify that the languages you want to use are correct.
-
-When done, run these commands in that directory to deploy to GCP:
-
-```sh
-$ terraform init
-$ terraform apply
-```
-
-#### Manual trigger
-
-Go to Cloud Scheduler in your project and select the `scrape-scheduler` and trigger it manually.
-
-### Website
-
-When you first deploy the website a hello world example is deployed on Cloud Run. The actual deploy only happens when someone pushes changes to the repository. I'm working on fixing this.
-
-Verify that the scraper is up and running, and that the Cloud Schedule to trigger a scrape as been run.
-Next, go to `/terraform/website` and check that the variables are correct in `variables.tf`.
-
-When done, run these commands in that directory to deploy to GCP:
-
-```sh
-$ terraform init
-$ terraform apply
-```
-
-You should get a link back as output to the deployed Cloud Run instance.
-
-### Slack notifier
-
-Verify that the scraper is up and running, and that the Cloud Schedule to trigger a scrape as been run.
-Go to `/terraform/notify-slack` and check that the variables are correct in `variables.tf` and make sure to copy `terraform.tfvars.examples` and name it `terraform.tfvars`. Verify that the Slack channel ID and the Slack OAuth token are correct.
-
-When done, run these commands in that directory to deploy to GCP:
-
-```sh
-$ terraform init
-$ terraform apply
-```
-
-#### Manual trigger
-
-Go to Cloud Scheduler in your project and select the `slack-notifier-scheduler` and trigger it manually.
+Excited to work alongside you! Follow the instructions in [CONTRIBUTING](./CONTRIBUTING.md) and code away.
 
 # TODO
 
@@ -138,6 +73,11 @@ Go to Cloud Scheduler in your project and select the `slack-notifier-scheduler` 
   - [x] Implement Terraform support
   - [x] Add instructions on how to make a scraper
   - [x] Move scrape call to Cloud Function
+  - [ ] Add deploy on Github release
+  - [ ] Block master branch from anyone outside of the org (unless default)
 - [x] Add husky/lint-staged and make sure pre-commit is triggered to run lint/tests
+- [ ] Add API definition and API versioning
 - [ ] When first deploying the Website, a dummy version is deployed. Fix so it's the actual site.
+- [ ] Change filesOver to be read from environment instead of code
+- [ ] Change scraper to run PDF parse from within `browserScrapeFunction`
 - [ ] Write tests
