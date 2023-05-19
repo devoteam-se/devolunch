@@ -6,6 +6,8 @@ import { useRestaurants } from '@/contexts/restaurants';
 import { distance } from '@/utils/distance';
 import { color } from '@/utils/theme';
 
+import { Restaurant } from '@devolunch/shared';
+
 const activeKeyFrame = keyframes`
 	0% {
 		transform: scale(0.95);
@@ -69,11 +71,11 @@ export default function Sort() {
 
         setRestaurants(
           restaurants
-            .map((r: App.Restaurant) => ({
+            .map((r: Restaurant) => ({
               ...r,
               distance: distance(latitude, r.latitude, longitude, r.longitude),
             }))
-            .sort((a: App.Restaurant, b: App.Restaurant) => a.distance - b.distance),
+            .sort((a: Restaurant, b: Restaurant) => a.distance - b.distance),
         );
 
         window.localStorage.setItem('position', `${latitude},${longitude}`);

@@ -1,0 +1,20 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - 'master'
+  workflow_call:
+
+jobs:
+  install-and-test:
+    name: install-and-test
+    uses: ./.github/workflows/install-and-test.yaml
+
+  deploy:
+    needs: install-and-test
+    uses: ./.github/workflows/gcp-deploy-cloud-run.yaml
+    with:
+      BUILD_ENV: production
+    secrets:
+      GCP_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}

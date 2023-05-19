@@ -21,8 +21,8 @@ export const browserScrapeFunction = (page: Page) =>
       new RegExp(/vecka\s([1-9][0-9]?(\.[0-9]{1,2})?)/).test(a?.innerText.toLowerCase()),
     );
     const lunchMenuDiv = lunchNode?.parentNode?.parentNode as HTMLDivElement;
-    const raw = lunchMenuDiv.innerText.split('\n').filter((a) => a.trim() && a !== '—');
-    const todayIndex = raw.findIndex((a) => a.toLowerCase().includes(todaySwedishFormat));
+    const raw = lunchMenuDiv?.innerText?.split('\n')?.filter((a) => a.trim() && a !== '—');
+    const todayIndex = raw?.findIndex((a) => a.toLowerCase().includes(todaySwedishFormat));
 
     return [
       {

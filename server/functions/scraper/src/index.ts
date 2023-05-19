@@ -1,30 +1,39 @@
-import puppeteer = require('puppeteer');
+import puppeteer from 'puppeteer';
 import fs from 'fs/promises';
 import path from 'path';
+import { Storage } from '@google-cloud/storage';
+import * as ff from '@google-cloud/functions-framework';
 
-import { env } from '../env';
-import { uploadScrape } from '../services/storage';
-import { translateRestaurants } from '../services/translator';
+import { createConfig } from './config';
+import { translateRestaurants } from './translator';
+
+export const config = createConfig();
 
 const RESTAURANTS_PATH = './restaurants';
 const TIMEOUT = 120000;
 
-const compareDish = (a: Dish, b: Dish): number => {
+const BUCKET_NAME = 'devolunchv2';
+
+const storage = new Storage({
+  projectId: 'devolunch',
+});
+
+const compareDish = (a: App.Dish, b: App.Dish): number => {
   const order: { [key: string]: number } = { veg: 1, fish: 2, meat: 3, misc: 4 };
   return order[a.type] - order[b.type];
 };
 
-const scrape = async () => {
+ff.http('scrape', async (req: ff.Request, res: ff.Response) => {
   const browser = await puppeteer.launch({
-    args: env.NODE_ENV !== 'development' ? ['--disable-gpu'] : [],
+    args: !config.development ? ['--disable-gpu'] : [],
     headless: 'new',
   });
 
   const files = await fs.readdir(path.join(__dirname, RESTAURANTS_PATH));
   let targetFiles = files.filter((file) => {
-    return path.extname(file).toLowerCase() === (env.NODE_ENV === 'development' ? '.ts' : '.js');
+    return path.extname(file).toLowerCase() === '.js';
   });
-  const restaurants: Restaurant[] = [];
+  const restaurants: App.Restaurant[] = [];
 
   // const filesOverride: string[] = ['hylliebistro.ts'];
   const filesOverride: string[] = [];
@@ -54,7 +63,7 @@ const scrape = async () => {
           ...restaurant.meta,
           dishCollection: [
             {
-              language: env.DEFAULT_LANGUAGE,
+              language: config.defaultLanguage,
               dishes: result,
             },
           ],
@@ -72,7 +81,7 @@ const scrape = async () => {
   const scrape = {
     date: new Date(),
     restaurants: await translateRestaurants(
-      restaurants.map((restaurant: Restaurant) => ({
+      restaurants.map((restaurant: App.Restaurant) => ({
         ...restaurant,
         dishCollection: restaurant.dishCollection.map((dishCollection) => ({
           ...dishCollection,
@@ -84,7 +93,13 @@ const scrape = async () => {
     ),
   };
 
-  await uploadScrape(scrape);
-};
+  if (!scrape?.restaurants?.length) {
+    res.sendStatus(500);
+    return;
+  }
 
-export default scrape;
+  const bucket = storage.bucket(BUCKET_NAME);
+  await bucket.file('scrape.json').save(JSON.stringify(scrape));
+
+  res.sendStatus(200);
+});

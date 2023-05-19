@@ -2,6 +2,7 @@
   "name": "@devolunch/client",
   "version": "0.1.0",
   "type": "module",
+  "license": "MIT",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -11,6 +12,7 @@
     "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config"
   },
   "dependencies": {
+    "@devolunch/shared": "workspace:*",
     "@emotion/react": "^11.10.8",
     "@types/node": "^18.16.1",
     "@types/react": "^18.2.0",
@@ -21,8 +23,7 @@
     "react-dom": "^18.2.0",
     "typescript": "^5.0.4",
     "vite-plugin-pwa": "^0.14.7",
-    "vite-plugin-svgr": "^3.2.0",
-    "web-vitals": "^3.3.1"
+    "vite-plugin-svgr": "^3.2.0"
   },
   "browserslist": {
     "production": [

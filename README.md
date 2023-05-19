@@ -40,13 +40,13 @@ docker-compose up
 
 ## Deploy to production
 
-Push the code to `master`-branch
+Make sure
 
 ## TODO
 
 - [ ] Make open source
-  - [ ] Implement Terraform support
+  - [x] Implement Terraform support
   - [x] Add instructions on how to make a scraper
+  - [ ] Move scrape call to Cloud Function
 - [x] Add husky/lint-staged and make sure pre-commit is triggered to run lint/tests
 - [ ] Write tests
-- [ ] Move scrape call to Cloud Function

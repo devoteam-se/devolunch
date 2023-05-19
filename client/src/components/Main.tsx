@@ -4,6 +4,8 @@ import Options from '@/components/Options';
 import RestaurantGrid from '@/components/RestaurantGrid';
 import { screenSize } from '@/utils/theme';
 
+import { Restaurant as RestaurantProps } from '@devolunch/shared';
+
 const mainStyles = css`
   display: flex;
   flex-direction: column;
@@ -26,16 +28,16 @@ const optionsStyles = css`
 `;
 
 interface RestaurantGridI {
-  restaurants: App.Restaurant[];
+  restaurants: RestaurantProps[];
 }
 
 export default function Main({ restaurants }: RestaurantGridI) {
   return (
-    <div css={mainStyles}>
+    <main css={mainStyles}>
       <div css={optionsStyles}>
         <Options />
       </div>
       <RestaurantGrid restaurants={restaurants} />
-    </div>
+    </main>
   );
 }

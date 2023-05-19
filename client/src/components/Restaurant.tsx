@@ -8,6 +8,8 @@ import { ReactComponent as DirectionIcon } from '@/assets/direction.svg';
 import { useRestaurants } from '@/contexts/restaurants';
 import { color } from '@/utils/theme';
 
+import { Restaurant as RestaurantProps } from '@devolunch/shared';
+
 const restaurantStyles = css`
   display: flex;
   flex-direction: column;
@@ -33,7 +35,6 @@ const restaurantDistanceStyles = css`
   display: flex;
   align-items: center;
   color: ${color.black};
-  font-size: 0.875rem;
   margin: 0.75rem 0;
 `;
 
@@ -58,7 +59,6 @@ const restaurantLinksStyles = css`
   & > a {
     display: flex;
     align-items: center;
-    font-size: 0.875rem;
     font-weight: 600;
     background-color: ${color.white};
     border: 1px solid ${color.blue};
@@ -83,7 +83,7 @@ const restaurantLinksIconStyles = css`
 
 const restaurantDirectionStyles = css``;
 
-export default function Restaurant({ title, distance, url, imgUrl, dishCollection, googleMapsUrl }: App.Restaurant) {
+export default function Restaurant({ title, distance, url, imgUrl, dishCollection, googleMapsUrl }: RestaurantProps) {
   const { language } = useRestaurants();
 
   return (

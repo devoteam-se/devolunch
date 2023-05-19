@@ -1,5 +1,6 @@
-import { ReactComponent as Icon } from '@/assets/devoteam.svg';
 import { css } from '@emotion/react';
+
+import { ReactComponent as Icon } from '@/assets/devoteam.svg';
 import { color, screenSize } from '@/utils/theme';
 
 const headerStyles = css`
@@ -81,7 +82,7 @@ interface HeaderI {
 
 export default function Header({ scrapeDate }: HeaderI) {
   return (
-    <div css={headerStyles}>
+    <header css={headerStyles}>
       <div css={headerHeadingStyles}>
         <h1>
           <a href="/" css={linkStyles}>
@@ -104,6 +105,6 @@ export default function Header({ scrapeDate }: HeaderI) {
       <a href="https://se.devoteam.com/">
         <Icon css={headerIconStyles} />
       </a>
-    </div>
+    </header>
   );
 }

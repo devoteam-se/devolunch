@@ -1,0 +1,4 @@
+environment_variables = {
+    DEFAULT_LANGUAGE = "sv",
+    TRANSLATE_LANGUAGES = "en",
+}

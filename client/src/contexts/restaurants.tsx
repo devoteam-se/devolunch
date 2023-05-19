@@ -1,5 +1,7 @@
-import { distance } from '@/utils/distance';
 import React, { useContext, useEffect, useState } from 'react';
+
+import { distance } from '@/utils/distance';
+import { Restaurant, Scrape } from '@devolunch/shared';
 
 type ContextType = {
   loading: boolean;
@@ -7,8 +9,8 @@ type ContextType = {
   realPosition: boolean;
   language: string;
   setLanguage: (language: string) => void;
-  restaurants: App.Restaurant[];
-  setRestaurants: (restaurants: App.Restaurant[]) => void;
+  restaurants: Restaurant[];
+  setRestaurants: (restaurants: Restaurant[]) => void;
 };
 
 enum Endpoints {
@@ -35,12 +37,12 @@ const rootUrl = isDev ? API_ROOT_DEV : API_ROOT_PROD;
 const fetchRestaurants = async () => {
   const res = await fetch(`${rootUrl}${Endpoints.RESTAURANTS}`);
   const data = await res.json();
-  return data as App.Scrape;
+  return data as Scrape;
 };
 
 const RestaurantsProvider = ({ children }: any) => {
   const [language, setLanguage] = useState<string>('sv');
-  const [restaurants, setRestaurants] = useState<App.Restaurant[]>([]);
+  const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
   const [scrapeDate, setScrapeDate] = useState<Date>(new Date());
   const [loading, setLoading] = useState<boolean>(false);
   const [realPosition] = useState<boolean>(false);
@@ -71,11 +73,11 @@ const RestaurantsProvider = ({ children }: any) => {
 
       setRestaurants(
         r.restaurants
-          .map((r: App.Restaurant) => ({
+          .map((r: Restaurant) => ({
             ...r,
             distance: distance(latitude, r.latitude, longitude, r.longitude),
           }))
-          .sort((a: App.Restaurant, b: App.Restaurant) => a.distance - b.distance),
+          .sort((a: Restaurant, b: Restaurant) => a.distance - b.distance),
       );
       setScrapeDate(new Date(r.date));
       setLoading(false);

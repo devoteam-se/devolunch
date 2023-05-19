@@ -1,0 +1,154 @@
+terraform {
+  required_providers {
+    google-beta = {
+      source  = "hashicorp/google-beta"
+      version = "4.65.2"
+    }
+  }
+}
+
+provider "google-beta" {
+  project = var.project_id
+  region  = var.region
+  zone    = var.zone
+}
+
+# Enable Storage Bucket API
+resource "google_project_service" "storage" {
+  provider           = google-beta
+  service            = "storage.googleapis.com"
+  disable_on_destroy = false
+}
+
+# Enable IAM API
+resource "google_project_service" "iam" {
+  provider           = google-beta
+  service            = "iam.googleapis.com"
+  disable_on_destroy = false
+}
+
+# Create a policy that allows all users to view data in bucket
+resource "google_storage_default_object_access_control" "public_rule" {
+  bucket = google_storage_bucket.bucket_json.name
+  role   = "READER"
+  entity = "allUsers"
+}
+
+# Create a Storage Bucket for the scrape document
+resource "google_storage_bucket" "bucket_json" {
+  name     = var.storage_bucket_scrape
+  location = var.region
+  project  = var.project_id
+  force_destroy = true
+}
+
+# Create Storage Bucket for Cloud Function zip
+resource "google_storage_bucket" "bucket_cloudfunction" {
+  name     = "${var.project_id}-cf-source"  # Every bucket name must be globally unique
+  location = var.region
+  project  = var.project_id
+  force_destroy = true
+  uniform_bucket_level_access = true
+  storage_class = "STANDARD"
+
+  versioning {
+    enabled = true
+  }
+}
+
+# Object for Cloud Storage
+resource "google_storage_bucket_object" "bucket_object" {
+  name   = "scraper.zip"
+  bucket = google_storage_bucket.bucket_cloudfunction.id
+  source = "${path.module}/../../server/functions/scraper/cf.zip"
+  depends_on = [null_resource.cf_file]
+}
+
+resource "null_resource" "cf_file" {
+  provisioner "local-exec" {
+    command = "cd ${path.module}/../../server/functions/scraper && rm -f cf.zip && zip -r cf.zip package.json .puppeteerrc.cjs dist"
+  }
+}
+
+resource "google_service_account" "service_account" {
+  project      = var.project_id
+  account_id   = "scraper-function-invoker-sa"
+  display_name = "Cloud Function Invoker Service Account"
+}
+
+resource "google_project_iam_member" "invoking" {
+  project     = var.project_id
+  role        = "roles/run.invoker"
+  member      = "serviceAccount:${google_service_account.service_account.email}"
+  depends_on  = [google_service_account.service_account]
+}
+
+resource "google_storage_bucket_iam_member" "bucket_object_creator" {
+  bucket      = google_storage_bucket.bucket_json.name
+  role        = "roles/storage.objectCreator"
+  member      = "serviceAccount:${google_service_account.service_account.email}"
+  depends_on  = [
+    google_service_account.service_account,
+    google_storage_bucket.bucket_json
+  ]
+}
+
+# Create Cloud Function
+resource "google_cloudfunctions2_function" "function" {
+  name           = "scraper"
+  location       = var.region
+  project        = var.project_id
+  description    = "scrape lunch menus"
+
+  build_config {
+    runtime = "nodejs18"
+    entry_point = "scrape"
+    source {
+      storage_source {
+        bucket = google_storage_bucket.bucket_cloudfunction.name
+        object = google_storage_bucket_object.bucket_object.name
+      }
+    }
+  }
+
+  service_config {
+    max_instance_count              = 1
+    available_cpu                   = "1"
+    available_memory                = "2Gi"
+    timeout_seconds                 = 180
+    ingress_settings                = "ALLOW_ALL"
+    environment_variables           = var.environment_variables
+    all_traffic_on_latest_revision  = true
+    service_account_email           = google_service_account.service_account.email
+  }
+}
+
+resource "google_cloud_scheduler_job" "job" {
+  project          = var.project_id
+  region           = var.region
+  name             = "scraper-scheduler"
+  description      = "Trigger the ${google_cloudfunctions2_function.function.name} Cloud Function every weekday at 10:00"
+  schedule         = "0 10 * * 1-5"
+  time_zone        = "Europe/Stockholm"
+  attempt_deadline = "320s"
+
+  http_target {
+    http_method = "POST"
+    uri         = google_cloudfunctions2_function.function.service_config[0].uri
+
+    oidc_token {
+      service_account_email = google_service_account.service_account.email
+    }
+  }
+}
+
+/* resource "null_resource" "cf_file_cleanup" { */
+/*   provisioner "local-exec" { */
+/*     command = "cd ${path.module}/../../server/functions/scraper && rm -f cf.zip" */
+/*   } */
+/*   depends_on = [google_cloudfunctions2_function.function] */
+/* } */
+
+output "function_uri" { 
+  value = google_cloudfunctions2_function.function.service_config[0].uri
+}

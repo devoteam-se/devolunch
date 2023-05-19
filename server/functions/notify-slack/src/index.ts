@@ -1,11 +1,19 @@
+import * as ff from '@google-cloud/functions-framework';
 import fetch from 'node-fetch';
 import FormData from 'form-data';
+import { Storage } from '@google-cloud/storage';
 
-import logger from '../logger';
-import { getScrape } from '../services/storage';
-import { env } from '../env';
+import { createConfig } from './config';
 
-const renderMarkdown = (restaurants: Restaurant[]) => {
+const config = createConfig();
+
+const BUCKET_NAME = 'devolunchv2';
+
+const storage = new Storage({
+  projectId: 'devolunch',
+});
+
+const renderMarkdown = (restaurants: App.Restaurant[]) => {
   let result = '_English version below_\n\n';
 
   // Swedish
@@ -23,11 +31,11 @@ const renderMarkdown = (restaurants: Restaurant[]) => {
   return result;
 };
 
-const renderItemForMarkdown = (language: string, restaurant: Restaurant) => {
+const renderItemForMarkdown = (language: string, restaurant: App.Restaurant) => {
   let result = `*${restaurant.title}*\n\n`;
   const dishCollection = restaurant.dishCollection.find((dc: { language: string }) => dc.language === language);
   if (dishCollection?.dishes) {
-    dishCollection.dishes.forEach((dish: Dish) => {
+    dishCollection.dishes.forEach((dish: App.Dish) => {
       // Capitalize type
       result += `• ${dish.type.replace(/\b\w/g, (l) => l.toUpperCase())}: ${dish.description}\n`;
     });
@@ -42,14 +50,18 @@ const getTodayNiceFormat = () => {
   return d.toISOString().split('T')[0];
 };
 
-export default async () => {
-  const scrape = await getScrape();
+ff.http('slack', async (req: ff.Request, res: ff.Response) => {
+  // send to slack
+  const bucket = storage.bucket(BUCKET_NAME);
+  const file = await bucket.file('scrape.json').download();
+  const scrape = JSON.parse(file[0].toString('utf8'));
+
   const mdText = renderMarkdown(scrape.restaurants);
 
   const form = new FormData();
   form.append('initial_comment', 'https://www.malmolunch.se');
   form.append('content', mdText);
-  form.append('channels', env.SLACK_CHANNEL_ID);
+  form.append('channels', config.slackChannelId);
   form.append('title', `Lunch ${getTodayNiceFormat()}`);
   form.append('filetype', 'post');
 
@@ -57,7 +69,7 @@ export default async () => {
     method: 'POST',
     body: form,
     headers: {
-      Authorization: `Bearer ${env.SLACK_OAUTH_TOKEN}`,
+      Authorization: `Bearer ${config.slackOauthToken}`,
     },
   })
     .then((res) => {
@@ -68,6 +80,8 @@ export default async () => {
       return res.json();
     })
     .catch((err) => {
-      logger.error(err);
+      console.error(err);
     });
-};
+
+  res.sendStatus(200);
+});

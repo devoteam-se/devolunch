@@ -1,6 +1,8 @@
 import { color } from '@/utils/theme';
 import { css } from '@emotion/react';
 
+import { Dish as DishProps } from '@devolunch/shared';
+
 const dishStyles = css`
   padding: 0.75rem 0;
   border-bottom: 1px solid ${color.black};
@@ -42,12 +44,11 @@ const dishTitleIconStyles = css`
 `;
 
 const dishDescriptionStyles = css`
-  font-size: 0.875rem;
   font-family: 'Open Sans', sans-serif;
   margin: 0;
 `;
 
-export default function Dish({ type, description }: App.Dish) {
+export default function Dish({ type, description }: DishProps) {
   // const { isFish } = useIsFish(description);
 
   return (

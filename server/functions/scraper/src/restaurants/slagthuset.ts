@@ -1,3 +1,4 @@
+import { DishType } from '@devolunch/shared';
 import { Page } from 'puppeteer';
 
 export const meta = {

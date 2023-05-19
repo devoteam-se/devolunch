@@ -3,6 +3,8 @@ import { css } from '@emotion/react';
 import Restaurant from '@/components/Restaurant';
 import { screenSize } from '@/utils/theme';
 
+import { Restaurant as RestaurantProps } from '@devolunch/shared';
+
 const restaurantListStyles = css`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -27,7 +29,7 @@ const restaurantListStyles = css`
 `;
 
 interface RestaurantListI {
-  restaurants: App.Restaurant[];
+  restaurants: RestaurantProps[];
 }
 
 export default function RestaurantGrid({ restaurants }: RestaurantListI) {

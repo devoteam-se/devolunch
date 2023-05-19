@@ -1,0 +1,28 @@
+{
+  "name": "@devolunch/shared",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts --clean",
+    "dev": "pnpm run build  --watch src"
+  },
+  "private": true,
+  "dependencies": {
+    "pino": "^7.10.0",
+    "pino-pretty": "^7.6.1",
+    "zod": "3.20.2"
+  },
+  "devDependencies": {
+    "@swc/core": "1.3.32",
+    "@types/node": "20.1.7",
+    "tsup": "6.6.0"
+  }
+}

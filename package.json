@@ -2,9 +2,9 @@
   "name": "devolunch",
   "version": "0.1.0",
   "description": "DevoLunch is an lunch app used for providing the todays lunch menus nearby the office.",
+  "license": "MIT",
   "scripts": {
     "start": "node ./server/dist/index.js",
-    "build": "pnpm build",
     "dev": "pnpm --filter server dev && pnpm --filter client dev",
     "dev:server": "pnpm --filter server dev",
     "dev:client": "pnpm --filter client dev",
