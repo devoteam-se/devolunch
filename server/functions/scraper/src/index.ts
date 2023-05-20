@@ -52,11 +52,7 @@ ff.http('scrape', async (req: ff.Request, res: ff.Response) => {
 
       try {
         console.log('scraping', restaurant.meta.url);
-        let result = await restaurant.browserScrapeFunction(page);
-
-        if (restaurant.meta.pdf) {
-          result = await restaurant.pdfScrapeFunction(result);
-        }
+        const result = await restaurant.browserScrapeFunction(page);
 
         restaurants.push({
           ...restaurant.meta,

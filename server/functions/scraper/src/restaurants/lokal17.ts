@@ -8,24 +8,13 @@ export const meta = {
   googleMapsUrl: 'https://goo.gl/maps/eMsNxGK743oQVj8D9',
   latitude: 55.612111673032366,
   longitude: 12.995311427220344,
-  pdf: true,
 };
 
-export const browserScrapeFunction = async (page: Page) =>
-  page.evaluate(async () => {
-    const lunchNode = [...document.querySelectorAll('a')].find((a) =>
-      a?.innerText?.toLowerCase()?.includes('lunchmeny'),
-    );
-    const url = lunchNode?.getAttribute('href');
-
-    if (!url) {
-      return [];
-    }
-
-    return url;
-  });
-
 export const pdfScrapeFunction = async (url: string) => {
+  if (!url) {
+    return [];
+  }
+
   const todaySwedishFormat = new Date()
     .toLocaleString('sv-SE', {
       weekday: 'long',
@@ -77,4 +66,21 @@ export const pdfScrapeFunction = async (url: string) => {
   };
 
   return [todayMeat, veg, alwaysMeat, alwaysVeg, alwaysFish];
+};
+
+export const browserScrapeFunction = async (page: Page) => {
+  const url = await page.evaluate(async () => {
+    const lunchNode = [...document.querySelectorAll('a')].find((a) =>
+      a?.innerText?.toLowerCase()?.includes('lunchmeny'),
+    );
+    const url = lunchNode?.getAttribute('href');
+
+    if (!url) {
+      return '';
+    }
+
+    return url;
+  });
+
+  return pdfScrapeFunction(url);
 };

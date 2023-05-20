@@ -9,24 +9,13 @@ export const meta = {
   googleMapsUrl: 'https://goo.gl/maps/9hmQUctdgeNvVSuF8',
   latitude: 55.60675917303053,
   longitude: 12.996173056055413,
-  pdf: true,
 };
 
-export const browserScrapeFunction = async (page: Page) =>
-  page.evaluate(async () => {
-    const lunchNode = [...document.querySelectorAll('a')].find((a) =>
-      a?.innerText?.toLowerCase()?.includes('veckans lunchmeny'),
-    );
-    const url = lunchNode?.getAttribute('href');
-
-    if (!url) {
-      return [];
-    }
-
-    return url;
-  });
-
 export const pdfScrapeFunction = async (url: string) => {
+  if (!url) {
+    return [];
+  }
+
   const todaySwedishFormat = new Date()
     .toLocaleString('sv-SE', {
       weekday: 'long',
@@ -65,4 +54,21 @@ export const pdfScrapeFunction = async (url: string) => {
   };
 
   return [todayMeat, veg];
+};
+
+export const browserScrapeFunction = async (page: Page) => {
+  const url = await page.evaluate(async () => {
+    const lunchNode = [...document.querySelectorAll('a')].find((a) =>
+      a?.innerText?.toLowerCase()?.includes('veckans lunchmeny'),
+    );
+    const url = lunchNode?.getAttribute('href');
+
+    if (!url) {
+      return '';
+    }
+
+    return url;
+  });
+
+  return pdfScrapeFunction(url);
 };

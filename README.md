@@ -1,6 +1,6 @@
 # Devolunch
 
-<a href="https://github.com/jayway/devolunch/blob/master/LICENSE.md"><img src="https://img.shields.io/npm/l/heroicons.svg" alt="License"></a>
+<a href="https://github.com/jayway/devolunch/blob/main/LICENSE.md"><img src="https://img.shields.io/npm/l/heroicons.svg" alt="License"></a>
 
 Devolunch is an app that presents today's lunch menu on scraped restaurants. It's hosted on [Google Cloud Platform](https://cloud.google.com/).
 
@@ -74,12 +74,13 @@ Excited to work alongside you! Follow the instructions in [CONTRIBUTING](./CONTR
   - [x] Add instructions on how to make a scraper
   - [x] Move scrape call to Cloud Function
   - [ ] Add deploy on Github release
-  - [ ] Block master branch from anyone outside of the org (unless default)
+  - [ ] Block main branch from anyone outside of the org (unless default)
 - [x] Add husky/lint-staged and make sure pre-commit is triggered to run lint/tests
 - [x] Add API definition
 - [x] Add API versioning
 - [ ] When first deploying the Website, a dummy version is deployed. Fix so it's the actual site.
 - [x] Change filesOverride to be read from environment instead of code
-- [ ] Change scraper to run PDF parse from within `browserScrapeFunction`
+- [x] Change scraper to run PDF parse from within `browserScrapeFunction`
+- [ ] Fix shared npm packages for functions
 - [ ] Write tests
 - [ ] Host images in a bucket
