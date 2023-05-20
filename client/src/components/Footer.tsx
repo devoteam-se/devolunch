@@ -54,7 +54,7 @@ export default function Footer() {
         <a href="https://github.com/jayway/devolunch">
           <Github css={iconStyles} />
         </a>
-        <p>Developed by Devoteam Sweden AB as a fun side project.</p>
+        <p>Developed by Devoteam Sverige AB as a fun side project.</p>
         <p>This project is licensed under the terms of the MIT license.</p>
       </div>
     </footer>
