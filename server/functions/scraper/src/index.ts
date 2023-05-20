@@ -35,9 +35,8 @@ ff.http('scrape', async (req: ff.Request, res: ff.Response) => {
   });
   const restaurants: App.Restaurant[] = [];
 
-  // const filesOverride: string[] = ['hylliebistro.ts'];
-  const filesOverride: string[] = [];
-  if (filesOverride.length) {
+  const filesOverride = config.filesOverride?.split(',');
+  if (filesOverride?.length) {
     targetFiles = filesOverride;
   }
 

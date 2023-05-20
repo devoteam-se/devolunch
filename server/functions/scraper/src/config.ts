@@ -6,6 +6,7 @@ const Config = z
     development: z.boolean(),
     defaultLanguage: z.string().min(1),
     translateLanguages: z.string().min(1),
+    filesOverride: z.string().optional(),
   })
   .strict();
 
@@ -18,6 +19,7 @@ export const createConfig = () => {
     development: process.env.NODE_ENV === 'development',
     defaultLanguage: process.env.DEFAULT_LANGUAGE || '',
     translateLanguages: process.env.TRANSLATE_LANGUAGES || '',
+    filesOverride: process.env.FILES_OVERRIDE || undefined,
   });
 
   return Config.parse(config);

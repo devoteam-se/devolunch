@@ -28,13 +28,17 @@ export const browserScrapeFunction = (page: Page) =>
       return t.includes(todaySwedishFormat) || t.includes(todayEnglishFormat);
     });
 
-    const raw = (lunchNode as HTMLElement).innerText.split('\n').filter((a) => a.trim());
-    const todayIndex = raw.findIndex((a) => {
+    const raw = (lunchNode as HTMLElement)?.innerText.split('\n').filter((a) => a.trim());
+    const todayIndex = raw?.findIndex((a) => {
       const t = a.toLocaleLowerCase('sv-SE').normalize('NFC');
       return t.includes(todaySwedishFormat) || t.includes(todayEnglishFormat);
     });
 
-    const dishes = [];
+    const dishes: App.Dish[] = [];
+
+    if (!raw) {
+      return dishes;
+    }
 
     if (raw[todayIndex + 2].length > 25) {
       dishes.push({
