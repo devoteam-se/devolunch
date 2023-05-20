@@ -81,3 +81,4 @@ Excited to work alongside you! Follow the instructions in [CONTRIBUTING](./CONTR
 - [ ] Change filesOver to be read from environment instead of code
 - [ ] Change scraper to run PDF parse from within `browserScrapeFunction`
 - [ ] Write tests
+- [ ] Host images in a bucket
