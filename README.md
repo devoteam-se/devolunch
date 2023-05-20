@@ -76,7 +76,8 @@ Excited to work alongside you! Follow the instructions in [CONTRIBUTING](./CONTR
   - [ ] Add deploy on Github release
   - [ ] Block master branch from anyone outside of the org (unless default)
 - [x] Add husky/lint-staged and make sure pre-commit is triggered to run lint/tests
-- [ ] Add API definition and API versioning
+- [x] Add API definition
+- [x] Add API versioning
 - [ ] When first deploying the Website, a dummy version is deployed. Fix so it's the actual site.
 - [ ] Change filesOver to be read from environment instead of code
 - [ ] Change scraper to run PDF parse from within `browserScrapeFunction`

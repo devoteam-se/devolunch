@@ -17,8 +17,8 @@ enum Endpoints {
   RESTAURANTS = '/restaurants',
 }
 
-const API_ROOT_PROD = '/api';
-const API_ROOT_DEV = 'http://localhost:8080/api';
+const API_ROOT_PROD = '/api/v1';
+const API_ROOT_DEV = 'http://localhost:8080/api/v1';
 
 const RestaurantsContext = React.createContext<ContextType | null>(null);
 

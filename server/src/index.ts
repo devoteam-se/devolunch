@@ -9,9 +9,8 @@ import routes from './routes';
 const CLIENT_DIR = resolve(__dirname, '..', '..', 'client');
 
 const app = express();
-app.use(cors());
 
-app.get('/health', (req, res) => res.send("I'm healthy!"));
+app.use(cors());
 
 // Serve static files
 app.use(express.static(resolve(CLIENT_DIR, 'dist')));
@@ -20,7 +19,7 @@ app.get('/', (req, res) => {
   res.sendFile(resolve(CLIENT_DIR, 'dist', 'index.html'));
 });
 
-app.use('/api', routes);
+app.use('/api/v1', routes);
 
 app.listen(config.port, () => {
   logger.info(`App listening on port ${config.port}`);
