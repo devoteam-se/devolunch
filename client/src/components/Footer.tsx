@@ -10,9 +10,9 @@ const footerStyles = css`
   flex-direction: column;
   align-items: center;
   max-width: ${screenSize.extraLarge};
-  margin: 4rem auto 6rem auto;
+  margin: 4rem auto 0;
   text-align: center;
-  padding: 0 1.25rem;
+  padding: 0 4rem 6rem 4rem;
 
   p {
     margin: 0;

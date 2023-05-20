@@ -13,6 +13,7 @@ export const color = {
   blue: '#4a8cca',
   orange: '#ffaa5b',
   blackOlive: '#3c3c3a',
+  devoteam: '#f8485e',
   foodType: {
     meat: '#fca2ae',
     veg: '#8ab8a5',

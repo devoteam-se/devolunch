@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 
-import { ReactComponent as Icon } from '@/assets/devoteam.svg';
+import { ReactComponent as Icon } from '@/assets/devoteam-round.svg';
 import { color, screenSize } from '@/utils/theme';
 
 const headerStyles = css`
@@ -69,11 +69,8 @@ const headerUpdatedAtStyles = css`
 
 const headerIconStyles = css`
   justify-self: center;
-  width: 12rem;
-
-  @media only screen and (max-width: ${screenSize.extraSmall}) {
-    width: 7.5rem;
-  }
+  width: 3rem;
+  fill: ${color.devoteam};
 `;
 
 interface HeaderI {
