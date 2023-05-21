@@ -1,6 +1,9 @@
 name: Install and test
 
 on:
+  push:
+    branches:
+      - 'main'
   workflow_call:
 
 jobs:

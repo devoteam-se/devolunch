@@ -1,5 +1,7 @@
 # Deploy
 
+These are Terraform files to deploy to GCP.
+
 ## Scraper
 
 Go to `/terraform/scraper` and check that the variables are correct in `variables.tf` and make sure to copy `terraform.tfvars.examples` and name it `terraform.tfvars`. Verify that the languages you want to use are correct.
@@ -17,7 +19,7 @@ Go to Cloud Scheduler in your project and select the `scrape-scheduler` and trig
 
 ## Website
 
-When you first deploy the website a hello world example is deployed on Cloud Run. The actual deploy only happens when someone pushes changes to the repository. I'm working on fixing this.
+When you first deploy the website a hello world example is deployed on Cloud Run. To deploy the actual version, make a release.
 
 Verify that the scraper is up and running, and that the Cloud Schedule to trigger a scrape as been run.
 Next, go to `/terraform/website` and check that the variables are correct in `variables.tf`.

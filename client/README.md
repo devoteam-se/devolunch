@@ -2,8 +2,8 @@
 
 This client is a React application using Typescript and Vite.
 
-## Requirements
+To run it, simply do
 
-- [pnpm](https://pnpm.io/)
-- Docker, docker-compose
-- [Node](https://nodejs.org/) 18
+```sh
+pnpm dev
+```
