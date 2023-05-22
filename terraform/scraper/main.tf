@@ -85,7 +85,7 @@ resource "google_project_iam_member" "invoking" {
 
 resource "google_storage_bucket_iam_member" "bucket_object_creator" {
   bucket      = google_storage_bucket.bucket_json.name
-  role        = "roles/storage.objectCreator"
+  role        = "roles/storage.objectAdmin"
   member      = "serviceAccount:${google_service_account.service_account.email}"
   depends_on  = [
     google_service_account.service_account,
