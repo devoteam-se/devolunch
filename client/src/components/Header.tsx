@@ -83,7 +83,7 @@ export default function Header({ scrapeDate }: HeaderI) {
       <div css={headerHeadingStyles}>
         <h1>
           <a href="/" css={linkStyles}>
-            Malmölunch
+            Devolunch
           </a>
         </h1>
         <div css={headerUpdatedAtStyles}>
