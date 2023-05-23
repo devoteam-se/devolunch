@@ -17,8 +17,8 @@ export const browserScrapeFunction = (page: Page) =>
       })
       .toLowerCase();
 
-    const lunchNode = [...document.querySelectorAll('p')].find((a) =>
-      new RegExp(/vecka\s([1-9][0-9]?(\.[0-9]{1,2})?)/).test(a?.innerText.toLowerCase()),
+    const lunchNode = [...document.querySelectorAll('p, h2, h3')].find((a) =>
+      new RegExp(/vecka\s([1-9][0-9]?(\.[0-9]{1,2})?)/).test((a as HTMLElement)?.innerText.toLowerCase()),
     );
     const lunchMenuDiv = lunchNode?.parentNode?.parentNode as HTMLDivElement;
     const raw = lunchMenuDiv?.innerText?.split('\n')?.filter((a) => a.trim() && a !== '—');
