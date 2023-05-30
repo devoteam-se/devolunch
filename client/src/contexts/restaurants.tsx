@@ -5,7 +5,7 @@ import { Restaurant, Scrape } from '@devolunch/shared';
 
 type ContextType = {
   loading: boolean;
-  scrapeDate: Date;
+  scrapeDate: Date | null;
   realPosition: boolean;
   language: string;
   setLanguage: (language: string) => void;
@@ -35,15 +35,19 @@ export const useRestaurants = () => {
 const rootUrl = isDev ? API_ROOT_DEV : API_ROOT_PROD;
 
 const fetchRestaurants = async () => {
-  const res = await fetch(`${rootUrl}${Endpoints.RESTAURANTS}`);
-  const data = await res.json();
-  return data as Scrape;
+  try {
+    const res = await fetch(`${rootUrl}${Endpoints.RESTAURANTS}`);
+    const data = await res.json();
+    return data as Scrape;
+  } catch (err) {
+    return null;
+  }
 };
 
 const RestaurantsProvider = ({ children }: any) => {
   const [language, setLanguage] = useState<string>('sv');
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
-  const [scrapeDate, setScrapeDate] = useState<Date>(new Date());
+  const [scrapeDate, setScrapeDate] = useState<Date | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [realPosition] = useState<boolean>(false);
 
@@ -71,15 +75,17 @@ const RestaurantsProvider = ({ children }: any) => {
 
       const r = await fetchRestaurants();
 
-      setRestaurants(
-        r.restaurants
-          .map((r: Restaurant) => ({
-            ...r,
-            distance: distance(latitude, r.latitude, longitude, r.longitude),
-          }))
-          .sort((a: Restaurant, b: Restaurant) => a.distance - b.distance),
-      );
-      setScrapeDate(new Date(r.date));
+      if (r) {
+        setRestaurants(
+          r.restaurants
+            .map((r: Restaurant) => ({
+              ...r,
+              distance: distance(latitude, r.latitude, longitude, r.longitude),
+            }))
+            .sort((a: Restaurant, b: Restaurant) => a.distance - b.distance),
+        );
+        setScrapeDate(new Date(r.date));
+      }
       setLoading(false);
     };
 

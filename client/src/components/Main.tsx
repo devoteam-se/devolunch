@@ -27,6 +27,12 @@ const optionsStyles = css`
   }
 `;
 
+const noRestaurantsStyles = css`
+  font-size: 1.5rem;
+  text-align: center;
+  margin: 3rem 0;
+`;
+
 interface RestaurantGridI {
   restaurants: RestaurantProps[];
 }
@@ -34,10 +40,16 @@ interface RestaurantGridI {
 export default function Main({ restaurants }: RestaurantGridI) {
   return (
     <main css={mainStyles}>
-      <div css={optionsStyles}>
-        <Options />
-      </div>
-      <RestaurantGrid restaurants={restaurants} />
+      {restaurants?.length ? (
+        <>
+          <div css={optionsStyles}>
+            <Options />
+          </div>
+          <RestaurantGrid restaurants={restaurants} />
+        </>
+      ) : (
+        <div css={noRestaurantsStyles}>Have not scraped any restaurants yet</div>
+      )}
     </main>
   );
 }

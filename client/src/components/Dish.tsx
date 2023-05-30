@@ -49,8 +49,6 @@ const dishDescriptionStyles = css`
 `;
 
 export default function Dish({ type, description }: DishProps) {
-  // const { isFish } = useIsFish(description);
-
   return (
     <div css={dishStyles}>
       <h3 css={dishTitleStyles}>

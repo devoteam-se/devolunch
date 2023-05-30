@@ -35,7 +35,7 @@ interface RestaurantListI {
 export default function RestaurantGrid({ restaurants }: RestaurantListI) {
   return (
     <div css={restaurantListStyles}>
-      {restaurants.map((restaurant, index) => (
+      {restaurants?.map((restaurant, index) => (
         <Restaurant
           key={`rest-${index}`}
           title={restaurant.title}

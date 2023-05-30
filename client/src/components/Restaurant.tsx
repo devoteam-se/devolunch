@@ -14,11 +14,6 @@ const restaurantStyles = css`
   display: flex;
   flex-direction: column;
   padding: 0;
-
-  a {
-    text-decoration: none;
-    color: ${color.black};
-  }
 `;
 
 const restaurantTitleStyles = css`
@@ -43,9 +38,16 @@ const restaurantLocationIconStyles = css`
   width: 1rem;
 `;
 
+const restaurantImageLinkStyles = css`
+  text-decoration: none;
+  color: ${color.black};
+  height: 14rem;
+  margin-bottom: 0.25rem;
+`;
+
 const restaurantImageStyles = css`
   width: 100%;
-  height: 14rem;
+  height: 100%;
   border-radius: 0.625rem;
   margin: 0 auto;
   object-fit: cover;
@@ -93,7 +95,7 @@ export default function Restaurant({ title, distance, url, imgUrl, dishCollectio
         <LocationIcon css={restaurantLocationIconStyles} />
         {distance < 1 ? `${(distance * 1000)?.toFixed(0)} m` : `${distance?.toFixed(2)} km`}
       </div>
-      <a href={url}>
+      <a href={url} css={restaurantImageLinkStyles}>
         <img src={imgUrl} css={restaurantImageStyles} alt={title} />
       </a>
       {dishCollection

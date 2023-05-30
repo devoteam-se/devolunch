@@ -74,7 +74,7 @@ const headerIconStyles = css`
 `;
 
 interface HeaderI {
-  scrapeDate: Date;
+  scrapeDate: Date | null;
 }
 
 export default function Header({ scrapeDate }: HeaderI) {
@@ -87,16 +87,17 @@ export default function Header({ scrapeDate }: HeaderI) {
           </a>
         </h1>
         <div css={headerUpdatedAtStyles}>
-          Updated&nbsp;
           {scrapeDate
-            .toLocaleDateString('us-EN', {
-              weekday: 'short',
-              month: 'short',
-              day: 'numeric',
-              hour: 'numeric',
-              minute: 'numeric',
-            })
-            .replace(',', '')}
+            ? `Updated ${scrapeDate
+                ?.toLocaleDateString('us-EN', {
+                  weekday: 'short',
+                  month: 'short',
+                  day: 'numeric',
+                  hour: 'numeric',
+                  minute: 'numeric',
+                })
+                .replace(',', '')}`
+            : ''}
         </div>
       </div>
       <a href="https://se.devoteam.com/">
