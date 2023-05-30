@@ -66,13 +66,13 @@ resource "google_storage_bucket_object" "bucket_object" {
 
 resource "null_resource" "cf_file" {
   provisioner "local-exec" {
-    command = "cd ${path.module}/../../server/functions/scraper && rm -f cf.zip && zip -r cf.zip package.json .puppeteerrc.cjs dist"
+    command = "cd ${path.module}/../../server/functions/scraper && pnpm compile && rm -f cf.zip && zip -r cf.zip package.json .puppeteerrc.cjs dist"
   }
 }
 
 resource "google_service_account" "service_account" {
   project      = var.project_id
-  account_id   = "scraper-function-invoker-sa"
+  account_id   = "scraper-invoker-sa"
   display_name = "Cloud Function Invoker Service Account"
 }
 

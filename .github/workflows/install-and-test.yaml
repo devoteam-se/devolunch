@@ -7,6 +7,10 @@ on:
   workflow_call:
 
 jobs:
+  release-drafter:
+    name: release-drafter
+    uses: ./.github/workflows/release-drafter.yaml
+
   install-and-test:
     runs-on: ubuntu-latest
 
