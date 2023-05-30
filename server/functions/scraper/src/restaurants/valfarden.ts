@@ -20,6 +20,23 @@ export const browserScrapeFunction = (page: Page) =>
     const lunchNode = [...document.querySelectorAll('p, h2, h3')].find((a) =>
       new RegExp(/vecka\s([1-9][0-9]?(\.[0-9]{1,2})?)/).test((a as HTMLElement)?.innerText.toLowerCase()),
     );
+
+    const weekdays = ['måndag', 'tisdag', 'onsdag', 'torsdag', 'fredag'];
+    let closestParentElement = lunchNode as HTMLElement;
+
+    while (true as const) {
+      // If we find 3 or more weekdays in the parentElement we're gucci
+      if (weekdays.filter((w) => closestParentElement?.textContent?.toLowerCase().includes(w)).length >= 3) {
+        break;
+      }
+
+      closestParentElement = closestParentElement?.parentElement as HTMLElement;
+
+      if (!closestParentElement) {
+        return [];
+      }
+    }
+
     const lunchMenuDiv = lunchNode?.parentNode?.parentNode as HTMLDivElement;
     const raw = lunchMenuDiv?.innerText?.split('\n')?.filter((a) => a.trim() && a !== '—');
     const todayIndex = raw?.findIndex((a) => a.toLowerCase().includes(todaySwedishFormat));

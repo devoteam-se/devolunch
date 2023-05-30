@@ -97,10 +97,12 @@ export default function Restaurant({ title, distance, url, imgUrl, dishCollectio
         <img src={imgUrl} css={restaurantImageStyles} alt={title} />
       </a>
       {dishCollection
-        .find((dc) => dc.language === language)
-        ?.dishes.map((dish, index) => (
-          <Dish key={`dish-${index}`} type={dish.type} description={dish.description} />
-        ))}
+        ? dishCollection
+            .find((dc) => dc.language === language)
+            ?.dishes.map((dish, index) => (
+              <Dish key={`dish-${index}`} type={dish.type} description={dish.description} />
+            ))
+        : 'Unable to scrape ¯_(ツ)_/¯'}
       <div css={restaurantLinksStyles}>
         <a href={url} css={restaurantWebsiteIconStyles}>
           <ExternalLinkIcon css={restaurantLinksIconStyles} />

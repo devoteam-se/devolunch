@@ -83,8 +83,8 @@ export const browserScrapeFunction = (page: Page) =>
 
     for (let i = 0; i < raw.length; i++) {
       const row = raw[i].toLowerCase();
-      const description = raw[i + 1];
       const dishType = getDishType(row, todaySwedishFormat);
+      const description = raw[i + 1];
 
       if (dishType) {
         const dish = {
