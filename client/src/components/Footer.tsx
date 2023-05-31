@@ -45,13 +45,16 @@ export default function Footer() {
   return (
     <footer css={footerStyles}>
       <div css={iconsStyles}>
-        <a href="https://se.devoteam.com">
+        <a href="https://se.devoteam.com" aria-label="Go to Devoteam Creative Tech website">
           <Devoteam css={iconStyles} />
         </a>
-        <a href="https://www.linkedin.com/company/devoteamcreativetech/">
+        <a
+          href="https://www.linkedin.com/company/devoteamcreativetech/"
+          aria-label="Go to Devoteam Creative Tech LinkedIn account"
+        >
           <LinkedIn css={iconStyles} />
         </a>
-        <a href="https://github.com/jayway/devolunch">
+        <a href="https://github.com/jayway/devolunch" aria-label="Go to Devoteam Creative Tech Github organisation">
           <Github css={iconStyles} />
         </a>
         <p>Developed by Devoteam Sverige AB as a fun side project.</p>

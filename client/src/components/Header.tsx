@@ -100,7 +100,7 @@ export default function Header({ scrapeDate }: HeaderI) {
             : ''}
         </div>
       </div>
-      <a href="https://se.devoteam.com/">
+      <a href="https://se.devoteam.com/" aria-label="Go to Devoteam Creative Tech website">
         <Icon css={headerIconStyles} />
       </a>
     </header>
