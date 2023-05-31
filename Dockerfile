@@ -42,9 +42,9 @@ FROM --platform=linux/amd64 node:18-alpine
 ENV NODE_ENV=production
 
 # copy built client and server
-COPY --from=server-builder /app/server/ /server
 COPY --from=server-builder /app/pruned/node_modules /server/node_modules
-COPY --from=client-builder /app/client/dist/ /client/dist
+COPY --from=server-builder /app/server/dist /server/dist
+COPY --from=client-builder /app/client/dist /client/dist
 
 EXPOSE 8080
 WORKDIR '/server'
