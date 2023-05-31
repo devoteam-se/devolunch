@@ -7,6 +7,7 @@ import { distance } from '@/utils/distance';
 import { color } from '@/utils/theme';
 
 import { Restaurant } from '@devolunch/shared';
+import Button from './Button';
 
 const activeKeyFrame = keyframes`
 	0% {
@@ -30,21 +31,6 @@ const sortStyles = css`
 `;
 
 const sortButtonStyles = css`
-  display: flex;
-  align-items: center;
-  background-color: ${color.white};
-  padding: 0.25rem 0.5rem;
-  border: 1px solid ${color.blue};
-  border-radius: 1rem;
-  font-size: 1rem;
-  font-weight: bold;
-  cursor: pointer;
-  color: ${color.blue};
-
-  &:hover {
-    background-color: ${color.orange};
-  }
-
   &[data-active='1'] {
     background-color: ${color.orange};
     animation: ${activeKeyFrame} 1s infinite;
@@ -89,10 +75,10 @@ export default function Sort() {
 
   return (
     <div css={sortStyles}>
-      <button css={sortButtonStyles} onClick={sortOnLocation} onAnimationEnd={() => setActive(0)} data-active={active}>
+      <Button css={sortButtonStyles} onClick={sortOnLocation} onAnimationEnd={() => setActive(0)} data-active={active}>
         <SortIcon css={sortIconStyles} />
         Sort by my location
-      </button>
+      </Button>
     </div>
   );
 }

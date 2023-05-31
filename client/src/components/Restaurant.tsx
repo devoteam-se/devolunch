@@ -61,13 +61,15 @@ const restaurantLinksStyles = css`
   & > a {
     display: flex;
     align-items: center;
-    font-weight: 600;
+    color: ${color.blue};
     background-color: ${color.white};
     border: 1px solid ${color.blue};
     border-radius: 1rem;
-    color: ${color.blue};
+    font-size: 0.875rem;
+    font-weight: 600;
     padding: 0.25rem 0.5rem;
     margin-left: 0.5rem;
+    text-decoration: none;
   }
 
   & > a:hover {
