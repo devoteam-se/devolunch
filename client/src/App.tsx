@@ -20,6 +20,12 @@ const globalStyles = css`
   }
 `;
 
+const noRestaurantsStyles = css`
+  font-size: 1.5rem;
+  text-align: center;
+  margin: 3rem 0;
+`;
+
 function App() {
   const { restaurants, scrapeDate, loading } = useRestaurants();
 
@@ -28,12 +34,14 @@ function App() {
       <Global styles={globalStyles} />
       {loading ? (
         <SplashScreen />
-      ) : (
+      ) : !loading && restaurants?.length ? (
         <>
           <Header scrapeDate={scrapeDate} />
           <Main restaurants={restaurants} />
           <Footer />
         </>
+      ) : (
+        <div css={noRestaurantsStyles}>Have not scraped any restaurants yet</div>
       )}
     </>
   );
