@@ -53,6 +53,10 @@ const restaurantImageStyles = css`
   object-fit: cover;
 `;
 
+const unableToScrapeStyles = css`
+  margin-top: 0.75rem;
+`;
+
 const restaurantLinksStyles = css`
   display: flex;
   justify-content: flex-end;
@@ -100,13 +104,13 @@ export default function Restaurant({ title, distance, url, imgUrl, dishCollectio
       <a href={url} css={restaurantImageLinkStyles}>
         <img src={imgUrl} css={restaurantImageStyles} alt={title} />
       </a>
-      {dishCollection
-        ? dishCollection
-            .find((dc) => dc.language === language)
-            ?.dishes.map((dish, index) => (
-              <Dish key={`dish-${index}`} type={dish.type} description={dish.description} />
-            ))
-        : 'Unable to scrape ¯_(ツ)_/¯'}
+      {dishCollection.filter((a) => a.dishes?.length).length ? (
+        dishCollection
+          .find((dc) => dc.language === language)
+          ?.dishes.map((dish, index) => <Dish key={`dish-${index}`} type={dish.type} description={dish.description} />)
+      ) : (
+        <div css={unableToScrapeStyles}>Unable to scrape ¯_(ツ)_/¯</div>
+      )}
       <div css={restaurantLinksStyles}>
         <a href={url} css={restaurantWebsiteIconStyles}>
           <ExternalLinkIcon css={restaurantLinksIconStyles} />
