@@ -79,7 +79,7 @@ export const browserScrapeFunction = (page: Page) =>
       e.innerText.toLowerCase().includes('meny vecka'),
     );
     const lunchMenuDiv = lunchNode?.parentNode?.parentNode as HTMLDivElement;
-    const raw = lunchMenuDiv.innerText.split('\n');
+    const raw = lunchMenuDiv?.innerText.split('\n');
 
     for (let i = 0; i < raw.length; i++) {
       const row = raw[i].toLowerCase();
