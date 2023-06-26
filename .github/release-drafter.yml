@@ -13,5 +13,3 @@ version-resolver:
   default: patch
 template: |
   ## What’s Changed
-
-  $CHANGES
