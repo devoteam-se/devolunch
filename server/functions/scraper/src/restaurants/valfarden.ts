@@ -26,7 +26,7 @@ export const browserScrapeFunction = (page: Page) =>
 
     while (true as const) {
       // If we find 3 or more weekdays in the parentElement we're gucci
-      if (weekdays.filter((w) => closestParentElement?.textContent?.toLowerCase().includes(w)).length >= 3) {
+      if (weekdays.filter((w) => closestParentElement?.textContent?.toLowerCase().includes(w))?.length >= 3) {
         break;
       }
 

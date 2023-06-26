@@ -38,7 +38,7 @@ export const browserScrapeFunction = (page: Page) =>
     };
 
     const getDaysRangeFromMenuString = (row: string): string[] => {
-      const numWords = row.split(' ').length;
+      const numWords = row.split(' ')?.length;
       if (numWords !== 2) {
         return [];
       }
@@ -81,7 +81,7 @@ export const browserScrapeFunction = (page: Page) =>
     const lunchMenuDiv = lunchNode?.parentNode?.parentNode as HTMLDivElement;
     const raw = lunchMenuDiv?.innerText.split('\n');
 
-    for (let i = 0; i < raw.length; i++) {
+    for (let i = 0; i < raw?.length; i++) {
       const row = raw[i].toLowerCase();
       const dishType = getDishType(row, todaySwedishFormat);
       const description = raw[i + 1];

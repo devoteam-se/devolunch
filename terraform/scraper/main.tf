@@ -142,6 +142,6 @@ resource "google_cloud_scheduler_job" "job" {
   }
 }
 
-output "function_uri" { 
+output "function_uri" {
   value = google_cloudfunctions2_function.function.service_config[0].uri
 }

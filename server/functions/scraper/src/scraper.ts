@@ -26,12 +26,13 @@ export const scrapeRestaurant = async (browser: Browser, file: string) => {
   const restaurant = await import(path.join(__dirname, RESTAURANTS_PATH, file));
   const page = await browser.newPage();
   page.on('console', (msg) => console.log(msg.text()));
-  await page.goto(restaurant.meta.url, {
-    waitUntil: 'load',
-    timeout: TIMEOUT,
-  });
 
   try {
+    await page.goto(restaurant.meta.url, {
+      waitUntil: 'load',
+      timeout: TIMEOUT,
+    });
+
     console.log(`Scraper ${restaurant.meta.title} on ${restaurant.meta.url}`);
     const result = await restaurant.browserScrapeFunction(page);
 
@@ -48,6 +49,7 @@ export const scrapeRestaurant = async (browser: Browser, file: string) => {
     console.error(err);
     return {
       ...restaurant.meta,
+      dishCollection: [],
     };
   } finally {
     await page.close();

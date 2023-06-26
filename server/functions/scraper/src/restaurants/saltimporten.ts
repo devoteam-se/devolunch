@@ -16,29 +16,21 @@ export const browserScrapeFunction = (page: Page) =>
         weekday: 'long',
       })
       .toLowerCase();
-    const regex = new RegExp(todaySwedishFormat.normalize('NFC'), 'i');
 
-    const todayNode = [...document.querySelectorAll('div.elementor-widget-container div p')].find((e) => {
-      const text = e?.textContent?.toLocaleLowerCase('sv-SE').normalize('NFC');
-      const includes = text?.includes(todaySwedishFormat.normalize('NFC'));
-      return includes;
-    });
+    const menu = document.querySelector('div[title="Page 1"]');
+    const menuArray = (menu as HTMLElement)?.innerText?.split('\n').filter((a) => a.trim());
 
-    const meat = todayNode?.textContent?.normalize('NFC')?.split(regex)[1].trim();
-
-    const veg = [...document.querySelectorAll('div.elementor-widget-container div p')]
-      .find((e) => (e as HTMLElement).innerText.toLowerCase().includes('veckans vegetariska'))
-      ?.textContent?.split('veckans vegetariska'.toUpperCase())[1]
-      .trim();
+    const todayIndex = menuArray.findIndex((a) => a.normalize('NFC').toLowerCase() === todaySwedishFormat);
+    const vegIndex = menuArray.findIndex((a) => a.normalize('NFC').toLowerCase().includes('veckans vegetariska'));
 
     return [
       {
         type: 'meat' as const,
-        description: meat,
+        description: menuArray[todayIndex + 1],
       },
       {
         type: 'veg' as const,
-        description: veg,
+        description: menuArray[vegIndex + 1],
       },
     ];
   });

@@ -54,7 +54,8 @@ const restaurantImageStyles = css`
 `;
 
 const unableToScrapeStyles = css`
-  margin-top: 0.75rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid ${color.black};
 `;
 
 const restaurantLinksStyles = css`
@@ -109,7 +110,7 @@ export default function Restaurant({ title, distance, url, imgUrl, dishCollectio
           .find((dc) => dc.language === language)
           ?.dishes.map((dish, index) => <Dish key={`dish-${index}`} type={dish.type} description={dish.description} />)
       ) : (
-        <div css={unableToScrapeStyles}>Unable to scrape ¯_(ツ)_/¯</div>
+        <div css={unableToScrapeStyles}>Closed or ¯_(ツ)_/¯</div>
       )}
       <div css={restaurantLinksStyles}>
         <a href={url} css={restaurantWebsiteIconStyles}>
