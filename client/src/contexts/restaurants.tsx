@@ -82,7 +82,11 @@ const RestaurantsProvider = ({ children }: any) => {
               ...r,
               distance: distance(latitude, r.latitude, longitude, r.longitude),
             }))
-            .sort((a: Restaurant, b: Restaurant) => a.distance - b.distance),
+            .sort(
+              (a: Restaurant, b: Restaurant) =>
+                b.dishCollection.filter((d) => d.dishes?.length).length -
+                  a.dishCollection.filter((d) => d.dishes?.length).length || a.distance - b.distance,
+            ),
         );
         setScrapeDate(new Date(r.date));
       }
