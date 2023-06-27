@@ -61,7 +61,11 @@ export default function Sort() {
               ...r,
               distance: distance(latitude, r.latitude, longitude, r.longitude),
             }))
-            .sort((a: Restaurant, b: Restaurant) => a.distance - b.distance),
+            .sort(
+              (a: Restaurant, b: Restaurant) =>
+                b.dishCollection.filter((d) => d.dishes?.length).length -
+                  a.dishCollection.filter((d) => d.dishes?.length).length || a.distance - b.distance,
+            ),
         );
 
         window.localStorage.setItem('position', `${latitude},${longitude}`);
