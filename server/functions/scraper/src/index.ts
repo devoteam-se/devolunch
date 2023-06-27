@@ -12,7 +12,7 @@ const storage = new Storage({
 });
 const BUCKET_NAME = 'devolunchv2';
 
-ff.http('scrape', async (req: ff.Request, res: ff.Response) => {
+ff.http('scrape', async (_: ff.Request, res: ff.Response) => {
   const browser = await puppeteer.launch({
     args: !config.development ? ['--disable-gpu'] : [],
     headless: 'new',
@@ -23,6 +23,13 @@ ff.http('scrape', async (req: ff.Request, res: ff.Response) => {
   const restaurants = await Promise.all(files.map(async (file: string) => scrapeRestaurant(browser, file)));
 
   await browser.close();
+
+  const filesOverride = config.filesOverride?.split(',');
+
+  if (filesOverride?.length) {
+    res.sendStatus(200);
+    return;
+  }
 
   const scrape = await renderOutput(restaurants);
 
