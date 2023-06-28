@@ -2,15 +2,14 @@ import fs from 'fs/promises';
 import path from 'path';
 import { Browser } from 'puppeteer';
 
-import { config } from '.';
-import { compareDish } from './utils/sort';
-import { translateRestaurants } from './translator';
+import { config } from './index.js';
+import { compareDish } from './utils/sort.js';
+import { translateRestaurants } from './translator.js';
 
-const RESTAURANTS_PATH = './restaurants';
 const TIMEOUT = 120000;
 
-export const getRestaurantFilePaths = async () => {
-  const files = await fs.readdir(path.join(__dirname, RESTAURANTS_PATH));
+export const getRestaurantFilePaths = async (dir: string) => {
+  const files = await fs.readdir(dir);
   let targetFiles = files.filter((file) => {
     return path.extname(file).toLowerCase() === '.js';
   });
@@ -22,8 +21,8 @@ export const getRestaurantFilePaths = async () => {
   return targetFiles;
 };
 
-export const scrapeRestaurant = async (browser: Browser, file: string) => {
-  const restaurant = await import(path.join(__dirname, RESTAURANTS_PATH, file));
+export const scrapeRestaurant = async (browser: Browser, dir: string, file: string) => {
+  const restaurant = await import(path.join(dir, file));
   const page = await browser.newPage();
   page.on('console', (msg) => console.log(msg.text()));
 
@@ -33,7 +32,7 @@ export const scrapeRestaurant = async (browser: Browser, file: string) => {
       timeout: TIMEOUT,
     });
 
-    console.log(`Scraper ${restaurant.meta.title} on ${restaurant.meta.url}`);
+    console.log(`Scraping ${restaurant.meta.title} on ${restaurant.meta.url}`);
     const result = await restaurant.browserScrapeFunction(page);
 
     return {
@@ -46,7 +45,7 @@ export const scrapeRestaurant = async (browser: Browser, file: string) => {
       ],
     };
   } catch (err: unknown) {
-    console.error(err);
+    console.error('Error', err);
     return {
       ...restaurant.meta,
       dishCollection: [],
@@ -61,7 +60,7 @@ export const renderOutput = async (restaurants: App.Restaurant[]) => ({
   restaurants: await translateRestaurants(
     restaurants.map((restaurant: App.Restaurant) => ({
       ...restaurant,
-      dishCollection: restaurant.dishCollection.map((dishCollection) => ({
+      dishCollection: restaurant?.dishCollection.map((dishCollection) => ({
         ...dishCollection,
         dishes: dishCollection.dishes.sort(compareDish).map((dish) => ({
           ...dish,

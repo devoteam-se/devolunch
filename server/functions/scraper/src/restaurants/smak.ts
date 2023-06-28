@@ -1,5 +1,5 @@
 import { Page } from 'puppeteer';
-import fishes from '../data/fishes';
+import fishes from '../data/fishes.js';
 
 export const meta = {
   title: 'Smak',

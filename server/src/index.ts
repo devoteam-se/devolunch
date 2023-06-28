@@ -12,10 +12,9 @@ const app = express();
 
 app.use(cors());
 
-// Serve static files
 app.use(express.static(resolve(CLIENT_DIR, 'dist')));
 
-app.get('/', (req, res) => {
+app.get('/', (_, res) => {
   res.sendFile(resolve(CLIENT_DIR, 'dist', 'index.html'));
 });
 

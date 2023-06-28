@@ -56,17 +56,25 @@ resource "google_storage_bucket" "bucket_cloudfunction" {
   }
 }
 
+resource "random_string" "random" {
+  length = 16
+  special = false
+}
+
 # Object for Cloud Storage
 resource "google_storage_bucket_object" "bucket_object" {
-  name   = "scraper.zip"
+  name   = "scraper-${random_string.random.result}.zip"
   bucket = google_storage_bucket.bucket_cloudfunction.id
   source = "${path.module}/../../server/functions/scraper/cf.zip"
   depends_on = [null_resource.cf_file]
 }
 
 resource "null_resource" "cf_file" {
+  triggers = {
+    source_code = filesha256("../../server/functions/scraper/cf.zip")
+  }
   provisioner "local-exec" {
-    command = "cd ${path.module}/../../server/functions/scraper && pnpm compile && rm -f cf.zip && zip -r cf.zip package.json .puppeteerrc.cjs dist"
+    command = "cd ${path.module}/../../server/functions/scraper && pnpm compile && rm -f cf.zip && zip -r cf.zip package.json .puppeteerrc.cjs test dist"
   }
 }
 
