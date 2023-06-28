@@ -6,7 +6,7 @@ export interface Scrape {
 export interface Restaurant {
   title: string;
   url: string;
-  imgUrl: string;
+  imgUrl?: string;
   dishCollection: DishCollection[];
   longitude: number;
   latitude: number;

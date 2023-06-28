@@ -43,7 +43,6 @@ export default function RestaurantGrid({ restaurants }: RestaurantListI) {
           latitude={restaurant.latitude}
           longitude={restaurant.longitude}
           url={restaurant.url}
-          imgUrl={restaurant.imgUrl}
           dishCollection={restaurant.dishCollection}
           googleMapsUrl={restaurant.googleMapsUrl}
         />

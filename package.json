@@ -12,6 +12,12 @@
     "typecheck": "pnpm --filter client --filter server typecheck",
     "preinstall": "npx only-allow pnpm"
   },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint --verbose -E HUSKY_GIT_PARAMS",
+      "pre-commit": "pnpm lint"
+    }
+  },
   "engines": {
     "node": "18.x.x"
   },
