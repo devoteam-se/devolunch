@@ -1,6 +1,7 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 import { resolve } from 'path';
 import cors from 'cors';
+import compression from 'compression';
 
 import { config } from './config';
 import { logger } from '@devolunch/shared';
@@ -9,6 +10,18 @@ import routes from './routes';
 const CLIENT_DIR = resolve(__dirname, '..', '..', 'client');
 
 const app = express();
+
+app.use(
+  compression({
+    filter: (req: Request, res: Response) => {
+      if (req.headers['x-no-compression']) {
+        return false;
+      }
+      return compression.filter(req, res);
+    },
+    threshold: 0,
+  }),
+);
 
 app.use(cors());
 

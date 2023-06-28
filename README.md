@@ -82,6 +82,6 @@ Excited to work alongside you! Follow the instructions in [CONTRIBUTING](./CONTR
 - [x] Change scraper to run PDF parse from within `browserScrapeFunction`
 - [ ] Fix shared npm packages for functions
 - [ ] Write tests
-- [ ] Host images in a bucket
-- [ ] Add a separate service account for Cloud Run instead of using the default Compute Engine service account
+- [x] Host images in a bucket
+- [x] Add a separate service account for Cloud Run instead of using the default Compute Engine service account
 - [ ] Add Cloud Function deploy step
