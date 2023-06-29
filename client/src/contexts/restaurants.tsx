@@ -60,18 +60,8 @@ const RestaurantsProvider = ({ children }: any) => {
         setLanguage(language);
       }
 
-      const position = window.localStorage.getItem('position')?.split(',');
-
-      const savedLatitude = position?.length === 2 && parseFloat(position[0]);
-      const savedLongitude = position?.length === 2 && parseFloat(position[1]);
-
       let latitude = 55.61282608776878;
       let longitude = 13.003325575170862;
-
-      if (savedLatitude && savedLongitude) {
-        latitude = savedLatitude;
-        longitude = savedLongitude;
-      }
 
       const r = await fetchRestaurants();
 

@@ -68,8 +68,6 @@ export default function Sort() {
                 a.distance - b.distance,
             ),
         );
-
-        window.localStorage.setItem('position', `${latitude},${longitude}`);
         setActive(0);
       },
       () => {
