@@ -1,10 +1,11 @@
 # Contributing to Devolunch
 
-We appreciate any kind of contributions to Devolunch 😅️
+We appreciate any kind of contributions to Devolunch 🤗
 
 # Code / Development
 
 All code is Javascript with a touch of Typescript magic.
+We follow the [Conventional Commits](https://www.conventionalcommits.org) guidelines.
 
 ## Forking/Cloning
 
