@@ -7,9 +7,9 @@ on:
   workflow_call:
 
 jobs:
-  release-drafter:
-    name: release-drafter
-    uses: ./.github/workflows/release-drafter.yaml
+  release-please:
+    name: release-please
+    uses: ./.github/workflows/release-please.yml
 
   install-and-test:
     runs-on: ubuntu-latest
