@@ -1,6 +1,6 @@
 {
   "name": "devolunch",
-  "version": "0.1.0",
+  "version": "1.5.0",
   "description": "DevoLunch is an lunch app used for providing the todays lunch menus nearby the office.",
   "license": "MIT",
   "scripts": {
