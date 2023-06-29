@@ -3,9 +3,9 @@ import { css, Global } from '@emotion/react';
 import Header from '@/components/Header';
 import Main from '@/components/Main';
 import Footer from '@/components/Footer';
-import SplashScreen from '@/components/SplashScreen';
 import { useRestaurants } from '@/contexts/restaurants';
 import { color } from './utils/theme';
+import LoadingSkeleton from './components/LoadingSkeleton';
 
 const globalStyles = css`
   body {
@@ -32,17 +32,17 @@ function App() {
   return (
     <>
       <Global styles={globalStyles} />
-      {loading ? (
-        <SplashScreen />
-      ) : !loading && restaurants?.length ? (
-        <>
-          <Header scrapeDate={scrapeDate} />
+      <>
+        <Header scrapeDate={scrapeDate} />
+        {loading && !restaurants?.length ? (
+          <LoadingSkeleton />
+        ) : !loading && restaurants?.length ? (
           <Main restaurants={restaurants} />
-          <Footer />
-        </>
-      ) : (
-        <div css={noRestaurantsStyles}>Have not scraped any restaurants yet</div>
-      )}
+        ) : (
+          !loading && !restaurants.length && <div css={noRestaurantsStyles}>Have not scraped any restaurants yet</div>
+        )}
+        <Footer />
+      </>
     </>
   );
 }

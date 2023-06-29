@@ -8,7 +8,7 @@ import { ReactComponent as DirectionIcon } from '@/assets/direction.svg';
 import { useRestaurants } from '@/contexts/restaurants';
 import { color } from '@/utils/theme';
 
-import { Restaurant as RestaurantProps } from '@devolunch/shared';
+import { RestaurantProps, DishCollectionProps, DishProps } from '@devolunch/shared';
 
 const restaurantStyles = css`
   display: flex;
@@ -17,6 +17,7 @@ const restaurantStyles = css`
 `;
 
 const restaurantTitleStyles = css`
+  white-space: pre-wrap;
   color: ${color.black};
   font-family: 'Azeret Mono', monospace;
   font-weight: 500;
@@ -40,6 +41,7 @@ const restaurantLocationIconStyles = css`
 
 const restaurantImageLinkStyles = css`
   text-decoration: none;
+  background-color: ${color.white};
   color: ${color.black};
   height: 14rem;
   margin-bottom: 0.25rem;
@@ -93,14 +95,14 @@ const restaurantLinksIconStyles = css`
 const restaurantDirectionStyles = css``;
 
 export default function Restaurant({ title, distance, url, dishCollection, googleMapsUrl }: RestaurantProps) {
-  const { language } = useRestaurants();
+  const { loading, language } = useRestaurants();
 
   return (
     <div css={restaurantStyles}>
-      <h2 css={restaurantTitleStyles}>{title}</h2>
+      <h2 css={restaurantTitleStyles}>{loading ? ' ' : title}</h2>
       <div css={restaurantDistanceStyles}>
         <LocationIcon css={restaurantLocationIconStyles} />
-        {distance < 1 ? `${(distance * 1000)?.toFixed(0)} m` : `${distance?.toFixed(2)} km`}
+        {!loading && (distance < 1 ? `${(distance * 1000)?.toFixed(0)} m` : `${distance?.toFixed(2)} km`)}
       </div>
       <a href={url} css={restaurantImageLinkStyles}>
         <img
@@ -111,13 +113,13 @@ export default function Restaurant({ title, distance, url, dishCollection, googl
           alt={title}
         />
       </a>
-      {dishCollection.filter((a) => a.dishes?.length).length ? (
-        dishCollection
-          .find((dc) => dc.language === language)
-          ?.dishes.map((dish, index) => <Dish key={`dish-${index}`} type={dish.type} description={dish.description} />)
-      ) : (
-        <div css={unableToScrapeStyles}>Closed or ¯_(ツ)_/¯</div>
-      )}
+      {dishCollection.filter((a: DishCollectionProps) => a.dishes?.length).length
+        ? dishCollection
+            .find((dc: DishCollectionProps) => dc.language === language)
+            ?.dishes.map((dish: DishProps, index: number) => (
+              <Dish key={`dish-${index}`} type={dish.type} description={dish.description} />
+            ))
+        : !loading && <div css={unableToScrapeStyles}>Closed or ¯_(ツ)_/¯</div>}
       <div css={restaurantLinksStyles}>
         <a href={url} css={restaurantWebsiteIconStyles}>
           <ExternalLinkIcon css={restaurantLinksIconStyles} />

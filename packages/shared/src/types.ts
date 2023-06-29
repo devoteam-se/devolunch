@@ -1,25 +1,29 @@
 export interface Scrape {
   date: Date;
-  restaurants: Restaurant[];
+  restaurants: RestaurantProps[];
 }
 
-export interface Restaurant {
+export interface RestaurantGridProps {
+  restaurants: RestaurantProps[];
+}
+
+export interface RestaurantProps {
   title: string;
   url: string;
   imgUrl?: string;
-  dishCollection: DishCollection[];
+  dishCollection: DishCollectionProps[];
   longitude: number;
   latitude: number;
   distance: number;
   googleMapsUrl: string;
 }
 
-export interface DishCollection {
+export interface DishCollectionProps {
   language: string;
-  dishes: Dish[];
+  dishes: DishProps[];
 }
 
-export interface Dish {
+export interface DishProps {
   type: DishType;
   description: string | null | undefined;
 }

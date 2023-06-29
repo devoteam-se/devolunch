@@ -3,7 +3,7 @@ import { css } from '@emotion/react';
 import Restaurant from '@/components/Restaurant';
 import { screenSize } from '@/utils/theme';
 
-import { Restaurant as RestaurantProps } from '@devolunch/shared';
+import { RestaurantGridProps, RestaurantProps } from '@devolunch/shared';
 
 const restaurantListStyles = css`
   display: grid;
@@ -28,14 +28,10 @@ const restaurantListStyles = css`
   }
 `;
 
-interface RestaurantListI {
-  restaurants: RestaurantProps[];
-}
-
-export default function RestaurantGrid({ restaurants }: RestaurantListI) {
+export default function RestaurantGrid({ restaurants }: RestaurantGridProps) {
   return (
     <div css={restaurantListStyles}>
-      {restaurants?.map((restaurant, index) => (
+      {restaurants?.map((restaurant: RestaurantProps, index: number) => (
         <Restaurant
           key={`rest-${index}`}
           title={restaurant.title}

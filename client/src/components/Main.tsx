@@ -4,7 +4,7 @@ import Options from '@/components/Options';
 import RestaurantGrid from '@/components/RestaurantGrid';
 import { screenSize } from '@/utils/theme';
 
-import { Restaurant as RestaurantProps } from '@devolunch/shared';
+import { RestaurantGridProps } from '@devolunch/shared';
 
 const mainStyles = css`
   display: flex;
@@ -27,11 +27,7 @@ const optionsStyles = css`
   }
 `;
 
-interface RestaurantGridI {
-  restaurants: RestaurantProps[];
-}
-
-export default function Main({ restaurants }: RestaurantGridI) {
+export default function Main({ restaurants }: RestaurantGridProps) {
   return (
     <main css={mainStyles}>
       <div css={optionsStyles}>

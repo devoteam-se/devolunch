@@ -1,7 +1,7 @@
 import { color } from '@/utils/theme';
 import { css } from '@emotion/react';
 
-import { Dish as DishProps } from '@devolunch/shared';
+import { DishProps } from '@devolunch/shared';
 
 const dishStyles = css`
   padding: 0.75rem 0;

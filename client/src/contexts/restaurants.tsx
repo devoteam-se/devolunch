@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 
 import { distance } from '@/utils/distance';
-import { Restaurant, Scrape } from '@devolunch/shared';
+import { DishCollectionProps, RestaurantProps, Scrape } from '@devolunch/shared';
 
 type ContextType = {
   loading: boolean;
@@ -9,8 +9,8 @@ type ContextType = {
   realPosition: boolean;
   language: string;
   setLanguage: (language: string) => void;
-  restaurants: Restaurant[];
-  setRestaurants: (restaurants: Restaurant[]) => void;
+  restaurants: RestaurantProps[];
+  setRestaurants: (restaurants: RestaurantProps[]) => void;
 };
 
 enum Endpoints {
@@ -46,9 +46,9 @@ const fetchRestaurants = async () => {
 
 const RestaurantsProvider = ({ children }: any) => {
   const [language, setLanguage] = useState<string>('sv');
-  const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
+  const [restaurants, setRestaurants] = useState<RestaurantProps[]>([]);
   const [scrapeDate, setScrapeDate] = useState<Date | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const [realPosition] = useState<boolean>(false);
 
   useEffect(() => {
@@ -78,14 +78,15 @@ const RestaurantsProvider = ({ children }: any) => {
       if (r) {
         setRestaurants(
           r.restaurants
-            .map((r: Restaurant) => ({
+            .map((r: RestaurantProps) => ({
               ...r,
               distance: distance(latitude, r.latitude, longitude, r.longitude),
             }))
             .sort(
-              (a: Restaurant, b: Restaurant) =>
-                b.dishCollection.filter((d) => d.dishes?.length).length -
-                  a.dishCollection.filter((d) => d.dishes?.length).length || a.distance - b.distance,
+              (a: RestaurantProps, b: RestaurantProps) =>
+                b.dishCollection.filter((d: DishCollectionProps) => d.dishes?.length).length -
+                  a.dishCollection.filter((d: DishCollectionProps) => d.dishes?.length).length ||
+                a.distance - b.distance,
             ),
         );
         setScrapeDate(new Date(r.date));

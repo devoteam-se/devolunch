@@ -58,6 +58,7 @@ const headerHeadingStyles = css`
 `;
 
 const headerUpdatedAtStyles = css`
+  white-space: pre-wrap;
   font-size: 0.75rem;
   margin: 0;
   padding-top: 0.25rem;
@@ -97,7 +98,7 @@ export default function Header({ scrapeDate }: HeaderI) {
                   minute: 'numeric',
                 })
                 .replace(',', '')}`
-            : ''}
+            : ' '}
         </div>
       </div>
       <a href="https://se.devoteam.com/" aria-label="Go to Devoteam Creative Tech website">
