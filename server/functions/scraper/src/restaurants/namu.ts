@@ -18,7 +18,7 @@ export const browserScrapeFunction = (page: Page) =>
           (meal as HTMLElement).innerText
             .split('\n')
             .map((b) => {
-              return b.replace(/\s|\r\n|\n|\r|\t/gm, '');
+              return b.replace(/\r\n|\n|\r|\t/gm, '');
             })
             .filter((b) => b.length)[0],
       )
