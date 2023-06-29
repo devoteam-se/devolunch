@@ -34,12 +34,23 @@ resource "google_storage_default_object_access_control" "public_rule" {
   entity = "allUsers"
 }
 
+data "archive_file" "cf_source_zip" {
+  type        = "zip"
+  source_dir  = "${path.module}/../../server/functions/scraper/tmp"
+  output_path = "${path.module}/tmp/scraper.zip"
+  depends_on  = [null_resource.cf_file]
+}
+
 # Create a Storage Bucket for the scrape document
 resource "google_storage_bucket" "bucket_json" {
   name     = var.storage_bucket_scrape
   location = var.region
   project  = var.project_id
   force_destroy = true
+}
+
+locals {
+  cf_zip_archive_name = "cf-${data.archive_file.cf_source_zip.output_sha}.zip"
 }
 
 # Create Storage Bucket for Cloud Function zip
@@ -56,25 +67,23 @@ resource "google_storage_bucket" "bucket_cloudfunction" {
   }
 }
 
-resource "random_string" "random" {
-  length = 16
-  special = false
-}
-
 # Object for Cloud Storage
 resource "google_storage_bucket_object" "bucket_object" {
-  name   = "scraper-${random_string.random.result}.zip"
-  bucket = google_storage_bucket.bucket_cloudfunction.id
-  source = "${path.module}/../../server/functions/scraper/cf.zip"
-  depends_on = [null_resource.cf_file]
+  name          = local.cf_zip_archive_name
+  bucket        = google_storage_bucket.bucket_cloudfunction.id
+  source        = data.archive_file.cf_source_zip.output_path
+  content_type  = "application/zip"
+  depends_on    = [data.archive_file.cf_source_zip]
 }
 
 resource "null_resource" "cf_file" {
   triggers = {
-    source_code = filesha256("../../server/functions/scraper/cf.zip")
+    source_code = filesha256("${path.module}/tmp/scraper.zip")
   }
+
   provisioner "local-exec" {
-    command = "cd ${path.module}/../../server/functions/scraper && pnpm compile && rm -f cf.zip && zip -r cf.zip package.json .puppeteerrc.cjs test dist"
+    #command = "cd ${path.module}/../../server/functions/scraper && pnpm compile && rm -f cf-*.zip && zip -r cf-${random_string.random.result}.zip package.json .puppeteerrc.cjs test dist"
+    command = "cd ${path.module}/../../server/functions/scraper && pnpm compile && mkdir -p tmp && cp -R package.json .puppeteerrc.cjs test dist tmp"
   }
 }
 
