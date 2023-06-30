@@ -32,17 +32,17 @@ function App() {
   return (
     <>
       <Global styles={globalStyles} />
-      <>
-        <Header scrapeDate={scrapeDate} />
-        {loading && !restaurants?.length ? (
-          <LoadingSkeleton />
-        ) : !loading && restaurants?.length ? (
+      {loading && !restaurants?.length ? (
+        <LoadingSkeleton />
+      ) : !loading && restaurants?.length ? (
+        <>
+          <Header scrapeDate={scrapeDate} />
           <Main restaurants={restaurants} />
-        ) : (
-          !loading && !restaurants.length && <div css={noRestaurantsStyles}>Have not scraped any restaurants yet</div>
-        )}
-        <Footer />
-      </>
+          <Footer />
+        </>
+      ) : (
+        !loading && !restaurants.length && <div css={noRestaurantsStyles}>Have not scraped any restaurants yet</div>
+      )}
     </>
   );
 }
