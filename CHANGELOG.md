@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.1](https://github.com/jayway/devolunch/compare/v1.6.0...v1.6.1) (2023-06-30)
+
+
+### Bug Fixes
+
+* Analytics path ([d29c7d9](https://github.com/jayway/devolunch/commit/d29c7d933eda1edc2f0a248b0be39c273354334e))
+
 ## [1.6.0](https://github.com/jayway/devolunch/compare/v1.5.0...v1.6.0) (2023-06-30)
 
 
