@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.6.0](https://github.com/jayway/devolunch/compare/v1.5.0...v1.6.0) (2023-06-30)
+
+
+### Features
+
+* Add plausible analytics ([9043040](https://github.com/jayway/devolunch/commit/90430402b95b861dc63c4ca42e01ad4ebbf584b4))
+* Improve loading spinner ([daf0ad0](https://github.com/jayway/devolunch/commit/daf0ad0f5904e0bceba2ac58c501f0a97c716670))
+
 ## [1.5.0](https://github.com/jayway/devolunch/compare/v1.4.2...v1.5.0) (2023-06-29)
 
 
