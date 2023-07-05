@@ -69,12 +69,12 @@ Excited to work alongside you! Follow the instructions in [CONTRIBUTING](./CONTR
 
 # TODO
 
-- [ ] Make open source
+- [x] Make open source
   - [x] Implement Terraform support
   - [x] Add instructions on how to make a scraper
   - [x] Move scrape call to Cloud Function
   - [x] Add deploy on Github release
-  - [ ] Block main branch from anyone outside of the org (unless default)
+  - [x] Block main branch from anyone outside of the org (unless default)
 - [x] Add husky/lint-staged and make sure pre-commit is triggered to run lint/tests
 - [x] Add API definition
 - [x] Add API versioning
