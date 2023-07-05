@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.0](https://github.com/jayway/devolunch/compare/v1.6.1...v1.7.0) (2023-07-05)
+
+
+### Features
+
+* Replace GITHUB_TOKEN with self made PAT ([12ee9b3](https://github.com/jayway/devolunch/commit/12ee9b39eebe46d07ca3d9b38bf9ab9de2342d76))
+
 ## [1.6.1](https://github.com/jayway/devolunch/compare/v1.6.0...v1.6.1) (2023-06-30)
 
 
