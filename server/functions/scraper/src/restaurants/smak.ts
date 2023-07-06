@@ -28,24 +28,24 @@ export const browserScrapeFunction = (page: Page) =>
 
     const meals = [lunchArray[todayIndex + 1], lunchArray[todayIndex + 2], lunchArray[todayIndex + 3]];
 
-    const meat = lunchArray[todayIndex + 1];
     const fishIndex = meals.findIndex((meal) => fishes.some((fish) => meal.toLowerCase().includes(fish)));
-    const fish = meals[fishIndex];
-    // Always 3 courses, meat is always first, fish is either second or third, veg the other
-    const veg = meals[fishIndex !== -1 ? 3 - fishIndex : todayIndex + 2];
 
-    return [
-      {
-        type: 'meat' as const,
-        description: meat,
-      },
-      {
+    const dishes = [];
+
+    if (fishIndex !== -1) {
+      dishes.push({
         type: 'fish' as const,
-        description: fish,
-      },
-      {
-        type: 'veg' as const,
-        description: veg,
-      },
-    ];
+        description: meals[fishIndex],
+      });
+      meals.splice(fishIndex, 1);
+    }
+
+    dishes.push(
+      ...meals.map((meal) => ({
+        type: 'misc' as const,
+        description: meal,
+      })),
+    );
+
+    return dishes;
   }, fishes);
