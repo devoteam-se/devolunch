@@ -2,8 +2,7 @@ name: Deploy
 
 on:
   release:
-    types:
-      - released
+    types: [created]
   workflow_call:
 
 jobs:
