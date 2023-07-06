@@ -4,9 +4,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "nodemon --delay 500ms -e ts --exec ts-node src/index.ts | pino-pretty",
-    "lint": "eslint . --ext .ts",
-    "lint:fix": "eslint --fix",
-    "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config",
+    "lint": "prettier --check --ignore-path=../../.prettierignore . && eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "format": "prettier --write --ignore-path=../../.prettierignore .",
     "build": "tsc -b tsconfig.build.json",
     "typecheck": "tsc --noEmit"
   },
@@ -21,16 +20,13 @@
     "zod": "3.20.2"
   },
   "devDependencies": {
+    "eslint-config-custom": "workspace:*",
     "@tsconfig/node18": "^2.0.0",
     "@types/compression": "1.7.2",
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.13",
     "@types/node": "^20.1.0",
     "@types/node-fetch": "^2.6.1",
-    "@typescript-eslint/eslint-plugin": "^5.20.0",
-    "@typescript-eslint/parser": "^5.20.0",
-    "eslint": "^8.13.0",
-    "eslint-config-prettier": "^8.5.0",
     "nodemon": "^2.0.15",
     "pino": "^7.10.0",
     "pino-pretty": "^7.6.1",

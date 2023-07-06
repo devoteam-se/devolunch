@@ -44,7 +44,7 @@ const fetchRestaurants = async () => {
   }
 };
 
-const RestaurantsProvider = ({ children }: any) => {
+const RestaurantsProvider = ({ children }: { children: React.ReactNode }) => {
   const [language, setLanguage] = useState<string>('sv');
   const [restaurants, setRestaurants] = useState<RestaurantProps[]>([]);
   const [scrapeDate, setScrapeDate] = useState<Date | null>(null);
@@ -60,8 +60,8 @@ const RestaurantsProvider = ({ children }: any) => {
         setLanguage(language);
       }
 
-      let latitude = 55.61282608776878;
-      let longitude = 13.003325575170862;
+      const latitude = 55.61282608776878;
+      const longitude = 13.003325575170862;
 
       const r = await fetchRestaurants();
 

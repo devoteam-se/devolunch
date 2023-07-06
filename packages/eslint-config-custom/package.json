@@ -1,0 +1,12 @@
+{
+  "name": "eslint-config-custom",
+  "description": "Shared ESLint configuration",
+  "main": "index.js",
+  "version": "1.0.0",
+  "dependencies": {
+    "@typescript-eslint/eslint-plugin": "latest",
+    "@typescript-eslint/parser": "^5.54.0",
+    "eslint": "latest",
+    "eslint-config-prettier": "latest"
+  }
+}

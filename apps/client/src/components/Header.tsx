@@ -83,7 +83,7 @@ export default function Header({ scrapeDate }: HeaderI) {
     <header css={headerStyles}>
       <div css={headerHeadingStyles}>
         <h1>
-          <a href="/" css={linkStyles}>
+          <a href='/' css={linkStyles}>
             Devolunch
           </a>
         </h1>
@@ -101,7 +101,7 @@ export default function Header({ scrapeDate }: HeaderI) {
             : ' '}
         </div>
       </div>
-      <a href="https://se.devoteam.com/" aria-label="Go to Devoteam Creative Tech website">
+      <a href='https://se.devoteam.com/' aria-label='Go to Devoteam Creative Tech website'>
         <Icon css={headerIconStyles} />
       </a>
     </header>

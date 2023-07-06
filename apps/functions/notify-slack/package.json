@@ -1,11 +1,13 @@
 {
-  "name": "scraper-cloud-function",
+  "name": "notify-slack-cloud-function",
   "version": "1.0.0",
-  "description": "Google Cloud Function scraper",
+  "description": "Google Cloud Function slack notifier",
   "main": "dist/index.js",
   "scripts": {
+    "start": "functions-framework --target=slack",
     "compile": "tsc",
-    "dev": "functions-framework --target=slack"
+    "typecheck": "tsc --noEmit",
+    "lint": "prettier --check --ignore-path=../../../.prettierignore . && eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
   },
   "author": "Jonas Stenberg",
   "license": "MIT",
@@ -19,11 +21,10 @@
     "zod": "3.20.2"
   },
   "devDependencies": {
+    "eslint-config-custom": "workspace:*",
     "@tsconfig/node18": "^2.0.0",
     "@types/node": "20.1.7",
     "@types/node-fetch": "^2.6.1",
-    "@typescript-eslint/eslint-plugin": "5.59.6",
-    "@typescript-eslint/parser": "5.59.6",
     "prettier": "2.8.8",
     "typescript": "^5.0.4"
   }

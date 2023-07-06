@@ -1,4 +1,3 @@
-import { DishType } from '@devolunch/shared';
 import { Page } from 'puppeteer';
 
 export const meta = {
@@ -51,7 +50,7 @@ export const browserScrapeFunction = (page: Page) =>
       return daysBetween(startDay, endDay);
     };
 
-    const getDishType = (row: string, today: string): DishType | null => {
+    const getDishType = (row: string, today: string): 'meat' | 'fish' | 'veg' | 'misc' | null => {
       const days = getDaysRangeFromMenuString(row);
       const isTodayWithinRange = days.includes(today);
       const isFish = row.includes('fisk') || row.includes('dagens fisk') || row.includes('veckans fisk');
