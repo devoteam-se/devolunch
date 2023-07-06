@@ -34,7 +34,7 @@ That's it!
 
 ### Scraper and Slack notifier
 
-Go to their respective directories ([./server/functions/scraper/](./server/functions/scraper/) and [./server/functions/notify-slack/](./server/functions/notify-slack/))
+Go to their respective directories ([./apps/functions/scraper/](./apps/functions/scraper/) and [./apps/functions/notify-slack/](./apps/functions/notify-slack/))
 
 1. Install dependencies
    ```sh
@@ -51,4 +51,4 @@ Go to their respective directories ([./server/functions/scraper/](./server/funct
 
 ## Adding more restaurants in Malmö
 
-If you want to add more restaurants to our lovely city of Malmö, head over to [the scraper](./server/functions/scraper/) for instructions.
+If you want to add more restaurants to our lovely city of Malmö, head over to [the scraper](./apps/functions/scraper/) for instructions.

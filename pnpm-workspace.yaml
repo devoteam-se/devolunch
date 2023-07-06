@@ -1,5 +1,5 @@
 packages:
-  - 'client'
-  - 'server'
-  - 'server/functions/*'
+  - 'apps/client'
+  - 'apps/server'
+  - 'apps/functions/*'
   - 'packages/*'

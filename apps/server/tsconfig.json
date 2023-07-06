@@ -22,5 +22,9 @@
   "ts-node": {
     "files": true
   },
-  "references": [{ "path": "../packages/tsconfig/base.tsconfig.json" }]
+  "references": [
+    {
+      "path": "../../packages/tsconfig/base.tsconfig.json"
+    }
+  ]
 }

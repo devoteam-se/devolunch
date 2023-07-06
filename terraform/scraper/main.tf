@@ -36,7 +36,7 @@ resource "google_storage_default_object_access_control" "public_rule" {
 
 data "archive_file" "cf_source_zip" {
   type        = "zip"
-  source_dir  = "${path.module}/../../server/functions/scraper/tmp"
+  source_dir  = "${path.module}/../../apps/server/functions/scraper/tmp"
   output_path = "${path.module}/tmp/scraper.zip"
   depends_on  = [null_resource.cf_file]
 }
@@ -82,8 +82,7 @@ resource "null_resource" "cf_file" {
   }
 
   provisioner "local-exec" {
-    #command = "cd ${path.module}/../../server/functions/scraper && pnpm compile && rm -f cf-*.zip && zip -r cf-${random_string.random.result}.zip package.json .puppeteerrc.cjs test dist"
-    command = "cd ${path.module}/../../server/functions/scraper && pnpm compile && mkdir -p tmp && cp -R package.json .puppeteerrc.cjs test dist tmp"
+    command = "cd ${path.module}/../../apps/server/functions/scraper && pnpm compile && mkdir -p tmp && cp -R package.json .puppeteerrc.cjs test dist tmp"
   }
 }
 

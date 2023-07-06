@@ -16,11 +16,11 @@ If you want to deploy it to GCP, head over to [./terraform](./terraform/).
 
 ## <a name="scraper">Scraper</a>
 
-This service is using Puppeteer to scrape all the restaurants that exists in [./server/functions/scraper/src/restaurants](./server/functions/scraper/src/restaurants), and saves the output to a `.json` file hosted on a Google Cloud Bucket (to reduce cost).
+This service is using Puppeteer to scrape all the restaurants that exists in [./apps/functions/scraper/src/restaurants](./apps/functions/scraper/src/restaurants), and saves the output to a `.json` file hosted on a Google Cloud Bucket (to reduce cost).
 
 It's hosted on a Google Cloud Functions v2 and triggered daily at 10:00 using a Google Cloud Scheduler.
 
-Check out [the scraper](./server/functions/scraper) on how to add restaurants.
+Check out [the scraper](./apps/functions/scraper) on how to add restaurants.
 
 #### **Technologies:**
 

@@ -37,19 +37,19 @@ resource "google_project_service" "secretmanager" {
 resource "google_storage_bucket_object" "bucket_object" {
   name   = "notify-slack.zip"
   bucket = var.storage_bucket_cf
-  source = "${path.module}/../../server/functions/notify-slack/ns.zip"
+  source = "${path.module}/../../apps/server/functions/notify-slack/ns.zip"
   depends_on = [null_resource.cf_file]
 }
 
 resource "null_resource" "cf_file" {
   provisioner "local-exec" {
-    command = "cd ${path.module}/../../server/functions/notify-slack && zip -r ns.zip package.json dist"
+    command = "cd ${path.module}/../../apps/server/functions/notify-slack && zip -r ns.zip package.json dist"
   }
 }
 
 resource "null_resource" "cf_file_cleanup" {
   provisioner "local-exec" {
-    command = "cd ${path.module}/../../server/functions/notify-slack && rm -f ns.zip"
+    command = "cd ${path.module}/../../apps/server/functions/notify-slack && rm -f ns.zip"
   }
   depends_on = [google_cloudfunctions2_function.function]
 }
@@ -77,7 +77,7 @@ resource "google_secret_manager_secret" "slack_channel_id" {
         location = var.region
       }
     }
-  }  
+  }
 }
 
 resource "google_secret_manager_secret_version" "slack_channel_id_version" {
@@ -97,7 +97,7 @@ resource "google_secret_manager_secret" "slack_oauth_token" {
         location = var.region
       }
     }
-  }  
+  }
 }
 
 resource "google_secret_manager_secret_version" "slack_oauth_token_version" {
@@ -189,6 +189,6 @@ resource "google_cloud_scheduler_job" "job" {
   }
 }
 
-output "function_uri" { 
+output "function_uri" {
   value = google_cloudfunctions2_function.function.service_config[0].uri
 }
