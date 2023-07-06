@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.8.0](https://github.com/jayway/devolunch/compare/v1.7.0...v1.8.0) (2023-07-06)
+
+
+### Features
+
+* Add open graph meta tags ([74b13b7](https://github.com/jayway/devolunch/commit/74b13b74ed3cfe91f42b23514eabb66dcbed93d6))
+
+
+### Bug Fixes
+
+* Smak scraper ([06b2de8](https://github.com/jayway/devolunch/commit/06b2de81a6f1f5795b727689940273e1ea83e6f5))
+
 ## [1.7.0](https://github.com/jayway/devolunch/compare/v1.6.1...v1.7.0) (2023-07-05)
 
 
