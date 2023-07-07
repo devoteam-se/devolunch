@@ -119,7 +119,7 @@ export default function Restaurant({ title, distance, url, dishCollection, googl
             ?.dishes.map((dish: DishProps, index: number) => (
               <Dish key={`dish-${index}`} type={dish.type} description={dish.description} />
             ))
-        : !loading && <div css={unableToScrapeStyles}>Closed or ¯_(ツ)_/¯</div>}
+        : !loading && <div css={unableToScrapeStyles}>Closed or ¯\_(ツ)_/¯</div>}
       <div css={restaurantLinksStyles}>
         <a href={url} css={restaurantWebsiteIconStyles}>
           <ExternalLinkIcon css={restaurantLinksIconStyles} />
