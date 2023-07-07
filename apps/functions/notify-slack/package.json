@@ -22,7 +22,6 @@
   },
   "devDependencies": {
     "eslint-config-custom": "workspace:*",
-    "@tsconfig/node18": "^2.0.0",
     "@types/node": "20.1.7",
     "@types/node-fetch": "^2.6.1",
     "prettier": "2.8.8",

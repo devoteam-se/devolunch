@@ -26,7 +26,6 @@
   },
   "devDependencies": {
     "eslint-config-custom": "workspace:*",
-    "@tsconfig/node18": "^2.0.0",
     "@types/node": "20.1.7",
     "@types/pdf-parse": "1.1.1",
     "prettier": "2.8.8",
