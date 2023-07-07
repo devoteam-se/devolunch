@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.1](https://github.com/jayway/devolunch/compare/v1.8.0...v1.8.1) (2023-07-07)
+
+
+### Bug Fixes
+
+* add additional arm to shrug emoji ([2e46f6c](https://github.com/jayway/devolunch/commit/2e46f6cb5d6379ce1804c1d1419b937937a927dd))
+
 ## [1.8.0](https://github.com/jayway/devolunch/compare/v1.7.0...v1.8.0) (2023-07-06)
 
 
