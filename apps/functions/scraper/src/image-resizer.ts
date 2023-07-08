@@ -7,25 +7,35 @@ export const resizeImage = async (dir: string, filename: string) => {
   const restaurant = await import(path.join(dir, filename));
 
   const bucket = storage.bucket(BUCKET_NAME);
-  const file = bucket.file(`images/${restaurant.meta.title}.webp`);
+
+  const titleFileName = restaurant.meta.title.toLowerCase().replace(/[^a-z]+/, '');
+
+  const file = bucket.file(`images/${titleFileName}.webp`);
   const existsArray = await file.exists();
   const exists = existsArray[0];
 
   if (!exists) {
-    const remoteWriteStream = bucket
-      .file(`images/${restaurant.meta.title.toLowerCase().replace(/[^a-z]+/, '')}.webp`)
-      .createWriteStream();
+    const remoteWriteStream = bucket.file(`images/${titleFileName}.webp`).createWriteStream();
 
     const res = await fetch(restaurant.meta.imgUrl);
     const buffer = await res.arrayBuffer();
-    sharp(buffer)
-      .resize(400, 300, {
-        fit: 'cover',
-      })
-      .withMetadata()
-      .webp({
-        quality: 70,
-      })
-      .pipe(remoteWriteStream);
+    await new Promise<void>((resolve, reject) => {
+      sharp(buffer)
+        .on('error', (err) => {
+          console.error(dir, filename, err);
+          reject();
+        })
+        .on('finish', () => {
+          resolve();
+        })
+        .resize(400, 300, {
+          fit: 'cover',
+        })
+        .withMetadata()
+        .webp({
+          quality: 70,
+        })
+        .pipe(remoteWriteStream);
+    });
   }
 };
