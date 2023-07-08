@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.3](https://github.com/jayway/devolunch/compare/v1.8.2...v1.8.3) (2023-07-08)
+
+
+### Bug Fixes
+
+* Create release on tag creation ([9c455bc](https://github.com/jayway/devolunch/commit/9c455bce896fe626a24ae8a53f9edbae2faa1998))
+
 ## [1.8.2](https://github.com/jayway/devolunch/compare/v1.8.1...v1.8.2) (2023-07-08)
 
 
