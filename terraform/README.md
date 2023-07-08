@@ -6,6 +6,13 @@ These are Terraform files to deploy to GCP.
 
 Go to `/terraform/scraper` and check that the variables are correct in `variables.tf` and make sure to copy `terraform.tfvars.examples` and name it `terraform.tfvars`. Verify that the languages you want to use are correct.
 
+Also create an empty zip file in the tmp directory
+```sh
+cd ./terraform/scraper/
+mkdir -p tmp
+zip < /dev/null > tmp/scraper.zip
+```
+
 When done, run these commands in that directory to deploy to GCP:
 
 ```sh

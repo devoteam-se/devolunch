@@ -80,7 +80,7 @@ Excited to work alongside you! Follow the instructions in [CONTRIBUTING](./CONTR
 - [x] Add API versioning
 - [x] Change filesOverride to be read from environment instead of code
 - [x] Change scraper to run PDF parse from within `browserScrapeFunction`
-- [ ] Fix shared npm packages for functions
+- [x] Fix shared npm packages for functions
 - [ ] Write tests
 - [x] Host images in a bucket
 - [x] Add a separate service account for Cloud Run instead of using the default Compute Engine service account

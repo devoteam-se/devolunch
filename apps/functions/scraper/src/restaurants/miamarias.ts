@@ -1,4 +1,5 @@
 import { Page } from 'puppeteer';
+import { DishType } from '@devolunch/shared';
 
 export const meta = {
   title: 'MiaMarias',
@@ -28,7 +29,7 @@ export const browserScrapeFunction = (page: Page) =>
         .match(/^[^0-9]+/)
         ?.shift()
         ?.trim();
-      const type: App.DishType = swedishType === 'Fisk' ? 'fish' : swedishType === 'Kött' ? 'meat' : 'veg';
+      const type: DishType = swedishType === 'Fisk' ? 'fish' : swedishType === 'Kött' ? 'meat' : 'veg';
 
       const price = Number(raw[i].match(/([0-9]+)\s?kr/)?.slice(1, 2));
       const description = raw[i + 1];

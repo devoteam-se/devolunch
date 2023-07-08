@@ -1,4 +1,5 @@
 import { Page } from 'puppeteer';
+import { DishProps } from '@devolunch/shared';
 
 export const meta = {
   title: 'Hyllie Bistro',
@@ -34,7 +35,7 @@ export const browserScrapeFunction = (page: Page) =>
       return t.includes(todaySwedishFormat) || t.includes(todayEnglishFormat);
     });
 
-    const dishes: App.Dish[] = [];
+    const dishes: DishProps[] = [];
 
     if (!raw) {
       return dishes;

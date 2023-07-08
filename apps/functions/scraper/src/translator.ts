@@ -1,12 +1,13 @@
 import { v2 } from '@google-cloud/translate';
 
 import { config } from './index.js';
+import { DishProps, RestaurantProps } from '@devolunch/shared';
 
 const translate = new v2.Translate({
   projectId: 'devolunch',
 });
 
-export const translateText = async (from: string, to: string, originalText: App.Dish['description']) => {
+export const translateText = async (from: string, to: string, originalText: DishProps['description']) => {
   if (!originalText?.length) {
     console.error('Text to translate is not defined');
     return '';
@@ -24,10 +25,10 @@ export const translateText = async (from: string, to: string, originalText: App.
   return translation;
 };
 
-const translateRestaurant = async (restaurant: App.Restaurant) => {
+const translateRestaurant = async (restaurant: RestaurantProps) => {
   try {
     await Promise.all(
-      config.translateLanguages.split(',')?.map(async (language) => {
+      config.translateLanguages.split(',')?.map(async (language: string) => {
         restaurant.dishCollection?.push({
           language,
           dishes: restaurant.dishCollection.filter((a) => a.dishes?.length).length
@@ -48,5 +49,5 @@ const translateRestaurant = async (restaurant: App.Restaurant) => {
   return restaurant;
 };
 
-export const translateRestaurants = async (restaurants: App.Restaurant[]) =>
-  await Promise.all(restaurants.map(async (restaurant: App.Restaurant) => await translateRestaurant(restaurant)));
+export const translateRestaurants = async (restaurants: RestaurantProps[]) =>
+  await Promise.all(restaurants.map(async (restaurant: RestaurantProps) => await translateRestaurant(restaurant)));

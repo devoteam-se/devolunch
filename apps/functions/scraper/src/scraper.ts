@@ -5,6 +5,7 @@ import { Browser } from 'puppeteer';
 import { config } from './index.js';
 import { compareDish } from './utils/sort.js';
 import { translateRestaurants } from './translator.js';
+import { DishCollectionProps, DishProps, RestaurantProps } from '@devolunch/shared';
 
 const TIMEOUT = 120000;
 
@@ -55,14 +56,14 @@ export const scrapeRestaurant = async (browser: Browser, dir: string, file: stri
   }
 };
 
-export const renderOutput = async (restaurants: App.Restaurant[]) => ({
+export const renderOutput = async (restaurants: RestaurantProps[]) => ({
   date: new Date(),
   restaurants: await translateRestaurants(
-    restaurants.map((restaurant: App.Restaurant) => ({
+    restaurants.map((restaurant: RestaurantProps) => ({
       ...restaurant,
-      dishCollection: restaurant?.dishCollection.map((dishCollection) => ({
+      dishCollection: restaurant?.dishCollection.map((dishCollection: DishCollectionProps) => ({
         ...dishCollection,
-        dishes: dishCollection.dishes.sort(compareDish).map((dish) => ({
+        dishes: dishCollection.dishes.sort(compareDish).map((dish: DishProps) => ({
           ...dish,
         })),
       })),

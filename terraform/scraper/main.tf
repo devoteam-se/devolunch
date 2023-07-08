@@ -36,7 +36,7 @@ resource "google_storage_default_object_access_control" "public_rule" {
 
 data "archive_file" "cf_source_zip" {
   type        = "zip"
-  source_dir  = "${path.module}/../../apps/server/functions/scraper/tmp"
+  source_dir  = "${path.module}/../../apps/functions/scraper/build"
   output_path = "${path.module}/tmp/scraper.zip"
   depends_on  = [null_resource.cf_file]
 }
@@ -82,7 +82,10 @@ resource "null_resource" "cf_file" {
   }
 
   provisioner "local-exec" {
-    command = "cd ${path.module}/../../apps/server/functions/scraper && pnpm compile && mkdir -p tmp && cp -R package.json .puppeteerrc.cjs test dist tmp"
+    command = <<-EOT
+      cd ${path.module}/../../apps/functions/scraper
+      ./build.sh
+    EOT
   }
 }
 
@@ -156,6 +159,12 @@ resource "google_cloud_scheduler_job" "job" {
     oidc_token {
       service_account_email = google_service_account.service_account.email
     }
+  }
+}
+
+resource "null_resource" "cf_file_cleanup" {
+  provisioner "local-exec" {
+    command = "cd ${path.module}/../../apps/functions/scraper && rm -rf tmp"
   }
 }
 
