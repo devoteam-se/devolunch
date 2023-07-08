@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.8.2](https://github.com/jayway/devolunch/compare/v1.8.1...v1.8.2) (2023-07-08)
+
+
+### Bug Fixes
+
+* Catch errors and (a)wait for sharp to finish ([5a71728](https://github.com/jayway/devolunch/commit/5a71728c63b4cdf04adebfc9fca9596249178dfa))
+* Shared npm packages for scraper function ([f9b6c33](https://github.com/jayway/devolunch/commit/f9b6c33b106cad183be80568693229a928e060b3))
+
 ## [1.8.1](https://github.com/jayway/devolunch/compare/v1.8.0...v1.8.1) (2023-07-07)
 
 
