@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: google-github-actions/release-please-action@v3
         env:
-          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.DEVOLUNCH_RELEASE }}
         with:
           release-type: node
           package-name: devolunch
