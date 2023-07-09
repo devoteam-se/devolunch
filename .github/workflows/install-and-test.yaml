@@ -7,10 +7,6 @@ on:
   workflow_call:
 
 jobs:
-  release-please:
-    name: release-please
-    uses: ./.github/workflows/release-please.yml
-
   install-and-test:
     runs-on: ubuntu-latest
 

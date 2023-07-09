@@ -35,7 +35,7 @@ jobs:
           docker build --tag ${{ vars.REGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/${{ vars.SERVICE }}/latest .
           docker push ${{ vars.REGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/${{ vars.SERVICE }}/latest
 
-      - name: 'deploy to cloud run'
+      - name: deploy to cloud run
         id: deploy
         uses: 'google-github-actions/deploy-cloudrun@v0'
         with:
