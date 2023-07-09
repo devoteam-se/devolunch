@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.4](https://github.com/jayway/devolunch/compare/v1.8.3...v1.8.4) (2023-07-09)
+
+
+### Bug Fixes
+
+* update scopes and gh workflow name ([7367bf5](https://github.com/jayway/devolunch/commit/7367bf551a7c07f34e3b39f210c15bfcd8343935))
+
 ## [1.8.3](https://github.com/jayway/devolunch/compare/v1.8.2...v1.8.3) (2023-07-08)
 
 
