@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.5](https://github.com/jayway/devolunch/compare/v1.8.4...v1.8.5) (2023-07-09)
+
+
+### Bug Fixes
+
+* trigger release-please on push to main ([3d6d483](https://github.com/jayway/devolunch/commit/3d6d483aa7615ea438d7b6545699f5077ffa0680))
+
 ## [1.8.4](https://github.com/jayway/devolunch/compare/v1.8.3...v1.8.4) (2023-07-09)
 
 
