@@ -27,31 +27,37 @@ resource "google_project_service" "iam" {
   disable_on_destroy = false
 }
 
-resource "google_project_service" "secretmanager" {
-  provider = google-beta
-  service  = "secretmanager.googleapis.com"
-  disable_on_destroy = false
+data "archive_file" "cf_source_zip" {
+  type        = "zip"
+  source_dir  = "${path.module}/../../apps/functions/notify-slack/build"
+  output_path = "${path.module}/tmp/notify-slack.zip"
+  depends_on  = [null_resource.cf_file]
+}
+
+locals {
+  cf_zip_archive_name = "cf-${data.archive_file.cf_source_zip.output_sha}.zip"
 }
 
 # Object for Cloud Storage
 resource "google_storage_bucket_object" "bucket_object" {
-  name   = "notify-slack.zip"
-  bucket = var.storage_bucket_cf
-  source = "${path.module}/../../apps/server/functions/notify-slack/ns.zip"
-  depends_on = [null_resource.cf_file]
+  name          = local.cf_zip_archive_name
+  bucket        = var.storage_bucket_cf
+  source        = data.archive_file.cf_source_zip.output_path
+  content_type  = "application/zip"
+  depends_on    = [data.archive_file.cf_source_zip]
 }
 
 resource "null_resource" "cf_file" {
-  provisioner "local-exec" {
-    command = "cd ${path.module}/../../apps/server/functions/notify-slack && zip -r ns.zip package.json dist"
+  triggers = {
+    source_code = filesha256("${path.module}/tmp/notify-slack.zip")
   }
-}
 
-resource "null_resource" "cf_file_cleanup" {
   provisioner "local-exec" {
-    command = "cd ${path.module}/../../apps/server/functions/notify-slack && rm -f ns.zip"
+    command = <<-EOT
+      cd ${path.module}/../../apps/functions/notify-slack
+      ./build.sh
+    EOT
   }
-  depends_on = [google_cloudfunctions2_function.function]
 }
 
 resource "google_service_account" "service_account" {
@@ -119,17 +125,16 @@ resource "google_secret_manager_secret_iam_member" "secret_slack_channel-id" {
   member      = "serviceAccount:${google_service_account.service_account.email}"
 }
 
-# Create Cloud Function v2
+# Create Cloud Function
 resource "google_cloudfunctions2_function" "function" {
-  depends_on    = [google_project_iam_member.invoking]
-  name          = "notify-slack"
-  location      = var.region
-  project       = var.project_id
-  description   = "notify slack on lunch menu"
+  name           = "notify-slack"
+  location       = var.region
+  project        = var.project_id
+  description    = "notify slack on lunch menu"
 
   build_config {
-    runtime     = "nodejs18"
-    entry_point = "slack"
+    runtime = "nodejs18"
+    entry_point = "notify-slack"
     source {
       storage_source {
         bucket = var.storage_bucket_cf
@@ -140,6 +145,7 @@ resource "google_cloudfunctions2_function" "function" {
 
   service_config {
     max_instance_count              = 1
+    available_cpu                   = "1"
     available_memory                = "256M"
     timeout_seconds                 = 60
     ingress_settings                = "ALLOW_ALL"
@@ -160,15 +166,6 @@ resource "google_cloudfunctions2_function" "function" {
     }
   }
 }
-
-/* resource "google_cloudfunctions2_function_iam_member" "invoker" { */
-/*   project        = var.project_id */
-/*   region         = var.region */
-/*   cloud_function = google_cloudfunctions2_function.function.name */
-
-/*   role   = "roles/cloudfunctions.developer" # have to use this one since roles/cloudfunctions.invoker doesn't work */
-/*   member = "serviceAccount:${google_service_account.service_account.email}" */
-/* } */
 
 resource "google_cloud_scheduler_job" "job" {
   project          = var.project_id

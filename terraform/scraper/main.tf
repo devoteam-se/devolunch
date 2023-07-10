@@ -162,12 +162,6 @@ resource "google_cloud_scheduler_job" "job" {
   }
 }
 
-resource "null_resource" "cf_file_cleanup" {
-  provisioner "local-exec" {
-    command = "cd ${path.module}/../../apps/functions/scraper && rm -rf tmp"
-  }
-}
-
 output "function_uri" {
   value = google_cloudfunctions2_function.function.service_config[0].uri
 }

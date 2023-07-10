@@ -84,4 +84,4 @@ Excited to work alongside you! Follow the instructions in [CONTRIBUTING](./CONTR
 - [ ] Write tests
 - [x] Host images in a bucket
 - [x] Add a separate service account for Cloud Run instead of using the default Compute Engine service account
-- [ ] Add Cloud Function deploy step
+- [x] Add Cloud Function deploy step
