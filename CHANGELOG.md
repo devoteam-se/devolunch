@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.6](https://github.com/jayway/devolunch/compare/v1.8.5...v1.8.6) (2023-07-10)
+
+
+### Bug Fixes
+
+* add token to release-please ([7ab3ec2](https://github.com/jayway/devolunch/commit/7ab3ec22a5041cda6328291a2ddc5af3ad25f2f2))
+
 ## [1.8.5](https://github.com/jayway/devolunch/compare/v1.8.4...v1.8.5) (2023-07-09)
 
 
