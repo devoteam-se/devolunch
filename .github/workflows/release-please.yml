@@ -3,7 +3,8 @@ name: release-please
 on:
   push:
     branches:
-      - main
+      - 'main'
+  workflow_call:
 
 permissions:
   contents: write
@@ -17,5 +18,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.DEVOLUNCH_RELEASE }}
         with:
+          token: ${{ secrets.DEVOLUNCH_RELEASE }}
           release-type: node
           package-name: devolunch
