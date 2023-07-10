@@ -11,7 +11,12 @@ permissions:
   pull-requests: write
 
 jobs:
+  install-and-test:
+    name: install-and-test
+    uses: ./.github/workflows/install-and-test.yaml
+
   release-please:
+    needs: install-and-test
     runs-on: ubuntu-latest
     steps:
       - uses: google-github-actions/release-please-action@v3
