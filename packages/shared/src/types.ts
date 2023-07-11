@@ -11,7 +11,7 @@ export interface RestaurantProps {
   title: string;
   url: string;
   imgUrl?: string;
-  dishCollection: DishCollectionProps[];
+  dishCollection?: DishCollectionProps[];
   longitude: number;
   latitude: number;
   distance: number;

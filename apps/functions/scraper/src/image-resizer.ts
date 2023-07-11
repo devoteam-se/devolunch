@@ -1,14 +1,12 @@
-import path from 'path';
 import sharp from 'sharp';
 
 import { BUCKET_NAME, storage } from './index.js';
+import { RestaurantProps } from '@devolunch/shared';
 
-export const resizeImage = async (dir: string, filename: string) => {
-  const restaurant = await import(path.join(dir, filename));
-
+export const resizeImage = async (restaurantMeta: RestaurantProps) => {
   const bucket = storage.bucket(BUCKET_NAME);
 
-  const titleFileName = restaurant.meta.title.toLowerCase().replace(/[^a-z]+/, '');
+  const titleFileName = restaurantMeta.title.toLowerCase().replace(/[^a-z]+/, '');
 
   const file = bucket.file(`images/${titleFileName}.webp`);
   const existsArray = await file.exists();
@@ -17,12 +15,16 @@ export const resizeImage = async (dir: string, filename: string) => {
   if (!exists) {
     const remoteWriteStream = bucket.file(`images/${titleFileName}.webp`).createWriteStream();
 
-    const res = await fetch(restaurant.meta.imgUrl);
+    if (!restaurantMeta.imgUrl) {
+      return '';
+    }
+
+    const res = await fetch(restaurantMeta.imgUrl);
     const buffer = await res.arrayBuffer();
     await new Promise<void>((resolve, reject) => {
       sharp(buffer)
         .on('error', (err) => {
-          console.error(dir, filename, err);
+          console.error(restaurantMeta.title, err);
           reject();
         })
         .on('finish', () => {
@@ -38,4 +40,7 @@ export const resizeImage = async (dir: string, filename: string) => {
         .pipe(remoteWriteStream);
     });
   }
+
+  const [url] = await file.getSignedUrl({ action: 'read', expires: '01-01-2026' });
+  return url;
 };

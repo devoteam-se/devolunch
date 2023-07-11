@@ -63,8 +63,8 @@ export default function Sort() {
             }))
             .sort(
               (a: RestaurantProps, b: RestaurantProps) =>
-                b.dishCollection.filter((d: DishCollectionProps) => d.dishes?.length).length -
-                  a.dishCollection.filter((d: DishCollectionProps) => d.dishes?.length).length ||
+                (b.dishCollection?.filter((d: DishCollectionProps) => d.dishes?.length).length || 0) -
+                  (a.dishCollection?.filter((d: DishCollectionProps) => d.dishes?.length).length || 0) ||
                 a.distance - b.distance,
             ),
         );

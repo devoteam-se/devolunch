@@ -95,6 +95,13 @@ resource "google_service_account" "service_account" {
   display_name = "Cloud Function Invoker Service Account"
 }
 
+resource "google_project_iam_member" "token_creator" {
+  project     = var.project_id
+  role        = "roles/iam.serviceAccountTokenCreator"
+  member      = "serviceAccount:${google_service_account.service_account.email}"
+  depends_on  = [google_service_account.service_account]
+}
+
 resource "google_project_iam_member" "invoking" {
   project     = var.project_id
   role        = "roles/run.invoker"

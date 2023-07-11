@@ -94,7 +94,7 @@ const restaurantLinksIconStyles = css`
 
 const restaurantDirectionStyles = css``;
 
-export default function Restaurant({ title, distance, url, dishCollection, googleMapsUrl }: RestaurantProps) {
+export default function Restaurant({ title, imgUrl, distance, url, dishCollection, googleMapsUrl }: RestaurantProps) {
   const { loading, language } = useRestaurants();
 
   return (
@@ -105,15 +105,9 @@ export default function Restaurant({ title, distance, url, dishCollection, googl
         {!loading && (distance < 1 ? `${(distance * 1000)?.toFixed(0)} m` : `${distance?.toFixed(2)} km`)}
       </div>
       <a href={url} css={restaurantImageLinkStyles}>
-        <img
-          src={
-            'https://storage.googleapis.com/devolunchv2/images/' + title.toLowerCase().replace(/[^a-z]+/, '') + '.webp'
-          }
-          css={restaurantImageStyles}
-          alt={title}
-        />
+        <img src={imgUrl} css={restaurantImageStyles} alt={title} />
       </a>
-      {dishCollection.filter((a: DishCollectionProps) => a.dishes?.length).length
+      {dishCollection && dishCollection.filter((a: DishCollectionProps) => a.dishes?.length).length
         ? dishCollection
             .find((dc: DishCollectionProps) => dc.language === language)
             ?.dishes.map((dish: DishProps, index: number) => (
