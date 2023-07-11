@@ -28,14 +28,6 @@ export const resizeImage = async (dir: string, filename: string) => {
         .on('finish', () => {
           resolve();
         })
-        .on('end', () => {
-          console.log('end on ' + dir, filename);
-          resolve();
-        })
-        .on('close', () => {
-          console.log('close on ' + dir, filename);
-          resolve();
-        })
         .resize(400, 300, {
           fit: 'cover',
         })
