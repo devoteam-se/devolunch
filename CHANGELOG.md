@@ -1,5 +1,25 @@
 # Changelog
 
+## [1.9.0](https://github.com/jayway/devolunch/compare/v1.8.6...v1.9.0) (2023-07-11)
+
+
+### Features
+
+* Add kontrast västra hamnen ([88d1989](https://github.com/jayway/devolunch/commit/88d198959ea5df1cacf402948b74244cc35bad07))
+* fetch images via backend ([d9698fd](https://github.com/jayway/devolunch/commit/d9698fdce64ee3fa4d3817c9f0ff3d845abbb67f))
+
+
+### Bug Fixes
+
+* assume that dishes containing 'stängt' means restaurant is closed ([39b6a47](https://github.com/jayway/devolunch/commit/39b6a47852ee334061aa41426b294346f91e8baa))
+* namu image ([0a80c9f](https://github.com/jayway/devolunch/commit/0a80c9f4dd1ccceda48dcb6ecad849609869005b))
+* resolve on end and close ([3eb0b66](https://github.com/jayway/devolunch/commit/3eb0b66978f0db47e2cc2943b674c1382321dd0a))
+
+
+### Reverts
+
+* "fix: resolve on end and close" ([270e9fd](https://github.com/jayway/devolunch/commit/270e9fdb5c512fd516561228305dcb288528975f))
+
 ## [1.8.6](https://github.com/jayway/devolunch/compare/v1.8.5...v1.8.6) (2023-07-10)
 
 
