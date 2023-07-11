@@ -7,6 +7,7 @@ import { fileURLToPath } from 'url';
 import { createConfig } from './config.js';
 import { getRestaurantFilePaths, renderOutput, scrapeRestaurant } from './scraper.js';
 import { resizeImage } from './image-resizer.js';
+import { DishCollectionProps, DishProps, RestaurantProps } from '@devolunch/shared';
 
 const RESTAURANTS_PATH = './restaurants';
 export const config = createConfig();
@@ -32,16 +33,36 @@ ff.http('scrape', async (_: ff.Request, res: ff.Response) => {
 
   await browser.close();
 
-  await Promise.all(files.map(async (file: string) => resizeImage(dir, file)));
-
+  // used to debug scraper
   const filesOverride = config.filesOverride?.split(',');
-
   if (filesOverride?.length) {
     res.sendStatus(200);
     return;
   }
 
-  const scrape = await renderOutput(restaurants);
+  // upload images to bucket if there are any
+  await Promise.all(files.map(async (file: string) => resizeImage(dir, file)));
+
+  // if any of the dishes contains the word 'stängt', we assume the restaurant is closed
+  const scrape = await renderOutput(
+    restaurants.map((restaurant: RestaurantProps) => {
+      if (
+        restaurant.title.toLowerCase().includes('stängt') ||
+        restaurant.dishCollection.some((dishCollection: DishCollectionProps) =>
+          dishCollection.dishes.some((dish: DishProps) => dish.description?.toLowerCase().includes('stängt')),
+        )
+      ) {
+        restaurant.dishCollection = [
+          {
+            language: config.defaultLanguage,
+            dishes: [],
+          },
+        ];
+      }
+
+      return restaurant;
+    }),
+  );
 
   if (!scrape?.restaurants?.length) {
     res.sendStatus(500);
