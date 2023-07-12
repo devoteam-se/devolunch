@@ -2,6 +2,7 @@ import * as ff from '@google-cloud/functions-framework';
 import fetch from 'node-fetch';
 import FormData from 'form-data';
 import { Storage } from '@google-cloud/storage';
+import { DishCollectionProps, RestaurantProps } from '@devolunch/shared';
 
 import { createConfig } from './config';
 
@@ -56,7 +57,14 @@ ff.http('notify-slack', async (_: ff.Request, res: ff.Response) => {
   const file = await bucket.file('scrape.json').download();
   const scrape = JSON.parse(file[0].toString('utf8'));
 
-  const mdText = renderMarkdown(scrape.restaurants);
+  const mdText = renderMarkdown(
+    scrape.restaurants.sort(
+      (a: RestaurantProps, b: RestaurantProps) =>
+        (b.dishCollection?.filter((d: DishCollectionProps) => d.dishes?.length).length || 0) -
+          (a.dishCollection?.filter((d: DishCollectionProps) => d.dishes?.length).length || 0) ||
+        a.distance - b.distance,
+    ),
+  );
 
   const form = new FormData();
   form.append('initial_comment', 'https://www.malmolunch.se');
