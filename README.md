@@ -85,3 +85,4 @@ Excited to work alongside you! Follow the instructions in [CONTRIBUTING](./CONTR
 - [x] Add a separate service account for Cloud Run instead of using the default Compute Engine service account
 - [x] Add Cloud Function deploy step
 - [x] Serve images via the backend
+- [ ] Split up terraform configurations into multiple files for readability
