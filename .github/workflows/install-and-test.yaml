@@ -1,11 +1,6 @@
 name: Install and test
 
 on:
-  push:
-    branches:
-      - 'main'
-    paths:
-      - 'apps/functions/**'
   workflow_call:
 
 jobs:

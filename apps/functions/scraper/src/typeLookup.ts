@@ -9,11 +9,11 @@ export default (text: string, options: OptionProps = { unknownMealDefault: 'misc
   const find = (arr: string[], lookup: string) =>
     arr.some((keyword: string) => lookup.replace(/\n/g, ' ').toLowerCase().includes(keyword));
 
-  if (find(keywords.fishes, text)) {
-    return 'fish';
-  }
   if (find(keywords.meats, text)) {
     return 'meat';
+  }
+  if (find(keywords.fishes, text)) {
+    return 'fish';
   }
   if (find(keywords.vegan, text)) {
     return 'vegan';

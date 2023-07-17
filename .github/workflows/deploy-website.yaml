@@ -1,4 +1,4 @@
-name: 'GCP Deploy'
+name: 'Deploy Website'
 
 on:
   workflow_call:

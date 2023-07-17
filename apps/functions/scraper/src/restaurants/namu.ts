@@ -7,25 +7,29 @@ export const meta = {
   googleMapsUrl: 'https://goo.gl/maps/XtFUKSvmDQTUpR146',
   latitude: 55.605198570165165,
   longitude: 12.997516926554482,
+  unknownMealDefault: 'veg',
 };
 
 export const browserScrapeFunction = (page: Page) =>
   page.evaluate(() =>
     [...document.querySelectorAll('ul.fdm-section-lunch-pa-namu li')]
-      .map(
-        (meal) =>
-          (meal as HTMLElement).innerText
-            .split('\n')
-            .map((b) => {
-              return b.replace(/\r\n|\n|\r|\t/gm, '');
-            })
-            .filter((b) => b.length)[0],
+      .map((meal) =>
+        (meal as HTMLElement).innerText
+          .split('\n')
+          .map((b) => {
+            return b.replace(/\r\n|\n|\r|\t/gm, '');
+          })
+          .filter((b) => b.length),
       )
       .slice(1)
+      .slice(0, -1)
       .map((meal) => {
+        const title = meal[0];
+        meal.shift();
+        const description = meal.join(' ');
         return {
-          type: 'misc' as const,
-          title: meal.charAt(0).toUpperCase() + meal.slice(1).toLowerCase(),
+          title: title.charAt(0).toUpperCase() + title.slice(1).toLowerCase(),
+          description,
         };
       }),
   );

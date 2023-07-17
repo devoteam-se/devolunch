@@ -1,0 +1,72 @@
+name: 'Deploy Notify Slack'
+
+on:
+  workflow_call:
+    inputs:
+      BUILD_ENV:
+        required: true
+        type: string
+    secrets:
+      GCP_CREDENTIALS:
+        required: true
+      SLACK_CHANNEL_ID:
+        required: true
+      SLACK_OAUTH_TOKEN:
+        required: true
+
+jobs:
+  deploy:
+    environment:
+      name: ${{ inputs.BUILD_ENV }}
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: 'actions/checkout@v3'
+
+      - name: set up cloud sdk
+        uses: 'google-github-actions/setup-gcloud@v0'
+        with:
+          service_account_key: ${{ secrets.GCP_CREDENTIALS }}
+          project_id: ${{ vars.PROJECT_ID }}
+          export_default_credentials: true
+
+  terraform:
+    name: 'Terraform'
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./terraform/notify-slack
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+
+      - name: Setup terraform variables
+        id: vars
+        run: |-
+          cat > pipeline.auto.tfvars <<EOF
+          slackChannelId="${{ secrets.SLACK_CHANNEL_ID }}"
+          slackOauthToken="${{ secrets.SLACK_OAUTH_TOKEN }}"
+          EOF
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Format
+        run: terraform fmt -check
+
+      - name: Terraform Plan
+        run: terraform plan -input=false
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve -input=false
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
