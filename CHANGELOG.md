@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.11.0](https://github.com/devoteam-se/devolunch/compare/v1.10.1...v1.11.0) (2023-07-17)
+
+
+### Features
+
+* add github actions steps for deploying scraper and slack notifier ([20665ee](https://github.com/devoteam-se/devolunch/commit/20665ee672712671b4606a64db28da2845024d90))
+
 ## [1.10.1](https://github.com/devoteam-se/devolunch/compare/v1.10.0...v1.10.1) (2023-07-17)
 
 
