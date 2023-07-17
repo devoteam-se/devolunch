@@ -54,7 +54,10 @@ export default function Footer() {
         >
           <LinkedIn css={iconStyles} />
         </a>
-        <a href='https://github.com/jayway/devolunch' aria-label='Go to Devoteam Creative Tech Github organisation'>
+        <a
+          href='https://github.com/devoteam-se/devolunch'
+          aria-label='Go to Devoteam Creative Tech Github organisation'
+        >
           <Github css={iconStyles} />
         </a>
         <p>Developed by Devoteam Sverige AB as a fun side project.</p>
