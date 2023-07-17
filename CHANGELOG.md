@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.10.0](https://github.com/devoteam-se/devolunch/compare/v1.9.0...v1.10.0) (2023-07-17)
+
+
+### Features
+
+* add belle pastabar ([0c4d7a5](https://github.com/devoteam-se/devolunch/commit/0c4d7a51301863fb2c86a5eaca20214147275a9a))
+* set type automatically depending on keywords in title and ([e2dd4ba](https://github.com/devoteam-se/devolunch/commit/e2dd4bac343249de93c02242db712eee9d837c0a))
+
+
+### Bug Fixes
+
+* sort restaurant in slack notifier ([b562902](https://github.com/devoteam-se/devolunch/commit/b5629023487e2cfa3c9a88466675a1deb7f33dfd))
+
 ## [1.9.0](https://github.com/jayway/devolunch/compare/v1.8.6...v1.9.0) (2023-07-11)
 
 
