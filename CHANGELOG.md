@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.11.3](https://github.com/devoteam-se/devolunch/compare/v1.11.2...v1.11.3) (2023-07-17)
+
+
+### Bug Fixes
+
+* remove source code triggers ([28e2900](https://github.com/devoteam-se/devolunch/commit/28e2900c45c93ea2b95d67000d207b02c848e802))
+
 ## [1.11.2](https://github.com/devoteam-se/devolunch/compare/v1.11.1...v1.11.2) (2023-07-17)
 
 
