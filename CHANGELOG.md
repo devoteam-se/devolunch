@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.11.1](https://github.com/devoteam-se/devolunch/compare/v1.11.0...v1.11.1) (2023-07-17)
+
+
+### Bug Fixes
+
+* update github action terraform version ([6c467b2](https://github.com/devoteam-se/devolunch/commit/6c467b2644e57c8529a6ab2dfbe82fa713f32ae1))
+
 ## [1.11.0](https://github.com/devoteam-se/devolunch/compare/v1.10.1...v1.11.0) (2023-07-17)
 
 
