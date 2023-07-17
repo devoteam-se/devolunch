@@ -86,3 +86,4 @@ Excited to work alongside you! Follow the instructions in [CONTRIBUTING](./CONTR
 - [x] Add Cloud Function deploy step
 - [x] Serve images via the backend
 - [ ] Split up terraform configurations into multiple files for readability
+- [ ] Figure out a good way of handling restaurant chains
