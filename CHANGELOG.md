@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.11.2](https://github.com/devoteam-se/devolunch/compare/v1.11.1...v1.11.2) (2023-07-17)
+
+
+### Bug Fixes
+
+* remove terraform fmt -check because of https://github.com/hashicorp/terraform/issues/31543 ([911851e](https://github.com/devoteam-se/devolunch/commit/911851eeca3255b633187359d38d61fef683fa32))
+* remove unused deploy step ([4c83a00](https://github.com/devoteam-se/devolunch/commit/4c83a007e24b70d47078bcc1d627598267d336a7))
+
 ## [1.11.1](https://github.com/devoteam-se/devolunch/compare/v1.11.0...v1.11.1) (2023-07-17)
 
 
