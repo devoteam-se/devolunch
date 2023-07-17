@@ -1,5 +1,4 @@
 import { Page } from 'puppeteer';
-import keywords from '../data/keywords.js';
 
 export const meta = {
   title: 'Smak',
@@ -8,10 +7,11 @@ export const meta = {
   googleMapsUrl: 'https://goo.gl/maps/5NrVf9rA3gocZLvd7',
   latitude: 55.59505322449918,
   longitude: 12.999231400154716,
+  unknownMealDefault: 'veg',
 };
 
 export const browserScrapeFunction = (page: Page) =>
-  page.evaluate((keywords) => {
+  page.evaluate(() => {
     const todaySwedishFormat = new Date()
       .toLocaleString('sv-SE', {
         weekday: 'long',
@@ -28,26 +28,7 @@ export const browserScrapeFunction = (page: Page) =>
 
     const meals = [lunchArray[todayIndex + 1], lunchArray[todayIndex + 2], lunchArray[todayIndex + 3]];
 
-    const fishIndex = meals.findIndex((meal) =>
-      keywords.fishes.some((fish: string) => meal.toLowerCase().includes(fish)),
-    );
-
-    const dishes = [];
-
-    if (fishIndex !== -1) {
-      dishes.push({
-        type: 'fish' as const,
-        title: meals[fishIndex],
-      });
-      meals.splice(fishIndex, 1);
-    }
-
-    dishes.push(
-      ...meals.map((meal) => ({
-        type: 'misc' as const,
-        title: meal,
-      })),
-    );
-
-    return dishes;
-  }, keywords);
+    return meals.map((meal) => ({
+      title: meal,
+    }));
+  });
