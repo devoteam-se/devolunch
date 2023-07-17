@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.11.4](https://github.com/devoteam-se/devolunch/compare/v1.11.3...v1.11.4) (2023-07-17)
+
+
+### Bug Fixes
+
+* add gcloud auth ([5d879f2](https://github.com/devoteam-se/devolunch/commit/5d879f2fa033956e96000b89517e5309c4ffd1ce))
+
 ## [1.11.3](https://github.com/devoteam-se/devolunch/compare/v1.11.2...v1.11.3) (2023-07-17)
 
 
