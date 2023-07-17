@@ -32,8 +32,8 @@ export const browserScrapeFunction = (page: Page) =>
       const type: DishType = swedishType === 'Fisk' ? 'fish' : swedishType === 'Kött' ? 'meat' : 'veg';
 
       const price = Number(raw[i].match(/([0-9]+)\s?kr/)?.slice(1, 2));
-      const description = raw[i + 1];
-      dishes.push({ type, price, description });
+      const title = raw[i + 1];
+      dishes.push({ type, price, title });
     }
     return dishes;
   });

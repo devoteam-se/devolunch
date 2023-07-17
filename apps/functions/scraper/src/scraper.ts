@@ -5,8 +5,9 @@ import { Browser } from 'puppeteer';
 import { config } from './index.js';
 import { compareDish } from './utils/sort.js';
 import { translateRestaurants } from './translator.js';
-import { DishCollectionProps, DishProps, RestaurantProps } from '@devolunch/shared';
-import { resizeImage } from './image-resizer.js';
+import { DishCollectionProps, DishProps, DishType, RestaurantProps } from '@devolunch/shared';
+import resizeImage from './image-resizer.js';
+import typeLookup from './typeLookup.js';
 
 const TIMEOUT = 120000;
 
@@ -25,6 +26,7 @@ export const getRestaurantFilePaths = async (dir: string) => {
 
 export const scrapeRestaurant = async (browser: Browser, dir: string, file: string) => {
   const restaurant = await import(path.join(dir, file));
+
   const restaurantMeta: RestaurantProps = restaurant.meta;
 
   const page = await browser.newPage();
@@ -37,7 +39,7 @@ export const scrapeRestaurant = async (browser: Browser, dir: string, file: stri
     });
 
     console.log(`Scraping ${restaurantMeta.title} on ${restaurantMeta.url}`);
-    const result = await restaurant.browserScrapeFunction(page);
+    const dishes = await restaurant.browserScrapeFunction(page);
 
     // upload image to bucket if there are any
     const imageName = await resizeImage(restaurantMeta);
@@ -48,7 +50,15 @@ export const scrapeRestaurant = async (browser: Browser, dir: string, file: stri
       dishCollection: [
         {
           language: config.defaultLanguage,
-          dishes: result,
+          dishes: dishes?.map((dish: DishProps) => ({
+            ...dish,
+            type:
+              dish.title && !dish.type
+                ? (typeLookup(`${dish.title} ${dish.description}`, {
+                    unknownMealDefault: restaurantMeta.unknownMealDefault || 'misc',
+                  }) as DishType)
+                : dish.type,
+          })),
         },
       ],
     };

@@ -42,27 +42,27 @@ export const pdfScrapeFunction = async (url: string) => {
 
   const todayMeat = {
     type: 'meat' as const,
-    description: raw[todayMeatIndex + 1],
+    title: raw[todayMeatIndex + 1],
   };
 
   const veg = {
     type: 'veg' as const,
-    description: raw[vegIndex + 1],
+    title: raw[vegIndex + 1],
   };
 
   const alwaysMeat = {
     type: 'meat' as const,
-    description: raw[alwaysIndex + 1],
+    title: raw[alwaysIndex + 1],
   };
 
   const alwaysVeg = {
     type: 'veg' as const,
-    description: raw[alwaysIndex + 4],
+    title: raw[alwaysIndex + 4],
   };
 
   const alwaysFish = {
     type: 'fish' as const,
-    description: raw[alwaysIndex + 7],
+    title: raw[alwaysIndex + 7],
   };
 
   return [todayMeat, veg, alwaysMeat, alwaysVeg, alwaysFish];

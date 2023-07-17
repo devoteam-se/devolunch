@@ -3,7 +3,7 @@ import sharp from 'sharp';
 import { BUCKET_NAME, storage } from './index.js';
 import { RestaurantProps } from '@devolunch/shared';
 
-export const resizeImage = async (restaurantMeta: RestaurantProps) => {
+export default async (restaurantMeta: RestaurantProps) => {
   const bucket = storage.bucket(BUCKET_NAME);
 
   const titleFileName = restaurantMeta.title.toLowerCase().replace(/[^a-z]+/, '');

@@ -27,11 +27,11 @@ export const browserScrapeFunction = (page: Page) =>
     return [
       {
         type: 'veg' as const,
-        description: raw[todayIndex + 1],
+        title: raw[todayIndex + 1],
       },
       {
         type: 'misc' as const,
-        description: raw[saladIndex + 1],
+        title: raw[saladIndex + 1],
       },
     ];
   });

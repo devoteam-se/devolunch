@@ -45,12 +45,12 @@ export const pdfScrapeFunction = async (url: string) => {
 
   const todayMeat = {
     type: 'meat' as const,
-    description: capitalizeFirstLetter(raw[todayMeatIndex + 1]),
+    title: capitalizeFirstLetter(raw[todayMeatIndex + 1]),
   };
 
   const veg = {
     type: 'veg' as const,
-    description: capitalizeFirstLetter(raw[vegIndex + 1]),
+    title: capitalizeFirstLetter(raw[vegIndex + 1]),
   };
 
   return [todayMeat, veg];

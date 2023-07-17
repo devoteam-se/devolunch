@@ -25,7 +25,7 @@ export const browserScrapeFunction = (page: Page) =>
       .map((meal) => {
         return {
           type: 'misc' as const,
-          description: meal.charAt(0).toUpperCase() + meal.slice(1).toLowerCase(),
+          title: meal.charAt(0).toUpperCase() + meal.slice(1).toLowerCase(),
         };
       }),
   );

@@ -24,7 +24,7 @@ export const browserScrapeFunction = (page: Page) =>
     if (lunchNode) {
       const foods = [...lunchNode.querySelectorAll('tr')].map((a) => ({
         type: 'misc' as const,
-        description: `${a.querySelector('td:nth-child(1)')?.textContent} - ${
+        title: `${a.querySelector('td:nth-child(1)')?.textContent} - ${
           a.querySelector('td:nth-child(2)')?.textContent?.split('\n')[0]
         }`,
         price: a.querySelector('td:nth-child(3)')?.textContent,

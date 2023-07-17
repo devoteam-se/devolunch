@@ -28,6 +28,6 @@ export const browserScrapeFunction = (page: Page) =>
 
     return raw.map((e, i) => ({
       type: typeArray[i],
-      description: e,
+      title: e,
     }));
   });

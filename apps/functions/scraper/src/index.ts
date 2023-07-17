@@ -45,7 +45,7 @@ ff.http('scrape', async (_: ff.Request, res: ff.Response) => {
       if (
         restaurant.title.toLowerCase().includes('stängt') ||
         restaurant.dishCollection?.some((dishCollection: DishCollectionProps) =>
-          dishCollection.dishes.some((dish: DishProps) => dish.description?.toLowerCase().includes('stängt')),
+          dishCollection.dishes.some((dish: DishProps) => dish.title?.toLowerCase().includes('stängt')),
         )
       ) {
         restaurant.dishCollection = [

@@ -30,6 +30,10 @@ const dishTitleIconStyles = css`
   border: 1px solid ${color.blackOlive};
   margin-right: 0.5rem;
 
+  &[data-vegan='true'] {
+    background-color: ${color.foodType.vegan};
+  }
+
   &[data-veg='true'] {
     background-color: ${color.foodType.veg};
   }
@@ -48,19 +52,20 @@ const dishDescriptionStyles = css`
   margin: 0;
 `;
 
-export default function Dish({ type, description }: DishProps) {
+export default function Dish({ type, title }: DishProps) {
   return (
     <div css={dishStyles}>
       <h3 css={dishTitleStyles}>
         <div
           css={dishTitleIconStyles}
+          data-vegan={type === 'vegan'}
           data-veg={type === 'veg'}
           data-fish={type === 'fish'}
           data-misc={type === 'misc'}
         />
         {type}
       </h3>
-      <p css={dishDescriptionStyles}>{description}</p>
+      <p css={dishDescriptionStyles}>{title}</p>
     </div>
   );
 }

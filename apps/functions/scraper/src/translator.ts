@@ -7,7 +7,7 @@ const translate = new v2.Translate({
   projectId: 'devolunch',
 });
 
-export const translateText = async (from: string, to: string, originalText: DishProps['description']) => {
+export const translateText = async (from: string, to: string, originalText: DishProps['title']) => {
   if (!originalText?.length) {
     console.error('Text to translate is not defined');
     return '';
@@ -35,7 +35,7 @@ const translateRestaurant = async (restaurant: RestaurantProps) => {
             ? await Promise.all(
                 restaurant.dishCollection[0]?.dishes?.map(async (dish) => ({
                   ...dish,
-                  description: await translateText(config.defaultLanguage, language, dish.description),
+                  title: await translateText(config.defaultLanguage, language, dish.title),
                 })),
               )
             : [],

@@ -21,11 +21,11 @@ export const browserScrapeFunction = (page: Page) =>
     return [
       {
         type: 'meat' as const,
-        description: meat,
+        title: meat,
       },
       {
         type: 'veg' as const,
-        description: veg,
+        title: veg,
       },
     ];
   });

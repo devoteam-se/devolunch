@@ -17,6 +17,7 @@ export const color = {
   foodType: {
     meat: '#fca2ae',
     veg: '#8ab8a5',
+    vegan: '#72f7c0',
     fish: '#6f9eca',
     misc: '#795b8c',
   },

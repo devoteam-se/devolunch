@@ -111,7 +111,7 @@ export default function Restaurant({ title, imgUrl, distance, url, dishCollectio
         ? dishCollection
             .find((dc: DishCollectionProps) => dc.language === language)
             ?.dishes.map((dish: DishProps, index: number) => (
-              <Dish key={`dish-${index}`} type={dish.type} description={dish.description} />
+              <Dish key={`dish-${index}`} type={dish.type} title={dish.title} />
             ))
         : !loading && <div css={unableToScrapeStyles}>Closed or ¯\_(ツ)_/¯</div>}
       <div css={restaurantLinksStyles}>

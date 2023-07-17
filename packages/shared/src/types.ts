@@ -16,6 +16,7 @@ export interface RestaurantProps {
   latitude: number;
   distance: number;
   googleMapsUrl: string;
+  unknownMealDefault?: 'veg';
 }
 
 export interface DishCollectionProps {
@@ -25,7 +26,8 @@ export interface DishCollectionProps {
 
 export interface DishProps {
   type: DishType;
-  description: string | null | undefined;
+  title: string;
+  description?: string;
 }
 
-export type DishType = 'meat' | 'fish' | 'veg' | 'misc';
+export type DishType = 'meat' | 'fish' | 'veg' | 'vegan' | 'misc';

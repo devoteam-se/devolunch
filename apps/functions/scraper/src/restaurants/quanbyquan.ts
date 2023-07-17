@@ -35,7 +35,7 @@ export const browserScrapeFunction = (page: Page) =>
 
         return {
           type: types[index],
-          description: lunch,
+          title: lunch,
         };
       });
   });

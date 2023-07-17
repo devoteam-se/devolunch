@@ -23,7 +23,7 @@ export const browserScrapeFunction = (page: Page) =>
 
       return dishes.map((dish: string) => ({
         type: type === 'Vegetarisk' ? 'veg' : 'meat',
-        description: type + ' - ' + dish.replace(/[0-9]+\.\s/, ''),
+        title: type + ' - ' + dish.replace(/[0-9]+\.\s/, ''),
       }));
     };
 

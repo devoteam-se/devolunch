@@ -26,11 +26,11 @@ export const browserScrapeFunction = (page: Page) =>
     return [
       {
         type: 'meat' as const,
-        description: menuArray[todayIndex + 1],
+        title: menuArray[todayIndex + 1],
       },
       {
         type: 'veg' as const,
-        description: menuArray[vegIndex + 1],
+        title: menuArray[vegIndex + 1],
       },
     ];
   });
