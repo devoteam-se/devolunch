@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.11.5](https://github.com/devoteam-se/devolunch/compare/v1.11.4...v1.11.5) (2023-07-17)
+
+
+### Bug Fixes
+
+* add environment to scraper and notify-slack ([c76b060](https://github.com/devoteam-se/devolunch/commit/c76b060aa8055bafa0eecf1e4b8db3526e1747ba))
+
 ## [1.11.4](https://github.com/devoteam-se/devolunch/compare/v1.11.3...v1.11.4) (2023-07-17)
 
 
