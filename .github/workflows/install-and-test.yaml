@@ -1,4 +1,4 @@
-name: Install and test
+name: 'install and test'
 
 on:
   workflow_call:

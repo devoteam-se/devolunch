@@ -18,7 +18,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: 'actions/checkout@v3'
+      - name: checkout
+        uses: 'actions/checkout@v3'
 
       - name: set up cloud sdk
         uses: 'google-github-actions/setup-gcloud@v0'

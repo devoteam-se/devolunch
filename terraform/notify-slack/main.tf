@@ -13,6 +13,12 @@ provider "google-beta" {
   zone    = var.zone
 }
 
+provider "google" {
+  project = var.project_id
+  region  = var.region
+  zone    = var.zone
+}
+
 # Enable Storage Bucket API
 resource "google_project_service" "storage" {
   provider           = google-beta
