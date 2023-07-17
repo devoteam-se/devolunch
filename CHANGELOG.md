@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.10.1](https://github.com/devoteam-se/devolunch/compare/v1.10.0...v1.10.1) (2023-07-17)
+
+
+### Bug Fixes
+
+* remove type and set automatically for smak and kontrast ([2e9607f](https://github.com/devoteam-se/devolunch/commit/2e9607f997d6fba23806abf86ae6c6d5fa1a726e))
+* update github url in footer ([d78ddfd](https://github.com/devoteam-se/devolunch/commit/d78ddfd66ed1de085a5c373c3ac356e61a40051a))
+
 ## [1.10.0](https://github.com/devoteam-se/devolunch/compare/v1.9.0...v1.10.0) (2023-07-17)
 
 
