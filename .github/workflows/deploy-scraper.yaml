@@ -11,24 +11,7 @@ on:
         required: true
 
 jobs:
-  deploy:
-    environment:
-      name: ${{ inputs.BUILD_ENV }}
-
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: 'actions/checkout@v3'
-
-      - name: set up cloud sdk
-        uses: 'google-github-actions/setup-gcloud@v0'
-        with:
-          service_account_key: ${{ secrets.GCP_CREDENTIALS }}
-          project_id: ${{ vars.PROJECT_ID }}
-          export_default_credentials: true
-
   terraform:
-    name: 'Terraform'
     runs-on: ubuntu-latest
 
     defaults:
