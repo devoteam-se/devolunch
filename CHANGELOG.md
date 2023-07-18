@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.11.9](https://github.com/devoteam-se/devolunch/compare/v1.11.8...v1.11.9) (2023-07-18)
+
+
+### Bug Fixes
+
+* add build step before packing ([8509624](https://github.com/devoteam-se/devolunch/commit/8509624c16804ef4d2e0b2d1cc5eab321c5011ec))
+
 ## [1.11.8](https://github.com/devoteam-se/devolunch/compare/v1.11.7...v1.11.8) (2023-07-18)
 
 
