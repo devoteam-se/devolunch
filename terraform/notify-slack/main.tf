@@ -1,4 +1,8 @@
 terraform {
+  backend "gcs" {
+    bucket  = "devolunch-terraform-state"
+    prefix  = "terraform/state/notify-slack"
+  }
   required_providers {
     google-beta = {
       source  = "hashicorp/google-beta"
