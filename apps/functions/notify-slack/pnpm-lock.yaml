@@ -3106,7 +3106,7 @@ packages:
     resolution: {integrity: sha512-1MzNQdAvO+54H+EaK5YpyEy0T+Ejo/7YLHS93G3RnYWh5gaotGHwGeN/ZO687qEDU2y4CdStQYXVHIgrUl5UVQ==}
 
   file:devolunch-shared-1.0.0.tgz:
-    resolution: {integrity: sha512-Mij5hrGNsOg+4TqYTn9jMasRhMU2wGdGx3hDu6SaIZ8q58jy8po4cJ0A1FidGrvCRjLx76AkB7wmMtGqMq5pbQ==, tarball: file:devolunch-shared-1.0.0.tgz}
+    resolution: {integrity: sha512-R3Y3XUNK7Gasz3WhAOZA1fygHpFxc3i1StNcm2i7xq8t3p6jeSCkr7TgMa9iNH+MvY6WoNlYTPW8kciGpUowCQ==, tarball: file:devolunch-shared-1.0.0.tgz}
     name: '@devolunch/shared'
     version: 1.0.0
     dependencies:
@@ -3116,7 +3116,7 @@ packages:
     dev: true
 
   file:eslint-config-custom-1.0.0.tgz(typescript@5.0.4):
-    resolution: {integrity: sha512-xa14zdjpzSOpr24MB3ep1qPhNmx9TOwQBeN0SsDeeznvUd3FU/zizUvUpt0mu4pSwGt2N4ZE2RNbnPFqLaHOdg==, tarball: file:eslint-config-custom-1.0.0.tgz}
+    resolution: {integrity: sha512-D+/XGP8n/Mx8I3X7G1dpXcvGYcfvzexYr2TAgLdIxgX94axGWfo1rbQWGa1W1K5W+DvdDJ6+nnDXQdrHqT8buw==, tarball: file:eslint-config-custom-1.0.0.tgz}
     id: file:eslint-config-custom-1.0.0.tgz
     name: eslint-config-custom
     version: 1.0.0

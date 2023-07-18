@@ -6,10 +6,12 @@ mkdir -p build
 # Create tarball for both shared and eslint packages
 cd ../../../packages/shared/ || exit
 pnpm install --no-frozen-lockfile
+pnpm build
 pnpm pack
 cp devolunch-shared-1.0.0.tgz ../../apps/functions/scraper/devolunch-shared-1.0.0.tgz
 cd ../eslint || exit
 pnpm install --no-frozen-lockfile
+pnpm build
 pnpm pack
 cp eslint-config-custom-1.0.0.tgz ../../apps/functions/scraper/eslint-config-custom-1.0.0.tgz
 
