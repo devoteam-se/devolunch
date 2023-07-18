@@ -11,7 +11,6 @@ pnpm pack
 cp devolunch-shared-1.0.0.tgz ../../apps/functions/notify-slack/devolunch-shared-1.0.0.tgz
 cd ../eslint || exit
 pnpm install --no-frozen-lockfile
-pnpm build
 pnpm pack
 cp eslint-config-custom-1.0.0.tgz ../../apps/functions/notify-slack/eslint-config-custom-1.0.0.tgz
 
