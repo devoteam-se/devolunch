@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.11.7](https://github.com/devoteam-se/devolunch/compare/v1.11.6...v1.11.7) (2023-07-18)
+
+
+### Bug Fixes
+
+* install pnpm in deploy step ([2bbc7c2](https://github.com/devoteam-se/devolunch/commit/2bbc7c2e4b9e31f1ef9cdb9f65fb1d75657e3774))
+
 ## [1.11.6](https://github.com/devoteam-se/devolunch/compare/v1.11.5...v1.11.6) (2023-07-18)
 
 
