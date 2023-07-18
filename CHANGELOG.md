@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.11.6](https://github.com/devoteam-se/devolunch/compare/v1.11.5...v1.11.6) (2023-07-18)
+
+
+### Bug Fixes
+
+* add state to gcs bucket ([fbe5bc7](https://github.com/devoteam-se/devolunch/commit/fbe5bc7ed70f107aa6cbf76b099c0032adb4ff80))
+
 ## [1.11.5](https://github.com/devoteam-se/devolunch/compare/v1.11.4...v1.11.5) (2023-07-17)
 
 
