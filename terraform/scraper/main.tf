@@ -47,7 +47,7 @@ resource "google_storage_default_object_access_control" "public_rule" {
 data "archive_file" "cf_source_zip" {
   type        = "zip"
   source_dir  = "${path.module}/../../apps/functions/scraper/build"
-  output_path = "${path.module}/tmp/scraper.zip"
+  output_path = "${path.module}/tmp/cfsource.zip"
   depends_on  = [null_resource.cf_file]
 }
 
@@ -88,7 +88,7 @@ resource "google_storage_bucket_object" "bucket_object" {
 
 resource "null_resource" "cf_file" {
   triggers = {
-    source_code = filesha256("${path.module}/tmp/notify-slack.zip")
+    source_code = filesha256("${path.module}/tmp/cfsource.zip")
   }
 
   provisioner "local-exec" {
