@@ -58,6 +58,10 @@ resource "google_storage_bucket_object" "bucket_object" {
 }
 
 resource "null_resource" "cf_file" {
+  triggers = {
+    source_code = filesha256("${path.module}/tmp/notify-slack.zip")
+  }
+
   provisioner "local-exec" {
     command = <<-EOT
       cd ${path.module}/../../apps/functions/notify-slack
