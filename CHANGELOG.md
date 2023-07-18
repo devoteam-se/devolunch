@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.11.12](https://github.com/devoteam-se/devolunch/compare/v1.11.11...v1.11.12) (2023-07-18)
+
+
+### Bug Fixes
+
+* add cfsource.zip to git for checksum diff ([1fb9336](https://github.com/devoteam-se/devolunch/commit/1fb933633a3332a716c985ceb792a62cee6c1d21))
+
 ## [1.11.11](https://github.com/devoteam-se/devolunch/compare/v1.11.10...v1.11.11) (2023-07-18)
 
 
