@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.11.14](https://github.com/devoteam-se/devolunch/compare/v1.11.13...v1.11.14) (2023-07-18)
+
+
+### Bug Fixes
+
+* add some cheeky checks to type lookup ([0b6b346](https://github.com/devoteam-se/devolunch/commit/0b6b3467d799b7fe66ae6c9f602aecad2634458e))
+
 ## [1.11.13](https://github.com/devoteam-se/devolunch/compare/v1.11.12...v1.11.13) (2023-07-18)
 
 
