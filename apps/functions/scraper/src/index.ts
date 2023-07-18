@@ -28,7 +28,10 @@ ff.http('scrape', async (_: ff.Request, res: ff.Response) => {
 
   const files = await getRestaurantFilePaths(dir);
 
-  const restaurants = await Promise.all(files.map(async (file: string) => scrapeRestaurant(browser, dir, file)));
+  const restaurants = [];
+  for (const file of files) {
+    restaurants.push(await scrapeRestaurant(browser, dir, file));
+  }
 
   await browser.close();
 
