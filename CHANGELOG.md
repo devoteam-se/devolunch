@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.11.10](https://github.com/devoteam-se/devolunch/compare/v1.11.9...v1.11.10) (2023-07-18)
+
+
+### Bug Fixes
+
+* scrape restaurants sequentially to reduce memory usage ([f77e3b9](https://github.com/devoteam-se/devolunch/commit/f77e3b9f1766b34d64bde8cb29b732e381291c77))
+
 ## [1.11.9](https://github.com/devoteam-se/devolunch/compare/v1.11.8...v1.11.9) (2023-07-18)
 
 
