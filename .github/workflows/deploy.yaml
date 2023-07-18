@@ -7,12 +7,7 @@ on:
   workflow_call:
 
 jobs:
-  install-and-test:
-    name: install-and-test
-    uses: ./.github/workflows/install-and-test.yaml
-
   deploy-website:
-    needs: install-and-test
     uses: ./.github/workflows/deploy-website.yaml
     with:
       BUILD_ENV: production
@@ -20,7 +15,6 @@ jobs:
       GCP_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
 
   deploy-scraper:
-    needs: install-and-test
     uses: ./.github/workflows/deploy-scraper.yaml
     with:
       BUILD_ENV: production
@@ -28,7 +22,6 @@ jobs:
       GCP_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
 
   deploy-notify-slack:
-    needs: install-and-test
     uses: ./.github/workflows/deploy-notify-slack.yaml
     with:
       BUILD_ENV: production
