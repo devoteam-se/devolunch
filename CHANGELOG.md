@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.11.13](https://github.com/devoteam-se/devolunch/compare/v1.11.12...v1.11.13) (2023-07-18)
+
+
+### Bug Fixes
+
+* add pnpm to notify-slack workflow ([b106fe1](https://github.com/devoteam-se/devolunch/commit/b106fe13bf8c77c70b106cdcd30682a9bd9da0e6))
+
 ## [1.11.12](https://github.com/devoteam-se/devolunch/compare/v1.11.11...v1.11.12) (2023-07-18)
 
 
