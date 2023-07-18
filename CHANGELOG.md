@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.11.8](https://github.com/devoteam-se/devolunch/compare/v1.11.7...v1.11.8) (2023-07-18)
+
+
+### Bug Fixes
+
+* add --no-frozen-lockfile to install step ([e444243](https://github.com/devoteam-se/devolunch/commit/e444243a6b97f031bfc29ccd08ca8010905d080e))
+
 ## [1.11.7](https://github.com/devoteam-se/devolunch/compare/v1.11.6...v1.11.7) (2023-07-18)
 
 
