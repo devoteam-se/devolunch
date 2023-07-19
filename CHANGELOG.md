@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.11.17](https://github.com/devoteam-se/devolunch/compare/v1.11.16...v1.11.17) (2023-07-19)
+
+
+### Bug Fixes
+
+* add closed label to slack notifier ([343be10](https://github.com/devoteam-se/devolunch/commit/343be1068e3b25469b072cd8b07ea6d5db4cfbae))
+
 ## [1.11.16](https://github.com/devoteam-se/devolunch/compare/v1.11.15...v1.11.16) (2023-07-19)
 
 
