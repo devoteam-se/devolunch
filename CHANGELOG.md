@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.11.15](https://github.com/devoteam-se/devolunch/compare/v1.11.14...v1.11.15) (2023-07-19)
+
+
+### Bug Fixes
+
+* general cleanup ([d49105b](https://github.com/devoteam-se/devolunch/commit/d49105b7aa623de244bf0d3f51f88cb2f8daa7c1))
+* remove unused build step for eslint shared package ([d426299](https://github.com/devoteam-se/devolunch/commit/d426299d7cdffd8532b99038a0bc545e57bed39a))
+* update slack notifier to use shared types ([cd9b17b](https://github.com/devoteam-se/devolunch/commit/cd9b17b218391ad1b42aa450ec386681acfb7692))
+
 ## [1.11.14](https://github.com/devoteam-se/devolunch/compare/v1.11.13...v1.11.14) (2023-07-18)
 
 
