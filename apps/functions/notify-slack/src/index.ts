@@ -3,18 +3,16 @@ import fetch from 'node-fetch';
 import FormData from 'form-data';
 import { Storage } from '@google-cloud/storage';
 import { DishCollectionProps, RestaurantProps } from '@devolunch/shared';
-
 import { createConfig } from './config';
-
-const config = createConfig();
 
 const BUCKET_NAME = 'devolunchv2';
 
+const config = createConfig();
 const storage = new Storage({
   projectId: 'devolunch',
 });
 
-const renderMarkdown = (restaurants: App.Restaurant[]) => {
+const renderMarkdown = (restaurants: RestaurantProps[]) => {
   let result = '_English version below_\n\n';
 
   // Swedish
@@ -32,22 +30,20 @@ const renderMarkdown = (restaurants: App.Restaurant[]) => {
   return result;
 };
 
-const renderItemForMarkdown = (language: string, restaurant: App.Restaurant) => {
-  let result = `*${restaurant.title}*\n\n`;
-  const dishCollection = restaurant.dishCollection.find((dc: { language: string }) => dc.language === language);
-  if (dishCollection?.dishes) {
-    dishCollection.dishes.forEach((dish: App.Dish) => {
-      // Capitalize type
+const renderItemForMarkdown = (language: string, { title, dishCollection }: RestaurantProps): string => {
+  let result = `*${title}*\n\n`;
+  const dishCollectionForLanguage = dishCollection?.find((dc: { language: string }) => dc.language === language);
+  if (dishCollectionForLanguage?.dishes) {
+    for (const dish of dishCollectionForLanguage.dishes) {
       result += `• ${dish.type.replace(/\b\w/g, (l) => l.toUpperCase())}: ${dish.description}\n`;
-    });
+    }
   }
   return result;
 };
 
-const getTodayNiceFormat = () => {
-  let d = new Date();
-  const offset = d.getTimezoneOffset();
-  d = new Date(d.getTime() - offset * 60 * 1000);
+const getTodayNiceFormat = (): string => {
+  const d = new Date();
+  d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
   return d.toISOString().split('T')[0];
 };
 
@@ -57,14 +53,13 @@ ff.http('notify-slack', async (_: ff.Request, res: ff.Response) => {
   const file = await bucket.file('scrape.json').download();
   const scrape = JSON.parse(file[0].toString('utf8'));
 
-  const mdText = renderMarkdown(
-    scrape.restaurants.sort(
-      (a: RestaurantProps, b: RestaurantProps) =>
-        (b.dishCollection?.filter((d: DishCollectionProps) => d.dishes?.length).length || 0) -
-          (a.dishCollection?.filter((d: DishCollectionProps) => d.dishes?.length).length || 0) ||
-        a.distance - b.distance,
-    ),
+  const sortedRestaurants = scrape.restaurants.sort(
+    (a: RestaurantProps, b: RestaurantProps) =>
+      (b.dishCollection?.filter((d: DishCollectionProps) => d.dishes?.length).length || 0) -
+        (a.dishCollection?.filter((d: DishCollectionProps) => d.dishes?.length).length || 0) || a.distance - b.distance,
   );
+
+  const mdText = renderMarkdown(sortedRestaurants);
 
   const form = new FormData();
   form.append('initial_comment', 'https://www.malmolunch.se');
@@ -73,23 +68,21 @@ ff.http('notify-slack', async (_: ff.Request, res: ff.Response) => {
   form.append('title', `Lunch ${getTodayNiceFormat()}`);
   form.append('filetype', 'post');
 
-  await fetch('https://slack.com/api/files.upload', {
-    method: 'POST',
-    body: form,
-    headers: {
-      Authorization: `Bearer ${config.slackOauthToken}`,
-    },
-  })
-    .then((res) => {
-      if (!res.ok) {
-        throw new Error(`Server error ${res.status}`);
-      }
-
-      return res.json();
-    })
-    .catch((err) => {
-      console.error(err);
+  try {
+    const response = await fetch('https://slack.com/api/files.upload', {
+      method: 'POST',
+      body: form,
+      headers: {
+        Authorization: `Bearer ${config.slackOauthToken}`,
+      },
     });
+
+    if (!response.ok) {
+      throw new Error(`Server error ${response.status}`);
+    }
+  } catch (err) {
+    console.error(err);
+  }
 
   res.sendStatus(200);
 });
