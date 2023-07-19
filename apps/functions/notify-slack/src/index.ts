@@ -34,6 +34,9 @@ const renderItemForMarkdown = (language: string, { title, dishCollection }: Rest
   let result = `*${title}*\n\n`;
   const dishCollectionForLanguage = dishCollection?.find((dc: { language: string }) => dc.language === language);
   if (dishCollectionForLanguage?.dishes) {
+    if (!dishCollectionForLanguage.dishes.length) {
+      result += 'Closed or ¯\\_(ツ)_/¯';
+    }
     for (const dish of dishCollectionForLanguage.dishes) {
       result += `• ${dish.type.replace(/\b\w/g, (l) => l.toUpperCase())}: ${dish.title}\n`;
     }
