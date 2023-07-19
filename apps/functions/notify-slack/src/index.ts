@@ -35,7 +35,7 @@ const renderItemForMarkdown = (language: string, { title, dishCollection }: Rest
   const dishCollectionForLanguage = dishCollection?.find((dc: { language: string }) => dc.language === language);
   if (dishCollectionForLanguage?.dishes) {
     for (const dish of dishCollectionForLanguage.dishes) {
-      result += `• ${dish.type.replace(/\b\w/g, (l) => l.toUpperCase())}: ${dish.description}\n`;
+      result += `• ${dish.type.replace(/\b\w/g, (l) => l.toUpperCase())}: ${dish.title}\n`;
     }
   }
   return result;
