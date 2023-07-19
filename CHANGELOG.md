@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.11.16](https://github.com/devoteam-se/devolunch/compare/v1.11.15...v1.11.16) (2023-07-19)
+
+
+### Bug Fixes
+
+* use title instead of description ([8bec4cc](https://github.com/devoteam-se/devolunch/commit/8bec4cc33a2ed60c7b358e058a85f9eebbf64afa))
+
 ## [1.11.15](https://github.com/devoteam-se/devolunch/compare/v1.11.14...v1.11.15) (2023-07-19)
 
 
