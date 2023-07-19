@@ -3,11 +3,10 @@ import path from 'path';
 import { Browser } from 'puppeteer';
 
 import { config } from './index.js';
+import { DishProps, RestaurantProps } from '@devolunch/shared';
+import resizeImage from './utils/image-resizer.js';
+import { updateDishType } from './utils/dish-type-lookup.js';
 import { compareDish } from './utils/sort.js';
-import { translateRestaurants } from './translator.js';
-import { DishCollectionProps, DishProps, DishType, RestaurantProps } from '@devolunch/shared';
-import resizeImage from './image-resizer.js';
-import typeLookup from './typeLookup.js';
 
 const TIMEOUT = 120000;
 
@@ -25,9 +24,7 @@ export const getRestaurantFilePaths = async (dir: string) => {
 };
 
 export const scrapeRestaurant = async (browser: Browser, dir: string, file: string) => {
-  const restaurant = await import(path.join(dir, file));
-
-  const restaurantMeta: RestaurantProps = restaurant.meta;
+  const { meta: restaurantMeta, browserScrapeFunction } = await import(path.join(dir, file));
 
   const page = await browser.newPage();
   page.on('console', (msg) => console.log(msg.text()));
@@ -39,29 +36,31 @@ export const scrapeRestaurant = async (browser: Browser, dir: string, file: stri
     });
 
     console.log(`Scraping ${restaurantMeta.title} on ${restaurantMeta.url}`);
-    const dishes = await restaurant.browserScrapeFunction(page);
+    const dishes = await browserScrapeFunction(page);
 
     // upload image to bucket if there are any
     const imageName = await resizeImage(restaurantMeta);
 
-    return {
+    const isClosed = dishes?.some((dish: DishProps) => dish.title?.toLowerCase().includes('stängt'));
+
+    const restaurant: RestaurantProps = {
       ...restaurantMeta,
       imgUrl: imageName,
       dishCollection: [
         {
           language: config.defaultLanguage,
-          dishes: dishes?.map((dish: DishProps) => ({
-            ...dish,
-            type:
-              dish.title && !dish.type
-                ? (typeLookup(`${dish.title} ${dish.description}`, {
-                    unknownMealDefault: restaurantMeta.unknownMealDefault || 'misc',
-                  }) as DishType)
-                : dish.type,
-          })),
+          dishes: isClosed
+            ? []
+            : dishes?.sort(compareDish)?.map((dish: DishProps) =>
+                updateDishType(dish, {
+                  unknownDishTypeDefault: restaurantMeta?.unknownMealDefault,
+                }),
+              ),
         },
       ],
     };
+
+    return restaurant;
   } catch (err: unknown) {
     console.error('Error', err);
     return {
@@ -72,18 +71,3 @@ export const scrapeRestaurant = async (browser: Browser, dir: string, file: stri
     await page.close();
   }
 };
-
-export const renderOutput = async (restaurants: RestaurantProps[]) => ({
-  date: new Date(),
-  restaurants: await translateRestaurants(
-    restaurants.map((restaurant: RestaurantProps) => ({
-      ...restaurant,
-      dishCollection: restaurant.dishCollection?.map((dishCollection: DishCollectionProps) => ({
-        ...dishCollection,
-        dishes: dishCollection.dishes.sort(compareDish).map((dish: DishProps) => ({
-          ...dish,
-        })),
-      })),
-    })),
-  ),
-});

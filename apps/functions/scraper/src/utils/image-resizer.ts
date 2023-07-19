@@ -1,6 +1,6 @@
 import sharp from 'sharp';
 
-import { BUCKET_NAME, storage } from './index.js';
+import { BUCKET_NAME, storage } from '../index.js';
 import { RestaurantProps } from '@devolunch/shared';
 
 export default async (restaurantMeta: RestaurantProps) => {

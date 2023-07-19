@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 
-import { distance } from '@/utils/distance';
-import { DishCollectionProps, RestaurantProps, Scrape } from '@devolunch/shared';
+import { RestaurantProps, Scrape } from '@devolunch/shared';
+import { sortRestaurants } from '@/utils/sort-restaurants';
 
 type ContextType = {
   loading: boolean;
@@ -60,25 +60,10 @@ const RestaurantsProvider = ({ children }: { children: React.ReactNode }) => {
         setLanguage(language);
       }
 
-      const latitude = 55.61282608776878;
-      const longitude = 13.003325575170862;
-
       const r = await fetchRestaurants();
 
       if (r) {
-        setRestaurants(
-          r.restaurants
-            .map((r: RestaurantProps) => ({
-              ...r,
-              distance: distance(latitude, r.latitude, longitude, r.longitude),
-            }))
-            .sort(
-              (a: RestaurantProps, b: RestaurantProps) =>
-                (b.dishCollection?.filter((d: DishCollectionProps) => d.dishes?.length).length || 0) -
-                  (a.dishCollection?.filter((d: DishCollectionProps) => d.dishes?.length).length || 0) ||
-                a.distance - b.distance,
-            ),
-        );
+        setRestaurants(sortRestaurants(r.restaurants));
         setScrapeDate(new Date(r.date));
       }
       setLoading(false);

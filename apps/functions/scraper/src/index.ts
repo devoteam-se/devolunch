@@ -5,16 +5,17 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 import { createConfig } from './config.js';
-import { getRestaurantFilePaths, renderOutput, scrapeRestaurant } from './scraper.js';
-import { DishCollectionProps, DishProps, RestaurantProps } from '@devolunch/shared';
+import { translateRestaurants } from './utils/translator.js';
+import { getRestaurantFilePaths, scrapeRestaurant } from './scraper.js';
+import { Scrape } from '@devolunch/shared';
 
 const RESTAURANTS_PATH = './restaurants';
-export const config = createConfig();
 
+export const BUCKET_NAME = 'devolunchv2';
+export const config = createConfig();
 export const storage = new Storage({
   projectId: 'devolunch',
 });
-export const BUCKET_NAME = 'devolunchv2';
 
 ff.http('scrape', async (_: ff.Request, res: ff.Response) => {
   const browser = await puppeteer.launch({
@@ -43,25 +44,10 @@ ff.http('scrape', async (_: ff.Request, res: ff.Response) => {
   }
 
   // if any of the dishes contains the word 'stängt', we assume the restaurant is closed
-  const scrape = await renderOutput(
-    restaurants.map((restaurant: RestaurantProps) => {
-      if (
-        restaurant.title.toLowerCase().includes('stängt') ||
-        restaurant.dishCollection?.some((dishCollection: DishCollectionProps) =>
-          dishCollection.dishes.some((dish: DishProps) => dish.title?.toLowerCase().includes('stängt')),
-        )
-      ) {
-        restaurant.dishCollection = [
-          {
-            language: config.defaultLanguage,
-            dishes: [],
-          },
-        ];
-      }
-
-      return restaurant;
-    }),
-  );
+  const scrape: Scrape = {
+    date: new Date(),
+    restaurants: await translateRestaurants(restaurants),
+  };
 
   if (!scrape?.restaurants?.length) {
     res.sendStatus(500);

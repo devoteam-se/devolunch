@@ -1,6 +1,6 @@
 import { v2 } from '@google-cloud/translate';
 
-import { config } from './index.js';
+import { config } from '../index.js';
 import { DishProps, RestaurantProps } from '@devolunch/shared';
 
 const translate = new v2.Translate({

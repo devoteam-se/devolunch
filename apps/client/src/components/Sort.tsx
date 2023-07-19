@@ -3,10 +3,9 @@ import { css, keyframes } from '@emotion/react';
 
 import { ReactComponent as SortIcon } from '@/assets/sort.svg';
 import { useRestaurants } from '@/contexts/restaurants';
-import { distance } from '@/utils/distance';
 import { color } from '@/utils/theme';
+import { sortRestaurants } from '@/utils/sort-restaurants';
 
-import { DishCollectionProps, RestaurantProps } from '@devolunch/shared';
 import Button from './Button';
 
 const activeKeyFrame = keyframes`
@@ -55,19 +54,7 @@ export default function Sort() {
         const latitude = position.coords.latitude;
         const longitude = position.coords.longitude;
 
-        setRestaurants(
-          restaurants
-            .map((r: RestaurantProps) => ({
-              ...r,
-              distance: distance(latitude, r.latitude, longitude, r.longitude),
-            }))
-            .sort(
-              (a: RestaurantProps, b: RestaurantProps) =>
-                (b.dishCollection?.filter((d: DishCollectionProps) => d.dishes?.length).length || 0) -
-                  (a.dishCollection?.filter((d: DishCollectionProps) => d.dishes?.length).length || 0) ||
-                a.distance - b.distance,
-            ),
-        );
+        setRestaurants(sortRestaurants(restaurants, latitude, longitude));
         setActive(0);
       },
       () => {

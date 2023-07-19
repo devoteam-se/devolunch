@@ -1,4 +1,4 @@
-export const distance = (lat1: number, lat2: number, lon1: number, lon2: number) => {
+export const calculateDistance = (lat1: number, lat2: number, lon1: number, lon2: number) => {
   // The math module contains a function
   // named toRadians which converts from
   // degrees to radians.
