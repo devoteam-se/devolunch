@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.12.0](https://github.com/devoteam-se/devolunch/compare/v1.11.20...v1.12.0) (2023-07-20)
+
+
+### Features
+
+* **website:** add tracking on outbound links ([1e2fd1b](https://github.com/devoteam-se/devolunch/commit/1e2fd1b1c3119bda3ccea12c501a2aa1691ac7ff))
+
 ## [1.11.20](https://github.com/devoteam-se/devolunch/compare/v1.11.19...v1.11.20) (2023-07-20)
 
 
