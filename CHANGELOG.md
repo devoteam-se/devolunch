@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.11.19](https://github.com/devoteam-se/devolunch/compare/v1.11.18...v1.11.19) (2023-07-20)
+
+
+### Bug Fixes
+
+* slack message when restaurant is closed ([a7e7bdf](https://github.com/devoteam-se/devolunch/commit/a7e7bdffeabf5b6923b48c3579a708467594c01a))
+
 ## [1.11.18](https://github.com/devoteam-se/devolunch/compare/v1.11.17...v1.11.18) (2023-07-20)
 
 
