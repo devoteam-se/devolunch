@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.11.20](https://github.com/devoteam-se/devolunch/compare/v1.11.19...v1.11.20) (2023-07-20)
+
+
+### Bug Fixes
+
+* **scraper:** update all restaurants with correct coordinates ([dd4362f](https://github.com/devoteam-se/devolunch/commit/dd4362f645e26395fa132604657e1b93d3ecf4ee))
+
 ## [1.11.19](https://github.com/devoteam-se/devolunch/compare/v1.11.18...v1.11.19) (2023-07-20)
 
 
