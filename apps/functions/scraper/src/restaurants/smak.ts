@@ -1,12 +1,15 @@
+import { RestaurantProps } from '@devolunch/shared';
 import { Page } from 'puppeteer';
 
-export const meta = {
+export const meta: RestaurantProps = {
   title: 'Smak',
   url: 'https://gastrogate.com/lunch/print/6005',
   imgUrl: 'https://smak.info/wp-content/uploads/2022/05/IMG_2946-kall-1024x768.png',
   googleMapsUrl: 'https://goo.gl/maps/5NrVf9rA3gocZLvd7',
-  latitude: 55.59505322449918,
-  longitude: 12.999231400154716,
+  coordinate: {
+    lat: 55.59505322449918,
+    lon: 12.999231400154716,
+  },
   unknownMealDefault: 'veg',
 };
 

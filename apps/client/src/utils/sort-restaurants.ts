@@ -18,5 +18,6 @@ export const sortRestaurants = (
     .sort(
       (a: RestaurantProps, b: RestaurantProps) =>
         (b.dishCollection?.filter((d) => d.dishes?.length).length || 0) -
-          (a.dishCollection?.filter((d) => d.dishes?.length).length || 0) || a.distance - b.distance,
+          (a.dishCollection?.filter((d) => d.dishes?.length).length || 0) ||
+        (a.distance && b.distance ? a.distance - b.distance : 0),
     );

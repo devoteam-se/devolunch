@@ -1,12 +1,15 @@
+import { RestaurantProps } from '@devolunch/shared';
 import { Page } from 'puppeteer';
 
-export const meta = {
+export const meta: RestaurantProps = {
   title: 'Mat- & chokladstudion',
   url: 'https://www.matochchokladstudion.se/lunch',
   imgUrl: 'https://mars-images.imgix.net/1674755786595?auto=compress&fit=clip&dpr=1.5&fit=clip&w=600&h=600',
   googleMapsUrl: 'https://goo.gl/maps/nPPTDtCfozCqwfbP8',
-  latitude: 55.60008037302816,
-  longitude: 13.00792098489051,
+  coordinate: {
+    lat: 55.60008037302816,
+    lon: 13.00792098489051,
+  },
 };
 
 export const browserScrapeFunction = (page: Page) =>

@@ -1,12 +1,15 @@
+import { RestaurantProps } from '@devolunch/shared';
 import { Page } from 'puppeteer';
 
-export const meta = {
+export const meta: RestaurantProps = {
   title: 'Välfärden',
   url: 'https://valfarden.nu/dagens-lunch/',
   imgUrl: 'https://valfarden.nu/wp-content/uploads/2015/01/hylla.jpg',
   googleMapsUrl: 'https://goo.gl/maps/cLAKuD2B95N8bqr19',
-  latitude: 55.61123819992324,
-  longitude: 12.994400413711007,
+  coordinate: {
+    lat: 55.61123819992324,
+    lon: 12.994400413711007,
+  },
 };
 
 export const browserScrapeFunction = (page: Page) =>

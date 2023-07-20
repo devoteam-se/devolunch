@@ -1,14 +1,17 @@
 import { Page } from 'puppeteer';
 import pdf from 'pdf-parse';
+import { RestaurantProps } from '@devolunch/shared';
 
-export const meta = {
+export const meta: RestaurantProps = {
   title: 'BISe',
   url: 'https://bise.se/lunch',
   imgUrl:
     'https://bise.se/_next/image?url=https%3A%2F%2Fcms.bise.se%2Fwp-content%2Fuploads%2F2022%2F10%2FLunch_Bise.jpeg&w=1080&q=75',
   googleMapsUrl: 'https://goo.gl/maps/9hmQUctdgeNvVSuF8',
-  latitude: 55.60675917303053,
-  longitude: 12.996173056055413,
+  coordinate: {
+    lat: 55.60675917303053,
+    lon: 12.996173056055413,
+  },
 };
 
 export const pdfScrapeFunction = async (url: string) => {

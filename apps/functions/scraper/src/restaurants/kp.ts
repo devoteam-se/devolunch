@@ -1,12 +1,15 @@
+import { RestaurantProps } from '@devolunch/shared';
 import { Page } from 'puppeteer';
 
-export const meta = {
+export const meta: RestaurantProps = {
   title: 'Restaurang KP',
   url: 'https://restaurangkp.se/lunchbuffe/',
   imgUrl: 'https://gastrogate.com/thumbs/1494/files/28932/kpstart2019.jpg',
   googleMapsUrl: 'https://goo.gl/maps/gC7veNFosQkEm6Xm8',
-  latitude: 55.60899502071826,
-  longitude: 12.9995314560394,
+  coordinate: {
+    lat: 55.60899502071826,
+    lon: 12.9995314560394,
+  },
 };
 
 export const browserScrapeFunction = (page: Page) =>

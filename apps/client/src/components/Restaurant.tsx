@@ -99,7 +99,7 @@ export default function Restaurant({ title, imgUrl, distance, url, dishCollectio
 
   const distanceText = loading
     ? ' '
-    : distance < 1
+    : distance && distance < 1
     ? `${(distance * 1000)?.toFixed(0)} m`
     : `${distance?.toFixed(2)} km`;
 

@@ -1,12 +1,15 @@
+import { RestaurantProps } from '@devolunch/shared';
 import { Page } from 'puppeteer';
 
-export const meta = {
+export const meta: RestaurantProps = {
   title: 'Quanbyquan',
   url: 'https://quanbyquan.se/',
   imgUrl: 'https://quanbyquan.se/wp-content/uploads/2019/09/Quan_Recept_08-1.jpg',
   googleMapsUrl: 'https://goo.gl/maps/5xyoBjWuU9vUcD6V8',
-  latitude: 55.605634485935816,
-  longitude: 12.997834503074296,
+  coordinate: {
+    lat: 55.605634485935816,
+    lon: 12.997834503074296,
+  },
 };
 
 export const browserScrapeFunction = (page: Page) =>

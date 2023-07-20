@@ -59,7 +59,8 @@ ff.http('notify-slack', async (_: ff.Request, res: ff.Response) => {
   const sortedRestaurants = scrape.restaurants.sort(
     (a: RestaurantProps, b: RestaurantProps) =>
       (b.dishCollection?.filter((d: DishCollectionProps) => d.dishes?.length).length || 0) -
-        (a.dishCollection?.filter((d: DishCollectionProps) => d.dishes?.length).length || 0) || a.distance - b.distance,
+        (a.dishCollection?.filter((d: DishCollectionProps) => d.dishes?.length).length || 0) ||
+      (a.distance && b.distance ? a.distance - b.distance : 0),
   );
 
   const mdText = renderMarkdown(sortedRestaurants);

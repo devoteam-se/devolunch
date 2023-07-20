@@ -1,13 +1,16 @@
 import { Page } from 'puppeteer';
 import pdf from 'pdf-parse';
+import { RestaurantProps } from '@devolunch/shared';
 
-export const meta = {
+export const meta: RestaurantProps = {
   title: 'Lokal 17',
   url: 'https://lokal17.se/',
   imgUrl: 'https://lokal17.se/app/uploads/sites/2/2018/01/bg-22.jpg',
   googleMapsUrl: 'https://goo.gl/maps/eMsNxGK743oQVj8D9',
-  latitude: 55.612111673032366,
-  longitude: 12.995311427220344,
+  coordinate: {
+    lat: 55.612111673032366,
+    lon: 12.995311427220344,
+  },
 };
 
 export const pdfScrapeFunction = async (url: string) => {

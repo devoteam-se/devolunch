@@ -1,12 +1,15 @@
+import { RestaurantProps } from '@devolunch/shared';
 import { Page } from 'puppeteer';
 
-export const meta = {
+export const meta: RestaurantProps = {
   title: 'Namu',
   url: 'https://namu.nu/',
   imgUrl: 'https://namu.nu/wp-content/uploads/2017/05/Namul-darker2-3k-min.jpg',
   googleMapsUrl: 'https://goo.gl/maps/XtFUKSvmDQTUpR146',
-  latitude: 55.605198570165165,
-  longitude: 12.997516926554482,
+  coordinate: {
+    lat: 55.605198570165165,
+    lon: 12.997516926554482,
+  },
   unknownMealDefault: 'veg',
 };
 

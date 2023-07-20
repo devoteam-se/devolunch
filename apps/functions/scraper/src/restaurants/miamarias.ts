@@ -1,13 +1,15 @@
 import { Page } from 'puppeteer';
-import { DishType } from '@devolunch/shared';
+import { DishType, RestaurantProps } from '@devolunch/shared';
 
-export const meta = {
+export const meta: RestaurantProps = {
   title: 'MiaMarias',
   url: 'http://www.miamarias.nu/',
   imgUrl: 'https://i0.wp.com/www.takemetosweden.be/wp-content/uploads/2019/07/MiaMarias-Malm%C3%B6-1.png?w=500&ssl=1',
   googleMapsUrl: 'https://goo.gl/maps/RrRffZzgebREQpwB7',
-  latitude: 55.613464681883094,
-  longitude: 12.992134201401216,
+  coordinate: {
+    lat: 55.613464681883094,
+    lon: 12.992134201401216,
+  },
 };
 
 export const browserScrapeFunction = (page: Page) =>

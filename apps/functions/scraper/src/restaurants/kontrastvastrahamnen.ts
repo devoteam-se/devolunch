@@ -1,13 +1,16 @@
+import { RestaurantProps } from '@devolunch/shared';
 import { Page } from 'puppeteer';
 
-export const meta = {
+export const meta: RestaurantProps = {
   title: 'Kontrast Västra Hamnen',
   url: 'https://www.kontrastrestaurang.se/vastra-hamnen/',
   imgUrl:
     'https://usercontent.one/wp/www.kontrastrestaurang.se/wp-content/uploads/2022/08/Indian-food-hero.jpg?media=1666955164',
   googleMapsUrl: 'https://goo.gl/maps/sAfGLCky4RcSUZKw5',
-  latitude: 55.610228873034714,
-  longitude: 12.973623667388564,
+  coordinate: {
+    lat: 55.610228873034714,
+    lon: 12.973623667388564,
+  },
 };
 
 export const browserScrapeFunction = (page: Page) =>

@@ -1,12 +1,15 @@
+import { RestaurantProps } from '@devolunch/shared';
 import { Page } from 'puppeteer';
 
-export const meta = {
+export const meta: RestaurantProps = {
   title: 'Niagara',
   url: 'https://restaurangniagara.se/lunch/',
   imgUrl: 'https://restaurangniagara.se/wp-content/uploads/sites/4/2015/08/Lunch-meny-Niagara1.jpg',
   googleMapsUrl: 'https://goo.gl/maps/5SAyzPUHhb2xrNXRA',
-  latitude: 55.60874652087178,
-  longitude: 12.994182713710865,
+  coordinate: {
+    lat: 55.60874652087178,
+    lon: 12.994182713710865,
+  },
 };
 
 export const browserScrapeFunction = (page: Page) =>

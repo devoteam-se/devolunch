@@ -13,7 +13,7 @@ export interface RestaurantProps {
   imgUrl?: string;
   dishCollection?: DishCollectionProps[];
   coordinate: Coordinate;
-  distance: number;
+  distance?: number;
   googleMapsUrl: string;
   unknownMealDefault?: 'veg';
 }
