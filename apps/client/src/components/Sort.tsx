@@ -54,7 +54,12 @@ export default function Sort() {
         const latitude = position.coords.latitude;
         const longitude = position.coords.longitude;
 
-        setRestaurants(sortRestaurants(restaurants, latitude, longitude));
+        setRestaurants(
+          sortRestaurants(restaurants, {
+            lat: latitude,
+            lon: longitude,
+          }),
+        );
         setActive(0);
       },
       () => {

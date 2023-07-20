@@ -1,23 +1,23 @@
-export const calculateDistance = (lat1: number, lat2: number, lon1: number, lon2: number) => {
-  // The math module contains a function
-  // named toRadians which converts from
-  // degrees to radians.
-  lon1 = (lon1 * Math.PI) / 180;
-  lon2 = (lon2 * Math.PI) / 180;
-  lat1 = (lat1 * Math.PI) / 180;
-  lat2 = (lat2 * Math.PI) / 180;
+import { Coordinate } from '@devolunch/shared';
 
-  // Haversine formula
-  const dlon = lon2 - lon1;
-  const dlat = lat2 - lat1;
-  const a = Math.pow(Math.sin(dlat / 2), 2) + Math.cos(lat1) * Math.cos(lat2) * Math.pow(Math.sin(dlon / 2), 2);
+const degreesToRadians = (degrees: number) => (degrees * Math.PI) / 180;
 
-  const c = 2 * Math.asin(Math.sqrt(a));
+const EARTH_RADIUS_KM = 6371;
 
-  // Radius of earth in kilometers. Use 3956
-  // for miles
-  const r = 6371;
+export const calculateDistance = (
+  { lat: lat1, lon: lon1 }: Coordinate,
+  { lat: lat2, lon: lon2 }: Coordinate,
+): number => {
+  const latitudeDiffRad = degreesToRadians(lat2 - lat1);
+  const longitudeDiffRad = degreesToRadians(lon2 - lon1);
+  const latitude1Rad = degreesToRadians(lat1);
+  const latitude2Rad = degreesToRadians(lat2);
 
-  // calculate the result
-  return c * r;
+  const havA =
+    Math.sin(latitudeDiffRad / 2) * Math.sin(latitudeDiffRad / 2) +
+    Math.sin(longitudeDiffRad / 2) * Math.sin(longitudeDiffRad / 2) * Math.cos(latitude1Rad) * Math.cos(latitude2Rad);
+  const havC = 2 * Math.atan2(Math.sqrt(havA), Math.sqrt(1 - havA));
+
+  const distance = EARTH_RADIUS_KM * havC;
+  return distance;
 };

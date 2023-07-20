@@ -12,8 +12,7 @@ export interface RestaurantProps {
   url: string;
   imgUrl?: string;
   dishCollection?: DishCollectionProps[];
-  longitude: number;
-  latitude: number;
+  coordinate: Coordinate;
   distance: number;
   googleMapsUrl: string;
   unknownMealDefault?: 'veg';
@@ -28,6 +27,11 @@ export interface DishProps {
   type: DishType;
   title: string;
   description?: string;
+}
+
+export interface Coordinate {
+  lat: number;
+  lon: number;
 }
 
 export type DishType = 'meat' | 'fish' | 'veg' | 'vegan' | 'misc';

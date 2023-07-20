@@ -97,12 +97,18 @@ const restaurantDirectionStyles = css``;
 export default function Restaurant({ title, imgUrl, distance, url, dishCollection, googleMapsUrl }: RestaurantProps) {
   const { loading, language } = useRestaurants();
 
+  const distanceText = loading
+    ? ' '
+    : distance < 1
+    ? `${(distance * 1000)?.toFixed(0)} m`
+    : `${distance?.toFixed(2)} km`;
+
   return (
     <div css={restaurantStyles}>
       <h2 css={restaurantTitleStyles}>{loading ? ' ' : title}</h2>
       <div css={restaurantDistanceStyles}>
         <LocationIcon css={restaurantLocationIconStyles} />
-        {!loading && (distance < 1 ? `${(distance * 1000)?.toFixed(0)} m` : `${distance?.toFixed(2)} km`)}
+        {!loading && distanceText}
       </div>
       <a href={url} css={restaurantImageLinkStyles}>
         <img src={imgUrl} css={restaurantImageStyles} alt={title} />

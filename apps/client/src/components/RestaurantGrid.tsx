@@ -37,8 +37,7 @@ export default function RestaurantGrid({ restaurants }: RestaurantGridProps) {
           title={restaurant.title}
           imgUrl={restaurant.imgUrl}
           distance={restaurant.distance}
-          latitude={restaurant.latitude}
-          longitude={restaurant.longitude}
+          coordinate={restaurant.coordinate}
           url={restaurant.url}
           dishCollection={restaurant.dishCollection}
           googleMapsUrl={restaurant.googleMapsUrl}
