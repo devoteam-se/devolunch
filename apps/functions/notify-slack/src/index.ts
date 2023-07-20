@@ -35,7 +35,7 @@ const renderItemForMarkdown = (language: string, { title, dishCollection }: Rest
   const dishCollectionForLanguage = dishCollection?.find((dc: { language: string }) => dc.language === language);
   if (dishCollectionForLanguage?.dishes) {
     if (!dishCollectionForLanguage.dishes.length) {
-      result += 'Closed or ¯\\_(ツ)_/¯';
+      result += '• Closed or :shrug:\n';
     }
     for (const dish of dishCollectionForLanguage.dishes) {
       result += `• ${dish?.type?.replace(/\b\w/g, (l) => l.toUpperCase())}: ${dish.title}\n`;
@@ -79,7 +79,6 @@ ff.http('notify-slack', async (_: ff.Request, res: ff.Response) => {
         Authorization: `Bearer ${config.slackOauthToken}`,
       },
     });
-
     if (!response.ok) {
       throw new Error(`Server error ${response.status}`);
     }
