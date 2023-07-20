@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.11.18](https://github.com/devoteam-se/devolunch/compare/v1.11.17...v1.11.18) (2023-07-20)
+
+
+### Bug Fixes
+
+* add null check ([e15145b](https://github.com/devoteam-se/devolunch/commit/e15145b972d9eec313457ca46ee2ead1a9ca8dcc))
+* simplify distance calculation ([6d3d56c](https://github.com/devoteam-se/devolunch/commit/6d3d56c1be198807ddbba05e75bd257f5c089d3f))
+* split up terraform configurations into multiple files for readability ([1af3b51](https://github.com/devoteam-se/devolunch/commit/1af3b51036b3926e01e12d4c0cca37ad64822946))
+
 ## [1.11.17](https://github.com/devoteam-se/devolunch/compare/v1.11.16...v1.11.17) (2023-07-19)
 
 
