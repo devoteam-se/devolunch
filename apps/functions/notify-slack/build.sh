@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# wonky bonky scripting, inspiration and explanation here:
+# https://www.codejam.info/2023/04/firebase-functions-monorepo.html
+
 # Create output folder
 mkdir -p build
 
