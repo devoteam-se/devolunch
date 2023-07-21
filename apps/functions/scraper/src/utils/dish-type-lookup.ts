@@ -28,10 +28,7 @@ const findKeywordInLookup = (keywords: string[], lookupString: string): boolean 
   });
 };
 
-export const determineDishType = (
-  lookupString: string,
-  options: OptionProps = { unknownDishTypeDefault: 'misc' },
-): DishType => {
+export const determineDishType = (lookupString: string, unknownDishTypeDefault: DishType): DishType => {
   const lowerCaseLookupString = lookupString.toLowerCase();
 
   for (const { keywords, type } of keywordGroups) {
@@ -40,10 +37,13 @@ export const determineDishType = (
     }
   }
 
-  return options.unknownDishTypeDefault;
+  return unknownDishTypeDefault;
 };
 
-export const updateDishType = (dish: DishProps, options: OptionProps): DishProps => ({
+export const updateDishType = (dish: DishProps, { unknownDishTypeDefault = 'misc' }: OptionProps): DishProps => ({
   ...dish,
-  type: dish.title && !dish.type ? determineDishType(`${dish.title} ${dish.description}`, options) : dish.type,
+  type:
+    dish.title && !dish.type
+      ? determineDishType(`${dish.title} ${dish.description}`, unknownDishTypeDefault)
+      : dish.type,
 });

@@ -11,6 +11,7 @@ export const meta: RestaurantProps = {
     lat: 55.610228873034714,
     lon: 12.973623667388564,
   },
+  unknownMealDefault: 'veg',
 };
 
 export const browserScrapeFunction = (page: Page) =>
