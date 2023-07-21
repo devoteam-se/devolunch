@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.12.1](https://github.com/devoteam-se/devolunch/compare/v1.12.0...v1.12.1) (2023-07-21)
+
+
+### Bug Fixes
+
+* **notify-slack:** skip posting closed restaurants to slack ([8259591](https://github.com/devoteam-se/devolunch/commit/8259591631fbfcb41900d859df9612e0f8290959))
+* **scraper:** default dish type not being set correctly ([36896fc](https://github.com/devoteam-se/devolunch/commit/36896fc48d7783153ff2ffbae59705cee360348c))
+
 ## [1.12.0](https://github.com/devoteam-se/devolunch/compare/v1.11.20...v1.12.0) (2023-07-20)
 
 
