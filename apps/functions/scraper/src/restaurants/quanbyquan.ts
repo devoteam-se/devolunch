@@ -1,10 +1,10 @@
-import { RestaurantProps } from '@devolunch/shared';
+import { RestaurantMetaProps } from '@devolunch/shared';
 import { Page } from 'puppeteer';
 
-export const meta: RestaurantProps = {
+export const meta: RestaurantMetaProps = {
   title: 'Quanbyquan',
   url: 'https://quanbyquan.se/',
-  imgUrl: 'https://quanbyquan.se/wp-content/uploads/2019/09/Quan_Recept_08-1.jpg',
+  imageUrl: 'https://quanbyquan.se/wp-content/uploads/2019/09/Quan_Recept_08-1.jpg',
   googleMapsUrl: 'https://goo.gl/maps/5xyoBjWuU9vUcD6V8',
   coordinate: {
     lat: 55.605634485935816,

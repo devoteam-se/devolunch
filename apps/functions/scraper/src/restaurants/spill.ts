@@ -1,10 +1,10 @@
-import { RestaurantProps } from '@devolunch/shared';
+import { RestaurantMetaProps } from '@devolunch/shared';
 import { Page } from 'puppeteer';
 
-export const meta: RestaurantProps = {
+export const meta: RestaurantMetaProps = {
   title: 'Spill',
   url: 'https://restaurangspill.se/',
-  imgUrl: 'https://restaurangspill.se/static/0de07c5b4f98bc003befad5e872686b4/9bbaf/SPILL_09.jpg',
+  imageUrl: 'https://restaurangspill.se/static/0de07c5b4f98bc003befad5e872686b4/9bbaf/SPILL_09.jpg',
   googleMapsUrl: 'https://goo.gl/maps/bZ8yDN3PD3fjvNGw5',
   coordinate: {
     lat: 55.612746399457436,

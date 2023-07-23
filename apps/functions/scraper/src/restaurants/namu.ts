@@ -1,10 +1,10 @@
-import { RestaurantProps } from '@devolunch/shared';
+import { RestaurantMetaProps } from '@devolunch/shared';
 import { Page } from 'puppeteer';
 
-export const meta: RestaurantProps = {
+export const meta: RestaurantMetaProps = {
   title: 'Namu',
   url: 'https://namu.nu/',
-  imgUrl: 'https://namu.nu/wp-content/uploads/2017/05/Namul-darker2-3k-min.jpg',
+  imageUrl: 'https://namu.nu/wp-content/uploads/2017/05/Namul-darker2-3k-min.jpg',
   googleMapsUrl: 'https://goo.gl/maps/XtFUKSvmDQTUpR146',
   coordinate: {
     lat: 55.605198570165165,

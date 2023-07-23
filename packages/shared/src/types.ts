@@ -10,7 +10,8 @@ export interface RestaurantGridProps {
 export interface RestaurantProps {
   title: string;
   url: string;
-  imgUrl?: string;
+  imageUrl: string;
+  imageUrlLowQuality?: string;
   dishCollection?: DishCollectionProps[];
   coordinate: Coordinate;
   distance?: number;
@@ -35,3 +36,5 @@ export interface Coordinate {
 }
 
 export type DishType = 'meat' | 'fish' | 'veg' | 'vegan' | 'misc';
+
+export interface RestaurantMetaProps extends Omit<RestaurantProps, 'imageUrlLowQuality'> {}

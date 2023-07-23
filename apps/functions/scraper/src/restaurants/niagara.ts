@@ -1,10 +1,10 @@
-import { RestaurantProps } from '@devolunch/shared';
+import { RestaurantMetaProps } from '@devolunch/shared';
 import { Page } from 'puppeteer';
 
-export const meta: RestaurantProps = {
+export const meta: RestaurantMetaProps = {
   title: 'Niagara',
   url: 'https://restaurangniagara.se/lunch/',
-  imgUrl: 'https://restaurangniagara.se/wp-content/uploads/sites/4/2015/08/Lunch-meny-Niagara1.jpg',
+  imageUrl: 'https://restaurangniagara.se/wp-content/uploads/sites/4/2015/08/Lunch-meny-Niagara1.jpg',
   googleMapsUrl: 'https://goo.gl/maps/5SAyzPUHhb2xrNXRA',
   coordinate: {
     lat: 55.60874652087178,

@@ -1,10 +1,10 @@
-import { RestaurantProps } from '@devolunch/shared';
+import { RestaurantMetaProps } from '@devolunch/shared';
 import { Page } from 'puppeteer';
 
-export const meta: RestaurantProps = {
+export const meta: RestaurantMetaProps = {
   title: 'Mat- & chokladstudion',
   url: 'https://www.matochchokladstudion.se/lunch',
-  imgUrl: 'https://mars-images.imgix.net/1674755786595?auto=compress&fit=clip&dpr=1.5&fit=clip&w=600&h=600',
+  imageUrl: 'https://mars-images.imgix.net/1674755786595?auto=compress&fit=clip&dpr=1.5&fit=clip&w=600&h=600',
   googleMapsUrl: 'https://goo.gl/maps/nPPTDtCfozCqwfbP8',
   coordinate: {
     lat: 55.60008037302816,

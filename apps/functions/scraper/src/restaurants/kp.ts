@@ -1,10 +1,10 @@
-import { RestaurantProps } from '@devolunch/shared';
+import { RestaurantMetaProps } from '@devolunch/shared';
 import { Page } from 'puppeteer';
 
-export const meta: RestaurantProps = {
+export const meta: RestaurantMetaProps = {
   title: 'Restaurang KP',
   url: 'https://restaurangkp.se/lunchbuffe/',
-  imgUrl: 'https://gastrogate.com/thumbs/1494/files/28932/kpstart2019.jpg',
+  imageUrl: 'https://gastrogate.com/thumbs/1494/files/28932/kpstart2019.jpg',
   googleMapsUrl: 'https://goo.gl/maps/gC7veNFosQkEm6Xm8',
   coordinate: {
     lat: 55.60899502071826,

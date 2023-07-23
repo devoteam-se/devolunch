@@ -1,10 +1,10 @@
-import { RestaurantProps } from '@devolunch/shared';
+import { RestaurantMetaProps } from '@devolunch/shared';
 import { Page } from 'puppeteer';
 
-export const meta: RestaurantProps = {
+export const meta: RestaurantMetaProps = {
   title: 'Slagthuset',
   url: 'https://slagthuset.se/restaurangen/',
-  imgUrl: 'https://slagthuset.se/static/d18f8e233d657ea77a2e7aeb3aa65eec/cc3b1/Sodra-Hallen01-1.jpg',
+  imageUrl: 'https://slagthuset.se/static/d18f8e233d657ea77a2e7aeb3aa65eec/cc3b1/Sodra-Hallen01-1.jpg',
   googleMapsUrl: 'https://goo.gl/maps/ZMLMAHi8XhVss2At5',
   coordinate: {
     lat: 55.61134419989048,

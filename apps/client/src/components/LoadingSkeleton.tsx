@@ -38,6 +38,7 @@ const mockedRestaurant: RestaurantProps = {
   title: '',
   url: '',
   googleMapsUrl: '',
+  imageUrl: '',
   coordinate: { lat: 0, lon: 0 },
   dishCollection: [],
   distance: 0,

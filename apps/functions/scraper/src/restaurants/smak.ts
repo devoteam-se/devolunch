@@ -1,10 +1,10 @@
-import { RestaurantProps } from '@devolunch/shared';
+import { RestaurantMetaProps } from '@devolunch/shared';
 import { Page } from 'puppeteer';
 
-export const meta: RestaurantProps = {
+export const meta: RestaurantMetaProps = {
   title: 'Smak',
   url: 'https://gastrogate.com/lunch/print/6005',
-  imgUrl: 'https://smak.info/wp-content/uploads/2022/05/IMG_2946-kall-1024x768.png',
+  imageUrl: 'https://smak.info/wp-content/uploads/2022/05/IMG_2946-kall-1024x768.png',
   googleMapsUrl: 'https://goo.gl/maps/5NrVf9rA3gocZLvd7',
   coordinate: {
     lat: 55.59505322449918,

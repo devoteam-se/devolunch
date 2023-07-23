@@ -1,10 +1,10 @@
-import { RestaurantProps } from '@devolunch/shared';
+import { RestaurantMetaProps } from '@devolunch/shared';
 import { Page } from 'puppeteer';
 
-export const meta: RestaurantProps = {
+export const meta: RestaurantMetaProps = {
   title: 'Belle Pastabar',
   url: 'https://bennepastabar.se/',
-  imgUrl: 'https://bennepastabar.se/wp-content/themes/benne/images/benne-pastabar-order.jpg',
+  imageUrl: 'https://bennepastabar.se/wp-content/themes/benne/images/benne-pastabar-order.jpg',
   googleMapsUrl: 'https://goo.gl/maps/pZUg6zuXyy6xXxfn7',
   coordinate: {
     lat: 55.60313716015807,

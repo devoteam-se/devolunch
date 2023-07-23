@@ -14,7 +14,7 @@ import { Page } from 'puppeteer';
 export const meta = {
   title: 'Stora Varvsgatan',
   url: 'https://storavarvsgatan6.se/meny.html',
-  imgUrl:
+  imageUrl:
     'https://storavarvsgatan6.se/____impro/1/onewebmedia/foodiesfeed.com_close-up-on-healthy-green-broccoli%20%28kopia%29.jpg?etag=%226548df-5f256567%22&sourceContentType=image%2Fjpeg&ignoreAspectRatio&resize=1900%2B1267&extract=81%2B0%2B939%2B1190&quality=85',
   googleMapsUrl: 'https://goo.gl/maps/5YUuxPzsMSg5kmK98',
   latitude: 55.612390477729015,
@@ -51,7 +51,7 @@ import pdf from 'pdf-parse';
 export const meta = {
   title: 'BISe',
   url: 'https://bise.se/lunch',
-  imgUrl:
+  imageUrl:
     'https://bise.se/_next/image?url=https%3A%2F%2Fcms.bise.se%2Fwp-content%2Fuploads%2F2022%2F10%2FLunch_Bise.jpeg&w=1080&q=75',
   googleMapsUrl: 'https://goo.gl/maps/9hmQUctdgeNvVSuF8',
   latitude: 55.60675917303053,

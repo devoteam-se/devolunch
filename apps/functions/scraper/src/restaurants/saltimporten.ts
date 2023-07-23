@@ -1,10 +1,10 @@
-import { RestaurantProps } from '@devolunch/shared';
+import { RestaurantMetaProps } from '@devolunch/shared';
 import { Page } from 'puppeteer';
 
-export const meta: RestaurantProps = {
+export const meta: RestaurantMetaProps = {
   title: 'Saltimporten',
   url: 'https://www.saltimporten.com/',
-  imgUrl: 'https://www.saltimporten.com/media/IMG_6253-512x512.jpg',
+  imageUrl: 'https://www.saltimporten.com/media/IMG_6253-512x512.jpg',
   googleMapsUrl: 'https://goo.gl/maps/9rn3svDPeGUDaeXUA',
   coordinate: {
     lat: 55.61608870967554,

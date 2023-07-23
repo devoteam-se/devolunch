@@ -1,11 +1,11 @@
 import { Page } from 'puppeteer';
 import pdf from 'pdf-parse';
-import { RestaurantProps } from '@devolunch/shared';
+import { RestaurantMetaProps } from '@devolunch/shared';
 
-export const meta: RestaurantProps = {
+export const meta: RestaurantMetaProps = {
   title: 'BISe',
   url: 'https://bise.se/lunch',
-  imgUrl:
+  imageUrl:
     'https://bise.se/_next/image?url=https%3A%2F%2Fcms.bise.se%2Fwp-content%2Fuploads%2F2022%2F10%2FLunch_Bise.jpeg&w=1080&q=75',
   googleMapsUrl: 'https://goo.gl/maps/9hmQUctdgeNvVSuF8',
   coordinate: {

@@ -1,10 +1,10 @@
-import { RestaurantProps } from '@devolunch/shared';
+import { RestaurantMetaProps } from '@devolunch/shared';
 import { Page } from 'puppeteer';
 
-export const meta: RestaurantProps = {
+export const meta: RestaurantMetaProps = {
   title: 'Bistro Royal',
   url: 'https://bistroroyal.se/dagens-ratt/',
-  imgUrl: 'https://cdn42.gastrogate.com/files/29072/bistroroyal-bistro-1-1.jpg',
+  imageUrl: 'https://cdn42.gastrogate.com/files/29072/bistroroyal-bistro-1-1.jpg',
   googleMapsUrl: 'https://goo.gl/maps/hSqYWPKgWVbSRj2s7',
   coordinate: {
     lat: 55.608996491841665,

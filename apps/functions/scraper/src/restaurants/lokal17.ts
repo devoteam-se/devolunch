@@ -1,11 +1,11 @@
 import { Page } from 'puppeteer';
 import pdf from 'pdf-parse';
-import { RestaurantProps } from '@devolunch/shared';
+import { RestaurantMetaProps } from '@devolunch/shared';
 
-export const meta: RestaurantProps = {
+export const meta: RestaurantMetaProps = {
   title: 'Lokal 17',
   url: 'https://lokal17.se/',
-  imgUrl: 'https://lokal17.se/app/uploads/sites/2/2018/01/bg-22.jpg',
+  imageUrl: 'https://lokal17.se/app/uploads/sites/2/2018/01/bg-22.jpg',
   googleMapsUrl: 'https://goo.gl/maps/eMsNxGK743oQVj8D9',
   coordinate: {
     lat: 55.612111673032366,

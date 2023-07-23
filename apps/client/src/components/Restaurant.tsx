@@ -9,6 +9,7 @@ import { useRestaurants } from '@/contexts/restaurants';
 import { color } from '@/utils/theme';
 
 import { RestaurantProps, DishCollectionProps, DishProps } from '@devolunch/shared';
+import { useProgressiveImg } from '@/hooks/progressive-image';
 
 const restaurantStyles = css`
   display: flex;
@@ -94,8 +95,17 @@ const restaurantLinksIconStyles = css`
 
 const restaurantDirectionStyles = css``;
 
-export default function Restaurant({ title, imgUrl, distance, url, dishCollection, googleMapsUrl }: RestaurantProps) {
+export default function Restaurant({
+  title,
+  imageUrl,
+  imageUrlLowQuality,
+  distance,
+  url,
+  dishCollection,
+  googleMapsUrl,
+}: RestaurantProps) {
   const { loading, language } = useRestaurants();
+  const { src, blur } = useProgressiveImg(imageUrlLowQuality, imageUrl);
 
   const distanceText = loading
     ? ' '
@@ -111,7 +121,15 @@ export default function Restaurant({ title, imgUrl, distance, url, dishCollectio
         {!loading && distanceText}
       </div>
       <a href={url} css={restaurantImageLinkStyles}>
-        <img src={imgUrl} css={restaurantImageStyles} alt={title} />
+        <img
+          src={src}
+          style={{
+            filter: blur ? 'blur(20px)' : 'none',
+            transition: blur ? 'none' : 'filter 0.3s ease-out',
+          }}
+          css={restaurantImageStyles}
+          alt={title}
+        />
       </a>
       {dishCollection && dishCollection.filter((a: DishCollectionProps) => a.dishes?.length).length
         ? dishCollection

@@ -1,10 +1,10 @@
-import { RestaurantProps } from '@devolunch/shared';
+import { RestaurantMetaProps } from '@devolunch/shared';
 import { Page } from 'puppeteer';
 
-export const meta: RestaurantProps = {
+export const meta: RestaurantMetaProps = {
   title: 'Kontrast Västra Hamnen',
   url: 'https://www.kontrastrestaurang.se/vastra-hamnen/',
-  imgUrl:
+  imageUrl:
     'https://usercontent.one/wp/www.kontrastrestaurang.se/wp-content/uploads/2022/08/Indian-food-hero.jpg?media=1666955164',
   googleMapsUrl: 'https://goo.gl/maps/sAfGLCky4RcSUZKw5',
   coordinate: {

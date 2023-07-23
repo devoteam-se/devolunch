@@ -38,14 +38,30 @@ export const scrapeRestaurant = async (browser: Browser, dir: string, file: stri
     console.log(`Scraping ${restaurantMeta.title} on ${restaurantMeta.url}`);
     const dishes = await browserScrapeFunction(page);
 
+    console.log(`Resizing image for ${restaurantMeta.title}`);
     // upload image to bucket if there are any
-    const imageName = await resizeImage(restaurantMeta);
+    const imageUrl = await resizeImage(restaurantMeta.imageUrl, restaurantMeta.title, {
+      size: {
+        width: 400,
+        height: 300,
+      },
+      quality: 70,
+    });
+
+    const imageUrlLowQuality = await resizeImage(restaurantMeta.imageUrl, restaurantMeta.title, {
+      size: {
+        width: 40,
+        height: 30,
+      },
+      quality: 10,
+    });
 
     const isClosed = dishes?.some((dish: DishProps) => dish.title?.toLowerCase().includes('stängt'));
 
     const restaurant: RestaurantProps = {
       ...restaurantMeta,
-      imgUrl: imageName,
+      imageUrl: imageUrl,
+      imageUrlLowQuality: imageUrlLowQuality,
       dishCollection: [
         {
           language: config.defaultLanguage,

@@ -1,11 +1,11 @@
 import { Page } from 'puppeteer';
 import pdf from 'pdf-parse';
-import { RestaurantProps } from '@devolunch/shared';
+import { RestaurantMetaProps } from '@devolunch/shared';
 
-export const meta: RestaurantProps = {
+export const meta: RestaurantMetaProps = {
   title: 'Kitchen & Table',
   url: 'https://kitchenandtable.se/sv/malmo/',
-  imgUrl: 'https://kitchenandtable.se/wp-content/uploads/2018/11/kitchentable.jpg',
+  imageUrl: 'https://kitchenandtable.se/wp-content/uploads/2018/11/kitchentable.jpg',
   googleMapsUrl: 'https://goo.gl/maps/VDSp4ho4fF4n5FLa7',
   coordinate: {
     lat: 55.60773255254585,
