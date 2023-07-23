@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.13.0](https://github.com/devoteam-se/devolunch/compare/v1.12.1...v1.13.0) (2023-07-23)
+
+
+### Features
+
+* **website:** add progressive images ([1ef3a6b](https://github.com/devoteam-se/devolunch/commit/1ef3a6bf93a401164a069020c61f930b11a4d140))
+
 ## [1.12.1](https://github.com/devoteam-se/devolunch/compare/v1.12.0...v1.12.1) (2023-07-21)
 
 
