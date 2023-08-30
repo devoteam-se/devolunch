@@ -67,11 +67,13 @@ export const scrapeRestaurant = async (browser: Browser, dir: string, file: stri
           language: config.defaultLanguage,
           dishes: isClosed
             ? []
-            : dishes?.sort(compareDish)?.map((dish: DishProps) =>
-                updateDishType(dish, {
-                  unknownDishTypeDefault: restaurantMeta?.unknownMealDefault,
-                }),
-              ),
+            : dishes
+                ?.map((dish: DishProps) =>
+                  updateDishType(dish, {
+                    unknownDishTypeDefault: restaurantMeta?.unknownMealDefault,
+                  }),
+                )
+                ?.sort(compareDish),
         },
       ],
     };
