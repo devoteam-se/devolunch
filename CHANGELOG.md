@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.13.1](https://github.com/devoteam-se/devolunch/compare/v1.13.0...v1.13.1) (2023-08-30)
+
+
+### Bug Fixes
+
+* **scraper:** slagthuset ([f796329](https://github.com/devoteam-se/devolunch/commit/f79632913f75d8023a48a9bb9a2b7bcff9bdc8ca))
+
 ## [1.13.0](https://github.com/devoteam-se/devolunch/compare/v1.12.1...v1.13.0) (2023-07-23)
 
 
