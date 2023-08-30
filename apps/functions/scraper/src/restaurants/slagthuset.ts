@@ -80,7 +80,7 @@ export const browserScrapeFunction = (page: Page) =>
 
       if (dishType) {
         const dish = {
-          description,
+          title: description,
           type: dishType,
         };
         dishes.push(dish);
