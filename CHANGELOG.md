@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.13.3](https://github.com/devoteam-se/devolunch/compare/v1.13.2...v1.13.3) (2023-08-30)
+
+
+### Bug Fixes
+
+* **scraper:** dishtype lookup ([435c813](https://github.com/devoteam-se/devolunch/commit/435c813618c7dae50f8ffc9766bc6762d3cc7327))
+
 ## [1.13.2](https://github.com/devoteam-se/devolunch/compare/v1.13.1...v1.13.2) (2023-08-30)
 
 
