@@ -18,13 +18,13 @@ const isKeywordPrefixedWith = (lookupString: string, keyword: string, word: stri
 
 const findKeywordInLookup = (keywords: string[], lookupString: string): boolean => {
   // use a regular expression to split the lookup string into sentences
-  const sentences = lookupString.match(/[^.!?]+[.!?]+/g) || [];
+  const sentences = lookupString.match(/[^.!?]+[.!?]+/g) || [lookupString];
 
   const sentencesWithoutWord = sentences.filter((sentence) => !sentence.includes('lägg till'));
 
   return keywords.some((keyword) => {
     const keywordWithoutPrefix = isKeywordPrefixedWith(sentencesWithoutWord.join('.'), keyword, 'utan');
-    return sentencesWithoutWord.some((sentence) => sentence.includes(keyword)) && !keywordWithoutPrefix;
+    return sentencesWithoutWord.some((sentence) => sentence.includes(keyword) && !keywordWithoutPrefix);
   });
 };
 

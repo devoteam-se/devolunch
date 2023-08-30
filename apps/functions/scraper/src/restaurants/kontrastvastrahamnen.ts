@@ -16,7 +16,7 @@ export const meta: RestaurantMetaProps = {
 
 export const browserScrapeFunction = (page: Page) =>
   page.evaluate(() => {
-    const getDishes = (type: string) => {
+    const getDishes = (type: string, knownType: string | null = null) => {
       const topic = [...document.querySelectorAll('h2')].find((a) =>
         a.textContent?.toLowerCase().includes(type.toLowerCase()),
       );
@@ -27,12 +27,15 @@ export const browserScrapeFunction = (page: Page) =>
 
       return dishes.map((dish: string) => ({
         title: type + ' - ' + dish.replace(/[0-9]+\.\s/, ''),
+        ...(knownType && { type: knownType }),
       }));
     };
 
-    const chickenDishes = getDishes('Kyckling');
-    const beefDishes = getDishes('Biff');
+    const chickenDishes = getDishes('Kyckling', 'meat');
+    const beefDishes = getDishes('Biff', 'meat');
     const vegDishes = getDishes('Vegetarisk');
 
-    return [...chickenDishes, ...beefDishes, ...vegDishes];
+    const dishes = [...chickenDishes, ...beefDishes, ...vegDishes];
+
+    return dishes;
   });
