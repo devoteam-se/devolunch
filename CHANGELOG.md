@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.13.2](https://github.com/devoteam-se/devolunch/compare/v1.13.1...v1.13.2) (2023-08-30)
+
+
+### Bug Fixes
+
+* **scraper:** rename bellepastabar to bennepastabar ([ee35717](https://github.com/devoteam-se/devolunch/commit/ee3571709260eef0fcdb5dd4d35fed1eae1df0f0))
+* **scraper:** slagthuset description to title ([59e504a](https://github.com/devoteam-se/devolunch/commit/59e504af1700c451b1533ace8f533d4d968da842))
+
 ## [1.13.1](https://github.com/devoteam-se/devolunch/compare/v1.13.0...v1.13.1) (2023-08-30)
 
 
