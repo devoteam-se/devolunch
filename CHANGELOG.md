@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.13.4](https://github.com/devoteam-se/devolunch/compare/v1.13.3...v1.13.4) (2023-08-30)
+
+
+### Bug Fixes
+
+* **scraper:** sort after updating dish types ([4539601](https://github.com/devoteam-se/devolunch/commit/4539601b9ff22cd1dc0e06d2e09796bf8ea02bbc))
+
 ## [1.13.3](https://github.com/devoteam-se/devolunch/compare/v1.13.2...v1.13.3) (2023-08-30)
 
 
