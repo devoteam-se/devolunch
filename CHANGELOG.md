@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.13.5](https://github.com/devoteam-se/devolunch/compare/v1.13.4...v1.13.5) (2023-09-01)
+
+
+### Bug Fixes
+
+* **website:** update no restaurants message ([2f3df25](https://github.com/devoteam-se/devolunch/commit/2f3df2594ba86c14c3ad5cb21f32cf2072245e77))
+
 ## [1.13.4](https://github.com/devoteam-se/devolunch/compare/v1.13.3...v1.13.4) (2023-08-30)
 
 
