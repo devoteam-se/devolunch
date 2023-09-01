@@ -41,7 +41,7 @@ function App() {
           <Footer />
         </>
       ) : (
-        !loading && !restaurants.length && <div css={noRestaurantsStyles}>Have not scraped any restaurants yet</div>
+        !loading && !restaurants.length && <div css={noRestaurantsStyles}>Come back later!</div>
       )}
     </>
   );
