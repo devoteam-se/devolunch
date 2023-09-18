@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.14.0](https://github.com/devoteam-se/devolunch/compare/v1.13.5...v1.14.0) (2023-09-18)
+
+
+### Features
+
+* **scraper:** update scheduler interval ([9ea6814](https://github.com/devoteam-se/devolunch/commit/9ea68141475a1b1acdaca423511c7af496465c00))
+
+
+### Bug Fixes
+
+* **scraper:** slagthuset ([577474a](https://github.com/devoteam-se/devolunch/commit/577474a9367e8e29439d395bf318eef74ae44056))
+
 ## [1.13.5](https://github.com/devoteam-se/devolunch/compare/v1.13.4...v1.13.5) (2023-09-01)
 
 
