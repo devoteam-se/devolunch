@@ -45,12 +45,9 @@ export const browserScrapeFunction = (page: Page) =>
       const days = getDaysRangeFromMenuString(row);
       const isTodayWithinRange = days.includes(today);
 
-      if (isTodayWithinRange) {
+      if (isTodayWithinRange || row.includes(today)) {
         if (section === 'Fisk') return 'fish';
         if (section === 'Vegetariskt') return 'veg';
-      }
-
-      if (row === today) {
         return 'meat';
       }
       return null;
