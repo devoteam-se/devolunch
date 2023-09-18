@@ -3,7 +3,7 @@ resource "google_cloud_scheduler_job" "job" {
   region           = var.region
   name             = "scraper-scheduler"
   description      = "Trigger the ${google_cloudfunctions2_function.function.name} Cloud Function every weekday at 10:00"
-  schedule         = "0 10 * * 1-5"
+  schedule         = "*/30 08-12 * * 1-5"
   time_zone        = "Europe/Stockholm"
   attempt_deadline = "320s"
 
