@@ -29,11 +29,16 @@ export const browserScrapeFunction = (page: Page) =>
       if (firstIndex < 0 || lastIndex < 0 || lastIndex < firstIndex) {
         throw new Error(`Invalid days range: ${first}-${last}`);
       }
-      return weekdays.slice(firstIndex, lastIndex + 1);
+
+      const range = [];
+      for (let i = firstIndex; i <= lastIndex; i++) {
+        range.push(weekdays[i]);
+      }
+      return range;
     };
 
     const getDaysRangeFromMenuString = (row: string): string[] => {
-      const daysMatch = row.match(/([MmTtOoFfSsLl]\w+dag?)-([MmTtOoFfSsLl]\w+dag?)/);
+      const daysMatch = row.match(/([MmTtOoFfSsLl]\w+dag)-([MmTtOoFfSsLl]\w+dag)/);
       if (!daysMatch) return [];
       const [_, startDayRaw, endDayRaw] = daysMatch;
       const startDay = getFullWeekdayName(startDayRaw.toLowerCase());
