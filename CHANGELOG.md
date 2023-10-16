@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.15.0](https://github.com/devoteam-se/devolunch/compare/v1.14.0...v1.15.0) (2023-10-16)
+
+
+### Features
+
+* **scraper:** add tests ([893f751](https://github.com/devoteam-se/devolunch/commit/893f7511fd0bbc31d292b5856863ac81a6e49b40))
+
+
+### Bug Fixes
+
+* **scraper:** slagthuset ranges for veg and fish ([ab2b467](https://github.com/devoteam-se/devolunch/commit/ab2b467d9ec5785ad9869c050bc9e85326add3bb))
+
 ## [1.14.0](https://github.com/devoteam-se/devolunch/compare/v1.13.5...v1.14.0) (2023-09-18)
 
 
