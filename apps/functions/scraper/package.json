@@ -6,6 +6,8 @@
   "type": "module",
   "scripts": {
     "start": "pnpm compile && functions-framework --target=scrape",
+    "test": "jest --config jest.config.cjs",
+    "test:watch": "jest --watch",
     "compile": "tsc",
     "typecheck": "tsc --noEmit",
     "lint": "prettier --check --ignore-path=../../../.prettierignore . && eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
@@ -27,10 +29,13 @@
     "@devolunch/shared": "workspace:",
     "@pnpm/make-dedicated-lockfile": "^0.5.5",
     "@types/express": "^4.17.13",
+    "@types/jest": "^29.5.5",
     "@types/node": "20.1.7",
     "@types/pdf-parse": "1.1.1",
     "eslint-config-custom": "workspace:",
+    "jest": "^29.7.0",
     "prettier": "2.8.8",
+    "ts-jest": "^29.1.1",
     "typescript": "^5.0.4"
   }
 }

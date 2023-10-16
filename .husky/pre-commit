@@ -4,3 +4,4 @@
 pnpm --filter shared build
 pnpm lint
 pnpm typecheck
+pnpm test

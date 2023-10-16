@@ -12,51 +12,55 @@ export const meta: RestaurantMetaProps = {
   },
 };
 
-export const browserScrapeFunction = (page: Page) =>
-  page.evaluate(() => {
+const weekdays = ['söndag', 'måndag', 'tisdag', 'onsdag', 'torsdag', 'fredag', 'lördag'];
+const weekdayShortNames = [/sön/i, /mån/i, /tis/i, /ons/i, /tor(s)?/i, /fre/i, /lör/i];
+
+export const getFullWeekdayName = (shortName: string): string => {
+  const index = weekdayShortNames.findIndex((re) => re.test(shortName));
+  return index >= 0 ? weekdays[index] : shortName;
+};
+
+export const daysBetween = (first: string, last: string): string[] => {
+  const firstIndex = weekdays.indexOf(first);
+  const lastIndex = weekdays.indexOf(last);
+  if (firstIndex < 0 || lastIndex < 0 || lastIndex < firstIndex) {
+    throw new Error(`Invalid days range: ${first}-${last}`);
+  }
+
+  const range = [];
+  for (let i = firstIndex; i <= lastIndex; i++) {
+    range.push(weekdays[i]);
+  }
+
+  return range;
+};
+
+export const getDaysRangeFromMenuString = (row: string): string[] => {
+  const daysMatch = row.match(/([MmTtOoFfSsLl][a-zåäö]+dag)-([MmTtOoFfSsLl][a-zåäö]+dag)/);
+  if (!daysMatch) return [];
+  const [_, startDayRaw, endDayRaw] = daysMatch;
+  const startDay = getFullWeekdayName(startDayRaw.toLowerCase());
+  const endDay = getFullWeekdayName(endDayRaw.toLowerCase());
+  return daysBetween(startDay, endDay);
+};
+
+export const getDishType = async (row: string, today: string, section: string | null): Promise<string | null> => {
+  const days = getDaysRangeFromMenuString(row);
+  const isTodayWithinRange = days.includes(today);
+
+  if (isTodayWithinRange || row.includes(today)) {
+    if (section === 'Fisk') return 'fish';
+    if (section === 'Vegetariskt') return 'veg';
+    return 'meat';
+  }
+  return null;
+};
+
+export const browserScrapeFunction = async (page: Page) => {
+  await page.exposeFunction('getDishType', getDishType);
+
+  return page.evaluate(async () => {
     const todaySwedishFormat = new Date().toLocaleString('sv-SE', { weekday: 'long' }).toLowerCase();
-    const weekdays = ['söndag', 'måndag', 'tisdag', 'onsdag', 'torsdag', 'fredag', 'lördag'];
-    const weekdayShortNames = [/sön/i, /mån/i, /tis/i, /ons/i, /tor(s)?/i, /fre/i, /lör/i];
-
-    const getFullWeekdayName = (shortName: string): string => {
-      const index = weekdayShortNames.findIndex((re) => re.test(shortName));
-      return index >= 0 ? weekdays[index] : shortName;
-    };
-
-    const daysBetween = (first: string, last: string): string[] => {
-      const firstIndex = weekdays.indexOf(first);
-      const lastIndex = weekdays.indexOf(last);
-      if (firstIndex < 0 || lastIndex < 0 || lastIndex < firstIndex) {
-        throw new Error(`Invalid days range: ${first}-${last}`);
-      }
-
-      const range = [];
-      for (let i = firstIndex; i <= lastIndex; i++) {
-        range.push(weekdays[i]);
-      }
-      return range;
-    };
-
-    const getDaysRangeFromMenuString = (row: string): string[] => {
-      const daysMatch = row.match(/([MmTtOoFfSsLl]\w+dag)-([MmTtOoFfSsLl]\w+dag)/);
-      if (!daysMatch) return [];
-      const [_, startDayRaw, endDayRaw] = daysMatch;
-      const startDay = getFullWeekdayName(startDayRaw.toLowerCase());
-      const endDay = getFullWeekdayName(endDayRaw.toLowerCase());
-      return daysBetween(startDay, endDay);
-    };
-
-    const getDishType = (row: string, today: string, section: string | null): string | null => {
-      const days = getDaysRangeFromMenuString(row);
-      const isTodayWithinRange = days.includes(today);
-
-      if (isTodayWithinRange || row.includes(today)) {
-        if (section === 'Fisk') return 'fish';
-        if (section === 'Vegetariskt') return 'veg';
-        return 'meat';
-      }
-      return null;
-    };
 
     const dishes = [];
     let section: string | null = null;
@@ -78,7 +82,7 @@ export const browserScrapeFunction = (page: Page) =>
         continue;
       }
 
-      const dishType = getDishType(row, todaySwedishFormat, section);
+      const dishType = await getDishType(row, todaySwedishFormat, section);
 
       if (dishType) {
         const dish = {
@@ -89,5 +93,8 @@ export const browserScrapeFunction = (page: Page) =>
       }
     }
 
+    console.log(JSON.stringify(dishes));
+
     return dishes;
   });
+};

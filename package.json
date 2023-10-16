@@ -14,7 +14,7 @@
     "format": "turbo format",
     "typecheck": "turbo typecheck --color --cache-dir=.turbo",
     "clean": "turbo clean",
-    "test": "turbo test --color --cache-dir=.turbo -- --run",
+    "test": "turbo test --color --cache-dir=.turbo",
     "test:watch": "turbo test --color --cache-dir=.turbo -- --watch",
     "prepare": "husky install",
     "preinstall": "npx only-allow pnpm"
