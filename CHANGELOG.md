@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.15.1](https://github.com/devoteam-se/devolunch/compare/v1.15.0...v1.15.1) (2023-10-19)
+
+
+### Bug Fixes
+
+* **scraper:** ignore tests on scrape ([c474936](https://github.com/devoteam-se/devolunch/commit/c474936c0093b5043ec5c7f123ba20334aba9e63))
+* vite version ([e7e5cc1](https://github.com/devoteam-se/devolunch/commit/e7e5cc104f992e9d63d3b5ce90c1292d1194460c))
+
 ## [1.15.0](https://github.com/devoteam-se/devolunch/compare/v1.14.0...v1.15.0) (2023-10-16)
 
 
