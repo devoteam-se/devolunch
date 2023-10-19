@@ -4,8 +4,8 @@
   "main": "index.js",
   "version": "1.0.0",
   "dependencies": {
-    "@typescript-eslint/eslint-plugin": "latest",
-    "@typescript-eslint/parser": "^5.54.0",
+    "@typescript-eslint/eslint-plugin": "^6.8.0",
+    "@typescript-eslint/parser": "^6.8.0",
     "eslint": "latest",
     "eslint-config-prettier": "latest"
   }

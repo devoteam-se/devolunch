@@ -5,7 +5,13 @@ module.exports = {
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
   },
+  testMatch: ['**/src/**/*.test.(ts|tsx)'],
   transform: {
-    '^.+\\.tsx?$': ['ts-jest', {}],
+    '^.+\\.tsx?$': [
+      'ts-jest',
+      {
+        tsconfig: 'tsconfig.jest.json',
+      },
+    ],
   },
 };

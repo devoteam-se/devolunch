@@ -13,7 +13,9 @@ const TIMEOUT = 120000;
 export const getRestaurantFilePaths = async (dir: string) => {
   const files = await fs.readdir(dir);
   let targetFiles = files.filter((file) => {
-    return path.extname(file).toLowerCase() === '.js';
+    const extname = path.extname(file).toLowerCase();
+    const isTestFile = file.toLowerCase().endsWith('.test.js');
+    return extname === '.js' && !isTestFile;
   });
 
   const filesOverride = config.filesOverride?.split(',');
@@ -39,6 +41,7 @@ export const scrapeRestaurant = async (browser: Browser, dir: string, file: stri
     const dishes = await browserScrapeFunction(page);
 
     console.log(`Resizing image for ${restaurantMeta.title}`);
+
     // upload image to bucket if there are any
     const imageUrl = await resizeImage(restaurantMeta.imageUrl, restaurantMeta.title, {
       size: {

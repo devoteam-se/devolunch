@@ -1,7 +1,7 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "esModuleInterop": true
+    "module": "NodeNext"
   },
   "include": ["src/**/*.test.ts"]
 }

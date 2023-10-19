@@ -20,8 +20,20 @@
     "preinstall": "npx only-allow pnpm"
   },
   "devDependencies": {
-    "husky": "^8.0.0",
+    "husky": "^8.0.3",
     "prettier": "^2.8.8",
     "turbo": "1.10.7"
+  },
+  "pnpm": {
+    "overrides": {
+      "got@<11.8.5": ">=11.8.5",
+      "protobufjs@>=6.10.0 <6.11.4": ">=6.11.4",
+      "vite@>=4.3.0 <4.3.9": ">=4.3.9",
+      "semver@<5.7.2": ">=5.7.2",
+      "semver@>=6.0.0 <6.3.1": ">=6.3.1",
+      "get-func-name@<2.0.1": ">=2.0.1",
+      "zod@<=3.22.2": ">=3.22.3",
+      "postcss@<8.4.31": ">=8.4.31"
+    }
   }
 }
