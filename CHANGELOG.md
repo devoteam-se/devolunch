@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.15.2](https://github.com/devoteam-se/devolunch/compare/v1.15.1...v1.15.2) (2023-12-04)
+
+
+### Bug Fixes
+
+* remove analytics ([0763de4](https://github.com/devoteam-se/devolunch/commit/0763de49150c04501419714b7a79c7dbac3407f9))
+
 ## [1.15.1](https://github.com/devoteam-se/devolunch/compare/v1.15.0...v1.15.1) (2023-10-19)
 
 
