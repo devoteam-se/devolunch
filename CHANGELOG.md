@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.16.0](https://github.com/devoteam-se/devolunch/compare/v1.15.2...v1.16.0) (2024-02-08)
+
+
+### Features
+
+* Add two forks as a restaurant ([fc51743](https://github.com/devoteam-se/devolunch/commit/fc51743b363ed8cb0857e8ad05a4134aebc34b37))
+
 ## [1.15.2](https://github.com/devoteam-se/devolunch/compare/v1.15.1...v1.15.2) (2023-12-04)
 
 
