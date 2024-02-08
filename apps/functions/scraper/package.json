@@ -22,7 +22,7 @@
     "dotenv": "16.0.3",
     "pdf-parse": "1.1.1",
     "puppeteer": "^20.9.0",
-    "sharp": "0.32.1",
+    "sharp": "0.33.2",
     "zod": "^3.22.4"
   },
   "devDependencies": {
