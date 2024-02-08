@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.17.0](https://github.com/devoteam-se/devolunch/compare/v1.16.0...v1.17.0) (2024-02-08)
+
+
+### Features
+
+* update sharp ([c9a0533](https://github.com/devoteam-se/devolunch/commit/c9a0533e3b7439d08f2cc6f95580b9f71282d4d8))
+
 ## [1.16.0](https://github.com/devoteam-se/devolunch/compare/v1.15.2...v1.16.0) (2024-02-08)
 
 
