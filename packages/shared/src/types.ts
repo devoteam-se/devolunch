@@ -17,6 +17,8 @@ export interface RestaurantProps {
   distance?: number;
   googleMapsUrl: string;
   unknownMealDefault?: 'veg';
+  locationFilter?: string;
+  locations?: RestaurantLocation[]; // For multi-location restaurants
 }
 
 export interface DishCollectionProps {
@@ -37,4 +39,21 @@ export interface Coordinate {
 
 export type DishType = 'meat' | 'fish' | 'veg' | 'vegan' | 'misc';
 
-export interface RestaurantMetaProps extends Omit<RestaurantProps, 'imageUrlLowQuality'> {}
+export interface RestaurantLocation {
+  title: string;
+  googleMapsUrl: string;
+  coordinate: Coordinate;
+  url?: string; // Only for 'separate' type
+  locationFilter?: string; // For 'filtered' and 'separate' types
+  dishCollection?: DishCollectionProps[];
+}
+
+export interface MultiLocationConfig {
+  type: 'shared' | 'filtered' | 'separate';
+  locations: RestaurantLocation[];
+}
+
+export interface RestaurantMetaProps extends Omit<RestaurantProps, 'imageUrlLowQuality'> {
+  useContentCleaner?: boolean;
+  multiLocation?: MultiLocationConfig;
+}

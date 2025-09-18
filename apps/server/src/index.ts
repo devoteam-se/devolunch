@@ -3,9 +3,9 @@ import { resolve } from 'path';
 import cors from 'cors';
 import compression from 'compression';
 
-import { config } from './config';
+import { config } from './config.js';
 import { logger } from '@devolunch/shared';
-import routes from './routes';
+import routes from './routes/index.js';
 
 const CLIENT_DIR = resolve(__dirname, '..', '..', 'client');
 

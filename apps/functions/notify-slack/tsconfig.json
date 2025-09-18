@@ -6,7 +6,8 @@
     "lib": ["ESNext", "dom", "dom.iterable"],
     "esModuleInterop": true,
     "strict": true,
-    "outDir": "dist"
+    "outDir": "dist",
+    "skipLibCheck": true
   },
   "include": ["./src/**/*"],
   "exclude": ["node_modules"]

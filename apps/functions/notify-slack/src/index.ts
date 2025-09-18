@@ -3,7 +3,7 @@ import fetch from 'node-fetch';
 import FormData from 'form-data';
 import { Storage } from '@google-cloud/storage';
 import { DishCollectionProps, RestaurantProps } from '@devolunch/shared';
-import { createConfig } from './config';
+import { createConfig } from './config.js';
 
 const BUCKET_NAME = 'devolunchv2';
 

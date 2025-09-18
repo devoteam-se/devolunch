@@ -38,5 +38,6 @@ function severity(label: string): string {
   }
 }
 
-export const logger = pino(loggerOptions) as Logger;
-export type Logger = pino.Logger;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const logger = (pino as any)(loggerOptions);
+export type Logger = typeof logger;

@@ -11,10 +11,20 @@ export const sortRestaurants = (
   coordinate: Coordinate = DEVOTEAM_LOCATION,
 ): RestaurantProps[] =>
   restaurants
-    .map((r: RestaurantProps) => ({
-      ...r,
-      distance: calculateDistance(coordinate, r.coordinate),
-    }))
+    .map((r: RestaurantProps) => {
+      // For multi-location restaurants, find the closest location
+      let closestDistance = calculateDistance(coordinate, r.coordinate);
+
+      if (r.locations && r.locations.length > 0) {
+        const distances = r.locations.map((loc) => calculateDistance(coordinate, loc.coordinate));
+        closestDistance = Math.min(...distances);
+      }
+
+      return {
+        ...r,
+        distance: closestDistance,
+      };
+    })
     .sort(
       (a: RestaurantProps, b: RestaurantProps) =>
         (b.dishCollection?.filter((d) => d.dishes?.length).length || 0) -

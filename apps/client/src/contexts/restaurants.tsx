@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 
-import { RestaurantProps, Scrape } from '@devolunch/shared';
+import { RestaurantProps, Scrape, Coordinate } from '@devolunch/shared';
 import { sortRestaurants } from '@/utils/sort-restaurants';
 
 type ContextType = {
@@ -11,6 +11,8 @@ type ContextType = {
   setLanguage: (language: string) => void;
   restaurants: RestaurantProps[];
   setRestaurants: (restaurants: RestaurantProps[]) => void;
+  userPosition: Coordinate | null;
+  setUserPosition: (position: Coordinate | null) => void;
 };
 
 enum Endpoints {
@@ -34,14 +36,33 @@ export const useRestaurants = () => {
 
 const rootUrl = isDev ? API_ROOT_DEV : API_ROOT_PROD;
 
-const fetchRestaurants = async () => {
-  try {
-    const res = await fetch(`${rootUrl}${Endpoints.RESTAURANTS}`);
-    const data = await res.json();
-    return data as Scrape;
-  } catch (err) {
-    return null;
+// Request deduplication to prevent duplicate API calls
+let requestInProgress = false;
+let cachedRequest: Promise<Scrape | null> | null = null;
+
+const fetchRestaurants = async (): Promise<Scrape | null> => {
+  // If a request is already in progress, return the same promise
+  if (requestInProgress && cachedRequest) {
+    return cachedRequest;
   }
+
+  // Mark request as in progress and cache the promise
+  requestInProgress = true;
+  cachedRequest = (async () => {
+    try {
+      const res = await fetch(`${rootUrl}${Endpoints.RESTAURANTS}`);
+      const data = await res.json();
+      return data as Scrape;
+    } catch (_err) {
+      return null;
+    } finally {
+      // Reset flags after request completes
+      requestInProgress = false;
+      cachedRequest = null;
+    }
+  })();
+
+  return cachedRequest;
 };
 
 const RestaurantsProvider = ({ children }: { children: React.ReactNode }) => {
@@ -50,6 +71,7 @@ const RestaurantsProvider = ({ children }: { children: React.ReactNode }) => {
   const [scrapeDate, setScrapeDate] = useState<Date | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [realPosition] = useState<boolean>(false);
+  const [userPosition, setUserPosition] = useState<Coordinate | null>(null);
 
   useEffect(() => {
     const get = async () => {
@@ -86,6 +108,8 @@ const RestaurantsProvider = ({ children }: { children: React.ReactNode }) => {
         restaurants,
         setRestaurants,
         loading,
+        userPosition,
+        setUserPosition,
       }}
     >
       {children}

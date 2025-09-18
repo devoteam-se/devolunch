@@ -29,9 +29,40 @@ ff.http('scrape', async (_: ff.Request, res: ff.Response) => {
 
   const files = await getRestaurantFilePaths(dir);
 
-  const restaurants = [];
-  for (const file of files) {
-    restaurants.push(await scrapeRestaurant(browser, dir, file));
+  // Process files in parallel with controlled concurrency
+  const MAX_CONCURRENT_FILES = config.maxConcurrentFiles || 3;
+  const restaurants: any[] = [];
+
+  const processFilesBatch = async (fileBatch: string[]) => {
+    const promises = fileBatch.map(async (file) => {
+      try {
+        const result = await scrapeRestaurant(browser, dir, file);
+        if (Array.isArray(result)) {
+          return result;
+        } else if (result) {
+          return [result];
+        }
+        return [];
+      } catch (error) {
+        console.error(`Error processing file ${file}:`, error);
+        return [];
+      }
+    });
+
+    const results = await Promise.all(promises);
+    return results.flat();
+  };
+
+  // Process files in batches to avoid overwhelming the browser
+  for (let i = 0; i < files.length; i += MAX_CONCURRENT_FILES) {
+    const batch = files.slice(i, i + MAX_CONCURRENT_FILES);
+    const batchResults = await processFilesBatch(batch);
+    restaurants.push(...batchResults);
+    console.log(
+      `Processed batch ${Math.ceil((i + 1) / MAX_CONCURRENT_FILES)}/${Math.ceil(
+        files.length / MAX_CONCURRENT_FILES,
+      )}: ${batchResults.length} restaurants`,
+    );
   }
 
   await browser.close();
@@ -39,7 +70,12 @@ ff.http('scrape', async (_: ff.Request, res: ff.Response) => {
   // used to debug scraper
   const filesOverride = config.filesOverride?.split(',');
   if (filesOverride?.length) {
-    res.sendStatus(200);
+    // In debug mode, return scraped data without uploading to cloud
+    const scrape: Scrape = {
+      date: new Date(),
+      restaurants: await translateRestaurants(restaurants),
+    };
+    res.json(scrape);
     return;
   }
 

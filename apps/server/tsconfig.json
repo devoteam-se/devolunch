@@ -17,7 +17,7 @@
     "composite": false,
     "baseUrl": "."
   },
-  "include": ["src", ".eslintrc.js"],
+  "include": ["src", "eslint.config.js"],
   "exclude": ["node_modules"],
   "ts-node": {
     "files": true

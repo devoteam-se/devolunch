@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import dotenv from 'dotenv';
 
-const Config = z
+const ConfigSchema = z
   .object({
     development: z.boolean(),
     slackChannelId: z.string().min(1),
@@ -9,16 +9,16 @@ const Config = z
   })
   .strict();
 
-export type Config = z.infer<typeof Config>;
+export type Config = z.infer<typeof ConfigSchema>;
 
 export const createConfig = () => {
   dotenv.config();
 
-  const config = Config.parse({
+  const config = ConfigSchema.parse({
     development: process.env.NODE_ENV === 'development',
     slackChannelId: process.env.SLACK_CHANNEL_ID || '',
     slackOauthToken: process.env.SLACK_OAUTH_TOKEN || '',
   });
 
-  return Config.parse(config);
+  return ConfigSchema.parse(config);
 };

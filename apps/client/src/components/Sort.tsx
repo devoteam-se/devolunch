@@ -43,27 +43,46 @@ const sortIconStyles = css`
 `;
 
 export default function Sort() {
-  const { restaurants, setRestaurants } = useRestaurants();
+  const { restaurants, setRestaurants, setUserPosition } = useRestaurants();
   const [active, setActive] = React.useState(0);
 
   const sortOnLocation = () => {
     setActive(1);
 
+    if (!navigator.geolocation) {
+      console.error('Geolocation is not supported by this browser');
+      setActive(0);
+      return;
+    }
+
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const latitude = position.coords.latitude;
         const longitude = position.coords.longitude;
+        const userCoord = { lat: latitude, lon: longitude };
 
-        setRestaurants(
-          sortRestaurants(restaurants, {
-            lat: latitude,
-            lon: longitude,
-          }),
+        console.log('Got user position:', userCoord);
+
+        // Save user position for distance calculations
+        setUserPosition(userCoord);
+
+        const sortedRestaurants = sortRestaurants(restaurants, userCoord);
+        console.log(
+          'Sorted restaurants:',
+          sortedRestaurants.slice(0, 3).map((r) => ({ title: r.title, distance: r.distance })),
         );
+
+        setRestaurants(sortedRestaurants);
         setActive(0);
       },
-      () => {
+      (error) => {
+        console.error('Geolocation error:', error);
         setActive(0);
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 10000,
+        maximumAge: 60000,
       },
     );
   };

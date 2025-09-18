@@ -49,5 +49,23 @@ const translateRestaurant = async (restaurant: RestaurantProps) => {
   return restaurant;
 };
 
-export const translateRestaurants = async (restaurants: RestaurantProps[]) =>
-  await Promise.all(restaurants.map(async (restaurant: RestaurantProps) => await translateRestaurant(restaurant)));
+export const translateRestaurants = async (restaurants: RestaurantProps[]) => {
+  if (config.development) {
+    console.log('🔧 Development mode: Skipping translation service');
+    // In development, just add English dishes as copies of Swedish
+    return restaurants.map((restaurant) => ({
+      ...restaurant,
+      dishCollection: [
+        ...(restaurant.dishCollection || []),
+        ...(restaurant.dishCollection?.map((collection) => ({
+          language: 'en',
+          dishes: collection.dishes || [],
+        })) || []),
+      ],
+    }));
+  }
+
+  return await Promise.all(
+    restaurants.map(async (restaurant: RestaurantProps) => await translateRestaurant(restaurant)),
+  );
+};
