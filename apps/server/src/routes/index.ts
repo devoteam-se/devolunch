@@ -1,5 +1,6 @@
 import express from 'express';
-const router = express.Router();
+import type { Router } from 'express';
+const router: Router = express.Router();
 
 import restaurants from './restaurants.js';
 

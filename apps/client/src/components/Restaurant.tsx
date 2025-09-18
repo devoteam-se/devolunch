@@ -8,6 +8,7 @@ import { ReactComponent as DirectionIcon } from '@/assets/direction.svg';
 import { useRestaurants } from '@/contexts/restaurants';
 import { color } from '@/utils/theme';
 import { calculateDistance } from '@/utils/distance';
+import { DEVOTEAM_LOCATION } from '@/utils/constants';
 
 import { RestaurantProps, DishCollectionProps, DishProps } from '@devolunch/shared';
 import { useProgressiveImg } from '@/hooks/progressive-image';
@@ -222,8 +223,6 @@ export default function Restaurant({
 
   // Calculate distance for current location if multi-location
   const currentDistance = (() => {
-    // Default coordinate (Devoteam location) for when user position is not available
-    const DEVOTEAM_LOCATION = { lat: 55.6107258, lon: 12.999409 };
     const referencePosition = userPosition || DEVOTEAM_LOCATION;
 
     if (currentLocation) {

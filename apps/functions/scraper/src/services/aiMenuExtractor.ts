@@ -1,10 +1,16 @@
 import OpenAI from 'openai';
 import { DishProps, RestaurantMetaProps } from '@devolunch/shared';
 
-// Initialize OpenAI client
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+// Lazy initialize OpenAI client
+let openai: OpenAI | null = null;
+const getOpenAI = () => {
+  if (!openai) {
+    openai = new OpenAI({
+      apiKey: process.env.OPENAI_API_KEY,
+    });
+  }
+  return openai;
+};
 
 export interface PageContent {
   html: string;
@@ -36,7 +42,7 @@ export const extractMenuWithAI = async (
 
     const prompt = createMenuExtractionPrompt(pageContent, restaurantMeta, locationFilter);
 
-    const completion = await openai.chat.completions.create({
+    const completion = await getOpenAI().chat.completions.create({
       model: 'gpt-4o-mini', // Cost-effective model good for structured tasks
       max_tokens: 1500, // Increased to handle multiple dishes
       temperature: 0.1,
@@ -59,7 +65,6 @@ export const extractMenuWithAI = async (
     }
 
     const rawResult = parseAIResponse(responseText);
-    console.log(`🔍 Raw AI response before filtering:`, JSON.stringify(rawResult.dishes, null, 2));
     const result = normalizeResult(rawResult);
     console.log(`🤖 OpenAI extracted ${result.dishes.length} dishes with confidence ${result.confidence}`);
     console.log(`💭 Reasoning: ${result.reasoning}`);
@@ -133,7 +138,7 @@ ${instructions}`;
 
     console.log(`🖼️  Analyzing ${pageContent.images?.length} images with Vision API`);
 
-    const completion = await openai.chat.completions.create({
+    const completion = await getOpenAI().chat.completions.create({
       model: 'gpt-4o', // Vision model required for image analysis
       max_tokens: 1500,
       temperature: 0.1,
@@ -147,6 +152,7 @@ ${instructions}`;
 
     const rawResult = parseAIResponse(responseText);
     console.log(`🔍 Raw Vision API response before filtering:`, JSON.stringify(rawResult.dishes, null, 2));
+
     const result = normalizeResult(rawResult);
     console.log(`🤖 OpenAI Vision extracted ${result.dishes.length} dishes with confidence ${result.confidence}`);
     console.log(`💭 Reasoning: ${result.reasoning}`);
@@ -180,47 +186,56 @@ const createMenuExtractionInstructions = (weekdaySv: string, locationFilter?: st
 `
     : '';
 
-  return `${locationInstruction}Extract ALL lunch dishes available today from LUNCH SECTIONS ONLY. Include:
+  return `${locationInstruction}Extract ALL lunch dishes from LUNCH SECTIONS ONLY.
 
-WHAT TO INCLUDE (FROM LUNCH SECTIONS ONLY):
-• Look for sections labeled: "Lunch", "Lunchmeny", "Dagens lunch", "Vardagslunch"
-• CRITICAL: "Veckans" dishes MUST be included - these are weekly specials available every day
-• Daily dishes for TODAY (${weekdaySv}) from weekday schedules IN LUNCH SECTIONS
-• Always-available items: "Alltid", "Stående dagens", "Permanent menu"
-• Vegetarian/vegan options from dedicated lunch sections
-• Signature items, sandwiches, and lunch-priced dishes (100-250kr) from lunch areas
+WHAT TO INCLUDE - MANDATORY EXTRACTION:
+• PRIORITY 1: ANY "Veckans" items - ALWAYS extract these weekly specials (remove "Veckans" prefix from title)
+• PRIORITY 2: Daily dishes for TODAY (${weekdaySv}) from weekday schedules
+• PRIORITY 3: Caesar sallad, Sillmacka, and similar lunch classics
+• PRIORITY 4: Items with lunch pricing (100-200kr)
 
-WEEKDAY HANDLING:
-• Match Swedish/English: "${weekdaySv}/wednesday", "måndag/monday", etc.
-• Handle ranges: "mån-ons", "måndag–onsdag" (include if today falls in range)
-• Section headers like "Fisk måndag-onsdag" followed by dish descriptions
+CRITICAL VECKANS RULE:
+• If you see "Veckans" followed by any dish name, EXTRACT IT
+• "Veckans Moo Tod" = extract as "Moo Tod - [full description]"
+• "Veckans vegetariska" = extract the vegetarian dish
+• "Veckans fisk" = extract the fish dish
+• These are weekly specials available every day
 
-WEEK NUMBER HANDLING:
-• Current week: ${weekNumber} (${isOddWeek ? 'ODD' : 'EVEN'} week)
-• IMPORTANT: If restaurant has separate menus for odd/even weeks, extract ONLY from the ${
-    isOddWeek ? 'ODD' : 'EVEN'
-  } week menu
-• Swedish terms: "udda veckor" (odd weeks), "jämna veckor" (even weeks)
-• DO NOT mix dishes from both week types - select only the appropriate week
+EXTRACTION BOUNDARIES - HARD STOP RULES:
+• IMMEDIATELY STOP reading when you see "Bärstronomi" - extract NOTHING after this word
+• IMMEDIATELY STOP reading when you see "Bar" as a section header
+• STOP at any pricing over 200kr (these are bar/dinner items)
+• STOP when you see evening section markers: "kväll", "evening", "À la carte"
 
-WHAT TO EXCLUDE:
-• CRITICAL: Any dishes from "Kvällsmeny" or evening menu sections - LUNCH ONLY
-• Generic categories like "Dagens Kött" (unless no specific dishes found)
-• Service descriptions like "Serveras Måndag-Fredag", "Inkl. vatten, te & kaffe", opening hours, general info
-• Text about lunch service, prices, or general restaurant information - NOT actual dishes
-• Dinner/evening items: sections with "kväll", "kvällsmeny", "middag", "efter 17:00"
-• Non-mains: "förrätt", "efterrätt", "dessert", "dryck"
-• If page has both lunch and dinner sections, extract ONLY from lunch sections
+LUNCH SECTION IDENTIFICATION:
+• ONLY extract from content that appears BEFORE "Bärstronomi"
+• Look for clear lunch markers: "Lunchmeny", "Dagens", "Veckans"
+• Extract from weekday schedules (Måndag-Fredag)
+• Extract lunch-priced items (100-200kr range)
 
-OUTPUT:
-• CRITICAL: Always include full dish information - NEVER just bare dish names
-• If a dish has ingredients/description listed, include it: "Dish Name - ingredients and details"
-• Extract complete dish information, not just titles
-• IMPORTANT: Only extract ACTUAL DISHES - not service info, hours, or general descriptions
+CRITICAL RULE: Once you encounter "Bärstronomi" or similar, STOP completely - do not extract anything that appears after it, even if it looks like lunch food
+
+WEEK HANDLING:
+Current week: ${weekNumber} (${isOddWeek ? 'ODD' : 'EVEN'} week)
+• If restaurant has odd/even week menus, extract ONLY from the ${isOddWeek ? 'ODD' : 'EVEN'} week menu
+• Do NOT mix dishes from both week types
+
+WHAT TO EXCLUDE - ZERO TOLERANCE:
+• EVERYTHING after "Bärstronomi" header - STOP reading completely
+• EVERYTHING after "Bar" section headers
+• ANY items over 200kr (bar/dinner pricing)
+• Appetizers, desserts, drinks sections
+• Evening menus: "Kvällsmeny", "À la carte"
+• Duplicates of items already found in lunch sections
+
+REMEMBER: "Bärstronomi" = FULL STOP. Extract only the 4 lunch items that appear BEFORE this section.
+
+OUTPUT FORMAT:
+• Include full dish descriptions with ingredients
 • Type: "meat" (includes poultry), "fish" (includes seafood), "veg" (includes vegan)
-• Typical restaurant has 3-5 lunch options
+• Use Swedish text only - ignore English translations
+• Extract complete information, not just dish names
 
-Output exactly this JSON shape:
 {"dishes":[{"title":"...","type":"veg|fish|meat"}],"confidence":0.0,"reasoning":"..."}`;
 };
 
@@ -363,14 +378,8 @@ const normalizeResult = (result: MenuExtractionResult): MenuExtractionResult => 
 
   const seen = new Set<string>();
 
-  console.log(`🔍 Debug filtering steps:`);
-
   let step1 = result.dishes.map((d) => ({ ...d, title: d.title.trim() }));
-  console.log(`Step 1 - Trimmed: ${step1.length} dishes`);
-
   let step2 = step1.filter((d) => d.title.length > 0);
-  console.log(`Step 2 - Non-empty: ${step2.length} dishes`);
-
   let step3 = step2.filter((d) => {
     // Skip day filtering since AI already filtered for today's dishes
     // Don't filter out weekly specials even if they have "veckans" which might be caught by headingCues
@@ -386,11 +395,7 @@ const normalizeResult = (result: MenuExtractionResult): MenuExtractionResult => 
     }
     return passes;
   });
-  console.log(`Step 3 - After content filters: ${step3.length} dishes`);
-
   let step4 = step3.map((d) => ({ ...d, type: mapType(String(d.type), d.title) }));
-  console.log(`Step 4 - After type mapping: ${step4.length} dishes`);
-
   let step5 = step4.filter((d) => {
     const passes = d.type !== 'misc';
     if (!passes) {
@@ -398,8 +403,6 @@ const normalizeResult = (result: MenuExtractionResult): MenuExtractionResult => 
     }
     return passes;
   });
-  console.log(`Step 5 - After misc filter: ${step5.length} dishes`);
-
   let step6 = step5.map((d) => ({ ...d, type: d.type === 'vegan' ? 'veg' : d.type }));
 
   const filtered = step6

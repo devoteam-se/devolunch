@@ -1,6 +1,6 @@
 import { RestaurantMetaProps } from '@devolunch/shared';
 
-export const restaurantMetas: RestaurantMetaProps[] = [
+export const restaurants: RestaurantMetaProps[] = [
   {
     title: 'Hyllie Bistro',
     url: 'https://www.hylliebryggeri.se/meny',
@@ -46,11 +46,11 @@ export const restaurantMetas: RestaurantMetaProps[] = [
   {
     title: 'Kontrast Västra Hamnen',
     url: 'https://www.kontrastrestaurang.se/menu/vastra-hamnen?tab=lunch',
-    imageUrl:
-      'https://usercontent.one/wp/www.kontrastrestaurang.se/wp-content/uploads/2022/08/Indian-food-hero.jpg?media=1666955164',
+    imageUrl: 'https://cdn.kontrast.swindila.com/kontrastimages/vastrahamnenmenu.jpg',
     googleMapsUrl: 'https://goo.gl/maps/sAfGLCky4RcSUZKw5',
     coordinate: { lat: 55.6100655, lon: 12.9737029 },
     unknownMealDefault: 'veg',
+    useContentCleaner: false,
   },
   {
     title: 'Lokal 17',
@@ -67,18 +67,18 @@ export const restaurantMetas: RestaurantMetaProps[] = [
     googleMapsUrl: 'https://goo.gl/maps/RrRffZzgebREQpwB7',
     coordinate: { lat: 55.6134471, lon: 12.9921145 },
   },
-  {
-    title: 'Namu',
-    url: 'https://namu.nu/meny/',
-    imageUrl: 'https://namu.nu/wp-content/uploads/2017/05/Namul-darker2-3k-min.jpg',
-    googleMapsUrl: 'https://goo.gl/maps/XtFUKSvmDQTUpR146',
-    coordinate: { lat: 55.6052051, lon: 12.9975172 },
-    unknownMealDefault: 'veg',
-  },
+  // {
+  //   title: 'Namu',
+  //   url: 'https://namu.nu/meny/',
+  //   imageUrl: 'https://namu.nu/wp-content/uploads/2017/05/Namul-darker2-3k-min.jpg',
+  //   googleMapsUrl: 'https://goo.gl/maps/XtFUKSvmDQTUpR146',
+  //   coordinate: { lat: 55.6052051, lon: 12.9975172 },
+  //   unknownMealDefault: 'veg',
+  // },
   {
     title: 'Niagara',
     url: 'https://restaurangniagara.se/lunch/',
-    imageUrl: 'https://restaurangniagara.se/wp-content/uploads/sites/4/2015/08/Lunch-meny-Niagara1.jpg',
+    imageUrl: 'https://restaurangniagara.se/wp-content/uploads/2024/10/NIAGARA-27.webp',
     googleMapsUrl: 'https://goo.gl/maps/5SAyzPUHhb2xrNXRA',
     coordinate: { lat: 55.6087223, lon: 12.9941398 },
   },
@@ -99,7 +99,8 @@ export const restaurantMetas: RestaurantMetaProps[] = [
   {
     title: 'Slagthuset',
     url: 'https://slagthuset.se/restaurangen/',
-    imageUrl: 'https://slagthuset.se/static/d18f8e233d657ea77a2e7aeb3aa65eec/cc3b1/Sodra-Hallen01-1.jpg',
+    imageUrl:
+      'https://www.slagthuset.se/_next/image?url=https%3A%2F%2Fwp.slagthuset.se%2Fwp-content%2Fuploads%2F2023%2F02%2FSodra-Hallen01-1-1500x1000.jpg&w=3840&q=80',
     googleMapsUrl: 'https://goo.gl/maps/ZMLMAHi8XhVss2At5',
     coordinate: { lat: 55.6110323, lon: 13.0033717 },
   },
@@ -114,7 +115,7 @@ export const restaurantMetas: RestaurantMetaProps[] = [
   {
     title: 'Spill',
     url: 'https://restaurangspill.se/',
-    imageUrl: 'https://restaurangspill.se/static/0de07c5b4f98bc003befad5e872686b4/9bbaf/SPILL_09.jpg',
+    imageUrl: 'https://www.restaurangspill.se/_next/image?url=%2Fimages%2Fv2%2FSPILL_14.jpg&w=1920&q=75',
     googleMapsUrl: 'https://goo.gl/maps/bZ8yDN3PD3fjvNGw5', // Using first location as default
     coordinate: { lat: 55.6127354, lon: 12.9884119 }, // Using first location as default
     multiLocation: {
@@ -138,15 +139,15 @@ export const restaurantMetas: RestaurantMetaProps[] = [
   {
     title: 'Köket lu',
     url: 'https://www.koket.lu/malmo/lunch',
-    imageUrl: 'https://www.koket.lu/img/lu_logo.5ba196ad.png',
+    imageUrl:
+      'https://static.thatsup.co/content/img/place/malmo/ko/3946013a-f19b-11e9-814c-f23c919fea3e/user-photo/7c8aa451.jpg?1706718174',
     googleMapsUrl: 'https://maps.app.goo.gl/r89Vog772eqdu3mt7',
     coordinate: { lat: 55.5993441, lon: 12.9977983 },
   },
   {
     title: 'Marvin',
     url: 'https://www.marvinofmalmo.com/',
-    imageUrl:
-      'https://images.squarespace-cdn.com/content/v1/63751d9e0fcf4f66c079a897/1e65f5d1-1dc4-46c2-bc5d-9f9f8254a362/favicon.ico?format=100w',
+    imageUrl: 'https://highfiveskane.se/wp-content/uploads/2022/05/marvin-4-scaled.jpeg',
     googleMapsUrl: 'https://maps.app.goo.gl/rjKhvkHbwfdoC62g9',
     coordinate: { lat: 55.5998692, lon: 12.9991679 },
   },
@@ -168,7 +169,7 @@ export const restaurantMetas: RestaurantMetaProps[] = [
   {
     title: 'Restaurang Bullen',
     url: 'https://www.bullen.nu/sv/lunch/',
-    imageUrl: 'https://www.bullen.nu/media/k3sl1vyj/bullen_logo_web.png',
+    imageUrl: 'https://www.bullen.nu/media/mz1djpbh/lunch_mag_3379.jpg?height=810px',
     googleMapsUrl: 'https://maps.app.goo.gl/3VCjtsGxBm9VHDc97',
     coordinate: { lat: 55.5999602, lon: 12.9988244 },
     unknownMealDefault: 'veg',
@@ -176,38 +177,35 @@ export const restaurantMetas: RestaurantMetaProps[] = [
   {
     title: 'Spoonery',
     url: 'https://www.spoonery.se/restaurang/slottstaden/', // Using first location as default
-    imageUrl: 'https://www.spoonery.se/wp-content/uploads/2024/11/cropped-favicon-32x32.png',
+    imageUrl: 'https://www.spoonery.se/wp-content/uploads/2024/11/241015_Spoonery__Slotts_01_NY.webp',
     googleMapsUrl: 'https://maps.app.goo.gl/1dxLU2ZUpH3ggFQg8', // Using first location as default
     coordinate: { lat: 55.59717, lon: 12.97902 }, // Using first location as default
     unknownMealDefault: 'veg',
+    useContentCleaner: false,
     multiLocation: {
       type: 'separate',
       locations: [
         {
           title: 'Slottstaden',
           url: 'https://www.spoonery.se/restaurang/slottstaden/',
-          locationFilter: 'Slottstaden',
           googleMapsUrl: 'https://maps.app.goo.gl/Tkufn1rFU4qzCokQ8',
           coordinate: { lat: 55.5972562, lon: 12.976425 },
         },
         {
           title: 'Sankt Knut',
           url: 'https://www.spoonery.se/restaurang/st-knut/',
-          locationFilter: 'Sankt Knut|ST: Knut',
           googleMapsUrl: 'https://maps.app.goo.gl/2z6FT53UdTHH8A4J7',
           coordinate: { lat: 55.5968355, lon: 13.011534 },
         },
         {
           title: 'Gamla Väster',
           url: 'https://www.spoonery.se/restaurang/gamla-vaster/',
-          locationFilter: 'Gamla Väster',
           googleMapsUrl: 'https://maps.app.goo.gl/1dxLU2ZUpH3ggFQg8',
           coordinate: { lat: 55.605601, lon: 12.9832051 },
         },
         {
           title: 'Hyllie',
           url: 'https://www.spoonery.se/restaurang/hyllie',
-          locationFilter: 'Hyllie',
           googleMapsUrl: 'https://maps.app.goo.gl/7XZkE58A1PPujvrr7',
           coordinate: { lat: 55.5613039, lon: 12.9737268 },
         },
@@ -217,16 +215,17 @@ export const restaurantMetas: RestaurantMetaProps[] = [
   {
     title: 'La Fonderie',
     url: 'https://www.lafonderie.se/lelunch',
-    imageUrl:
-      'https://images.squarespace-cdn.com/content/v1/67c60654ba161009af4d26d3/2a7cddf3-30ed-409a-827d-aeaa8ef71a63/baguette.png',
+    imageUrl: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2d/e3/21/67/caption.jpg?w=1200&h=-1&s=1',
     googleMapsUrl: 'https://maps.app.goo.gl/8PYHkDJe8bv2NafBA',
     coordinate: { lat: 55.6110563, lon: 12.9889958 },
     unknownMealDefault: 'veg',
+    useContentCleaner: false,
   },
   {
     title: 'Varv Malmö',
     url: 'https://www.varvmalmo.com/menu',
-    imageUrl: 'https://www.varvmalmo.com/favicon.ico',
+    imageUrl:
+      'https://images.squarespace-cdn.com/content/v1/67a758574768d80eed1d0b9f/072c583d-3cfd-4756-a07d-2e506957a2ec/DSC08171-Enhanced-NR.png?format=750w',
     googleMapsUrl: 'https://maps.app.goo.gl/UyPUzaFyW6cX8bwC9',
     coordinate: { lat: 55.6121049, lon: 12.9255438 },
     unknownMealDefault: 'veg',
@@ -234,7 +233,7 @@ export const restaurantMetas: RestaurantMetaProps[] = [
   {
     title: 'Sauvage Malmö',
     url: 'https://restaurangsauvage.se/lunchmeny',
-    imageUrl: 'https://restaurangsauvage.se/favicon.ico',
+    imageUrl: 'https://highfiveskane.se/wp-content/uploads/2024/04/sauvage-18-scaled.jpeg',
     googleMapsUrl: 'https://maps.app.goo.gl/BgoSgesjSSxsen7s5',
     coordinate: { lat: 55.5961469, lon: 12.9913278 },
     unknownMealDefault: 'veg',
@@ -242,7 +241,7 @@ export const restaurantMetas: RestaurantMetaProps[] = [
   {
     title: 'Restaurang Nils',
     url: 'https://restaurangnils.se/lunch-restaurang-malmo/',
-    imageUrl: 'https://restaurangnils.se/favicon.ico',
+    imageUrl: 'https://restaurangnils.se/wp-content/uploads/sites/21/2022/10/Nils-13.jpg',
     googleMapsUrl: 'https://maps.app.goo.gl/fAxMDQardQqSSmtU8',
     coordinate: { lat: 55.5985416, lon: 12.979711 },
     unknownMealDefault: 'veg',
@@ -261,7 +260,7 @@ export const restaurantMetas: RestaurantMetaProps[] = [
   {
     title: 'La Bonne Vie',
     url: 'https://labonnevie.se/',
-    imageUrl: 'https://labonnevie.se/img/labonnevie_logo.jpg',
+    imageUrl: 'https://media-cdn.tripadvisor.com/media/photo-s/14/a4/2e/eb/la-bonne-vie.jpg',
     googleMapsUrl: 'https://maps.app.goo.gl/eGorxVpGBAobFSKC9',
     coordinate: {
       lat: 55.5991391,
@@ -272,7 +271,7 @@ export const restaurantMetas: RestaurantMetaProps[] = [
   {
     title: 'Osteria di la',
     url: 'https://osteriadila.se/',
-    imageUrl: 'https://media.osteriadila.se/2023/03/DILA-TEXT-300PX.png',
+    imageUrl: 'https://media.osteriadila.se/2023/03/dila1.jpg',
     googleMapsUrl: 'https://maps.app.goo.gl/eGorxVpGBAobFSKC9',
     coordinate: {
       lat: 55.5991391,
@@ -283,7 +282,7 @@ export const restaurantMetas: RestaurantMetaProps[] = [
   {
     title: 'Osteria Qui',
     url: 'https://osteriaqui.se/meny/',
-    imageUrl: 'https://osteriaqui.se/wp-content/uploads/2022/04/osteria_logo-2.png',
+    imageUrl: 'https://osteriaqui.se/wp-content/uploads/2022/11/osteria-mat.jpg',
     googleMapsUrl: 'https://maps.app.goo.gl/Z88vt4no56UZXS9f9',
     coordinate: {
       lat: 55.5966996,
@@ -295,7 +294,7 @@ export const restaurantMetas: RestaurantMetaProps[] = [
     title: 'Enoclub Osteria',
     url: 'https://www.enoclub.se/meny',
     imageUrl:
-      'https://images.squarespace-cdn.com/content/v1/65e04f8287d2472b18e24357/0a2c9837-4287-4a3d-91c0-4fcaa128a059/Enoclub+logo+black.png?format=1500w',
+      'https://images.squarespace-cdn.com/content/v1/65e04f8287d2472b18e24357/9c0e45ea-5ca4-4e78-a7a5-ef5a84d600e8/iStock-1136638905.jpg?format=2500w',
     googleMapsUrl: 'https://maps.app.goo.gl/WCvg7uwahvkpF6yK8',
     coordinate: {
       lat: 55.604698,
@@ -306,10 +305,11 @@ export const restaurantMetas: RestaurantMetaProps[] = [
   {
     title: 'Thap Thim',
     url: 'https://thapthim.se/lunch',
-    imageUrl: 'https://thapthim.se/img/logo/vg.png',
+    imageUrl: 'https://api.thapthim.se/?imgtype=slider&store=vg&imgid=20230105163927437216001672933167.jpeg',
     googleMapsUrl: 'https://maps.app.goo.gl/GLgqwTmwaqhCMWMdA', // Using first location as default
     coordinate: { lat: 55.6066801, lon: 12.9928927 }, // Using first location as default
     unknownMealDefault: 'veg',
+    useContentCleaner: false,
     multiLocation: {
       type: 'shared',
       locations: [
@@ -346,7 +346,7 @@ export const restaurantMetas: RestaurantMetaProps[] = [
     title: 'Elsa',
     url: 'https://www.elsamalmo.com/menu',
     imageUrl:
-      'https://images.squarespace-cdn.com/content/v1/61139b36ec63322fbda6d6a1/ba60c2ed-b673-4042-9f82-48255de03ba9/ABC2B5B7-B9A2-4F08-9C26-BDD99A4E83C3.png?format=1500w',
+      'https://ftstorageprod.blob.core.windows.net/images/restaurant/ad719f49/images/7aa434b7-48bc-45f0-87a3-f0640d2f127d_m.jpg',
     googleMapsUrl: 'https://maps.app.goo.gl/LnKL7KkKfmMML4y76',
     coordinate: { lat: 55.6068487, lon: 12.9876917 },
     unknownMealDefault: 'veg',
@@ -355,23 +355,26 @@ export const restaurantMetas: RestaurantMetaProps[] = [
   {
     title: 'Ruths',
     url: 'https://ruthsmalmo.se/en/#menu',
-    imageUrl: 'https://ruthsmalmo.se/wp-content/themes/ruths-malmo-theme/dist/images/logo_57deb727.svg',
+    imageUrl: 'https://highfiveskane.se/wp-content/uploads/2024/01/ruths-31-scaled.jpeg',
     googleMapsUrl: 'https://maps.app.goo.gl/FhKo1ctUa9Aa67h49',
     coordinate: { lat: 55.606242, lon: 12.9966079 },
     unknownMealDefault: 'veg',
+    useContentCleaner: false,
   },
   {
     title: 'Brasserie Sture',
     url: 'https://sture1912.com/sv/',
-    imageUrl: 'https://sture1912.com/wp-content/uploads/2023/08/STURE_COLOR.png',
+    imageUrl: 'https://interni.se/wp-content/uploads/2023/09/L8A5740-1.jpg',
     googleMapsUrl: 'https://maps.app.goo.gl/UtAQQ3sGfCyCSF5S7',
     coordinate: { lat: 55.606242, lon: 12.9966079 },
     unknownMealDefault: 'veg',
+    useContentCleaner: false,
   },
   {
     title: 'Årstiderna',
     url: 'https://arstiderna.pieplowsrestauranger.se/lunch/',
-    imageUrl: 'https://mediabeta.pieplowsrestauranger.se/2018/05/cropped-logo2-1.png',
+    imageUrl:
+      'https://mediabeta.pieplowsrestauranger.se/2024/07/WhatsApp-Bild-2024-05-17-kl.-21.50.45_da5e237c-1000x1000.jpg',
     googleMapsUrl: 'https://maps.app.goo.gl/x2Bi7kxVJa4huAud6',
     coordinate: { lat: 55.6067435, lon: 12.9940981 },
     unknownMealDefault: 'veg',
@@ -392,14 +395,14 @@ export const restaurantMetas: RestaurantMetaProps[] = [
     coordinate: { lat: 55.6080352, lon: 13.0082392 },
     unknownMealDefault: 'veg',
   },
-  {
-    title: 'KOL & Cocktails',
-    url: 'https://kolmalmo.se/#bokabord',
-    imageUrl: 'https://kolmalmo.se/wp-content/uploads/2017/09/Kvallen.jpg',
-    googleMapsUrl: 'https://maps.app.goo.gl/dBT4SqrxpWkWEfm1A',
-    coordinate: { lat: 55.6049907, lon: 13.000674 },
-    unknownMealDefault: 'veg',
-  },
+  // {
+  //   title: 'KOL & Cocktails',
+  //   url: 'https://kolmalmo.se/#bokabord',
+  //   imageUrl: 'https://kolmalmo.se/wp-content/uploads/2017/09/Kvallen.jpg',
+  //   googleMapsUrl: 'https://maps.app.goo.gl/dBT4SqrxpWkWEfm1A',
+  //   coordinate: { lat: 55.6049907, lon: 13.000674 },
+  //   unknownMealDefault: 'veg',
+  // },
   {
     title: 'Mrs Saigon',
     url: 'https://www.mrs-saigon.se/meny/',

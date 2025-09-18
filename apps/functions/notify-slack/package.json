@@ -5,10 +5,11 @@
   "main": "dist/index.js",
   "type": "module",
   "scripts": {
-    "start": "tsc && functions-framework --target=notify-slack",
-    "compile": "tsc",
+    "start": "pnpm build && functions-framework --target=notify-slack",
+    "build": "tsc",
     "typecheck": "tsc --noEmit",
-    "lint": "prettier --check --ignore-path=../../../.prettierignore . && eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
+    "lint": "eslint src --ext ts --max-warnings 0",
+    "format": "prettier --write ."
   },
   "author": "Jonas Stenberg",
   "license": "MIT",
@@ -23,14 +24,6 @@
   },
   "devDependencies": {
     "@devolunch/shared": "workspace:^",
-    "@eslint/js": "^9.0.0",
-    "@pnpm/make-dedicated-lockfile": "^0.5.10",
-    "@types/node": "20.1.7",
-    "@types/node-fetch": "^2.6.7",
-    "@typescript-eslint/eslint-plugin": "^8.0.0",
-    "@typescript-eslint/parser": "^8.0.0",
-    "eslint": "^9.0.0",
-    "prettier": "2.8.8",
-    "typescript": "^5.2.2"
+    "@pnpm/make-dedicated-lockfile": "^0.5.10"
   }
 }

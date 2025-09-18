@@ -1,12 +1,16 @@
-import express, { Request, Response } from 'express';
-import { resolve } from 'path';
+import express from 'express';
+import type { Request, Response } from 'express';
+import { resolve, dirname } from 'path';
+import { fileURLToPath } from 'url';
 import cors from 'cors';
 import compression from 'compression';
 
 import { config } from './config.js';
-import { logger } from '@devolunch/shared';
+import { logger } from './utils/logger.js';
 import routes from './routes/index.js';
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 const CLIENT_DIR = resolve(__dirname, '..', '..', 'client');
 
 const app = express();

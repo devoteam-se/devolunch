@@ -23,7 +23,7 @@ npm pkg set 'devDependencies.@devolunch/shared=file:devolunch-shared-1.0.0.tgz' 
 pnpm install --no-frozen-lockfile
 npx make-dedicated-lockfile
 pnpm compile
-cp -R package.json pnpm-lock.yaml .puppeteerrc.cjs test dist devolunch-shared-1.0.0.tgz eslint-config-custom-1.0.0.tgz build
+cp -R package.json pnpm-lock.yaml .puppeteerrc.cjs dist devolunch-shared-1.0.0.tgz eslint-config-custom-1.0.0.tgz build
 npm pkg set 'devDependencies.@devolunch/shared=workspace:' 'devDependencies.eslint-config-custom=workspace:'
 
 # Clean up

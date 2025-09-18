@@ -1,34 +1,14 @@
-import { z } from 'zod';
 import dotenv from 'dotenv';
 
-const ConfigSchema = z
-  .object({
-    development: z.boolean(),
-    defaultLanguage: z.string().min(1),
-    translateLanguages: z.string().min(1),
-    filesOverride: z.string().optional(),
-    maxConcurrentFiles: z.number().int().positive().optional(),
-    maxConcurrentRestaurants: z.number().int().positive().optional(),
-    useContentCleaner: z.boolean().optional(),
-  })
-  .strict();
+// Load env only for truly dynamic/sensitive values (e.g., NODE_ENV)
+dotenv.config();
 
-export type Config = z.infer<typeof ConfigSchema>;
+// Keep configuration simple and mostly constant. Only NODE_ENV affects behavior.
+export const config = {
+  development: process.env.NODE_ENV === 'development',
+  defaultLanguage: process.env.DEFAULT_LANGUAGE || 'sv',
+  translateLanguages: process.env.TRANSLATE_LANGUAGES || 'en',
+  useContentCleaner: process.env.USE_CONTENT_CLEANER !== 'false', // Default to true, can be disabled
+} as const;
 
-export const createConfig = () => {
-  dotenv.config();
-
-  const config = ConfigSchema.parse({
-    development: process.env.NODE_ENV === 'development',
-    defaultLanguage: process.env.DEFAULT_LANGUAGE || '',
-    translateLanguages: process.env.TRANSLATE_LANGUAGES || '',
-    filesOverride: process.env.FILES_OVERRIDE || undefined,
-    maxConcurrentFiles: process.env.MAX_CONCURRENT_FILES ? parseInt(process.env.MAX_CONCURRENT_FILES) : 3,
-    maxConcurrentRestaurants: process.env.MAX_CONCURRENT_RESTAURANTS
-      ? parseInt(process.env.MAX_CONCURRENT_RESTAURANTS)
-      : 5,
-    useContentCleaner: process.env.USE_CONTENT_CLEANER === 'true', // Default to false, enable only when explicitly set
-  });
-
-  return ConfigSchema.parse(config);
-};
+export type Config = typeof config;

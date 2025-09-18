@@ -120,11 +120,3 @@ export const browserScrapeFunction = async (page: Page) => {
   return pdfScrapeFunction(url);
 };
 ```
-
-### Debug
-
-If you want to debug your specific scraper you can add the name(s) (comma-separated) of the restaurant .js file as an environment variable in `.env` like so:
-
-```sh
-FILES_OVERRIDE=bise.js
-```

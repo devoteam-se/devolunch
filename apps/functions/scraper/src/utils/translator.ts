@@ -1,7 +1,7 @@
 import { v2 } from '@google-cloud/translate';
 
-import { config } from '../index.js';
-import { DishProps, RestaurantProps } from '@devolunch/shared';
+import { config } from '../config.js';
+import { DishProps, RestaurantProps, RestaurantLocation } from '@devolunch/shared';
 
 const translate = new v2.Translate({
   projectId: 'devolunch',
@@ -29,17 +29,39 @@ const translateRestaurant = async (restaurant: RestaurantProps) => {
   try {
     await Promise.all(
       config.translateLanguages.split(',')?.map(async (language: string) => {
-        restaurant.dishCollection?.push({
-          language,
-          dishes: restaurant.dishCollection.filter((a) => a.dishes?.length).length
-            ? await Promise.all(
-                restaurant.dishCollection[0]?.dishes?.map(async (dish) => ({
-                  ...dish,
-                  title: await translateText(config.defaultLanguage, language, dish.title),
-                })),
-              )
-            : [],
-        });
+        // Translate top-level dishes (single-location)
+        if (restaurant.dishCollection) {
+          restaurant.dishCollection.push({
+            language,
+            dishes: restaurant.dishCollection.filter((a) => a.dishes?.length).length
+              ? await Promise.all(
+                  restaurant.dishCollection[0]?.dishes?.map(async (dish) => ({
+                    ...dish,
+                    title: await translateText(config.defaultLanguage, language, dish.title),
+                  })),
+                )
+              : [],
+          });
+        }
+
+        // Translate multi-location dishes
+        if (restaurant.locations?.length) {
+          await Promise.all(
+            restaurant.locations.map(async (loc: RestaurantLocation) => {
+              if (!loc.dishCollection) return;
+              const base = loc.dishCollection[0]?.dishes || [];
+              const translated = base.length
+                ? await Promise.all(
+                    base.map(async (dish) => ({
+                      ...dish,
+                      title: await translateText(config.defaultLanguage, language, dish.title),
+                    })),
+                  )
+                : [];
+              loc.dishCollection.push({ language, dishes: translated });
+            }),
+          );
+        }
       }),
     );
   } catch (err: unknown) {
@@ -52,7 +74,7 @@ const translateRestaurant = async (restaurant: RestaurantProps) => {
 export const translateRestaurants = async (restaurants: RestaurantProps[]) => {
   if (config.development) {
     console.log('🔧 Development mode: Skipping translation service');
-    // In development, just add English dishes as copies of Swedish
+    // In development, just add English dishes as copies of Swedish (top-level and locations)
     return restaurants.map((restaurant) => ({
       ...restaurant,
       dishCollection: [
@@ -62,6 +84,16 @@ export const translateRestaurants = async (restaurants: RestaurantProps[]) => {
           dishes: collection.dishes || [],
         })) || []),
       ],
+      locations: restaurant.locations?.map((loc) => ({
+        ...loc,
+        dishCollection: [
+          ...(loc.dishCollection || []),
+          ...(loc.dishCollection?.map((collection) => ({
+            language: 'en',
+            dishes: collection.dishes || [],
+          })) || []),
+        ],
+      })),
     }));
   }
 

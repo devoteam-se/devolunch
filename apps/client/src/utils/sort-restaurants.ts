@@ -1,10 +1,6 @@
 import { Coordinate, RestaurantProps } from '@devolunch/shared';
 import { calculateDistance } from '@/utils/distance';
-
-const DEVOTEAM_LOCATION: Coordinate = {
-  lat: 55.61282608776878,
-  lon: 13.003325575170862,
-};
+import { DEVOTEAM_LOCATION } from '@/utils/constants';
 
 export const sortRestaurants = (
   restaurants: RestaurantProps[],
@@ -27,7 +23,5 @@ export const sortRestaurants = (
     })
     .sort(
       (a: RestaurantProps, b: RestaurantProps) =>
-        (b.dishCollection?.filter((d) => d.dishes?.length).length || 0) -
-          (a.dishCollection?.filter((d) => d.dishes?.length).length || 0) ||
-        (a.distance && b.distance ? a.distance - b.distance : 0),
+        (a.distance && b.distance ? a.distance - b.distance : 0) || a.title.localeCompare(b.title),
     );
