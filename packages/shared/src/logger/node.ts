@@ -1,8 +1,3 @@
-/**
- * Log api for mapping pino to stack driver format.
- *
- * See https://cloud.google.com/run/docs/logging.
- */
 import pino from 'pino';
 
 const logLevel = process.env.LOG_LEVEL || 'info';
@@ -12,13 +7,12 @@ const loggerOptions = {
     level: (label: string): object => ({ severity: severity(label) }),
   },
   base: null,
-  //  Google Cloud Logging also prefers that log data is present inside a message key instead of the default msg key that Pino uses.
+  // Google Cloud Logging prefers a 'message' key
   messageKey: 'message',
   timestamp: false,
   level: logLevel,
 };
 
-// Map pino levels to GCP, https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#LogSeverity
 function severity(label: string): string {
   switch (label) {
     case 'trace':
@@ -40,3 +34,4 @@ function severity(label: string): string {
 
 export const logger = pino(loggerOptions) as Logger;
 export type Logger = pino.Logger;
+

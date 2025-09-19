@@ -1,6 +1,7 @@
 import { Scrape } from '@devolunch/shared';
 import { API_CONFIG, ENVIRONMENT } from './constants';
 import { retry } from './common';
+import { logger } from '@devolunch/shared/logger/browser';
 
 // =============================================================================
 // API CONFIGURATION
@@ -55,7 +56,7 @@ export const fetchRestaurants = async (): Promise<Scrape | null> => {
       const data = await response.json();
       return data as Scrape;
     } catch (error) {
-      console.error('Failed to fetch restaurants:', error);
+      logger.error({ err: error }, 'Failed to fetch restaurants');
       return null;
     }
   });
@@ -88,7 +89,7 @@ export const apiRequest = async <T>(
 
     return await response.json();
   } catch (error) {
-    console.error(`API request failed for ${endpoint}:`, error);
+    logger.error({ err: error, endpoint }, 'API request failed');
     return null;
   }
 };

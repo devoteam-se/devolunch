@@ -11,6 +11,7 @@ import { extractMenuWithAI, PageContent } from './services/aiMenuExtractor.js';
 import { restaurants } from './restaurants.js';
 import { extractCleanContent, getOptimizationMetrics, CleanedPageContent } from './utils/contentCleaner.js';
 import { DishProps, RestaurantMetaProps, RestaurantProps, Scrape } from '@devolunch/shared';
+import { logger } from '@devolunch/shared/logger/node';
 
 export const BUCKET_NAME = 'devolunchv2';
 const TIMEOUT = 120000;
@@ -38,49 +39,52 @@ const cleanPdfText = (text: string): string => {
 // Helper function to extract PDF content with robust error handling
 const extractPdfContent = async (pdfUrl: string): Promise<string> => {
   try {
-    console.log(`📄 Fetching PDF content from: ${pdfUrl}`);
+    logger.info({ pdfUrl }, 'Fetching PDF content');
     const response = await fetch(pdfUrl);
     if (!response.ok) {
       throw new Error(`Failed to fetch PDF: ${response.status}`);
     }
-    console.log(`📄 PDF response status: ${response.status}, content-type: ${response.headers.get('content-type')}`);
+    logger.info(
+      { status: response.status, contentType: response.headers.get('content-type') || undefined },
+      'PDF response metadata',
+    );
 
     const buffer = await response.arrayBuffer();
     const pdfBuffer = Buffer.from(buffer);
-    console.log(`📄 PDF buffer size: ${pdfBuffer.byteLength} bytes`);
+    logger.debug({ size: pdfBuffer.byteLength }, 'PDF buffer size');
 
     // Try standard PDF text extraction first
     try {
       const pdfData = await pdf(pdfBuffer);
-      console.log(`📄 PDF text extraction: ${pdfData.text.length} characters`);
+      logger.debug({ length: pdfData.text.length }, 'PDF text extraction length');
 
       // Check if we got meaningful text (more than just whitespace/minimal chars)
       const meaningfulText = pdfData.text.trim().replace(/\s+/g, ' ');
       if (meaningfulText.length > 50) {
-        console.log(`📄 Using standard PDF text extraction`);
+        logger.info('Using standard PDF text extraction');
         return cleanPdfText(pdfData.text);
       } else {
-        console.log(`📄 PDF text extraction insufficient (${meaningfulText.length} chars), trying pdfjs-dist`);
+        logger.info({ length: meaningfulText.length }, 'PDF text insufficient; trying pdfjs-dist');
       }
     } catch (pdfParseError) {
-      console.log(`📄 Standard PDF parsing failed, trying pdfjs-dist:`, pdfParseError);
+      logger.warn({ err: pdfParseError }, 'Standard PDF parsing failed; trying pdfjs-dist');
     }
 
     // Fallback to pdfjs-dist for image-based PDFs
     try {
-      console.log(`🔍 Using PDF.js text content extraction for image-based PDF`);
+      logger.info('Using PDF.js text content extraction for image-based PDF');
 
       const pdfjsLib = await import('pdfjs-dist/legacy/build/pdf.mjs');
       const loadingTask = pdfjsLib.getDocument({ data: new Uint8Array(pdfBuffer) });
       const pdfDocument = await loadingTask.promise;
 
-      console.log(`📄 PDF has ${pdfDocument.numPages} pages`);
+      logger.info({ pages: pdfDocument.numPages }, 'PDF page count');
 
       let extractedText = '';
       const pagesToProcess = Math.min(pdfDocument.numPages, 3);
 
       for (let pageNum = 1; pageNum <= pagesToProcess; pageNum++) {
-        console.log(`🔍 Processing page ${pageNum}/${pagesToProcess} with PDF.js text extraction`);
+        logger.debug({ pageNum, pagesToProcess }, 'Processing PDF page with PDF.js');
 
         const page = await pdfDocument.getPage(pageNum);
         const textContent = await page.getTextContent();
@@ -92,20 +96,20 @@ const extractPdfContent = async (pdfUrl: string): Promise<string> => {
         extractedText += pageText + '\n';
       }
 
-      console.log(`📄 PDF.js extracted ${extractedText.length} characters`);
-      console.log(`📄 Content preview:`, extractedText.substring(0, 200));
+      logger.debug({ length: extractedText.length }, 'PDF.js extracted characters');
+      logger.debug({ preview: extractedText.substring(0, 200) }, 'PDF.js content preview');
 
       if (extractedText.trim().length > 50) {
         return cleanPdfText(extractedText);
       }
     } catch (pdfjsError) {
-      console.error(`❌ PDF.js extraction failed:`, pdfjsError);
+      logger.error({ err: pdfjsError }, 'PDF.js extraction failed');
     }
 
-    console.log(`📄 Text extraction failed, will need Vision API processing for image-based PDF`);
+    logger.info('Text extraction failed; Vision API may be needed');
     return '';
   } catch (error) {
-    console.error(`❌ Failed to extract PDF content:`, error);
+    logger.error({ err: error }, 'Failed to extract PDF content');
     return '';
   }
 };
@@ -139,7 +143,10 @@ const handleInteractiveMenus = async (page: Page, meta: RestaurantMetaProps): Pr
   const currentDayName = dayNames[currentDayIndex];
   const currentDayNameEn = dayNamesEn[currentDayIndex];
 
-  console.log(`🗓️ Today is ${currentDayName}/${currentDayNameEn}, looking for interactive day tabs`);
+  logger.info(
+    { sv: currentDayName, en: currentDayNameEn },
+    'Looking for interactive day tabs for today',
+  );
 
   try {
     // Look for interactive day tabs/buttons
@@ -216,7 +223,7 @@ const handleInteractiveMenus = async (page: Page, meta: RestaurantMetaProps): Pr
     );
 
     if (dayTabClicked) {
-      console.log(`✅ Clicked on ${currentDayName} tab, waiting for content to load`);
+      logger.info({ day: currentDayName }, 'Clicked day tab; waiting for content');
       await new Promise((resolve) => globalThis.setTimeout(resolve, 2000)); // Wait for dynamic content
 
       // Wait for any loading indicators to disappear
@@ -225,13 +232,13 @@ const handleInteractiveMenus = async (page: Page, meta: RestaurantMetaProps): Pr
           timeout: 5000,
         });
       } catch {
-        console.log(`⚠️ Error waiting for loading indicators to disappear for ${meta.title}`);
+        logger.warn({ title: meta.title }, 'Error waiting for loading indicators to disappear');
       }
     } else {
-      console.log(`ℹ️ No interactive day tabs found for ${meta.title}`);
+      logger.info({ title: meta.title }, 'No interactive day tabs found');
     }
   } catch (error) {
-    console.log(`⚠️ Error handling interactive menus: ${error}`);
+    logger.warn({ err: error }, 'Error handling interactive menus');
   }
 };
 
@@ -248,7 +255,7 @@ const buildPageContent = async (
     );
     await page.setExtraHTTPHeaders({ Referer: url });
   } catch {
-    console.log(`⚠️ Error setting user agent or headers for ${meta.title}`);
+    logger.warn({ title: meta.title }, 'Error setting user agent or headers');
   }
 
   await page.goto(url, { waitUntil: 'networkidle2', timeout: TIMEOUT });
@@ -267,8 +274,9 @@ const buildPageContent = async (
     const originalHtml = await page.content();
     const cleanedContent: CleanedPageContent = await page.evaluate(extractCleanContent);
     const metrics = getOptimizationMetrics(originalHtml, cleanedContent);
-    console.log(
-      `📊 Content optimization: ${metrics.percentSaved}% reduction (${metrics.originalTokens} → ${metrics.cleanedTokens} tokens)`,
+    logger.info(
+      { percentSaved: metrics.percentSaved, original: metrics.originalTokens, cleaned: metrics.cleanedTokens },
+      'Content optimization metrics',
     );
     content = {
       html: cleanedContent.html,
@@ -400,7 +408,7 @@ const extractDishesWithFallback = async (
   };
 
   // STEP 1: Try text extraction (without images first)
-  console.log(`🔍 Attempt 1: Text extraction from HTML`);
+  logger.info('Attempt 1: Text extraction from HTML');
   const textOnlyContent: PageContent = {
     ...content,
     text: locationFilter ? narrowTextByLocation(content.text) : content.text,
@@ -410,24 +418,28 @@ const extractDishesWithFallback = async (
   const textResult = await extractMenuWithAI(textOnlyContent, meta, locationFilter);
   const acceptText = textResult.dishes.length > 0 && (config.development || textResult.confidence >= minConfidence);
   if (acceptText) {
-    console.log(
-      `✅ Step 1 SUCCESS: ${textResult.dishes.length} dishes from text (confidence: ${textResult.confidence}, threshold: ${minConfidence}${
-        config.development ? ' - dev mode' : ''
-      })${locationFilter ? ` [filter: ${locationFilter}]` : ''}`,
+    logger.info(
+      {
+        count: textResult.dishes.length,
+        confidence: textResult.confidence,
+        minConfidence,
+        dev: !!config.development,
+        locationFilter,
+      },
+      'Step 1 SUCCESS: dishes from text',
     );
     return textResult.dishes;
   } else if (textResult.dishes.length > 0) {
-    console.log(
-      `ℹ️ Step 1 low confidence: ${textResult.confidence} < ${minConfidence}, trying PDF...${
-        locationFilter ? ` [filter: ${locationFilter}]` : ''
-      }`,
+    logger.info(
+      { confidence: textResult.confidence, minConfidence, locationFilter },
+      'Step 1 low confidence; trying PDF',
     );
   } else {
-    console.log(`ℹ️ Step 1: No dishes found in text content`);
+    logger.info('Step 1: No dishes found in text content');
   }
 
   // STEP 2: Try PDF extraction
-  console.log(`📄 Attempt 2: PDF link detection and processing`);
+  logger.info('Attempt 2: PDF link detection and processing');
   const pdfUrl = await page.evaluate(() => {
     const lunchKeywords = ['lunch', 'lunchmeny', 'dagens lunch', 'veckans lunch', 'weekly menu', 'week'];
     const generalMenuKeywords = ['meny', 'menu'];
@@ -480,7 +492,7 @@ const extractDishesWithFallback = async (
   });
 
   if (pdfUrl) {
-    console.log(`📄 Found PDF menu: ${pdfUrl}`);
+    logger.info({ pdfUrl }, 'Found PDF menu');
     const pdfText = await extractPdfContent(pdfUrl);
 
     if (pdfText && pdfText.trim().length > 50) {
@@ -494,21 +506,21 @@ const extractDishesWithFallback = async (
 
       const pdfResult = await extractMenuWithAI(pdfContent, meta, locationFilter);
       if (pdfResult.dishes.length > 0) {
-        console.log(`✅ Step 2 SUCCESS: ${pdfResult.dishes.length} dishes from PDF`);
+        logger.info({ count: pdfResult.dishes.length }, 'Step 2 SUCCESS: dishes from PDF');
         return pdfResult.dishes;
       } else {
-        console.log(`ℹ️ Step 2: PDF found but no dishes extracted (confidence: ${pdfResult.confidence})`);
+        logger.info({ confidence: pdfResult.confidence }, 'Step 2: PDF found but no dishes extracted');
       }
     } else {
-      console.log(`ℹ️ Step 2: PDF text extraction failed or insufficient content`);
+      logger.info('Step 2: PDF text extraction failed or insufficient content');
     }
   } else {
-    console.log(`ℹ️ Step 2: No PDF links detected`);
+    logger.info('Step 2: No PDF links detected');
   }
 
   // STEP 3: Try image extraction (Vision API)
   if (content.images && content.images.length > 0) {
-    console.log(`🖼️ Attempt 3: Image extraction with Vision API`);
+    logger.info('Attempt 3: Image extraction with Vision API');
     const imageOnlyContent: PageContent = {
       html: '',
       text: '',
@@ -519,17 +531,17 @@ const extractDishesWithFallback = async (
 
     const imageResult = await extractMenuWithAI(imageOnlyContent, meta, locationFilter);
     if (imageResult.dishes.length > 0) {
-      console.log(`✅ Step 3 SUCCESS: ${imageResult.dishes.length} dishes from images`);
+      logger.info({ count: imageResult.dishes.length }, 'Step 3 SUCCESS: dishes from images');
       return imageResult.dishes;
     } else {
-      console.log(`ℹ️ Step 3: Images found but no dishes extracted (confidence: ${imageResult.confidence})`);
+      logger.info({ confidence: imageResult.confidence }, 'Step 3: Images found but no dishes extracted');
     }
   } else {
-    console.log(`ℹ️ Step 3: No images found for Vision API processing`);
+    logger.info('Step 3: No images found for Vision API processing');
   }
 
   // STEP 4: Wait and retry text extraction for slow-loading content
-  console.log(`⏳ Attempt 4: Waiting for slow-loading content and retrying text extraction`);
+  logger.info('Attempt 4: Waiting for slow-loading content and retrying text extraction');
   await new Promise((resolve) => globalThis.setTimeout(resolve, 7000)); // Wait 7 seconds for dynamic content
 
   // Re-extract content after waiting
@@ -560,13 +572,13 @@ const extractDishesWithFallback = async (
 
   const retryResult = await extractMenuWithAI(retryTextContent, meta, locationFilter);
   if (retryResult.dishes.length > 0) {
-    console.log(`✅ Step 4 SUCCESS: ${retryResult.dishes.length} dishes from delayed text extraction`);
+    logger.info({ count: retryResult.dishes.length }, 'Step 4 SUCCESS: dishes from delayed text extraction');
     return retryResult.dishes;
   } else {
-    console.log(`ℹ️ Step 4: Still no dishes after waiting for dynamic content`);
+    logger.info('Step 4: Still no dishes after waiting for dynamic content');
   }
 
-  console.log(`❌ All 4 extraction attempts failed${locationFilter ? ` for filter ${locationFilter}` : ''}`);
+  logger.warn({ locationFilter }, 'All 4 extraction attempts failed');
   return [];
 };
 
@@ -581,7 +593,7 @@ const scrapeFromUrl = async (
     const { content, pdfLinks } = await buildPageContent(page, meta, url);
     return await extractDishesWithFallback(page, content, meta, pdfLinks, locationFilter);
   } catch (error) {
-    console.error(`❌ Error scraping ${meta.title}${locationFilter ? ` [${locationFilter}]` : ''}:`, error);
+    logger.error({ title: meta.title, locationFilter, err: error }, 'Error scraping');
     return [];
   }
 };
@@ -731,7 +743,7 @@ const processRestaurants = async (browser: Browser, metas: RestaurantMetaProps[]
         };
         return restaurant;
       } catch (error) {
-        console.error(`❌ Error processing ${meta.title}:`, error);
+        logger.error({ title: meta.title, err: error }, 'Error processing restaurant');
         return null;
       } finally {
         await page.close();
@@ -742,10 +754,13 @@ const processRestaurants = async (browser: Browser, metas: RestaurantMetaProps[]
     const validRestaurants = batchResults.filter((r): r is RestaurantProps => r !== null);
     restaurants.push(...validRestaurants);
 
-    console.log(
-      `Processed batch ${Math.ceil((i + 1) / MAX_CONCURRENT)}/${Math.ceil(metas.length / MAX_CONCURRENT)}: ${
-        validRestaurants.length
-      } restaurants`,
+    logger.info(
+      {
+        batch: Math.ceil((i + 1) / MAX_CONCURRENT),
+        totalBatches: Math.ceil(metas.length / MAX_CONCURRENT),
+        processed: validRestaurants.length,
+      },
+      'Processed restaurant batch',
     );
   }
 
@@ -754,7 +769,7 @@ const processRestaurants = async (browser: Browser, metas: RestaurantMetaProps[]
 
 // Main scraping logic - can be called directly or via HTTP
 export const runScraping = async (): Promise<Scrape> => {
-  console.log('🚀 Starting AI-powered restaurant scraping...');
+  logger.info('Starting AI-powered restaurant scraping');
 
   const browser = await puppeteer.launch({
     args: !config.development ? ['--disable-gpu'] : [],
@@ -764,11 +779,11 @@ export const runScraping = async (): Promise<Scrape> => {
   try {
     // Get restaurant metadata
     const metas = getRestaurantMetas();
-    console.log(`📋 Found ${metas.length} restaurants to scrape`);
+    logger.info({ count: metas.length }, 'Found restaurants to scrape');
 
     // Process all restaurants
     const restaurants = await processRestaurants(browser, metas);
-    console.log(`✅ Completed scraping: ${restaurants.length} restaurants processed`);
+    logger.info({ count: restaurants.length }, 'Completed scraping');
 
     await browser.close();
 
@@ -785,7 +800,7 @@ export const runScraping = async (): Promise<Scrape> => {
 
       const localFilePath = path.join(process.cwd(), 'scrape.json');
       await fs.writeFile(localFilePath, JSON.stringify(scrape, null, 2));
-      console.log(`💾 Saved ${scrape.restaurants.length} restaurants to local file: ${localFilePath}`);
+      logger.info({ count: scrape.restaurants.length, path: localFilePath }, 'Saved restaurants to local file');
     } else {
       // Production: upload to storage
       if (!scrape?.restaurants?.length) {
@@ -794,12 +809,12 @@ export const runScraping = async (): Promise<Scrape> => {
 
       const bucket = storage.bucket(BUCKET_NAME);
       await bucket.file('scrape.json').save(JSON.stringify(scrape));
-      console.log(`☁️ Uploaded ${scrape.restaurants.length} restaurants to cloud storage`);
+      logger.info({ count: scrape.restaurants.length }, 'Uploaded restaurants to cloud storage');
     }
 
     return scrape;
   } catch (error) {
-    console.error('❌ Scraping failed:', error);
+    logger.error({ err: error }, 'Scraping failed');
     await browser.close();
     throw error;
   }
@@ -811,7 +826,7 @@ ff.http('scrape', async (_: ff.Request, res: ff.Response) => {
     const scrape = await runScraping();
     res.json(scrape);
   } catch (error) {
-    console.error('❌ Scraping failed:', error);
+    logger.error({ err: error }, 'Scraping failed');
     res.sendStatus(500);
   }
 });
@@ -820,11 +835,11 @@ ff.http('scrape', async (_: ff.Request, res: ff.Response) => {
 if (import.meta.url === `file://${process.argv[1]}`) {
   runScraping()
     .then(() => {
-      console.log('🎉 Scraping completed successfully!');
+      logger.info('Scraping completed successfully');
       process.exit(0);
     })
     .catch((error) => {
-      console.error('❌ Direct scraping failed:', error);
+      logger.error({ err: error }, 'Direct scraping failed');
       process.exit(1);
     });
 }

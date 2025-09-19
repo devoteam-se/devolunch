@@ -1,6 +1,7 @@
 import React, { Component, ErrorInfo, ReactNode } from 'react';
 import { css } from '@emotion/react';
 import { color } from '../utils/theme';
+import { logger } from '@devolunch/shared/logger/browser';
 
 interface Props {
   children: ReactNode;
@@ -98,7 +99,7 @@ class ErrorBoundary extends Component<Props, State> {
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.error('Error caught by ErrorBoundary:', error, errorInfo);
+    logger.error({ err: error, errorInfo }, 'Error caught by ErrorBoundary');
 
     this.setState({
       error,

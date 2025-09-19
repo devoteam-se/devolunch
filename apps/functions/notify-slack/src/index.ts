@@ -4,6 +4,7 @@ import FormData from 'form-data';
 import { Storage } from '@google-cloud/storage';
 import { DishCollectionProps, RestaurantProps } from '@devolunch/shared';
 import { createConfig } from './config.js';
+import { logger } from '@devolunch/shared/logger/node';
 
 const BUCKET_NAME = 'devolunchv2';
 
@@ -85,7 +86,7 @@ ff.http('notify-slack', async (_: ff.Request, res: ff.Response) => {
       throw new Error(`Server error ${response.status}`);
     }
   } catch (err) {
-    console.error(err);
+    logger.error({ err }, 'Slack notification failed');
   }
 
   res.sendStatus(200);

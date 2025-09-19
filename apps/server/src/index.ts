@@ -6,7 +6,7 @@ import cors from 'cors';
 import compression from 'compression';
 
 import { config } from './config';
-import { logger } from './utils/logger';
+import { logger } from '@devolunch/shared/logger/node';
 import routes from './routes';
 
 const __filename = fileURLToPath(import.meta.url);

@@ -1,6 +1,7 @@
 import { v2 } from '@google-cloud/translate';
 
 import { config } from '../config.js';
+import { logger } from '@devolunch/shared/logger/node';
 import { DishProps, RestaurantProps, RestaurantLocation } from '@devolunch/shared';
 
 const translate = new v2.Translate({
@@ -9,12 +10,12 @@ const translate = new v2.Translate({
 
 export const translateText = async (from: string, to: string, originalText: DishProps['title']) => {
   if (!originalText?.length) {
-    console.error('Text to translate is not defined');
+    logger.error('Text to translate is not defined');
     return '';
   }
 
   if (!from?.length || !to?.length) {
-    console.error(`Either 'from' or 'to' language is not defined, to: ${to}, from: ${from}`);
+    logger.error(`Either 'from' or 'to' language is not defined, to: ${to}, from: ${from}`);
     return '';
   }
 
@@ -65,15 +66,15 @@ const translateRestaurant = async (restaurant: RestaurantProps) => {
       }),
     );
   } catch (err: unknown) {
-    console.error("Can't reach google translate service");
-    console.error(err);
+    logger.error("Can't reach google translate service");
+    logger.error({ err }, 'Translation error');
   }
   return restaurant;
 };
 
 export const translateRestaurants = async (restaurants: RestaurantProps[]) => {
   if (config.development) {
-    console.log('🔧 Development mode: Skipping translation service');
+    logger.info('Development mode: Skipping translation service');
     // In development, just add English dishes as copies of Swedish (top-level and locations)
     return restaurants.map((restaurant) => ({
       ...restaurant,

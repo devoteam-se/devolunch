@@ -1,7 +1,7 @@
 import OpenAI from 'openai';
 import type { ChatCompletionMessageParam, ChatCompletionContentPart } from 'openai/resources/chat/completions';
 import { DishProps, RestaurantMetaProps } from '@devolunch/shared';
-import { logger } from '../utils/logger.js';
+import { logger } from '@devolunch/shared/logger/node';
 
 // Lazy initialize OpenAI client
 let openai: OpenAI | null = null;
@@ -144,7 +144,7 @@ ${instructions}`;
       },
     ];
 
-    console.log(`🖼️  Analyzing ${pageContent.images?.length} images with Vision API`);
+    logger.info({ imageCount: pageContent.images?.length || 0 }, 'Analyzing images with Vision API');
 
     const completion = await getOpenAI().chat.completions.create({
       model: 'gpt-4o', // Vision model required for image analysis
@@ -351,7 +351,7 @@ const parseAIResponse = (responseText: string): MenuExtractionResult => {
       reasoning: parsed.reasoning || 'No reasoning provided',
     };
   } catch (error) {
-    console.error('Failed to parse AI response:', error);
+    logger.error({ err: error }, 'Failed to parse AI response');
     return {
       dishes: [],
       confidence: 0,

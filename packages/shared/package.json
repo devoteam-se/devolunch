@@ -1,10 +1,47 @@
 {
   "name": "@devolunch/shared",
   "version": "1.0.0",
-  "main": "./src/index.ts",
-  "types": "./src/index.ts",
-  "scripts": {},
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./types": {
+      "types": "./dist/types.d.ts",
+      "default": "./dist/types.js"
+    },
+    "./logger/node": {
+      "types": "./dist/logger/node.d.ts",
+      "default": "./dist/logger/node.js"
+    },
+    "./logger/browser": {
+      "types": "./dist/logger/browser.d.ts",
+      "default": "./dist/logger/browser.js"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "logger/node": ["src/logger/node.ts"],
+      "logger/browser": ["src/logger/browser.ts"],
+      "*": ["src/*"]
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "lint": "eslint src --ext ts --max-warnings 0",
+    "format": "prettier --write .",
+    "clean": "rimraf dist"
+  },
+  "peerDependencies": {
+    "typescript": "*",
+    "pino": "^9.10.0"
+  },
+  "devDependencies": {
+    "rimraf": "^6.0.1"
+  },
   "private": true,
-  "dependencies": {},
-  "devDependencies": {}
+  "dependencies": {}
 }

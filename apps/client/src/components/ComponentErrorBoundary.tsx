@@ -1,4 +1,5 @@
 import React, { Component, ErrorInfo, ReactNode } from 'react';
+import { logger } from '@devolunch/shared/logger/browser';
 import { css } from '@emotion/react';
 
 interface Props {
@@ -33,7 +34,7 @@ class ComponentErrorBoundary extends Component<Props, State> {
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     const componentName = this.props.componentName || 'Unknown Component';
-    console.error(`Error in ${componentName}:`, error, errorInfo);
+    logger.error({ err: error, errorInfo, componentName }, 'Component error');
 
     // You could report component-specific errors here
     // reportComponentError(componentName, error, errorInfo);

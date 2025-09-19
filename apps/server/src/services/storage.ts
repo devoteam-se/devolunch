@@ -1,5 +1,5 @@
 import { Storage } from '@google-cloud/storage';
-import { logger } from '../utils/logger';
+import { logger } from '@devolunch/shared/logger/node';
 
 const BUCKET_NAME = 'devolunchv2';
 const LOCAL_SCRAPER_URL = 'http://localhost:8081';
