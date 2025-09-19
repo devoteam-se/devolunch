@@ -1,122 +1,66 @@
-# Scraper
+Scraper
 
-The scraper picks up all restaurants that are located in `/src/restaurants`.
+Overview
+- Google Cloud Function (v2) that scrapes restaurant lunch menus and writes a daily JSON to Cloud Storage.
+- Headless navigation via Puppeteer with multiple extraction strategies:
+  - Text extraction from HTML (content cleaner reduces noise)
+  - PDF extraction: pdf-parse first; fallback to pdfjs-dist for image-based PDFs
+  - Image extraction via OpenAI Vision when needed
+- Structured logging via @devolunch/shared/logger (Pino), designed for GCP logs.
 
-You can decide either to scrape a website or a PDF on a website.
+Local Development
+- Start HTTP function locally: `pnpm -F scraper-cloud-function start` (functions-framework on port 8081)
+- Run one-off scrape: `pnpm -F scraper-cloud-function scrape`
+- Build only: `pnpm -F scraper-cloud-function build`
+- During development, the result is also written to `apps/functions/scraper/scrape.json` (ignored by git).
 
-Here are two different examples on how to parse the DOM of the website, to either extract an array of dishes or extract the link to the PDF:
+Configuration
+- Env vars (see `src/config.ts`):
+  - `NODE_ENV`: set to `development` for local runs (enables local file output)
+  - `DEFAULT_LANGUAGE` (default: `sv`)
+  - `TRANSLATE_LANGUAGES` (comma-separated, default: `en`)
+  - `USE_CONTENT_CLEANER` (default: true; set `false` to disable)
+- Secrets/credentials: use your local environment or GCP runtime config for Google APIs and OpenAI.
+- Logging level via `LOG_LEVEL` (info by default).
 
-### Get array of dishes from DOM:
+How Extraction Works
+1) Try extracting dishes from cleaned page text (fastest path)
+2) Detect and parse PDFs when helpful (pdf-parse; fallback to PDF.js)
+3) If images likely contain the menu, use OpenAI Vision to extract text
+4) If dynamic content loads slowly, wait and retry text extraction
+5) Translate dishes to additional languages if configured
+6) Upload `scrape.json` to the configured bucket in non-development mode
 
-```ts
-import { Page } from 'puppeteer';
-
-export const meta = {
-  title: 'Stora Varvsgatan',
-  url: 'https://storavarvsgatan6.se/meny.html',
-  imageUrl:
-    'https://storavarvsgatan6.se/____impro/1/onewebmedia/foodiesfeed.com_close-up-on-healthy-green-broccoli%20%28kopia%29.jpg?etag=%226548df-5f256567%22&sourceContentType=image%2Fjpeg&ignoreAspectRatio&resize=1900%2B1267&extract=81%2B0%2B939%2B1190&quality=85',
-  googleMapsUrl: 'https://goo.gl/maps/5YUuxPzsMSg5kmK98',
-  latitude: 55.612390477729015,
-  longitude: 12.991505487495564,
-};
-
-export const browserScrapeFunction = (page: Page) =>
-  page.evaluate(() => {
-    const today = [...document.querySelectorAll('p')]?.find((e) =>
-      e?.textContent?.toLowerCase()?.includes(new Date()?.toLocaleString('sv-SE', { weekday: 'long' })),
-    );
-    const meat = today?.nextElementSibling?.textContent;
-    const veg = today?.nextElementSibling?.nextElementSibling?.textContent;
-
-    return [
-      {
-        type: 'meat' as const,
-        description: meat,
-      },
-      {
-        type: 'veg' as const,
-        description: veg,
-      },
-    ];
-  });
-```
-
-### Get URL to PDF from DOM and parse array of dishes from PDF:
-
-```ts
-import { Page } from 'puppeteer';
-import pdf from 'pdf-parse';
-
-export const meta = {
-  title: 'BISe',
-  url: 'https://bise.se/lunch',
-  imageUrl:
-    'https://bise.se/_next/image?url=https%3A%2F%2Fcms.bise.se%2Fwp-content%2Fuploads%2F2022%2F10%2FLunch_Bise.jpeg&w=1080&q=75',
-  googleMapsUrl: 'https://goo.gl/maps/9hmQUctdgeNvVSuF8',
-  latitude: 55.60675917303053,
-  longitude: 12.996173056055413,
-};
-
-export const pdfScrapeFunction = async (url: string) => {
-  if (!url) {
-    return [];
+Restaurant Metadata
+- Restaurants are defined in `src/restaurants.ts` as `RestaurantMetaProps[]`.
+- Minimal example:
+  ```ts
+  {
+    title: 'Example Restaurant',
+    url: 'https://example.com/lunch',
+    imageUrl: 'https://example.com/cover.jpg',
+    googleMapsUrl: 'https://maps.app.goo.gl/...',
+    coordinate: { lat: 55.6, lon: 13.0 },
   }
+  ```
+- Helpful optional fields:
+  - `useContentCleaner?: boolean` — override global content cleaner per restaurant
+  - `unknownMealDefault?: 'veg' | 'meat' | 'fish' | 'vegan' | 'misc'` — fallback type when classification is unclear
+  - `multiLocation?`: handle chains with multiple branches
+    - `type: 'shared'` — scrape once, reuse dishes across all provided locations
+    - `type: 'filtered'` — scrape once; use regex filters to narrow content per location
+      - Each location can specify a `locationFilter` (regex or alternation string)
+    - `type: 'separate'` — each location has its own `url` and is scraped separately
 
-  const todaySwedishFormat = new Date()
-    .toLocaleString('sv-SE', {
-      weekday: 'long',
-    })
-    .toLowerCase();
+Output
+- Development: writes `scrape.json` next to the source for quick inspection
+- Production: uploads `scrape.json` to the `devolunchv2` bucket (see `storage` integration in `src/scraper.ts`)
 
-  const f = await fetch(url);
-  const buffer = await f.arrayBuffer();
-  const pdfData = await pdf(Buffer.from(buffer));
+Logging
+- Uses shared Pino logger with GCP severity mapping:
+  - Server-side: `import { logger } from '@devolunch/shared/logger/node'`
+  - Avoid `console.*` in server code; browser `console.*` may appear inside `page.evaluate()` only
 
-  const raw = pdfData.text
-    .split('\n')
-    .map((a: string) =>
-      a
-        .replace(/ {2}|\r\n|\n|\r/gm, '')
-        .replace('’', '')
-        .trim(),
-    )
-    .filter((a: string) => a && !a.startsWith('Warning'));
-
-  const capitalizeFirstLetter = (string: string) => {
-    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
-  };
-
-  const todayMeatIndex = raw.findIndex((a: string) => a.toLowerCase().includes(todaySwedishFormat));
-  const vegIndex = raw.findIndex((a: string) => a.toLowerCase().includes('veckans vegetariska'));
-
-  const todayMeat = {
-    type: 'meat' as const,
-    description: capitalizeFirstLetter(raw[todayMeatIndex + 1]),
-  };
-
-  const veg = {
-    type: 'veg' as const,
-    description: capitalizeFirstLetter(raw[vegIndex + 1]),
-  };
-
-  return [todayMeat, veg];
-};
-
-export const browserScrapeFunction = async (page: Page) => {
-  const url = await page.evaluate(async () => {
-    const lunchNode = [...document.querySelectorAll('a')].find((a) =>
-      a?.innerText?.toLowerCase()?.includes('veckans lunchmeny'),
-    );
-    const url = lunchNode?.getAttribute('href');
-
-    if (!url) {
-      return '';
-    }
-
-    return url;
-  });
-
-  return pdfScrapeFunction(url);
-};
-```
+Notes
+- PDF parsing is opportunistic; the scraper picks the best available source (text/PDF/images).
+- When running locally, ensure Puppeteer can install a Chrome binary (handled by `gcp-build` and `postinstall`).

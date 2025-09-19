@@ -1,6 +1,7 @@
 # Devolunch
 
 <a href="https://github.com/jayway/devolunch/blob/main/LICENSE.md"><img src="https://img.shields.io/npm/l/heroicons.svg" alt="License"></a>
+<a href="./docs/README.md"><img src="https://img.shields.io/badge/docs-available-brightgreen" alt="Docs"></a>
 
 Devolunch is an app that presents today's lunch menu on scraped restaurants. It's hosted on [Google Cloud Platform](https://cloud.google.com/).
 
@@ -65,7 +66,7 @@ The Slack notifier is a simple service that retrieves the data scraped by the [S
 
 <a href="https://github.com/jayway/devolunch/pulls" target="_blank"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs Welcome"></a>
 
-Excited to work alongside you! Follow the instructions in [CONTRIBUTING](./CONTRIBUTING.md) and code away.
+Excited to work alongside you! See [docs](./docs/README.md) for development details, and follow the instructions in [CONTRIBUTING](.github/CONTRIBUTING.md).
 
 # Maintenance
 
