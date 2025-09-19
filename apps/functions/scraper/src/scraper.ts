@@ -1,4 +1,4 @@
-import puppeteer, { Page } from 'puppeteer';
+import puppeteer, { Browser, Page } from 'puppeteer';
 import { Storage } from '@google-cloud/storage';
 import * as ff from '@google-cloud/functions-framework';
 // Import the core pdf-parse function directly to avoid debug code that reads test fixtures
@@ -86,7 +86,9 @@ const extractPdfContent = async (pdfUrl: string): Promise<string> => {
         const textContent = await page.getTextContent();
 
         // Combine all text items
-        const pageText = textContent.items.map((item: any) => item.str).join(' ');
+        const pageText = textContent.items
+          .map((item) => ('str' in item ? item.str : ''))
+          .join(' ');
         extractedText += pageText + '\n';
       }
 
@@ -179,7 +181,7 @@ const handleInteractiveMenus = async (page: Page, meta: RestaurantMetaProps): Pr
                 for (const element of elements) {
                   if (containsText(element, searchText)) {
                     console.log(`📅 Clicking day tab: ${searchText}`);
-                    (element as any).click();
+                    (element as HTMLElement).click();
                     return true;
                   }
                 }
@@ -188,7 +190,7 @@ const handleInteractiveMenus = async (page: Page, meta: RestaurantMetaProps): Pr
               const element = document.querySelector(selector);
               if (element) {
                 console.log(`📅 Clicking day element: ${selector}`);
-                (element as any).click();
+                (element as HTMLElement).click();
                 return true;
               }
             }
@@ -202,7 +204,7 @@ const handleInteractiveMenus = async (page: Page, meta: RestaurantMetaProps): Pr
         for (const element of allClickables) {
           if (containsText(element, dayName) || containsText(element, dayNameEn)) {
             console.log(`📅 Clicking found day element with text: ${element.textContent?.substring(0, 50)}`);
-            (element as any).click();
+            (element as HTMLElement).click();
             return true;
           }
         }
@@ -340,12 +342,12 @@ const buildPageContent = async (
     // Embedded PDF viewers
     document.querySelectorAll('embed[src], iframe[src], object[data]')?.forEach((el: Element) => {
       const tag = el.tagName.toLowerCase();
-      const type = (el as any).type ? String((el as any).type).toLowerCase() : '';
+      const type = (el as HTMLElement & { type?: string }).type ? String((el as HTMLElement & { type?: string }).type).toLowerCase() : '';
       if (tag === 'embed' || tag === 'iframe') {
-        const src = (el as any).getAttribute('src');
+        const src = el.getAttribute('src');
         if (/\.pdf(\b|[?#])/i.test(src || '') || type.includes('pdf')) add(src);
       } else if (tag === 'object') {
-        const data = (el as any).getAttribute('data');
+        const data = el.getAttribute('data');
         if (/\.pdf(\b|[?#])/i.test(data || '') || type.includes('pdf')) add(data);
       }
     });
@@ -585,7 +587,7 @@ const scrapeFromUrl = async (
 };
 
 // Process multiple restaurants and build restaurant data
-const processRestaurants = async (browser: any, metas: RestaurantMetaProps[]): Promise<RestaurantProps[]> => {
+const processRestaurants = async (browser: Browser, metas: RestaurantMetaProps[]): Promise<RestaurantProps[]> => {
   const restaurants: RestaurantProps[] = [];
   const MAX_CONCURRENT = 5;
 

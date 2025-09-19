@@ -67,6 +67,19 @@ The Slack notifier is a simple service that retrieves the data scraped by the [S
 
 Excited to work alongside you! Follow the instructions in [CONTRIBUTING](./CONTRIBUTING.md) and code away.
 
+# Maintenance
+
+## Automated Dependency Updates
+
+This project uses [Renovate](https://renovatebot.com/) for automated dependency management:
+
+- 📅 **Weekly Updates**: Dependencies are updated every Monday morning
+- 🔒 **Security First**: Vulnerability alerts trigger immediate updates
+- 🚀 **Auto-merge**: Safe updates (patch/minor dev dependencies) merge automatically
+- 📊 **Grouped Updates**: Related packages updated together (React, TypeScript, etc.)
+
+See [docs/DEPENDENCY_MANAGEMENT.md](./docs/DEPENDENCY_MANAGEMENT.md) for detailed setup and configuration information.
+
 # TODO
 
 - [x] Make open source

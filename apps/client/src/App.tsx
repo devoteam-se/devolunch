@@ -3,7 +3,8 @@ import { css, Global } from '@emotion/react';
 import Header from '@/components/Header';
 import Main from '@/components/Main';
 import Footer from '@/components/Footer';
-import { useRestaurants } from '@/contexts/restaurants';
+import ComponentErrorBoundary from '@/components/ComponentErrorBoundary';
+import { useRestaurants } from '@/hooks/useRestaurants';
 import { color } from './utils/theme';
 import LoadingSkeleton from './components/LoadingSkeleton';
 
@@ -36,9 +37,15 @@ function App() {
         <LoadingSkeleton />
       ) : !loading && restaurants?.length ? (
         <>
-          <Header scrapeDate={scrapeDate} />
-          <Main restaurants={restaurants} />
-          <Footer />
+          <ComponentErrorBoundary componentName="Header">
+            <Header scrapeDate={scrapeDate} />
+          </ComponentErrorBoundary>
+          <ComponentErrorBoundary componentName="Main Content">
+            <Main restaurants={restaurants} />
+          </ComponentErrorBoundary>
+          <ComponentErrorBoundary componentName="Footer">
+            <Footer />
+          </ComponentErrorBoundary>
         </>
       ) : (
         !loading && !restaurants.length && <div css={noRestaurantsStyles}>Come back later!</div>

@@ -1,0 +1,93 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    ":maintainLockFilesWeekly",
+    ":semanticCommitTypeAll(chore)"
+  ],
+  "timezone": "Europe/Stockholm",
+  "schedule": ["before 6am on Monday"],
+  "prConcurrentLimit": 3,
+  "branchConcurrentLimit": 5,
+  "assignees": ["@adamoldin"],
+  "reviewers": ["@adamoldin"],
+  "packageRules": [
+    {
+      "matchPackagePatterns": ["*"],
+      "rangeStrategy": "bump"
+    },
+    {
+      "groupName": "TypeScript and ESLint",
+      "matchPackageNames": [
+        "typescript",
+        "eslint",
+        "@typescript-eslint/eslint-plugin",
+        "@typescript-eslint/parser"
+      ],
+      "schedule": ["before 6am on Monday"]
+    },
+    {
+      "groupName": "React ecosystem",
+      "matchPackageNames": [
+        "react",
+        "react-dom",
+        "@types/react",
+        "@types/react-dom",
+        "@vitejs/plugin-react"
+      ],
+      "schedule": ["before 6am on Monday"]
+    },
+    {
+      "groupName": "Vite and build tools",
+      "matchPackageNames": [
+        "vite",
+        "vitest",
+        "rollup",
+        "esbuild"
+      ],
+      "schedule": ["before 6am on Monday"]
+    },
+    {
+      "groupName": "Testing libraries",
+      "matchPackageNames": [
+        "@testing-library/react",
+        "@testing-library/jest-dom",
+        "@testing-library/user-event",
+        "jsdom"
+      ],
+      "schedule": ["before 6am on Monday"]
+    },
+    {
+      "matchDepTypes": ["devDependencies"],
+      "automerge": true,
+      "automergeType": "pr",
+      "requiredStatusChecks": null,
+      "matchUpdateTypes": ["patch", "minor"]
+    },
+    {
+      "matchPackageNames": ["node"],
+      "allowedVersions": ">=22.0.0"
+    },
+    {
+      "matchPackageNames": ["pnpm"],
+      "allowedVersions": ">=10.0.0"
+    }
+  ],
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": ["before 6am on Monday"]
+  },
+  "vulnerabilityAlerts": {
+    "enabled": true,
+    "schedule": ["at any time"]
+  },
+  "osvVulnerabilityAlerts": true,
+  "commitMessagePrefix": "chore(deps): ",
+  "commitMessageAction": "update",
+  "commitMessageTopic": "{{depName}}",
+  "commitMessageExtra": "to {{newVersion}}",
+  "prTitle": "{{commitMessagePrefix}}{{commitMessageAction}} {{commitMessageTopic}}{{commitMessageExtra}}",
+  "prBodyTemplate": "This PR updates {{depName}} from {{currentVersion}} to {{newVersion}}.\n\n{{{updateType}}} update\n\n{{{notes}}}\n\n{{{changelogs}}}",
+  "labels": ["dependencies", "renovate"],
+  "addLabels": ["automerge"]
+}

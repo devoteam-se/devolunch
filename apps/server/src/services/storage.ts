@@ -1,4 +1,5 @@
 import { Storage } from '@google-cloud/storage';
+import { logger } from '../utils/logger';
 
 const BUCKET_NAME = 'devolunchv2';
 const LOCAL_SCRAPER_URL = 'http://localhost:8081';
@@ -17,10 +18,13 @@ const getLocalScrape = async () => {
     try {
       const fileContent = await fs.readFile(localFilePath, 'utf8');
       const scrapeData = JSON.parse(fileContent);
-      console.log('Using cached local scraper data with', scrapeData.restaurants?.length || 0, 'restaurants');
+      logger.info(
+        { count: scrapeData.restaurants?.length || 0 },
+        'Using cached local scraper data',
+      );
       return scrapeData;
     } catch (_fileError) {
-      console.log('Local JSON file not found, trying scraper endpoint...');
+      logger.info('Local JSON file not found, trying scraper endpoint...');
     }
 
     // Fallback to scraper endpoint if file doesn't exist
@@ -32,14 +36,20 @@ const getLocalScrape = async () => {
     const contentType = response.headers.get('content-type');
     if (contentType && contentType.includes('application/json')) {
       const scrapeData = (await response.json()) as { restaurants?: unknown[] };
-      console.log('Using fresh local scraper data with', scrapeData.restaurants?.length || 0, 'restaurants');
+      logger.info(
+        { count: scrapeData.restaurants?.length || 0 },
+        'Using fresh local scraper data',
+      );
       return scrapeData;
     }
 
-    console.log('Local scraper returned non-JSON response, falling back to cloud storage');
+    logger.warn('Local scraper returned non-JSON response, falling back to cloud storage');
     return null;
   } catch (error) {
-    console.log('Local scraper not available, falling back to cloud storage:', (error as Error).message);
+    logger.warn(
+      { err: error },
+      'Local scraper not available, falling back to cloud storage',
+    );
     return null;
   }
 };

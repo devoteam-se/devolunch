@@ -1,72 +1,14 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import { RestaurantProps, Scrape, Coordinate } from '@devolunch/shared';
+import { RestaurantProps, Coordinate } from '@devolunch/shared';
+import { RestaurantsContext } from './RestaurantsContext';
 import { sortRestaurants } from '@/utils/sort-restaurants';
-
-type ContextType = {
-  loading: boolean;
-  scrapeDate: Date | null;
-  realPosition: boolean;
-  language: string;
-  setLanguage: (language: string) => void;
-  restaurants: RestaurantProps[];
-  setRestaurants: (restaurants: RestaurantProps[]) => void;
-  userPosition: Coordinate | null;
-  setUserPosition: (position: Coordinate | null) => void;
-};
-
-enum Endpoints {
-  RESTAURANTS = '/restaurants',
-}
-
-const API_ROOT_PROD = '/api/v1';
-const API_ROOT_DEV = 'http://localhost:8080/api/v1';
-
-const RestaurantsContext = React.createContext<ContextType | null>(null);
-
-const isDev = import.meta.env.DEV;
-
-export const useRestaurants = () => {
-  const context = useContext(RestaurantsContext);
-  if (!context) {
-    throw new Error('context not defined');
-  }
-  return context;
-};
-
-const rootUrl = isDev ? API_ROOT_DEV : API_ROOT_PROD;
-
-// Request deduplication to prevent duplicate API calls
-let requestInProgress = false;
-let cachedRequest: Promise<Scrape | null> | null = null;
-
-const fetchRestaurants = async (): Promise<Scrape | null> => {
-  // If a request is already in progress, return the same promise
-  if (requestInProgress && cachedRequest) {
-    return cachedRequest;
-  }
-
-  // Mark request as in progress and cache the promise
-  requestInProgress = true;
-  cachedRequest = (async () => {
-    try {
-      const res = await fetch(`${rootUrl}${Endpoints.RESTAURANTS}`);
-      const data = await res.json();
-      return data as Scrape;
-    } catch (_err) {
-      return null;
-    } finally {
-      // Reset flags after request completes
-      requestInProgress = false;
-      cachedRequest = null;
-    }
-  })();
-
-  return cachedRequest;
-};
+import { fetchRestaurants } from '@/utils/api';
+import { APP_CONFIG } from '@/utils/constants';
+import { getUrlParam } from '@/utils/common';
 
 const RestaurantsProvider = ({ children }: { children: React.ReactNode }) => {
-  const [language, setLanguage] = useState<string>('sv');
+  const [language, setLanguage] = useState<string>(APP_CONFIG.DEFAULT_LANGUAGE);
   const [restaurants, setRestaurants] = useState<RestaurantProps[]>([]);
   const [scrapeDate, setScrapeDate] = useState<Date | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -75,27 +17,28 @@ const RestaurantsProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     const get = async () => {
-      const language = new URLSearchParams(window.location.search).get('lang');
+      const urlLanguage = getUrlParam('lang');
 
       setLoading(true);
-      if (language) {
-        setLanguage(language);
+      if (urlLanguage) {
+        setLanguage(urlLanguage);
       }
 
-      const r = await fetchRestaurants();
+      const data = await fetchRestaurants();
 
-      if (r) {
-        setRestaurants(sortRestaurants(r.restaurants));
-        setScrapeDate(new Date(r.date));
+      if (data) {
+        setRestaurants(sortRestaurants(data.restaurants));
+        setScrapeDate(new Date(data.date));
       }
       setLoading(false);
     };
 
     get();
 
-    setInterval(async () => {
-      await get();
-    }, 3600000);
+    const intervalId = setInterval(get, APP_CONFIG.REFRESH_INTERVAL_MS);
+
+    // Cleanup interval on unmount
+    return () => clearInterval(intervalId);
   }, []);
 
   return (

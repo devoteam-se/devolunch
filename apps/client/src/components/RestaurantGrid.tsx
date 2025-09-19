@@ -1,6 +1,7 @@
 import { css } from '@emotion/react';
 
 import Restaurant from '@/components/Restaurant';
+import ComponentErrorBoundary from '@/components/ComponentErrorBoundary';
 import { screenSize } from '@/utils/theme';
 
 import { RestaurantGridProps, RestaurantProps } from '@devolunch/shared';
@@ -32,17 +33,18 @@ export default function RestaurantGrid({ restaurants }: RestaurantGridProps) {
   return (
     <div css={restaurantListStyles}>
       {restaurants?.map((restaurant: RestaurantProps, index: number) => (
-        <Restaurant
-          key={`rest-${index}`}
-          title={restaurant.title}
-          imageUrl={restaurant.imageUrl}
-          imageUrlLowQuality={restaurant.imageUrlLowQuality}
-          coordinate={restaurant.coordinate}
-          url={restaurant.url}
-          dishCollection={restaurant.dishCollection}
-          googleMapsUrl={restaurant.googleMapsUrl}
-          locations={restaurant.locations}
-        />
+        <ComponentErrorBoundary key={`rest-${index}`} componentName={`Restaurant: ${restaurant.title}`}>
+          <Restaurant
+            title={restaurant.title}
+            imageUrl={restaurant.imageUrl}
+            imageUrlLowQuality={restaurant.imageUrlLowQuality}
+            coordinate={restaurant.coordinate}
+            url={restaurant.url}
+            dishCollection={restaurant.dishCollection}
+            googleMapsUrl={restaurant.googleMapsUrl}
+            locations={restaurant.locations}
+          />
+        </ComponentErrorBoundary>
       ))}
     </div>
   );

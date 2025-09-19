@@ -2,7 +2,7 @@ import React from 'react';
 import { css, keyframes } from '@emotion/react';
 
 import SortIcon from '@/assets/sort.svg?react';
-import { useRestaurants } from '@/contexts/restaurants';
+import { useRestaurants } from '@/hooks/useRestaurants';
 import { color } from '@/utils/theme';
 import { sortRestaurants } from '@/utils/sort-restaurants';
 

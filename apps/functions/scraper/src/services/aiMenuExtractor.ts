@@ -1,5 +1,7 @@
 import OpenAI from 'openai';
+import type { ChatCompletionMessageParam, ChatCompletionContentPart } from 'openai/resources/chat/completions';
 import { DishProps, RestaurantMetaProps } from '@devolunch/shared';
+import { logger } from '../utils/logger.js';
 
 // Lazy initialize OpenAI client
 let openai: OpenAI | null = null;
@@ -36,7 +38,10 @@ export const extractMenuWithAI = async (
     const hasMenuImages = pageContent.images && pageContent.images.length > 0;
 
     if (hasMenuImages) {
-      console.log(`🖼️  Found ${pageContent.images?.length} images, using Vision API for menu extraction`);
+      logger.info(
+        { imageCount: pageContent.images?.length || 0 },
+        'Found images; using Vision API for menu extraction',
+      );
       return await extractMenuFromImagesWithAI(pageContent, restaurantMeta, locationFilter);
     }
 
@@ -66,12 +71,15 @@ export const extractMenuWithAI = async (
 
     const rawResult = parseAIResponse(responseText);
     const result = normalizeResult(rawResult);
-    console.log(`🤖 OpenAI extracted ${result.dishes.length} dishes with confidence ${result.confidence}`);
-    console.log(`💭 Reasoning: ${result.reasoning}`);
+    logger.info(
+      { count: result.dishes.length, confidence: result.confidence },
+      'OpenAI extracted dishes',
+    );
+    logger.debug({ reasoning: result.reasoning }, 'AI reasoning');
 
     return result;
   } catch (error) {
-    console.error('❌ AI menu extraction failed:', error);
+    logger.error({ err: error }, 'AI menu extraction failed');
     return {
       dishes: [],
       confidence: 0,
@@ -106,19 +114,19 @@ ${instructions}`;
       const isSupportedFormat = /\.(png|jpe?g|gif|webp)(\?|$)/i.test(imageUrl);
 
       if (isPdf) {
-        console.log(`⚠️ Skipping PDF URL for Vision API: ${imageUrl}`);
+        logger.warn({ imageUrl }, 'Skipping PDF URL for Vision API');
         return false;
       }
 
       if (isDataUrl && !imageUrl.startsWith('data:image/')) {
-        console.log(`⚠️ Skipping non-image data URL: ${imageUrl.substring(0, 50)}...`);
+        logger.warn({ imageUrl: imageUrl.substring(0, 50) + '...' }, 'Skipping non-image data URL');
         return false;
       }
 
       return isSupportedFormat || isDataUrl;
     });
 
-    const messages: any[] = [
+    const messages: ChatCompletionMessageParam[] = [
       {
         role: 'system',
         content:
@@ -127,11 +135,11 @@ ${instructions}`;
       {
         role: 'user',
         content: [
-          { type: 'text', text: visionPrompt },
+          { type: 'text', text: visionPrompt } as ChatCompletionContentPart,
           ...supportedImages.slice(0, 4).map((imageUrl) => ({
             type: 'image_url',
             image_url: { url: imageUrl, detail: 'high' },
-          })),
+          } as ChatCompletionContentPart)),
         ],
       },
     ];
@@ -151,15 +159,18 @@ ${instructions}`;
     }
 
     const rawResult = parseAIResponse(responseText);
-    console.log(`🔍 Raw Vision API response before filtering:`, JSON.stringify(rawResult.dishes, null, 2));
+    logger.debug({ dishes: rawResult.dishes }, 'Raw Vision API response before filtering');
 
     const result = normalizeResult(rawResult);
-    console.log(`🤖 OpenAI Vision extracted ${result.dishes.length} dishes with confidence ${result.confidence}`);
-    console.log(`💭 Reasoning: ${result.reasoning}`);
+    logger.info(
+      { count: result.dishes.length, confidence: result.confidence },
+      'OpenAI Vision extracted dishes',
+    );
+    logger.debug({ reasoning: result.reasoning }, 'AI reasoning');
 
     return result;
   } catch (error) {
-    console.error('❌ Vision API menu extraction failed:', error);
+    logger.error({ err: error }, 'Vision API menu extraction failed');
     return {
       dishes: [],
       confidence: 0,
@@ -330,7 +341,9 @@ const parseAIResponse = (responseText: string): MenuExtractionResult => {
     }
 
     // Validate each dish
-    const validDishes = parsed.dishes.filter((dish: any) => dish.title && typeof dish.title === 'string' && dish.type);
+    const validDishes = parsed.dishes.filter((dish: { title?: string; type?: string }) =>
+      dish.title && typeof dish.title === 'string' && dish.type
+    );
 
     return {
       dishes: validDishes,

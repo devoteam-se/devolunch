@@ -5,10 +5,11 @@ import Dish from '@/components/Dish';
 import LocationIcon from '@/assets/location.svg?react';
 import ExternalLinkIcon from '@/assets/external-link.svg?react';
 import DirectionIcon from '@/assets/direction.svg?react';
-import { useRestaurants } from '@/contexts/restaurants';
+import { useRestaurants } from '@/hooks/useRestaurants';
 import { color } from '@/utils/theme';
 import { calculateDistance } from '@/utils/distance';
-import { DEVOTEAM_LOCATION } from '@/utils/constants';
+import { DEVOTEAM_LOCATION, APP_CONFIG } from '@/utils/constants';
+import { formatDistance } from '@/utils/common';
 
 import { RestaurantProps, DishCollectionProps, DishProps } from '@devolunch/shared';
 import { useProgressiveImg } from '@/hooks/progressive-image';
@@ -223,9 +224,9 @@ export default function Restaurant({
 
   const distanceText = loading
     ? ' '
-    : currentDistance && currentDistance < 1
-    ? `${(currentDistance * 1000)?.toFixed(0)} m`
-    : `${currentDistance?.toFixed(2)} km`;
+    : currentDistance
+    ? formatDistance(currentDistance)
+    : '';
 
   const nextLocation = () => {
     if (hasMultipleLocations) {
@@ -285,7 +286,7 @@ export default function Restaurant({
         ? (() => {
             const dishes =
               currentDishCollection.find((dc: DishCollectionProps) => dc.language === language)?.dishes || [];
-            const visible = expanded ? dishes : dishes.slice(0, 4);
+            const visible = expanded ? dishes : dishes.slice(0, APP_CONFIG.VISIBLE_DISHES_COLLAPSED);
             return (
               <>
                 {visible.map((dish: DishProps, index: number) => (
