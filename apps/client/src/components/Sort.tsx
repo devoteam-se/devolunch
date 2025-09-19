@@ -1,7 +1,7 @@
 import React from 'react';
 import { css, keyframes } from '@emotion/react';
 
-import { ReactComponent as SortIcon } from '@/assets/sort.svg';
+import SortIcon from '@/assets/sort.svg?react';
 import { useRestaurants } from '@/contexts/restaurants';
 import { color } from '@/utils/theme';
 import { sortRestaurants } from '@/utils/sort-restaurants';

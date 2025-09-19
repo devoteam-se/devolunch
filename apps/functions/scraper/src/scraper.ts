@@ -215,7 +215,7 @@ const handleInteractiveMenus = async (page: Page, meta: RestaurantMetaProps): Pr
 
     if (dayTabClicked) {
       console.log(`✅ Clicked on ${currentDayName} tab, waiting for content to load`);
-      await page.waitForTimeout(2000); // Wait for dynamic content
+      await new Promise((resolve) => globalThis.setTimeout(resolve, 2000)); // Wait for dynamic content
 
       // Wait for any loading indicators to disappear
       try {
@@ -250,7 +250,7 @@ const buildPageContent = async (
   }
 
   await page.goto(url, { waitUntil: 'networkidle2', timeout: TIMEOUT });
-  await page.waitForTimeout(1500);
+  await new Promise((resolve) => globalThis.setTimeout(resolve, 1500));
 
   // Handle interactive menus (day tabs, etc.)
   await handleInteractiveMenus(page, meta);
@@ -528,7 +528,7 @@ const extractDishesWithFallback = async (
 
   // STEP 4: Wait and retry text extraction for slow-loading content
   console.log(`⏳ Attempt 4: Waiting for slow-loading content and retrying text extraction`);
-  await page.waitForTimeout(7000); // Wait 7 seconds for dynamic content
+  await new Promise((resolve) => globalThis.setTimeout(resolve, 7000)); // Wait 7 seconds for dynamic content
 
   // Re-extract content after waiting
   const useContentCleaner = meta.useContentCleaner ?? config.useContentCleaner;
@@ -673,7 +673,7 @@ const processRestaurants = async (browser: any, metas: RestaurantMetaProps[]): P
                 const url = loc.url || meta.url;
                 const browser2 = await puppeteer.launch({
                   args: !config.development ? ['--disable-gpu'] : [],
-                  headless: 'new',
+                  headless: true,
                 });
                 const p2 = await browser2.newPage();
                 try {
@@ -756,7 +756,7 @@ export const runScraping = async (): Promise<Scrape> => {
 
   const browser = await puppeteer.launch({
     args: !config.development ? ['--disable-gpu'] : [],
-    headless: 'new',
+    headless: true,
   });
 
   try {

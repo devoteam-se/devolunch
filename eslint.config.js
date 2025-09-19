@@ -123,6 +123,8 @@ export default [
       '**/*.js.map',
       '**/*.mjs',
       '**/dist.*',
+      '**/.cache/**',
+      '**/puppeteer/**',
     ],
   },
 ];

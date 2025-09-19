@@ -1,6 +1,301 @@
 {
-  "date": "2025-09-19T09:12:54.787Z",
+  "date": "2025-09-19T10:01:40.597Z",
   "restaurants": [
+    {
+      "title": "Hyllie Bistro",
+      "url": "https://www.hylliebryggeri.se/meny",
+      "imageUrl": "https://static.wixstatic.com/media/97d700_51961be0108c43cdb423ec5947b3096b~mv2.jpg/v1/crop/x_0,y_0,w_7165,h_4912/fill/w_882,h_604,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Bistro.jpg",
+      "coordinate": {
+        "lat": 55.6122995,
+        "lon": 12.9990657
+      },
+      "googleMapsUrl": "https://goo.gl/maps/dFEmStJASNgim5er5",
+      "dishCollection": [
+        {
+          "language": "sv",
+          "dishes": [
+            {
+              "title": "Aloo Gobi med vitlöksnaan, yoghurt och koriander",
+              "type": "veg"
+            },
+            {
+              "title": "Friterad spätta med kokt nypotatis, dansk remoulad, räkor och dillsallad",
+              "type": "fish"
+            },
+            {
+              "title": "Stormgatans Sillmacka – Gammeldags matjessill, löskokt ägg, dillmajonnäs, rödlök, gräslök och krispig potatis på rågbröd",
+              "type": "fish"
+            },
+            {
+              "title": "Nattbakad lammbringa med röd quinoa, tomatsås, rökt vesterhavsost, kryddrostad panko och machésallad",
+              "type": "meat"
+            }
+          ]
+        },
+        {
+          "language": "en",
+          "dishes": [
+            {
+              "title": "Aloo Gobi med vitlöksnaan, yoghurt och koriander",
+              "type": "veg"
+            },
+            {
+              "title": "Friterad spätta med kokt nypotatis, dansk remoulad, räkor och dillsallad",
+              "type": "fish"
+            },
+            {
+              "title": "Stormgatans Sillmacka – Gammeldags matjessill, löskokt ägg, dillmajonnäs, rödlök, gräslök och krispig potatis på rågbröd",
+              "type": "fish"
+            },
+            {
+              "title": "Nattbakad lammbringa med röd quinoa, tomatsås, rökt vesterhavsost, kryddrostad panko och machésallad",
+              "type": "meat"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Benne Pastabar",
+      "url": "https://bennepastabar.se/",
+      "imageUrl": "https://bennepastabar.se/wp-content/themes/benne/images/benne-pastabar-order.jpg",
+      "coordinate": {
+        "lat": 55.60313716015807,
+        "lon": 13.003559388316905
+      },
+      "googleMapsUrl": "https://maps.app.goo.gl/CE6fKHpjB2wcEUcq7",
+      "locations": [
+        {
+          "title": "Hansa",
+          "googleMapsUrl": "https://maps.app.goo.gl/CE6fKHpjB2wcEUcq7",
+          "coordinate": {
+            "lat": 55.6031381,
+            "lon": 13.0035595
+          },
+          "dishCollection": [
+            {
+              "language": "sv",
+              "dishes": [
+                {
+                  "title": "SLOW TOMATO Naturligt söt och varsamt kokt tomatsås gjord på karamelliserad rödlök, rostad vitlök och färsk basilika. Toppad med lagrad hårdost, baby leaves, basilika och extra virgin olivolja.",
+                  "type": "veg"
+                },
+                {
+                  "title": "GREEN RAGU Vegofärs från Anamma i vår mustiga ragusås smaksatt med färsk rosmarin och lagerblad. Toppad med lagrad hårdost, en vegansk vitlöks-créme fraiche, hackad persilja, nymalen svartpeppar och extra virgin olivolja.",
+                  "type": "veg"
+                },
+                {
+                  "title": "Double Cheese Vår himmelskt krämiga ostsås gjord på taleggio och lagrad hårdost, smaksatt med en generös mängd svartpeppar. Toppad med lagrad hårdost, hackad persilja och nymalen svartpeppar.",
+                  "type": "meat"
+                },
+                {
+                  "title": "SMOKED PIG Nystekt bacon i en krämig vit sås som är smaksatt med svartpeppar. Toppad med lagrad hårdost och hackad persilja.",
+                  "type": "meat"
+                }
+              ]
+            },
+            {
+              "language": "en",
+              "dishes": [
+                {
+                  "title": "SLOW TOMATO Naturligt söt och varsamt kokt tomatsås gjord på karamelliserad rödlök, rostad vitlök och färsk basilika. Toppad med lagrad hårdost, baby leaves, basilika och extra virgin olivolja.",
+                  "type": "veg"
+                },
+                {
+                  "title": "GREEN RAGU Vegofärs från Anamma i vår mustiga ragusås smaksatt med färsk rosmarin och lagerblad. Toppad med lagrad hårdost, en vegansk vitlöks-créme fraiche, hackad persilja, nymalen svartpeppar och extra virgin olivolja.",
+                  "type": "veg"
+                },
+                {
+                  "title": "Double Cheese Vår himmelskt krämiga ostsås gjord på taleggio och lagrad hårdost, smaksatt med en generös mängd svartpeppar. Toppad med lagrad hårdost, hackad persilja och nymalen svartpeppar.",
+                  "type": "meat"
+                },
+                {
+                  "title": "SMOKED PIG Nystekt bacon i en krämig vit sås som är smaksatt med svartpeppar. Toppad med lagrad hårdost och hackad persilja.",
+                  "type": "meat"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Västra hamnen",
+          "googleMapsUrl": "https://maps.app.goo.gl/xPS7Y1yLKt3HGKH4A",
+          "coordinate": {
+            "lat": 55.6107112,
+            "lon": 12.9488093
+          },
+          "dishCollection": [
+            {
+              "language": "sv",
+              "dishes": [
+                {
+                  "title": "SLOW TOMATO Naturligt söt och varsamt kokt tomatsås gjord på karamelliserad rödlök, rostad vitlök och färsk basilika. Toppad med lagrad hårdost, baby leaves, basilika och extra virgin olivolja.",
+                  "type": "veg"
+                },
+                {
+                  "title": "GREEN RAGU Vegofärs från Anamma i vår mustiga ragusås smaksatt med färsk rosmarin och lagerblad. Toppad med lagrad hårdost, en vegansk vitlöks-créme fraiche, hackad persilja, nymalen svartpeppar och extra virgin olivolja.",
+                  "type": "veg"
+                },
+                {
+                  "title": "Double Cheese Vår himmelskt krämiga ostsås gjord på taleggio och lagrad hårdost, smaksatt med en generös mängd svartpeppar. Toppad med lagrad hårdost, hackad persilja och nymalen svartpeppar.",
+                  "type": "meat"
+                },
+                {
+                  "title": "SMOKED PIG Nystekt bacon i en krämig vit sås som är smaksatt med svartpeppar. Toppad med lagrad hårdost och hackad persilja.",
+                  "type": "meat"
+                }
+              ]
+            },
+            {
+              "language": "en",
+              "dishes": [
+                {
+                  "title": "SLOW TOMATO Naturligt söt och varsamt kokt tomatsås gjord på karamelliserad rödlök, rostad vitlök och färsk basilika. Toppad med lagrad hårdost, baby leaves, basilika och extra virgin olivolja.",
+                  "type": "veg"
+                },
+                {
+                  "title": "GREEN RAGU Vegofärs från Anamma i vår mustiga ragusås smaksatt med färsk rosmarin och lagerblad. Toppad med lagrad hårdost, en vegansk vitlöks-créme fraiche, hackad persilja, nymalen svartpeppar och extra virgin olivolja.",
+                  "type": "veg"
+                },
+                {
+                  "title": "Double Cheese Vår himmelskt krämiga ostsås gjord på taleggio och lagrad hårdost, smaksatt med en generös mängd svartpeppar. Toppad med lagrad hårdost, hackad persilja och nymalen svartpeppar.",
+                  "type": "meat"
+                },
+                {
+                  "title": "SMOKED PIG Nystekt bacon i en krämig vit sås som är smaksatt med svartpeppar. Toppad med lagrad hårdost och hackad persilja.",
+                  "type": "meat"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "dishCollection": []
+    },
+    {
+      "title": "Bistro Royal",
+      "url": "https://bistroroyal.se/dagens-ratt/",
+      "imageUrl": "https://cdn42.gastrogate.com/files/29072/bistroroyal-bistro-1-1.jpg",
+      "coordinate": {
+        "lat": 55.6088212,
+        "lon": 13.0009603
+      },
+      "googleMapsUrl": "https://goo.gl/maps/hSqYWPKgWVbSRj2s7",
+      "dishCollection": [
+        {
+          "language": "sv",
+          "dishes": [
+            {
+              "title": "Höstig risotto med sparris och kantareller",
+              "type": "veg"
+            },
+            {
+              "title": "Pankopanerad torskfile med potatispuré, primörer och remouladsås",
+              "type": "fish"
+            },
+            {
+              "title": "Grillad Entrecote med potatisgratäng, primörer och pepparsås",
+              "type": "meat"
+            },
+            {
+              "title": "Kycklingschnitzel med örtsmör, skysås och stekt potatis",
+              "type": "meat"
+            }
+          ]
+        },
+        {
+          "language": "en",
+          "dishes": [
+            {
+              "title": "Höstig risotto med sparris och kantareller",
+              "type": "veg"
+            },
+            {
+              "title": "Pankopanerad torskfile med potatispuré, primörer och remouladsås",
+              "type": "fish"
+            },
+            {
+              "title": "Grillad Entrecote med potatisgratäng, primörer och pepparsås",
+              "type": "meat"
+            },
+            {
+              "title": "Kycklingschnitzel med örtsmör, skysås och stekt potatis",
+              "type": "meat"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Kontrast Västra Hamnen",
+      "url": "https://www.kontrastrestaurang.se/menu/vastra-hamnen?tab=lunch",
+      "imageUrl": "https://cdn.kontrast.swindila.com/kontrastimages/vastrahamnenmenu.jpg",
+      "coordinate": {
+        "lat": 55.6100655,
+        "lon": 12.9737029
+      },
+      "googleMapsUrl": "https://goo.gl/maps/sAfGLCky4RcSUZKw5",
+      "dishCollection": [
+        {
+          "language": "sv",
+          "dishes": [
+            {
+              "title": "Paalak Paneer (Indisk färskost, spenat, vitlök, ingefära)",
+              "type": "veg"
+            },
+            {
+              "title": "Tadka Daal (Gryta på fyra olika gryta linser, vitlök, lök, ingefära)",
+              "type": "veg"
+            },
+            {
+              "title": "Ambersari Cholle (Kikärtsgryta, svart te, lök, vitlök, ingefära)",
+              "type": "veg"
+            },
+            {
+              "title": "Chicken Dhaba Karahi (Curry med lök, tomater, vitlök, ingefära och bockhornsklöverblad.)",
+              "type": "meat"
+            },
+            {
+              "title": "Butter Chicken (Tomat, yoghurt, smör, grädde, kokos)",
+              "type": "meat"
+            },
+            {
+              "title": "Lahori Karahi (Lök, vitlök, tomat, ingefära, bockhornsklöver)",
+              "type": "meat"
+            }
+          ]
+        },
+        {
+          "language": "en",
+          "dishes": [
+            {
+              "title": "Paalak Paneer (Indisk färskost, spenat, vitlök, ingefära)",
+              "type": "veg"
+            },
+            {
+              "title": "Tadka Daal (Gryta på fyra olika gryta linser, vitlök, lök, ingefära)",
+              "type": "veg"
+            },
+            {
+              "title": "Ambersari Cholle (Kikärtsgryta, svart te, lök, vitlök, ingefära)",
+              "type": "veg"
+            },
+            {
+              "title": "Chicken Dhaba Karahi (Curry med lök, tomater, vitlök, ingefära och bockhornsklöverblad.)",
+              "type": "meat"
+            },
+            {
+              "title": "Butter Chicken (Tomat, yoghurt, smör, grädde, kokos)",
+              "type": "meat"
+            },
+            {
+              "title": "Lahori Karahi (Lök, vitlök, tomat, ingefära, bockhornsklöver)",
+              "type": "meat"
+            }
+          ]
+        }
+      ]
+    },
     {
       "title": "Lokal 17",
       "url": "https://lokal17.se/",
@@ -33,6 +328,2045 @@
             },
             {
               "title": "Fläsklägg-surkål-brynt smör-bacon- potatisstomp",
+              "type": "meat"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "MiaMarias",
+      "url": "https://miamarias.nu/lunch/",
+      "imageUrl": "https://i0.wp.com/www.takemetosweden.be/wp-content/uploads/2019/07/MiaMarias-Malm%C3%B6-1.png?w=500&ssl=1",
+      "coordinate": {
+        "lat": 55.6134471,
+        "lon": 12.9921145
+      },
+      "googleMapsUrl": "https://goo.gl/maps/RrRffZzgebREQpwB7",
+      "dishCollection": [
+        {
+          "language": "sv",
+          "dishes": [
+            {
+              "title": "Gnocchi med gorgonzola, champinjoner och grönkål",
+              "type": "veg"
+            },
+            {
+              "title": "Soja och ingefärsmarinerad kummel serveras med sesamstekta bönor, ris och varmt, brynt limesmör",
+              "type": "fish"
+            },
+            {
+              "title": "Torsk med saffransås, chorizosmulor, rostad potatis och friterad grönkål",
+              "type": "fish"
+            },
+            {
+              "title": "Örtmarinerad kycklingfilé med klyftpotatis, grekisk sallad och tzatziki",
+              "type": "meat"
+            }
+          ]
+        },
+        {
+          "language": "en",
+          "dishes": [
+            {
+              "title": "Gnocchi med gorgonzola, champinjoner och grönkål",
+              "type": "veg"
+            },
+            {
+              "title": "Soja och ingefärsmarinerad kummel serveras med sesamstekta bönor, ris och varmt, brynt limesmör",
+              "type": "fish"
+            },
+            {
+              "title": "Torsk med saffransås, chorizosmulor, rostad potatis och friterad grönkål",
+              "type": "fish"
+            },
+            {
+              "title": "Örtmarinerad kycklingfilé med klyftpotatis, grekisk sallad och tzatziki",
+              "type": "meat"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Niagara",
+      "url": "https://restaurangniagara.se/lunch/",
+      "imageUrl": "https://restaurangniagara.se/wp-content/uploads/2024/10/NIAGARA-27.webp",
+      "coordinate": {
+        "lat": 55.6087223,
+        "lon": 12.9941398
+      },
+      "googleMapsUrl": "https://goo.gl/maps/5SAyzPUHhb2xrNXRA",
+      "dishCollection": [
+        {
+          "language": "sv",
+          "dishes": [
+            {
+              "title": "Raggmunkar med bakat äpple, krämig waldorfsallad, valnötter och krasse",
+              "type": "veg"
+            },
+            {
+              "title": "Vegetarisk fried rice med 64°C ägg, sojabönor, morot, pak choi och koriander",
+              "type": "veg"
+            },
+            {
+              "title": "Klassiska wallenbergare med potatispuré, brynt smör, lingon, gröna ärtor och persilja(L/G)",
+              "type": "meat"
+            },
+            {
+              "title": "Bibimbap, soja bakat fläsk med 64°C ägg, kimchi, red dragon sås, koriandersallad och ris",
+              "type": "meat"
+            }
+          ]
+        },
+        {
+          "language": "en",
+          "dishes": [
+            {
+              "title": "Raggmunkar med bakat äpple, krämig waldorfsallad, valnötter och krasse",
+              "type": "veg"
+            },
+            {
+              "title": "Vegetarisk fried rice med 64°C ägg, sojabönor, morot, pak choi och koriander",
+              "type": "veg"
+            },
+            {
+              "title": "Klassiska wallenbergare med potatispuré, brynt smör, lingon, gröna ärtor och persilja(L/G)",
+              "type": "meat"
+            },
+            {
+              "title": "Bibimbap, soja bakat fläsk med 64°C ägg, kimchi, red dragon sås, koriandersallad och ris",
+              "type": "meat"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Quanbyquan",
+      "url": "https://quanbyquan.se/",
+      "imageUrl": "https://quanbyquan.se/wp-content/uploads/2019/09/Quan_Recept_08-1.jpg",
+      "coordinate": {
+        "lat": 55.605522,
+        "lon": 12.9980674
+      },
+      "googleMapsUrl": "https://goo.gl/maps/5xyoBjWuU9vUcD6V8",
+      "dishCollection": [
+        {
+          "language": "sv",
+          "dishes": [
+            {
+              "title": "YUZU SALMON - Grillad lax, quan taresås, ris, sallad.",
+              "type": "fish"
+            },
+            {
+              "title": "TODAY’S SPECIAL - Dagens rätt tillagat på de färskaste råvarorna från köket.",
+              "type": "meat"
+            },
+            {
+              "title": "KOREAN RAMEN - Kryddig ramensoppa, kyckling, broccoli, sidfläsk, jordnötter.",
+              "type": "meat"
+            },
+            {
+              "title": "QUAN SOBA - Stekta nudlar med entrecôte, säsongens primörer, picklad ingefära.",
+              "type": "meat"
+            }
+          ]
+        },
+        {
+          "language": "en",
+          "dishes": [
+            {
+              "title": "YUZU SALMON - Grillad lax, quan taresås, ris, sallad.",
+              "type": "fish"
+            },
+            {
+              "title": "TODAY’S SPECIAL - Dagens rätt tillagat på de färskaste råvarorna från köket.",
+              "type": "meat"
+            },
+            {
+              "title": "KOREAN RAMEN - Kryddig ramensoppa, kyckling, broccoli, sidfläsk, jordnötter.",
+              "type": "meat"
+            },
+            {
+              "title": "QUAN SOBA - Stekta nudlar med entrecôte, säsongens primörer, picklad ingefära.",
+              "type": "meat"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Saltimporten",
+      "url": "https://www.saltimporten.com/",
+      "imageUrl": "https://www.saltimporten.com/media/IMG_6253-512x512.jpg",
+      "coordinate": {
+        "lat": 55.616089,
+        "lon": 12.9971181
+      },
+      "googleMapsUrl": "https://goo.gl/maps/9rn3svDPeGUDaeXUA",
+      "dishCollection": [
+        {
+          "language": "sv",
+          "dishes": [
+            {
+              "title": "Fläsksida / Pujolök / Körvel / Vitböna",
+              "type": "meat"
+            },
+            {
+              "title": "Oxtartar / Kikärta / Ras el hanout / Radicchio",
+              "type": "meat"
+            },
+            {
+              "title": "Oxhögrev / Svamp / Röktfläsk / Timjan",
+              "type": "meat"
+            },
+            {
+              "title": "Slaktarbiff / Dragon / Jordärtskocka / Spetskål",
+              "type": "meat"
+            }
+          ]
+        },
+        {
+          "language": "en",
+          "dishes": [
+            {
+              "title": "Fläsksida / Pujolök / Körvel / Vitböna",
+              "type": "meat"
+            },
+            {
+              "title": "Oxtartar / Kikärta / Ras el hanout / Radicchio",
+              "type": "meat"
+            },
+            {
+              "title": "Oxhögrev / Svamp / Röktfläsk / Timjan",
+              "type": "meat"
+            },
+            {
+              "title": "Slaktarbiff / Dragon / Jordärtskocka / Spetskål",
+              "type": "meat"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Slagthuset",
+      "url": "https://slagthuset.se/restaurangen/",
+      "imageUrl": "https://www.slagthuset.se/_next/image?url=https%3A%2F%2Fwp.slagthuset.se%2Fwp-content%2Fuploads%2F2023%2F02%2FSodra-Hallen01-1-1500x1000.jpg&w=3840&q=80",
+      "coordinate": {
+        "lat": 55.6110323,
+        "lon": 13.0033717
+      },
+      "googleMapsUrl": "https://goo.gl/maps/ZMLMAHi8XhVss2At5",
+      "dishCollection": [
+        {
+          "language": "sv",
+          "dishes": [
+            {
+              "title": "Kikärtsbiff med rostad potatis, tzatziki, rostad paprikasås, zucchini och oliver",
+              "type": "veg"
+            },
+            {
+              "title": "Friterad halloumi, pico de gallo, lime slaw, friterad potatis, chili och koriander",
+              "type": "veg"
+            },
+            {
+              "title": "Dagen fisk med belugalinser, palsternackspuré, gulbetor och skaldjursbuljong",
+              "type": "fish"
+            },
+            {
+              "title": "Sydfransk fisksoppa med blåmusslor och aioli",
+              "type": "fish"
+            },
+            {
+              "title": "Lasagne al forno med tomatsallad, basilikaolja och röd solrospesto",
+              "type": "meat"
+            },
+            {
+              "title": "Ribbestek med rödkål, timjansky, äppelmos och persiljepotatis",
+              "type": "meat"
+            },
+            {
+              "title": "Citronmarinerad kycklingfilé med potatisstomp, haricots verts, rökt sidfläsk och smörad kycklingbuljong",
+              "type": "meat"
+            },
+            {
+              "title": "Fläskschnitzel med kaprismajonnäs, råstekt potatis, rödvinssås och gröna ärtor",
+              "type": "meat"
+            },
+            {
+              "title": "Dansk hakkebøf med stekt lök, sky, broccoli, stekt ägg, pommes och saltgurka",
+              "type": "meat"
+            }
+          ]
+        },
+        {
+          "language": "en",
+          "dishes": [
+            {
+              "title": "Kikärtsbiff med rostad potatis, tzatziki, rostad paprikasås, zucchini och oliver",
+              "type": "veg"
+            },
+            {
+              "title": "Friterad halloumi, pico de gallo, lime slaw, friterad potatis, chili och koriander",
+              "type": "veg"
+            },
+            {
+              "title": "Dagen fisk med belugalinser, palsternackspuré, gulbetor och skaldjursbuljong",
+              "type": "fish"
+            },
+            {
+              "title": "Sydfransk fisksoppa med blåmusslor och aioli",
+              "type": "fish"
+            },
+            {
+              "title": "Lasagne al forno med tomatsallad, basilikaolja och röd solrospesto",
+              "type": "meat"
+            },
+            {
+              "title": "Ribbestek med rödkål, timjansky, äppelmos och persiljepotatis",
+              "type": "meat"
+            },
+            {
+              "title": "Citronmarinerad kycklingfilé med potatisstomp, haricots verts, rökt sidfläsk och smörad kycklingbuljong",
+              "type": "meat"
+            },
+            {
+              "title": "Fläskschnitzel med kaprismajonnäs, råstekt potatis, rödvinssås och gröna ärtor",
+              "type": "meat"
+            },
+            {
+              "title": "Dansk hakkebøf med stekt lök, sky, broccoli, stekt ägg, pommes och saltgurka",
+              "type": "meat"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Smak",
+      "url": "https://gastrogate.com/lunch/print/6005",
+      "imageUrl": "https://smak.info/wp-content/uploads/2022/05/IMG_2946-kall-1024x768.png",
+      "coordinate": {
+        "lat": 55.5950556,
+        "lon": 12.9992295
+      },
+      "googleMapsUrl": "https://goo.gl/maps/5NrVf9rA3gocZLvd7",
+      "dishCollection": [
+        {
+          "language": "sv",
+          "dishes": [
+            {
+              "title": "Rostad pumpa med chili/apelsin, krämigt matvete, lagrad prästost, rucola och rostade nötter.",
+              "type": "veg"
+            },
+            {
+              "title": "Rödfisk med savojkål, brynt smör med cidervinägersenap, hasselnötter, picklade senapsfrö, dill och krasse.",
+              "type": "fish"
+            },
+            {
+              "title": "Rimmat fläsklägg med rotmos, skånsk senap, smörad buljong , pepparrot och kruspersilja.",
+              "type": "meat"
+            }
+          ]
+        },
+        {
+          "language": "en",
+          "dishes": [
+            {
+              "title": "Rostad pumpa med chili/apelsin, krämigt matvete, lagrad prästost, rucola och rostade nötter.",
+              "type": "veg"
+            },
+            {
+              "title": "Rödfisk med savojkål, brynt smör med cidervinägersenap, hasselnötter, picklade senapsfrö, dill och krasse.",
+              "type": "fish"
+            },
+            {
+              "title": "Rimmat fläsklägg med rotmos, skånsk senap, smörad buljong , pepparrot och kruspersilja.",
+              "type": "meat"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Spill",
+      "url": "https://restaurangspill.se/",
+      "imageUrl": "https://www.restaurangspill.se/_next/image?url=%2Fimages%2Fv2%2FSPILL_14.jpg&w=1920&q=75",
+      "coordinate": {
+        "lat": 55.6127354,
+        "lon": 12.9884119
+      },
+      "googleMapsUrl": "https://goo.gl/maps/bZ8yDN3PD3fjvNGw5",
+      "locations": [
+        {
+          "title": "Gängtappen",
+          "locationFilter": "Gängtappen|Dockan",
+          "googleMapsUrl": "https://goo.gl/maps/bZ8yDN3PD3fjvNGw5",
+          "coordinate": {
+            "lat": 55.6127354,
+            "lon": 12.9884119
+          },
+          "dishCollection": [
+            {
+              "language": "sv",
+              "dishes": [
+                {
+                  "title": "Friterad halloumi med nudlar, rostad romanesco, majo på ingefära och citrongräs, purjolök och koriander (Finns vegansk)",
+                  "type": "veg"
+                },
+                {
+                  "title": "Marinerad fläskytterfilé med nudlar, rostad romanesco, majo på ingefära och citrongräs, purjolök och koriander (Finns fläskfritt alternativ)",
+                  "type": "meat"
+                }
+              ]
+            },
+            {
+              "language": "en",
+              "dishes": [
+                {
+                  "title": "Friterad halloumi med nudlar, rostad romanesco, majo på ingefära och citrongräs, purjolök och koriander (Finns vegansk)",
+                  "type": "veg"
+                },
+                {
+                  "title": "Marinerad fläskytterfilé med nudlar, rostad romanesco, majo på ingefära och citrongräs, purjolök och koriander (Finns fläskfritt alternativ)",
+                  "type": "meat"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Kvartetten",
+          "locationFilter": "Kvartetten|Hyllie",
+          "googleMapsUrl": "https://maps.app.goo.gl/TNctkWiKh6FpzHAP7",
+          "coordinate": {
+            "lat": 55.6117385,
+            "lon": 12.9301944
+          },
+          "dishCollection": [
+            {
+              "language": "sv",
+              "dishes": [
+                {
+                  "title": "Bakad persiljerot med kryddigt smör på dragon, rostad potatis, plommonsky, haricots verts, sallad på svamp, spenat och selleri",
+                  "type": "veg"
+                },
+                {
+                  "title": "Bakad fläsksida med kryddigt smör på dragon, rostad potatis, plommonsky, haricots verts, sallad på svamp, spenat och selleri",
+                  "type": "meat"
+                }
+              ]
+            },
+            {
+              "language": "en",
+              "dishes": [
+                {
+                  "title": "Bakad persiljerot med kryddigt smör på dragon, rostad potatis, plommonsky, haricots verts, sallad på svamp, spenat och selleri",
+                  "type": "veg"
+                },
+                {
+                  "title": "Bakad fläsksida med kryddigt smör på dragon, rostad potatis, plommonsky, haricots verts, sallad på svamp, spenat och selleri",
+                  "type": "meat"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "dishCollection": []
+    },
+    {
+      "title": "Köket lu",
+      "url": "https://www.koket.lu/malmo/lunch",
+      "imageUrl": "https://static.thatsup.co/content/img/place/malmo/ko/3946013a-f19b-11e9-814c-f23c919fea3e/user-photo/7c8aa451.jpg?1706718174",
+      "coordinate": {
+        "lat": 55.5993441,
+        "lon": 12.9977983
+      },
+      "googleMapsUrl": "https://maps.app.goo.gl/r89Vog772eqdu3mt7",
+      "dishCollection": [
+        {
+          "language": "sv",
+          "dishes": [
+            {
+              "title": "Sichuankökets favvis i en vegansk version: - Mapo Tofu! Het och kryddig tofu-gryta med sojafärs, Serveras med ris",
+              "type": "veg"
+            },
+            {
+              "title": "En vitlökssprängd grönsakswok med tofu och shiitake svamp",
+              "type": "veg"
+            },
+            {
+              "title": "Grillad anka med ris/äggnudlar",
+              "type": "meat"
+            },
+            {
+              "title": "Siu Yuk - Krispigt grillat sidfläsk med ris/äggnudlar",
+              "type": "meat"
+            }
+          ]
+        },
+        {
+          "language": "en",
+          "dishes": [
+            {
+              "title": "Sichuankökets favvis i en vegansk version: - Mapo Tofu! Het och kryddig tofu-gryta med sojafärs, Serveras med ris",
+              "type": "veg"
+            },
+            {
+              "title": "En vitlökssprängd grönsakswok med tofu och shiitake svamp",
+              "type": "veg"
+            },
+            {
+              "title": "Grillad anka med ris/äggnudlar",
+              "type": "meat"
+            },
+            {
+              "title": "Siu Yuk - Krispigt grillat sidfläsk med ris/äggnudlar",
+              "type": "meat"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Marvin",
+      "url": "https://www.marvinofmalmo.com/",
+      "imageUrl": "https://highfiveskane.se/wp-content/uploads/2022/05/marvin-4-scaled.jpeg",
+      "coordinate": {
+        "lat": 55.5998692,
+        "lon": 12.9991679
+      },
+      "googleMapsUrl": "https://maps.app.goo.gl/rjKhvkHbwfdoC62g9",
+      "dishCollection": [
+        {
+          "language": "sv",
+          "dishes": [
+            {
+              "title": "Fried Chicken Caesar: Caesar Dressing, Bacon Crumb, Parmesan, Romain Lettuce",
+              "type": "meat"
+            },
+            {
+              "title": "Jalapeño Cheese Fried Chicken: Cheddar Sauce, Jalapeño Relish, Gouda, Pickled Jalapeños, Romain Lettuce",
+              "type": "meat"
+            },
+            {
+              "title": "Buffalo Fried Chicken: Buffalo Sauce, Blue Cheese Dressing, Cheese, Pickled, Lettuce",
+              "type": "meat"
+            }
+          ]
+        },
+        {
+          "language": "en",
+          "dishes": [
+            {
+              "title": "Fried Chicken Caesar: Caesar Dressing, Bacon Crumb, Parmesan, Romain Lettuce",
+              "type": "meat"
+            },
+            {
+              "title": "Jalapeño Cheese Fried Chicken: Cheddar Sauce, Jalapeño Relish, Gouda, Pickled Jalapeños, Romain Lettuce",
+              "type": "meat"
+            },
+            {
+              "title": "Buffalo Fried Chicken: Buffalo Sauce, Blue Cheese Dressing, Cheese, Pickled, Lettuce",
+              "type": "meat"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Two Forks",
+      "url": "https://www.twoforks.se/lunch",
+      "imageUrl": "https://images.squarespace-cdn.com/content/v1/5c6fc5858155121249a4c49f/d9867018-aaa7-4d7c-8a5b-b5f666277406/%C2%A9jensnordstromtwoforks0027.jpg",
+      "coordinate": {
+        "lat": 55.6073278,
+        "lon": 12.9920499
+      },
+      "googleMapsUrl": "https://maps.app.goo.gl/GKATv8jSGjbAKfYt5",
+      "dishCollection": [
+        {
+          "language": "sv",
+          "dishes": [
+            {
+              "title": "No. 1 Spiced chickpeas, parsley, mint, coriander, preserved lemon relish",
+              "type": "veg"
+            },
+            {
+              "title": "No. 2 Celeriac, radicchio, shallots, parsley, roasted red pepper",
+              "type": "veg"
+            },
+            {
+              "title": "No. 3 Butcher´s steak, tomato, red onion, sumac, parsley, mint, amba",
+              "type": "meat"
+            }
+          ]
+        },
+        {
+          "language": "en",
+          "dishes": [
+            {
+              "title": "No. 1 Spiced chickpeas, parsley, mint, coriander, preserved lemon relish",
+              "type": "veg"
+            },
+            {
+              "title": "No. 2 Celeriac, radicchio, shallots, parsley, roasted red pepper",
+              "type": "veg"
+            },
+            {
+              "title": "No. 3 Butcher´s steak, tomato, red onion, sumac, parsley, mint, amba",
+              "type": "meat"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Välfärden",
+      "url": "https://valfarden.nu/dagens-lunch/",
+      "imageUrl": "https://valfarden.nu/wp-content/uploads/2015/01/hylla.jpg",
+      "coordinate": {
+        "lat": 55.6112257,
+        "lon": 12.9943631
+      },
+      "googleMapsUrl": "https://goo.gl/maps/cLAKuD2B95N8bqr19",
+      "dishCollection": [
+        {
+          "language": "sv",
+          "dishes": [
+            {
+              "title": "Tofu ramen, svamp, rostad kål, miso, nudlar, krispig chili, salladslök & ägg",
+              "type": "veg"
+            },
+            {
+              "title": "Rökig laxburgare, skagenröra, dillrostad potatis & syrligt grönt",
+              "type": "fish"
+            }
+          ]
+        },
+        {
+          "language": "en",
+          "dishes": [
+            {
+              "title": "Tofu ramen, svamp, rostad kål, miso, nudlar, krispig chili, salladslök & ägg",
+              "type": "veg"
+            },
+            {
+              "title": "Rökig laxburgare, skagenröra, dillrostad potatis & syrligt grönt",
+              "type": "fish"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Restaurang Bullen",
+      "url": "https://www.bullen.nu/sv/lunch/",
+      "imageUrl": "https://www.bullen.nu/media/mz1djpbh/lunch_mag_3379.jpg?height=810px",
+      "coordinate": {
+        "lat": 55.5999602,
+        "lon": 12.9988244
+      },
+      "googleMapsUrl": "https://maps.app.goo.gl/3VCjtsGxBm9VHDc97",
+      "dishCollection": [
+        {
+          "language": "sv",
+          "dishes": [
+            {
+              "title": "Bullens krämiga fisksoppa med räkor, lax och saffran. Serveras med baugette.",
+              "type": "fish"
+            },
+            {
+              "title": "Helstekt kotlettrad med bearnaisesås och glacerad syltlök",
+              "type": "meat"
+            },
+            {
+              "title": "Kalvköttbullar med whiskygräddsås, potatispuré, pressgurka & råröda lingon",
+              "type": "meat"
+            },
+            {
+              "title": "Stekt rimmat fläsk med löksås och kokt potatis",
+              "type": "meat"
+            }
+          ]
+        },
+        {
+          "language": "en",
+          "dishes": [
+            {
+              "title": "Bullens krämiga fisksoppa med räkor, lax och saffran. Serveras med baugette.",
+              "type": "fish"
+            },
+            {
+              "title": "Helstekt kotlettrad med bearnaisesås och glacerad syltlök",
+              "type": "meat"
+            },
+            {
+              "title": "Kalvköttbullar med whiskygräddsås, potatispuré, pressgurka & råröda lingon",
+              "type": "meat"
+            },
+            {
+              "title": "Stekt rimmat fläsk med löksås och kokt potatis",
+              "type": "meat"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Spoonery",
+      "url": "https://www.spoonery.se/restaurang/slottstaden/",
+      "imageUrl": "https://www.spoonery.se/wp-content/uploads/2024/11/241015_Spoonery__Slotts_01_NY.webp",
+      "coordinate": {
+        "lat": 55.59717,
+        "lon": 12.97902
+      },
+      "googleMapsUrl": "https://maps.app.goo.gl/1dxLU2ZUpH3ggFQg8",
+      "locations": [
+        {
+          "title": "Slottstaden",
+          "url": "https://www.spoonery.se/restaurang/slottstaden/",
+          "googleMapsUrl": "https://maps.app.goo.gl/Tkufn1rFU4qzCokQ8",
+          "coordinate": {
+            "lat": 55.5972562,
+            "lon": 12.976425
+          },
+          "dishCollection": [
+            {
+              "language": "sv",
+              "dishes": [
+                {
+                  "title": "VEGETARISK/VEGANSK HOTPOT med kokosmjölk, linser, sötpotatis, pumpa, ris, och koriander. Med grillad Pannoumi och smetana. Pannoumi en ost lokalt producerad av Skånemejerier.",
+                  "type": "veg"
+                },
+                {
+                  "title": "SYDFRANSK FISKGRYTA med veckans fisk, räkor, rouille, krutonger och dill.",
+                  "type": "fish"
+                },
+                {
+                  "title": "KÖTTBULLAR I GRÄDDSÅS Med pressgurka, rårörda lingon och kokt potatis.",
+                  "type": "meat"
+                },
+                {
+                  "title": "CHILI PÅ HÖGREV med svarta bönor, syrad grädde och koriander.",
+                  "type": "meat"
+                }
+              ]
+            },
+            {
+              "language": "en",
+              "dishes": [
+                {
+                  "title": "VEGETARISK/VEGANSK HOTPOT med kokosmjölk, linser, sötpotatis, pumpa, ris, och koriander. Med grillad Pannoumi och smetana. Pannoumi en ost lokalt producerad av Skånemejerier.",
+                  "type": "veg"
+                },
+                {
+                  "title": "SYDFRANSK FISKGRYTA med veckans fisk, räkor, rouille, krutonger och dill.",
+                  "type": "fish"
+                },
+                {
+                  "title": "KÖTTBULLAR I GRÄDDSÅS Med pressgurka, rårörda lingon och kokt potatis.",
+                  "type": "meat"
+                },
+                {
+                  "title": "CHILI PÅ HÖGREV med svarta bönor, syrad grädde och koriander.",
+                  "type": "meat"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Sankt Knut",
+          "url": "https://www.spoonery.se/restaurang/st-knut/",
+          "googleMapsUrl": "https://maps.app.goo.gl/2z6FT53UdTHH8A4J7",
+          "coordinate": {
+            "lat": 55.5968355,
+            "lon": 13.011534
+          },
+          "dishCollection": [
+            {
+              "language": "sv",
+              "dishes": [
+                {
+                  "title": "VEGETARISK/VEGANSK HOTPOT med kokosmjölk, linser, sötpotatis, pumpa, ris, och koriander. Med grillad Pannoumi och smetana. Pannoumi en ost lokalt producerad av Skånemejerier.",
+                  "type": "veg"
+                },
+                {
+                  "title": "SYDFRANSK FISKGRYTA med veckans fisk, räkor, rouille, krutonger och dill.",
+                  "type": "fish"
+                },
+                {
+                  "title": "CHILI PÅ HÖGREV med svarta bönor, syrad grädde och koriander.",
+                  "type": "meat"
+                },
+                {
+                  "title": "KÖTTBULLAR I GRÄDDSÅS Med pressgurka, rårörda lingon och kokt potatis.",
+                  "type": "meat"
+                }
+              ]
+            },
+            {
+              "language": "en",
+              "dishes": [
+                {
+                  "title": "VEGETARISK/VEGANSK HOTPOT med kokosmjölk, linser, sötpotatis, pumpa, ris, och koriander. Med grillad Pannoumi och smetana. Pannoumi en ost lokalt producerad av Skånemejerier.",
+                  "type": "veg"
+                },
+                {
+                  "title": "SYDFRANSK FISKGRYTA med veckans fisk, räkor, rouille, krutonger och dill.",
+                  "type": "fish"
+                },
+                {
+                  "title": "CHILI PÅ HÖGREV med svarta bönor, syrad grädde och koriander.",
+                  "type": "meat"
+                },
+                {
+                  "title": "KÖTTBULLAR I GRÄDDSÅS Med pressgurka, rårörda lingon och kokt potatis.",
+                  "type": "meat"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Gamla Väster",
+          "url": "https://www.spoonery.se/restaurang/gamla-vaster/",
+          "googleMapsUrl": "https://maps.app.goo.gl/1dxLU2ZUpH3ggFQg8",
+          "coordinate": {
+            "lat": 55.605601,
+            "lon": 12.9832051
+          },
+          "dishCollection": [
+            {
+              "language": "sv",
+              "dishes": [
+                {
+                  "title": "SYDFRANSK FISKGRYTA med veckans fisk, räkor, rouille, krutonger och dill.",
+                  "type": "fish"
+                },
+                {
+                  "title": "CHILI PÅ HÖGREV med svarta bönor, syrad grädde och koriander.",
+                  "type": "meat"
+                },
+                {
+                  "title": "CHILI FIESTA Chili på högrev med svarta bönor, ris, nachos, picklad kål/jalapenosallad, syrad grädde och koriander",
+                  "type": "meat"
+                },
+                {
+                  "title": "KÖTTBULLAR I GRÄDDSÅS Med pressgurka, rårörda lingon och kokt potatis.",
+                  "type": "meat"
+                }
+              ]
+            },
+            {
+              "language": "en",
+              "dishes": [
+                {
+                  "title": "SYDFRANSK FISKGRYTA med veckans fisk, räkor, rouille, krutonger och dill.",
+                  "type": "fish"
+                },
+                {
+                  "title": "CHILI PÅ HÖGREV med svarta bönor, syrad grädde och koriander.",
+                  "type": "meat"
+                },
+                {
+                  "title": "CHILI FIESTA Chili på högrev med svarta bönor, ris, nachos, picklad kål/jalapenosallad, syrad grädde och koriander",
+                  "type": "meat"
+                },
+                {
+                  "title": "KÖTTBULLAR I GRÄDDSÅS Med pressgurka, rårörda lingon och kokt potatis.",
+                  "type": "meat"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Hyllie",
+          "url": "https://www.spoonery.se/restaurang/hyllie",
+          "googleMapsUrl": "https://maps.app.goo.gl/7XZkE58A1PPujvrr7",
+          "coordinate": {
+            "lat": 55.5613039,
+            "lon": 12.9737268
+          },
+          "dishCollection": [
+            {
+              "language": "sv",
+              "dishes": [
+                {
+                  "title": "BIBIMBAP MED SVAMP Koreansk rissallad med svamp, kimchi, sjögräs, äggmayo, picklad gurka, ris och friterad scharlottenlök.",
+                  "type": "veg"
+                },
+                {
+                  "title": "SYDFRANSK FISKGRYTA med veckans fisk, räkor, rouille, krutonger och dill.",
+                  "type": "fish"
+                },
+                {
+                  "title": "KÖTTBULLAR I GRÄDDSÅS Med pressgurka, rårörda lingon och kokt potatis.",
+                  "type": "meat"
+                },
+                {
+                  "title": "SPOONERYS BIBIMBAP PÅ SOYA BRÄSSERAD KALKON Koreansk rissallad med soyabrässerat kalkon, kimchi, krispigt grönt, sjögräs, äggmayo, picklad gurka, sirachamayo, ris och friterad schalottenlök.",
+                  "type": "meat"
+                }
+              ]
+            },
+            {
+              "language": "en",
+              "dishes": [
+                {
+                  "title": "BIBIMBAP MED SVAMP Koreansk rissallad med svamp, kimchi, sjögräs, äggmayo, picklad gurka, ris och friterad scharlottenlök.",
+                  "type": "veg"
+                },
+                {
+                  "title": "SYDFRANSK FISKGRYTA med veckans fisk, räkor, rouille, krutonger och dill.",
+                  "type": "fish"
+                },
+                {
+                  "title": "KÖTTBULLAR I GRÄDDSÅS Med pressgurka, rårörda lingon och kokt potatis.",
+                  "type": "meat"
+                },
+                {
+                  "title": "SPOONERYS BIBIMBAP PÅ SOYA BRÄSSERAD KALKON Koreansk rissallad med soyabrässerat kalkon, kimchi, krispigt grönt, sjögräs, äggmayo, picklad gurka, sirachamayo, ris och friterad schalottenlök.",
+                  "type": "meat"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "dishCollection": []
+    },
+    {
+      "title": "La Fonderie",
+      "url": "https://www.lafonderie.se/lelunch",
+      "imageUrl": "https://tse1.mm.bing.net/th/id/OIP.5Df6Sz7sxETn462Iq1yXiAHaEy?pid=Api",
+      "coordinate": {
+        "lat": 55.6110563,
+        "lon": 12.9889958
+      },
+      "googleMapsUrl": "https://maps.app.goo.gl/8PYHkDJe8bv2NafBA",
+      "dishCollection": [
+        {
+          "language": "sv",
+          "dishes": [
+            {
+              "title": "Rostad blomkål med stuvade puylinser, rostade hasselnötter, picklad selleri & rädisskott",
+              "type": "veg"
+            },
+            {
+              "title": "Havskatt med pumpa, picklat äpple, beurre noisette & spenat",
+              "type": "fish"
+            },
+            {
+              "title": "Confiterat anklår med rödbetspuré, svartkål & pistage",
+              "type": "meat"
+            },
+            {
+              "title": "Paté de Campagne",
+              "type": "meat"
+            }
+          ]
+        },
+        {
+          "language": "en",
+          "dishes": [
+            {
+              "title": "Rostad blomkål med stuvade puylinser, rostade hasselnötter, picklad selleri & rädisskott",
+              "type": "veg"
+            },
+            {
+              "title": "Havskatt med pumpa, picklat äpple, beurre noisette & spenat",
+              "type": "fish"
+            },
+            {
+              "title": "Confiterat anklår med rödbetspuré, svartkål & pistage",
+              "type": "meat"
+            },
+            {
+              "title": "Paté de Campagne",
+              "type": "meat"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Varv Malmö",
+      "url": "https://www.varvmalmo.com/menu",
+      "imageUrl": "https://images.squarespace-cdn.com/content/v1/67a758574768d80eed1d0b9f/072c583d-3cfd-4756-a07d-2e506957a2ec/DSC08171-Enhanced-NR.png?format=750w",
+      "coordinate": {
+        "lat": 55.6122023,
+        "lon": 12.9908859
+      },
+      "googleMapsUrl": "https://maps.app.goo.gl/UyPUzaFyW6cX8bwC9",
+      "dishCollection": [
+        {
+          "language": "sv",
+          "dishes": [
+            {
+              "title": "Grilled cauliflower, croquette, tarragon mayonnaise",
+              "type": "veg"
+            },
+            {
+              "title": "Pork tenderloin, croquette, tarragon mayonnaise",
+              "type": "meat"
+            }
+          ]
+        },
+        {
+          "language": "en",
+          "dishes": [
+            {
+              "title": "Grilled cauliflower, croquette, tarragon mayonnaise",
+              "type": "veg"
+            },
+            {
+              "title": "Pork tenderloin, croquette, tarragon mayonnaise",
+              "type": "meat"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Sauvage Malmö",
+      "url": "https://restaurangsauvage.se/lunchmeny",
+      "imageUrl": "https://highfiveskane.se/wp-content/uploads/2024/04/sauvage-18-scaled.jpeg",
+      "coordinate": {
+        "lat": 55.5961483,
+        "lon": 13.0097815
+      },
+      "googleMapsUrl": "https://maps.app.goo.gl/BgoSgesjSSxsen7s5",
+      "dishCollection": [
+        {
+          "language": "sv",
+          "dishes": [
+            {
+              "title": "Nattbakad rotselleri, blåmussel duxelle, vitvinssås, vattenkrasseolja",
+              "type": "veg"
+            },
+            {
+              "title": "Ponzumarinerad tonfisk, miso, gurka, hallon",
+              "type": "fish"
+            },
+            {
+              "title": "Råbiff, friterad lila blomkål, rosmarin-mayo, endive",
+              "type": "meat"
+            },
+            {
+              "title": "Anka Pytt i panna, ägg 63,8c, picklade polkabetor",
+              "type": "meat"
+            },
+            {
+              "title": "Fläskkarré, majskräm, vilda svampar, gröna bönor, jordgubbar",
+              "type": "meat"
+            }
+          ]
+        },
+        {
+          "language": "en",
+          "dishes": [
+            {
+              "title": "Nattbakad rotselleri, blåmussel duxelle, vitvinssås, vattenkrasseolja",
+              "type": "veg"
+            },
+            {
+              "title": "Ponzumarinerad tonfisk, miso, gurka, hallon",
+              "type": "fish"
+            },
+            {
+              "title": "Råbiff, friterad lila blomkål, rosmarin-mayo, endive",
+              "type": "meat"
+            },
+            {
+              "title": "Anka Pytt i panna, ägg 63,8c, picklade polkabetor",
+              "type": "meat"
+            },
+            {
+              "title": "Fläskkarré, majskräm, vilda svampar, gröna bönor, jordgubbar",
+              "type": "meat"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Restaurang Nils",
+      "url": "https://restaurangnils.se/lunch-restaurang-malmo/",
+      "imageUrl": "https://restaurangnils.se/wp-content/uploads/sites/21/2022/10/Nils-13.jpg",
+      "coordinate": {
+        "lat": 55.5985416,
+        "lon": 12.979711
+      },
+      "googleMapsUrl": "https://maps.app.goo.gl/fAxMDQardQqSSmtU8",
+      "dishCollection": [
+        {
+          "language": "sv",
+          "dishes": [
+            {
+              "title": "Risotto pestoscamorza med körsbärstomater, burrata & grana padano",
+              "type": "veg"
+            },
+            {
+              "title": "Tagliatelle i vitvinssås, räkor, zucchini & spenat",
+              "type": "fish"
+            },
+            {
+              "title": "Torskburgare med hemgjord pommes samt remouladsås",
+              "type": "fish"
+            },
+            {
+              "title": "Helstekt Ryggbiff med klyftpotatis, grillad zucchini samt rödvinssås",
+              "type": "meat"
+            }
+          ]
+        },
+        {
+          "language": "en",
+          "dishes": [
+            {
+              "title": "Risotto pestoscamorza med körsbärstomater, burrata & grana padano",
+              "type": "veg"
+            },
+            {
+              "title": "Tagliatelle i vitvinssås, räkor, zucchini & spenat",
+              "type": "fish"
+            },
+            {
+              "title": "Torskburgare med hemgjord pommes samt remouladsås",
+              "type": "fish"
+            },
+            {
+              "title": "Helstekt Ryggbiff med klyftpotatis, grillad zucchini samt rödvinssås",
+              "type": "meat"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Folk mat och möten",
+      "url": "https://folkmatmoten.se/restaurang/",
+      "imageUrl": "https://folkmatmoten.se/wp-content/uploads/2023/11/Mat4.jpeg",
+      "coordinate": {
+        "lat": 55.5918325,
+        "lon": 13.0194972
+      },
+      "googleMapsUrl": "https://maps.app.goo.gl/FWwJJQrKjeEmFdtXA",
+      "dishCollection": [
+        {
+          "language": "sv",
+          "dishes": [
+            {
+              "title": "Blomkål, feta, chimichurri",
+              "type": "veg"
+            },
+            {
+              "title": "Pannbiff, lök, tryffel",
+              "type": "meat"
+            }
+          ]
+        },
+        {
+          "language": "en",
+          "dishes": [
+            {
+              "title": "Blomkål, feta, chimichurri",
+              "type": "veg"
+            },
+            {
+              "title": "Pannbiff, lök, tryffel",
+              "type": "meat"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "La Bonne Vie",
+      "url": "https://labonnevie.se/",
+      "imageUrl": "https://highfiveskane.se/wp-content/uploads/2023/02/la-bonne-vie-18-1024x640.jpg",
+      "coordinate": {
+        "lat": 55.5991391,
+        "lon": 12.9979327
+      },
+      "googleMapsUrl": "https://maps.app.goo.gl/eGorxVpGBAobFSKC9",
+      "dishCollection": [
+        {
+          "language": "sv",
+          "dishes": [
+            {
+              "title": "Laxwallenbergare, skirat smör, citron, syrlig sallad, potatispuré",
+              "type": "fish"
+            },
+            {
+              "title": "Nattbakad ryggbiff, potatisgratäng, rödvinssås, sallad",
+              "type": "meat"
+            }
+          ]
+        },
+        {
+          "language": "en",
+          "dishes": [
+            {
+              "title": "Laxwallenbergare, skirat smör, citron, syrlig sallad, potatispuré",
+              "type": "fish"
+            },
+            {
+              "title": "Nattbakad ryggbiff, potatisgratäng, rödvinssås, sallad",
+              "type": "meat"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Osteria di la",
+      "url": "https://osteriadila.se/",
+      "imageUrl": "https://media.osteriadila.se/2023/03/dila1.jpg",
+      "coordinate": {
+        "lat": 55.5991391,
+        "lon": 12.9979327
+      },
+      "googleMapsUrl": "https://maps.app.goo.gl/eGorxVpGBAobFSKC9",
+      "dishCollection": [
+        {
+          "language": "sv",
+          "dishes": [
+            {
+              "title": "SALLAD Ugnsbakad laxfilé, mix grönsallad, rödlök, haricot verts, semitorkade körsbärstomater, rostade hasselnötter, citron, dijon senapsdressing 155:-",
+              "type": "fish"
+            },
+            {
+              "title": "RISOTTO AI FRUTTI DI MARE Krämig risotto, med räkor, musslor, bläckfisk, tomat, chili, hackad persilja 165:-",
+              "type": "fish"
+            },
+            {
+              "title": "RISOTTO POLLO ALLA DIAVOLA Chili o citron marinerad kycklingfilé, smält smör, rostad potatis, haricot verts 165:-",
+              "type": "meat"
+            },
+            {
+              "title": "PASTA BOLOGNESE Rigatoni, kalvfärs ragu, granaflakes, hackad persilja 145:-",
+              "type": "meat"
+            }
+          ]
+        },
+        {
+          "language": "en",
+          "dishes": [
+            {
+              "title": "SALLAD Ugnsbakad laxfilé, mix grönsallad, rödlök, haricot verts, semitorkade körsbärstomater, rostade hasselnötter, citron, dijon senapsdressing 155:-",
+              "type": "fish"
+            },
+            {
+              "title": "RISOTTO AI FRUTTI DI MARE Krämig risotto, med räkor, musslor, bläckfisk, tomat, chili, hackad persilja 165:-",
+              "type": "fish"
+            },
+            {
+              "title": "RISOTTO POLLO ALLA DIAVOLA Chili o citron marinerad kycklingfilé, smält smör, rostad potatis, haricot verts 165:-",
+              "type": "meat"
+            },
+            {
+              "title": "PASTA BOLOGNESE Rigatoni, kalvfärs ragu, granaflakes, hackad persilja 145:-",
+              "type": "meat"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Osteria Qui",
+      "url": "https://osteriaqui.se/meny/",
+      "imageUrl": "https://osteriaqui.se/wp-content/uploads/2022/11/osteria-mat.jpg",
+      "coordinate": {
+        "lat": 55.5966996,
+        "lon": 12.969856
+      },
+      "googleMapsUrl": "https://maps.app.goo.gl/Z88vt4no56UZXS9f9",
+      "dishCollection": [
+        {
+          "language": "sv",
+          "dishes": [
+            {
+              "title": "Dagens färska fiskfilé, krämig vitvinssås, musslor, dill, potatis.",
+              "type": "fish"
+            },
+            {
+              "title": "Pasta Ragu Napolitano - Hemgjord pasta med ragu på griskind, högrev tomater, vitlök och vin.",
+              "type": "meat"
+            },
+            {
+              "title": "Pasta Ripiena con Gorgonzola e Pere - Handgjord fylld pasta med gorgonzola och päron, serveras med en lätt parmesansås.",
+              "type": "meat"
+            },
+            {
+              "title": "Saltimbocca di Maiale - Utbankad skinkstek, salvia, parmaskinka, vitt vin, smör, rostad potatis, gröna bönor.",
+              "type": "meat"
+            }
+          ]
+        },
+        {
+          "language": "en",
+          "dishes": [
+            {
+              "title": "Dagens färska fiskfilé, krämig vitvinssås, musslor, dill, potatis.",
+              "type": "fish"
+            },
+            {
+              "title": "Pasta Ragu Napolitano - Hemgjord pasta med ragu på griskind, högrev tomater, vitlök och vin.",
+              "type": "meat"
+            },
+            {
+              "title": "Pasta Ripiena con Gorgonzola e Pere - Handgjord fylld pasta med gorgonzola och päron, serveras med en lätt parmesansås.",
+              "type": "meat"
+            },
+            {
+              "title": "Saltimbocca di Maiale - Utbankad skinkstek, salvia, parmaskinka, vitt vin, smör, rostad potatis, gröna bönor.",
+              "type": "meat"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Enoclub Osteria",
+      "url": "https://www.enoclub.se/meny",
+      "imageUrl": "https://images.squarespace-cdn.com/content/v1/65e04f8287d2472b18e24357/9c0e45ea-5ca4-4e78-a7a5-ef5a84d600e8/iStock-1136638905.jpg?format=2500w",
+      "coordinate": {
+        "lat": 55.604698,
+        "lon": 12.9972076
+      },
+      "googleMapsUrl": "https://maps.app.goo.gl/WCvg7uwahvkpF6yK8",
+      "dishCollection": [
+        {
+          "language": "sv",
+          "dishes": [
+            {
+              "title": "Risotto al peperone - Creamy bell pepper risotto with pecorino fondue and 'nduja chips",
+              "type": "veg"
+            },
+            {
+              "title": "Pesce fritto - Breaded plaice with herb-sauce, boiled potatoes, and broccoli",
+              "type": "fish"
+            },
+            {
+              "title": "Spezzatino di vitello - Creamy veal stew with green peas, carrots, celeriac topped with fresh herbs",
+              "type": "meat"
+            }
+          ]
+        },
+        {
+          "language": "en",
+          "dishes": [
+            {
+              "title": "Risotto al peperone - Creamy bell pepper risotto with pecorino fondue and 'nduja chips",
+              "type": "veg"
+            },
+            {
+              "title": "Pesce fritto - Breaded plaice with herb-sauce, boiled potatoes, and broccoli",
+              "type": "fish"
+            },
+            {
+              "title": "Spezzatino di vitello - Creamy veal stew with green peas, carrots, celeriac topped with fresh herbs",
+              "type": "meat"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Thap Thim",
+      "url": "https://thapthim.se/lunch",
+      "imageUrl": "https://api.thapthim.se/?imgtype=slider&store=vg&imgid=20230105163927437216001672933167.jpeg",
+      "coordinate": {
+        "lat": 55.6066801,
+        "lon": 12.9928927
+      },
+      "googleMapsUrl": "https://maps.app.goo.gl/GLgqwTmwaqhCMWMdA",
+      "locations": [
+        {
+          "title": "Västergatan",
+          "googleMapsUrl": "https://maps.app.goo.gl/GLgqwTmwaqhCMWMdA",
+          "coordinate": {
+            "lat": 55.6066801,
+            "lon": 12.9928927
+          },
+          "dishCollection": [
+            {
+              "language": "sv",
+              "dishes": [
+                {
+                  "title": "Moo Tod - Friterat specialmarinerat lufttorkat fläskkött, serveras med wokade grönsaker och ris.",
+                  "type": "meat"
+                },
+                {
+                  "title": "Kaeng Phed Ped Yang - Röd currygryta med grillad ankbröst, kokosmjölk, vindruvor, ananas, lök, paprika och thaibasilika. Serveras med ris.",
+                  "type": "meat"
+                },
+                {
+                  "title": "Pad Thai Gai - Stekta risnudlar med kycklingfilé, ägg, groddar, salladslök, torkade chili och hackade jordnötter.",
+                  "type": "meat"
+                }
+              ]
+            },
+            {
+              "language": "en",
+              "dishes": [
+                {
+                  "title": "Moo Tod - Friterat specialmarinerat lufttorkat fläskkött, serveras med wokade grönsaker och ris.",
+                  "type": "meat"
+                },
+                {
+                  "title": "Kaeng Phed Ped Yang - Röd currygryta med grillad ankbröst, kokosmjölk, vindruvor, ananas, lök, paprika och thaibasilika. Serveras med ris.",
+                  "type": "meat"
+                },
+                {
+                  "title": "Pad Thai Gai - Stekta risnudlar med kycklingfilé, ägg, groddar, salladslök, torkade chili och hackade jordnötter.",
+                  "type": "meat"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Västra hamnen",
+          "googleMapsUrl": "https://maps.app.goo.gl/dmiqDGpPaywiDW5V9",
+          "coordinate": {
+            "lat": 55.6119766,
+            "lon": 12.9763255
+          },
+          "dishCollection": [
+            {
+              "language": "sv",
+              "dishes": [
+                {
+                  "title": "Moo Tod - Friterat specialmarinerat lufttorkat fläskkött, serveras med wokade grönsaker och ris.",
+                  "type": "meat"
+                },
+                {
+                  "title": "Kaeng Phed Ped Yang - Röd currygryta med grillad ankbröst, kokosmjölk, vindruvor, ananas, lök, paprika och thaibasilika. Serveras med ris.",
+                  "type": "meat"
+                },
+                {
+                  "title": "Pad Thai Gai - Stekta risnudlar med kycklingfilé, ägg, groddar, salladslök, torkade chili och hackade jordnötter.",
+                  "type": "meat"
+                }
+              ]
+            },
+            {
+              "language": "en",
+              "dishes": [
+                {
+                  "title": "Moo Tod - Friterat specialmarinerat lufttorkat fläskkött, serveras med wokade grönsaker och ris.",
+                  "type": "meat"
+                },
+                {
+                  "title": "Kaeng Phed Ped Yang - Röd currygryta med grillad ankbröst, kokosmjölk, vindruvor, ananas, lök, paprika och thaibasilika. Serveras med ris.",
+                  "type": "meat"
+                },
+                {
+                  "title": "Pad Thai Gai - Stekta risnudlar med kycklingfilé, ägg, groddar, salladslök, torkade chili och hackade jordnötter.",
+                  "type": "meat"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "dishCollection": []
+    },
+    {
+      "title": "The Torso",
+      "url": "https://thetorso.se/#page-4",
+      "imageUrl": "https://thetorso.se/_assets/media/9035c7b5a7eaf4387b74a0652230937e.jpg",
+      "coordinate": {
+        "lat": 55.6135861,
+        "lon": 12.975145
+      },
+      "googleMapsUrl": "https://maps.app.goo.gl/8vh13whnFucSrML26",
+      "dishCollection": [
+        {
+          "language": "sv",
+          "dishes": [
+            {
+              "title": "Chevre, grillad hjärtsallad, absintmarinerade fikon, rostade pinjenötter, picklad rödlök & sesamknäcke",
+              "type": "veg"
+            },
+            {
+              "title": "Chironsfils Ostron, kockens val av marinad",
+              "type": "fish"
+            },
+            {
+              "title": "Grodlår, vitlök, citron, vitvin, dragon & timjan",
+              "type": "meat"
+            },
+            {
+              "title": "Svenskt hjortkött, plommon, äggula, fermiterad svart vitlöksmajonäs & picklade kantareller",
+              "type": "meat"
+            }
+          ]
+        },
+        {
+          "language": "en",
+          "dishes": [
+            {
+              "title": "Chevre, grillad hjärtsallad, absintmarinerade fikon, rostade pinjenötter, picklad rödlök & sesamknäcke",
+              "type": "veg"
+            },
+            {
+              "title": "Chironsfils Ostron, kockens val av marinad",
+              "type": "fish"
+            },
+            {
+              "title": "Grodlår, vitlök, citron, vitvin, dragon & timjan",
+              "type": "meat"
+            },
+            {
+              "title": "Svenskt hjortkött, plommon, äggula, fermiterad svart vitlöksmajonäs & picklade kantareller",
+              "type": "meat"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Babusia",
+      "url": "https://babusia.se/menus/",
+      "imageUrl": "https://babusia.se/wp-content/uploads/2024/09/menus_babusia_se.jpg",
+      "coordinate": {
+        "lat": 55.6075804,
+        "lon": 12.9865752
+      },
+      "googleMapsUrl": "https://maps.app.goo.gl/znba1zVV3qMvC4UG6",
+      "dishCollection": [
+        {
+          "language": "sv",
+          "dishes": [
+            {
+              "title": "Varenyky- dumplings med potatis och svamp",
+              "type": "veg"
+            },
+            {
+              "title": "Smörstekt clarias (ålmal) med rostad potatis",
+              "type": "fish"
+            },
+            {
+              "title": "Borstjtj på oxsvans elle vegetarisk borsjtj med rökta päron",
+              "type": "meat"
+            },
+            {
+              "title": "Kyckling Kyjiv med potatispuré, gröna ärtor och svamp i säsong",
+              "type": "meat"
+            }
+          ]
+        },
+        {
+          "language": "en",
+          "dishes": [
+            {
+              "title": "Varenyky- dumplings med potatis och svamp",
+              "type": "veg"
+            },
+            {
+              "title": "Smörstekt clarias (ålmal) med rostad potatis",
+              "type": "fish"
+            },
+            {
+              "title": "Borstjtj på oxsvans elle vegetarisk borsjtj med rökta päron",
+              "type": "meat"
+            },
+            {
+              "title": "Kyckling Kyjiv med potatispuré, gröna ärtor och svamp i säsong",
+              "type": "meat"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Elsa",
+      "url": "https://www.elsamalmo.com/menu",
+      "imageUrl": "https://ftstorageprod.blob.core.windows.net/images/restaurant/ad719f49/images/7aa434b7-48bc-45f0-87a3-f0640d2f127d_m.jpg",
+      "coordinate": {
+        "lat": 55.6068487,
+        "lon": 12.9876917
+      },
+      "googleMapsUrl": "https://maps.app.goo.gl/LnKL7KkKfmMML4y76",
+      "dishCollection": [
+        {
+          "language": "sv",
+          "dishes": [
+            {
+              "title": "Svamptoast med lingon och parmesan",
+              "type": "veg"
+            },
+            {
+              "title": "Smörstekt sej, Sandefjordsås, rom, potatis, syrad fänkål",
+              "type": "fish"
+            },
+            {
+              "title": "Biff, bearnaise, friterad potatis",
+              "type": "meat"
+            },
+            {
+              "title": "Stekt fläsk - potatis, löksås , lingon",
+              "type": "meat"
+            }
+          ]
+        },
+        {
+          "language": "en",
+          "dishes": [
+            {
+              "title": "Svamptoast med lingon och parmesan",
+              "type": "veg"
+            },
+            {
+              "title": "Smörstekt sej, Sandefjordsås, rom, potatis, syrad fänkål",
+              "type": "fish"
+            },
+            {
+              "title": "Biff, bearnaise, friterad potatis",
+              "type": "meat"
+            },
+            {
+              "title": "Stekt fläsk - potatis, löksås , lingon",
+              "type": "meat"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Ruths",
+      "url": "https://ruthsmalmo.se/en/#menu",
+      "imageUrl": "https://highfiveskane.se/wp-content/uploads/2024/01/ruths-31-scaled.jpeg",
+      "coordinate": {
+        "lat": 55.606242,
+        "lon": 12.9966079
+      },
+      "googleMapsUrl": "https://maps.app.goo.gl/FhKo1ctUa9Aa67h49",
+      "dishCollection": [
+        {
+          "language": "sv",
+          "dishes": [
+            {
+              "title": "baby gem salad, pears, figs, hazelnuts & pecorino di forenza 185",
+              "type": "veg"
+            },
+            {
+              "title": "yellow courgette, sweet corn & saffron soup 155",
+              "type": "veg"
+            },
+            {
+              "title": "rainbow trout, salt baked beetroots, string beans, salsa verde & horseradish 295",
+              "type": "fish"
+            },
+            {
+              "title": "munka pork porchetta, coco de paimpol, plums, borettane onions & sage 225",
+              "type": "meat"
+            }
+          ]
+        },
+        {
+          "language": "en",
+          "dishes": [
+            {
+              "title": "baby gem salad, pears, figs, hazelnuts & pecorino di forenza 185",
+              "type": "veg"
+            },
+            {
+              "title": "yellow courgette, sweet corn & saffron soup 155",
+              "type": "veg"
+            },
+            {
+              "title": "rainbow trout, salt baked beetroots, string beans, salsa verde & horseradish 295",
+              "type": "fish"
+            },
+            {
+              "title": "munka pork porchetta, coco de paimpol, plums, borettane onions & sage 225",
+              "type": "meat"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Brasserie Sture",
+      "url": "https://sture1912.com/sv/",
+      "imageUrl": "https://interni.se/wp-content/uploads/2023/09/L8A5740-1.jpg",
+      "coordinate": {
+        "lat": 55.606242,
+        "lon": 12.9966079
+      },
+      "googleMapsUrl": "https://maps.app.goo.gl/UtAQQ3sGfCyCSF5S7",
+      "dishCollection": [
+        {
+          "language": "sv",
+          "dishes": [
+            {
+              "title": "Lasagne med Hokkaido pumpa, solrosfrö och grönkål",
+              "type": "veg"
+            },
+            {
+              "title": "Abborrfilé med gräslökscrème, spenat, löjrom och citron",
+              "type": "fish"
+            },
+            {
+              "title": "Grillad ryggbiff med bacon, rödvinssås, lök och potatismos",
+              "type": "meat"
+            },
+            {
+              "title": "Rotmos med korvar, fläskbog och senap",
+              "type": "meat"
+            }
+          ]
+        },
+        {
+          "language": "en",
+          "dishes": [
+            {
+              "title": "Lasagne med Hokkaido pumpa, solrosfrö och grönkål",
+              "type": "veg"
+            },
+            {
+              "title": "Abborrfilé med gräslökscrème, spenat, löjrom och citron",
+              "type": "fish"
+            },
+            {
+              "title": "Grillad ryggbiff med bacon, rödvinssås, lök och potatismos",
+              "type": "meat"
+            },
+            {
+              "title": "Rotmos med korvar, fläskbog och senap",
+              "type": "meat"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Årstiderna",
+      "url": "https://arstiderna.pieplowsrestauranger.se/lunch/",
+      "imageUrl": "https://mediabeta.pieplowsrestauranger.se/2024/07/WhatsApp-Bild-2024-05-17-kl.-21.50.45_da5e237c-1000x1000.jpg",
+      "coordinate": {
+        "lat": 55.6067435,
+        "lon": 12.9940981
+      },
+      "googleMapsUrl": "https://maps.app.goo.gl/x2Bi7kxVJa4huAud6",
+      "dishCollection": [
+        {
+          "language": "sv",
+          "dishes": [
+            {
+              "title": "Vegetarisk rösti Blandad skogssvamp | Betor | Rostad Blomkål | Krasse | Ost",
+              "type": "veg"
+            },
+            {
+              "title": "Toast skagen Marinerade räkor | Dill | Majonnäs | Löjrom | Brioche",
+              "type": "fish"
+            },
+            {
+              "title": "Kräftbisque Konjak | Marinerade kräftstjärtar | Fänkål | Oststång",
+              "type": "fish"
+            },
+            {
+              "title": "Rösti Varmrökt tuppbröst | Äpple | Rödlöksmarmelad",
+              "type": "meat"
+            }
+          ]
+        },
+        {
+          "language": "en",
+          "dishes": [
+            {
+              "title": "Vegetarisk rösti Blandad skogssvamp | Betor | Rostad Blomkål | Krasse | Ost",
+              "type": "veg"
+            },
+            {
+              "title": "Toast skagen Marinerade räkor | Dill | Majonnäs | Löjrom | Brioche",
+              "type": "fish"
+            },
+            {
+              "title": "Kräftbisque Konjak | Marinerade kräftstjärtar | Fänkål | Oststång",
+              "type": "fish"
+            },
+            {
+              "title": "Rösti Varmrökt tuppbröst | Äpple | Rödlöksmarmelad",
+              "type": "meat"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Nam do",
+      "url": "https://namdo.se/meny/#lunchmeny",
+      "imageUrl": "https://namdo.se/wp-content/uploads/2018/06/180615-namdo-prev-156.jpg",
+      "coordinate": {
+        "lat": 55.6044133,
+        "lon": 12.9978916
+      },
+      "googleMapsUrl": "https://maps.app.goo.gl/ph1WMXqsnXuzA8Kb6",
+      "dishCollection": [
+        {
+          "language": "sv",
+          "dishes": [
+            {
+              "title": "bún chả giò chay - hemmagjorda veganska vårrullar med risnudlar",
+              "type": "veg"
+            },
+            {
+              "title": "hải sản xào tỏi ớt - wokad seafood med grönsaker, serveras med ris",
+              "type": "fish"
+            },
+            {
+              "title": "bún gà xào - citrongräsmarinerad kyckling med risnudlar",
+              "type": "meat"
+            },
+            {
+              "title": "​phở bò - biff nudelsoppa",
+              "type": "meat"
+            }
+          ]
+        },
+        {
+          "language": "en",
+          "dishes": [
+            {
+              "title": "bún chả giò chay - hemmagjorda veganska vårrullar med risnudlar",
+              "type": "veg"
+            },
+            {
+              "title": "hải sản xào tỏi ớt - wokad seafood med grönsaker, serveras med ris",
+              "type": "fish"
+            },
+            {
+              "title": "bún gà xào - citrongräsmarinerad kyckling med risnudlar",
+              "type": "meat"
+            },
+            {
+              "title": "​phở bò - biff nudelsoppa",
+              "type": "meat"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Marie Antoinette",
+      "url": "https://marieantoinette.se/lunch/",
+      "imageUrl": "https://marieantoinette.se/wp-content/uploads/2025/08/image00002.jpeg",
+      "coordinate": {
+        "lat": 55.6080352,
+        "lon": 13.0082392
+      },
+      "googleMapsUrl": "https://maps.app.goo.gl/1jK3QEwkvH1VSC5G7",
+      "dishCollection": [
+        {
+          "language": "sv",
+          "dishes": [
+            {
+              "title": "Friterad getost, Betor, Brynt smör & Hasselnötter",
+              "type": "veg"
+            },
+            {
+              "title": "Fisk, Spetskål, Mandel & Citron",
+              "type": "fish"
+            },
+            {
+              "title": "Skinkstek, Tomat, Vitlök & Rosmarin",
+              "type": "meat"
+            },
+            {
+              "title": "Köttbullar, Potatispuré, Lingon, Gurka & Gräddsås",
+              "type": "meat"
+            }
+          ]
+        },
+        {
+          "language": "en",
+          "dishes": [
+            {
+              "title": "Friterad getost, Betor, Brynt smör & Hasselnötter",
+              "type": "veg"
+            },
+            {
+              "title": "Fisk, Spetskål, Mandel & Citron",
+              "type": "fish"
+            },
+            {
+              "title": "Skinkstek, Tomat, Vitlök & Rosmarin",
+              "type": "meat"
+            },
+            {
+              "title": "Köttbullar, Potatispuré, Lingon, Gurka & Gräddsås",
+              "type": "meat"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Mrs Saigon",
+      "url": "https://www.mrs-saigon.se/meny/",
+      "imageUrl": "https://www.mrs-saigon.se/wp-content/uploads/2021/08/DSC05357.jpg",
+      "coordinate": {
+        "lat": 55.6033363,
+        "lon": 12.9957584
+      },
+      "googleMapsUrl": "https://maps.app.goo.gl/tbr8W9zgifFNMF1R6",
+      "dishCollection": [
+        {
+          "language": "sv",
+          "dishes": [
+            {
+              "title": "PHO CHAY - Vegetarisk risnudel soppa i grönsaksbuljong m. quorn file & tofu (vegansk med bara tofu)",
+              "type": "veg"
+            },
+            {
+              "title": "PHO GA - Risnudel soppa m. kyckling i en välsmakande och näringsrik köttbuljong, böngroddar, koriander och lök. Serveras med basilika och lime.",
+              "type": "meat"
+            },
+            {
+              "title": "PHO BO - Risnudel soppa m. biff i en välsmakande och näringsrik köttbuljong, böngroddar, koriander och lök. Serveras med basilika och lime.",
+              "type": "meat"
+            },
+            {
+              "title": "BUN CHA GIO - Vårrullar Serveras med färska risnudlar, sallad, koriander, jordnötter, rostad lök och sötsur fisksås. (Det går att välja bort något av tillbehören). Spring rolls. Served with vermicelli noodles, salad, bean sprouts, cucumber, coriander, roasted onion, peanuts and sweet & sour fish sauce/vegan sauce.",
+              "type": "meat"
+            }
+          ]
+        },
+        {
+          "language": "en",
+          "dishes": [
+            {
+              "title": "PHO CHAY - Vegetarisk risnudel soppa i grönsaksbuljong m. quorn file & tofu (vegansk med bara tofu)",
+              "type": "veg"
+            },
+            {
+              "title": "PHO GA - Risnudel soppa m. kyckling i en välsmakande och näringsrik köttbuljong, böngroddar, koriander och lök. Serveras med basilika och lime.",
+              "type": "meat"
+            },
+            {
+              "title": "PHO BO - Risnudel soppa m. biff i en välsmakande och näringsrik köttbuljong, böngroddar, koriander och lök. Serveras med basilika och lime.",
+              "type": "meat"
+            },
+            {
+              "title": "BUN CHA GIO - Vårrullar Serveras med färska risnudlar, sallad, koriander, jordnötter, rostad lök och sötsur fisksås. (Det går att välja bort något av tillbehören). Spring rolls. Served with vermicelli noodles, salad, bean sprouts, cucumber, coriander, roasted onion, peanuts and sweet & sour fish sauce/vegan sauce.",
+              "type": "meat"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Epicuré",
+      "url": "https://epicure.nu/lunch/",
+      "imageUrl": "https://epicure.nu/wp-content/uploads/2021/06/epicure-restaurang.jpg",
+      "coordinate": {
+        "lat": 55.6032725,
+        "lon": 12.9973569
+      },
+      "googleMapsUrl": "https://maps.app.goo.gl/V8JZiGPaZXwAg4w57",
+      "dishCollection": [
+        {
+          "language": "sv",
+          "dishes": [
+            {
+              "title": "Cannelloni - Fyllda pastarör med ricotta och spenat som toppas med ruccola och grana padana",
+              "type": "veg"
+            },
+            {
+              "title": "Spaghetti alle Acciughe - Spaghetti, sardeller, vitlök, chilli, vitt vin och pinjenötter",
+              "type": "fish"
+            },
+            {
+              "title": "Risotto con salsiccia - Rödvinskokt risotto med svartkål. Italiensk grillad korv samt toppas med ricotta salatta",
+              "type": "meat"
+            },
+            {
+              "title": "Polpette - Spaghetti med Italienska köttbullar i tomatsås, toppas med persilja och Grana Padano",
+              "type": "meat"
+            }
+          ]
+        },
+        {
+          "language": "en",
+          "dishes": [
+            {
+              "title": "Cannelloni - Fyllda pastarör med ricotta och spenat som toppas med ruccola och grana padana",
+              "type": "veg"
+            },
+            {
+              "title": "Spaghetti alle Acciughe - Spaghetti, sardeller, vitlök, chilli, vitt vin och pinjenötter",
+              "type": "fish"
+            },
+            {
+              "title": "Risotto con salsiccia - Rödvinskokt risotto med svartkål. Italiensk grillad korv samt toppas med ricotta salatta",
+              "type": "meat"
+            },
+            {
+              "title": "Polpette - Spaghetti med Italienska köttbullar i tomatsås, toppas med persilja och Grana Padano",
+              "type": "meat"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Green Mango",
+      "url": "https://www.greenmango.se/",
+      "imageUrl": "https://static.wixstatic.com/media/4ef303_bf12a28909dc4040b74d79fb22ebef0a~mv2.jpg/v1/fit/w_513,h_685,q_90,enc_avif,quality_auto/4ef303_bf12a28909dc4040b74d79fb22ebef0a~mv2.jpg",
+      "coordinate": {
+        "lat": 55.5984894,
+        "lon": 12.9932109
+      },
+      "googleMapsUrl": "https://maps.app.goo.gl/kZ4DrgTLP9Rpk3iG8",
+      "dishCollection": [
+        {
+          "language": "sv",
+          "dishes": [
+            {
+              "title": "Tod Man Pla- friterade, kryddiga fiskkakor med sweetchilisås",
+              "type": "fish"
+            },
+            {
+              "title": "Pad Med Mamuang - lättfriterad kyckling med chilipaste, cashewnötter & grönsaker",
+              "type": "meat"
+            },
+            {
+              "title": "Keng Massaman - kyckling eller tofu i massamancurry, kokosmjölk, jordnötter, lök & potatis",
+              "type": "meat"
+            },
+            {
+              "title": "Keng Khiaw Wan - kyckling eller tofu i grön curry, kokosmjölk och grönsaker",
+              "type": "meat"
+            }
+          ]
+        },
+        {
+          "language": "en",
+          "dishes": [
+            {
+              "title": "Tod Man Pla- friterade, kryddiga fiskkakor med sweetchilisås",
+              "type": "fish"
+            },
+            {
+              "title": "Pad Med Mamuang - lättfriterad kyckling med chilipaste, cashewnötter & grönsaker",
+              "type": "meat"
+            },
+            {
+              "title": "Keng Massaman - kyckling eller tofu i massamancurry, kokosmjölk, jordnötter, lök & potatis",
+              "type": "meat"
+            },
+            {
+              "title": "Keng Khiaw Wan - kyckling eller tofu i grön curry, kokosmjölk och grönsaker",
               "type": "meat"
             }
           ]

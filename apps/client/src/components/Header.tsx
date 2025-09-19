@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 
-import { ReactComponent as Icon } from '@/assets/devoteam-round.svg';
+import Icon from '@/assets/devoteam-round.svg?react';
 import { color, screenSize } from '@/utils/theme';
 
 const headerStyles = css`

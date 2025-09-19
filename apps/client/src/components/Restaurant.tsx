@@ -2,9 +2,9 @@ import { css } from '@emotion/react';
 
 import Dish from '@/components/Dish';
 
-import { ReactComponent as LocationIcon } from '@/assets/location.svg';
-import { ReactComponent as ExternalLinkIcon } from '@/assets/external-link.svg';
-import { ReactComponent as DirectionIcon } from '@/assets/direction.svg';
+import LocationIcon from '@/assets/location.svg?react';
+import ExternalLinkIcon from '@/assets/external-link.svg?react';
+import DirectionIcon from '@/assets/direction.svg?react';
 import { useRestaurants } from '@/contexts/restaurants';
 import { color } from '@/utils/theme';
 import { calculateDistance } from '@/utils/distance';

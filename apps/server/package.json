@@ -4,7 +4,7 @@
   "type": "module",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon --delay 500ms -e ts --exec ts-node src/index.ts | pino-pretty",
+    "dev": "nodemon --delay 500ms -e ts --exec tsx src/index.ts | pino-pretty",
     "build": "tsc",
     "typecheck": "tsc --noEmit",
     "lint": "eslint src --ext ts --max-warnings 0",
@@ -12,15 +12,17 @@
   },
   "dependencies": {
     "@devolunch/shared": "workspace:*",
-    "@google-cloud/storage": "^5.20.5",
-    "@slack/web-api": "^6.9.0",
-    "compression": "1.7.4",
+    "@google-cloud/storage": "^7.15.0",
+    "@slack/web-api": "^7.8.0",
+    "compression": "^1.7.5",
     "cors": "^2.8.5",
-    "dotenv": "16.0.3",
-    "express": "^4.18.2",
-    "pino": "^7.10.0",
-    "pino-pretty": "^7.6.1",
-    "zod": "^3.22.4"
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "pino": "^9.10.0",
+    "pino-pretty": "^13.1.1",
+    "zod": "^3.24.1"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "tsx": "^4.19.2"
+  }
 }
