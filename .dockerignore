@@ -8,3 +8,21 @@
 # Docker files
 .dockerignore
 Dockerfile
+
+# Development files
+.git
+.github
+*.md
+.env*
+.cache
+coverage
+.turbo
+**/*.test.*
+**/*.spec.*
+.editorconfig
+.nvmrc
+.prettierrc.js
+eslint.config.js
+vitest.config.ts
+.husky
+**/*.map

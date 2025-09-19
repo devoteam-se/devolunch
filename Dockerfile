@@ -1,8 +1,8 @@
-FROM node:18-alpine as base
+FROM node:22-alpine as base
 WORKDIR '/docker-app'
 COPY pnpm-lock.yaml ./
 ENV CI=true
-RUN npm install -g pnpm@8
+RUN npm install -g pnpm@10
 RUN pnpm fetch
 ADD . ./
 RUN pnpm install -r --offline --ignore-scripts
@@ -37,7 +37,7 @@ RUN pnpm build
 #  |   / |_| | .` |
 #  |_|_\\___/|_|\_|
 
-FROM --platform=linux/amd64 node:18-alpine
+FROM --platform=linux/amd64 node:22-alpine
 
 ENV NODE_ENV=production
 

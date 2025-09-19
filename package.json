@@ -5,6 +5,10 @@
   "packageManager": "pnpm@10.15.0",
   "description": "DevoLunch is an lunch app used for providing the todays lunch menus nearby the office.",
   "license": "MIT",
+  "engines": {
+    "node": ">=22.0.0",
+    "pnpm": ">=10.0.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jayway/devolunch.git"

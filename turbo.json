@@ -27,7 +27,7 @@
     },
     "test": {
       "dependsOn": ["^build"],
-      "inputs": ["src/**/*.{ts,tsx}", "test/**/*.{ts,tsx}", "**/*.test.{ts,tsx}"],
+      "inputs": ["src/**/*.{ts,tsx}", "test/**/*.{ts,tsx}", "**/*.test.{ts,tsx}", "vitest.config.ts"],
       "outputs": ["coverage/**"]
     },
     "test:watch": {
