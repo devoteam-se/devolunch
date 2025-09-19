@@ -5,9 +5,9 @@ import { fileURLToPath } from 'url';
 import cors from 'cors';
 import compression from 'compression';
 
-import { config } from './config.js';
-import { logger } from './utils/logger.js';
-import routes from './routes/index.js';
+import { config } from './config';
+import { logger } from './utils/logger';
+import routes from './routes';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);

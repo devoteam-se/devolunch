@@ -131,26 +131,13 @@ const showMoreButtonStyles = css`
   }
 `;
 
-const locationInfoContainerStyles = css`
-  padding: 0.75rem;
-  background-color: ${color.ivory};
-  margin-bottom: 0.75rem;
-`;
-
-const locationNameStyles = css`
-  font-family: 'Azeret Mono', monospace;
-  font-weight: 500;
-  font-size: 1rem;
-  color: ${color.black};
-  margin: 0;
-  margin-bottom: 0.25rem;
-`;
+const locationInfoContainerStyles = css``;
 
 const locationDistanceStyles = css`
   display: flex;
   align-items: center;
-  color: ${color.blackOlive};
-  font-size: 0.875rem;
+  color: ${color.black};
+  margin: 0.75rem 0;
 `;
 
 const cycleButtonStyles = css`
@@ -270,10 +257,9 @@ export default function Restaurant({
 
       {isMultiLocation && !loading && (
         <div css={locationInfoContainerStyles}>
-          <h3 css={locationNameStyles}>{currentLocation?.title}</h3>
           <div css={locationDistanceStyles}>
             <LocationIcon css={restaurantLocationIconStyles} />
-            {distanceText}
+            {distanceText} • {currentLocation?.title}
           </div>
         </div>
       )}

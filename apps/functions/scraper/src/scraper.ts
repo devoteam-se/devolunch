@@ -19,6 +19,22 @@ export const storage = new Storage({
   projectId: 'devolunch',
 });
 
+// Clean PDF text extraction to fix common OCR errors
+const cleanPdfText = (text: string): string => {
+  return text
+    // Fix common PDF ligature/encoding issues
+    .replace(/0läsk/g, 'fläsk')  // "0läsk" -> "fläsk" (pork)
+    .replace(/con0iterad/g, 'confiterad')  // "con0iterad" -> "confiterad" (confit)
+    .replace(/0isk/g, 'fisk')  // "0isk" -> "fisk" (fish)
+    .replace(/kyckling0/g, 'kycklingfilé')  // Common truncation
+    // Fix other common OCR substitutions
+    .replace(/([a-zåäö])0([a-zåäö])/g, '$1fi$2')  // Generic "0" -> "fi" in middle of words
+    .replace(/\b0([a-zåäö])/g, 'fi$1')  // "0" at word start -> "fi"
+    // Clean up extra spaces
+    .replace(/\s+/g, ' ')
+    .trim();
+};
+
 // Helper function to extract PDF content with robust error handling
 const extractPdfContent = async (pdfUrl: string): Promise<string> => {
   try {
@@ -42,7 +58,7 @@ const extractPdfContent = async (pdfUrl: string): Promise<string> => {
       const meaningfulText = pdfData.text.trim().replace(/\s+/g, ' ');
       if (meaningfulText.length > 50) {
         console.log(`📄 Using standard PDF text extraction`);
-        return pdfData.text;
+        return cleanPdfText(pdfData.text);
       } else {
         console.log(`📄 PDF text extraction insufficient (${meaningfulText.length} chars), trying pdfjs-dist`);
       }
@@ -78,7 +94,7 @@ const extractPdfContent = async (pdfUrl: string): Promise<string> => {
       console.log(`📄 Content preview:`, extractedText.substring(0, 200));
 
       if (extractedText.trim().length > 50) {
-        return extractedText;
+        return cleanPdfText(extractedText);
       }
     } catch (pdfjsError) {
       console.error(`❌ PDF.js extraction failed:`, pdfjsError);

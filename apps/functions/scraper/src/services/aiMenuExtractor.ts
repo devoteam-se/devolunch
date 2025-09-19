@@ -45,12 +45,12 @@ export const extractMenuWithAI = async (
     const completion = await getOpenAI().chat.completions.create({
       model: 'gpt-4o-mini', // Cost-effective model good for structured tasks
       max_tokens: 1500, // Increased to handle multiple dishes
-      temperature: 0.1,
+      temperature: 0.0, // Use lowest temperature to reduce hallucinations
       messages: [
         {
           role: 'system',
           content:
-            "You are a precise menu extraction assistant for Swedish restaurants. Extract only today's lunch dishes. Exclude dinner/evening/à la carte items, sides, desserts, snacks, kids menus, and drinks. Output strictly valid JSON.",
+            "You are a precise menu extraction assistant for Swedish restaurants. Extract ONLY dishes that actually appear on the provided menu content. NEVER add or invent dishes that are not explicitly listed. Exclude dinner/evening/à la carte items, sides, desserts, snacks, kids menus, and drinks. Output strictly valid JSON.",
         },
         {
           role: 'user',
@@ -122,7 +122,7 @@ ${instructions}`;
       {
         role: 'system',
         content:
-          "You are a precise menu extraction assistant for Swedish restaurants. Extract only today's lunch dishes from menu images. Output strictly valid JSON.",
+          "You are a precise menu extraction assistant for Swedish restaurants. Extract ONLY dishes that actually appear in the provided menu images. NEVER add or invent dishes that are not explicitly shown. Extract only today's lunch dishes from menu images. Output strictly valid JSON.",
       },
       {
         role: 'user',
@@ -141,7 +141,7 @@ ${instructions}`;
     const completion = await getOpenAI().chat.completions.create({
       model: 'gpt-4o', // Vision model required for image analysis
       max_tokens: 1500,
-      temperature: 0.1,
+      temperature: 0.0, // Use lowest temperature to reduce hallucinations
       messages,
     });
 
@@ -191,8 +191,8 @@ const createMenuExtractionInstructions = (weekdaySv: string, locationFilter?: st
 WHAT TO INCLUDE - MANDATORY EXTRACTION:
 • PRIORITY 1: ANY "Veckans" items - ALWAYS extract these weekly specials (remove "Veckans" prefix from title)
 • PRIORITY 2: Daily dishes for TODAY (${weekdaySv}) from weekday schedules
-• PRIORITY 3: Caesar sallad, Sillmacka, and similar lunch classics
-• PRIORITY 4: Items with lunch pricing (100-200kr)
+• PRIORITY 3: Items with lunch pricing (100-200kr)
+• CRITICAL: ONLY extract dishes that ACTUALLY APPEAR on the menu - DO NOT add common lunch items if they are not explicitly listed
 
 CRITICAL VECKANS RULE:
 • If you see "Veckans" followed by any dish name, EXTRACT IT
@@ -229,6 +229,13 @@ WHAT TO EXCLUDE - ZERO TOLERANCE:
 • Duplicates of items already found in lunch sections
 
 REMEMBER: "Bärstronomi" = FULL STOP. Extract only the 4 lunch items that appear BEFORE this section.
+
+ANTI-HALLUCINATION RULES - CRITICAL:
+• NEVER add Caesar sallad, Moo Tod, or other common dishes if they are not explicitly on this restaurant's menu
+• NEVER use your training data to "fill in" typical lunch items
+• ONLY extract dishes that are actually written in the provided content
+• If you cannot find 4 lunch dishes, extract fewer dishes rather than inventing new ones
+• When in doubt, extract nothing rather than hallucinate dishes
 
 OUTPUT FORMAT:
 • Include full dish descriptions with ingredients

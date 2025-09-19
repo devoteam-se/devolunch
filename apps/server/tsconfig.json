@@ -3,8 +3,9 @@
   "compilerOptions": {
     "outDir": "dist",
     "lib": ["ESNext"],
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "noEmit": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "baseUrl": "."
@@ -12,6 +13,7 @@
   "include": ["src"],
   "exclude": ["node_modules", "dist"],
   "ts-node": {
-    "files": true
+    "files": true,
+    "esm": true
   }
 }

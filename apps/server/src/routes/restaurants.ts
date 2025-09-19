@@ -1,7 +1,7 @@
 import express from 'express';
 import type { Request, Response, Router } from 'express';
 
-import { getScrape } from '../services/storage.js';
+import { getScrape } from '../services/storage';
 
 const router: Router = express.Router();
 
