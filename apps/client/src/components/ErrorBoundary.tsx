@@ -1,4 +1,4 @@
-import React, { Component, ErrorInfo, ReactNode } from 'react';
+import { Component, ErrorInfo, ReactNode } from 'react';
 import { css } from '@emotion/react';
 import { color } from '../utils/theme';
 import { logger } from '@devolunch/shared/logger/browser';

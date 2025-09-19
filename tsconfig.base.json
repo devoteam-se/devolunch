@@ -15,9 +15,9 @@
       "@devolunch/shared/*": ["packages/shared/src/*"]
     },
     "isolatedModules": true,
-    "noUnusedLocals": false,
-    "noUnusedParameters": false,
-    "noImplicitReturns": false,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "declaration": true,
     "sourceMap": true

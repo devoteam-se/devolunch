@@ -242,12 +242,12 @@ const handleInteractiveMenus = async (page: Page, meta: RestaurantMetaProps): Pr
   }
 };
 
-// Build PageContent for a given URL (with optional cleaning) and collect PDF links
+// Build PageContent for a given URL (with optional cleaning)
 const buildPageContent = async (
   page: Page,
   meta: RestaurantMetaProps,
   url: string,
-): Promise<{ content: PageContent; pdfLinks: string[] }> => {
+): Promise<PageContent> => {
   // Use a common desktop UA to avoid basic bot blocks and ensure PDF viewers behave
   try {
     await page.setUserAgent(
@@ -325,44 +325,7 @@ const buildPageContent = async (
     content = { html, text, title, url, images };
   }
 
-  // Collect potential PDF links from anchors and embedded elements
-  const pdfLinks = await page.evaluate(() => {
-    const urls = new Set<string>();
-    const add = (u?: string | null) => {
-      if (!u) return;
-      try {
-        const abs = new URL(u, document.baseURI).href;
-        urls.add(abs);
-      } catch {
-        console.log(`⚠️ Error adding URL: ${u}`);
-      }
-    };
-
-    // Anchors likely pointing to PDFs
-    document.querySelectorAll('a[href]')?.forEach((a) => {
-      const href = (a as HTMLAnchorElement).getAttribute('href') || '';
-      if (/\.pdf(\b|[?#])/i.test(href)) add(href);
-    });
-
-    // Link tags explicitly marked as PDFs
-    document.querySelectorAll('link[type="application/pdf"][href]')?.forEach((l) => add(l.getAttribute('href')));
-
-    // Embedded PDF viewers
-    document.querySelectorAll('embed[src], iframe[src], object[data]')?.forEach((el: Element) => {
-      const tag = el.tagName.toLowerCase();
-      const type = (el as HTMLElement & { type?: string }).type ? String((el as HTMLElement & { type?: string }).type).toLowerCase() : '';
-      if (tag === 'embed' || tag === 'iframe') {
-        const src = el.getAttribute('src');
-        if (/\.pdf(\b|[?#])/i.test(src || '') || type.includes('pdf')) add(src);
-      } else if (tag === 'object') {
-        const data = el.getAttribute('data');
-        if (/\.pdf(\b|[?#])/i.test(data || '') || type.includes('pdf')) add(data);
-      }
-    });
-
-    return Array.from(urls);
-  });
-  return { content, pdfLinks };
+  return content;
 };
 
 // Try to extract dishes from PageContent and optionally fall back to PDFs, supporting location filters
@@ -370,7 +333,6 @@ const extractDishesWithFallback = async (
   page: Page,
   content: PageContent,
   meta: RestaurantMetaProps,
-  pdfLinks: string[],
   locationFilter?: string,
   otherLocationFilters?: string[],
 ): Promise<DishProps[]> => {
@@ -590,8 +552,8 @@ const scrapeFromUrl = async (
   locationFilter?: string,
 ): Promise<DishProps[]> => {
   try {
-    const { content, pdfLinks } = await buildPageContent(page, meta, url);
-    return await extractDishesWithFallback(page, content, meta, pdfLinks, locationFilter);
+    const content = await buildPageContent(page, meta, url);
+    return await extractDishesWithFallback(page, content, meta, locationFilter);
   } catch (error) {
     logger.error({ title: meta.title, locationFilter, err: error }, 'Error scraping');
     return [];
@@ -642,7 +604,7 @@ const processRestaurants = async (browser: Browser, metas: RestaurantMetaProps[]
           if (type === 'filtered') {
             // Build content once, then extract per location with regex-based narrowing
             // Run sequentially to avoid concurrent PDF fallbacks on the same page
-            const { content, pdfLinks } = await buildPageContent(page, meta, meta.url);
+            const content = await buildPageContent(page, meta, meta.url);
             const locs = [] as RestaurantProps['locations'];
             for (let idx = 0; idx < locations.length; idx++) {
               const loc = locations[idx]!;
@@ -654,7 +616,6 @@ const processRestaurants = async (browser: Browser, metas: RestaurantMetaProps[]
                 page,
                 content,
                 meta,
-                pdfLinks,
                 loc.locationFilter,
                 otherFilters,
               );
@@ -821,7 +782,8 @@ export const runScraping = async (): Promise<Scrape> => {
 };
 
 // Cloud Function HTTP handler
-ff.http('scrape', async (_: ff.Request, res: ff.Response) => {
+ff.http('scrape', async (_req: ff.Request, res: ff.Response) => {
+  void _req;
   try {
     const scrape = await runScraping();
     res.json(scrape);

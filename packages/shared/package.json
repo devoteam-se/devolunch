@@ -1,6 +1,7 @@
 {
   "name": "@devolunch/shared",
   "version": "1.0.0",
+  "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
@@ -38,6 +39,11 @@
   "peerDependencies": {
     "typescript": "*",
     "pino": "^9.10.0"
+  },
+  "peerDependenciesMeta": {
+    "pino": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "rimraf": "^6.0.1"

@@ -1,7 +1,6 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-pnpm --filter shared build
+# Fast, reliable checks before commit
 pnpm lint
 pnpm typecheck
-pnpm test

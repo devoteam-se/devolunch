@@ -99,4 +99,4 @@ See [docs/DEPENDENCY_MANAGEMENT.md](./docs/DEPENDENCY_MANAGEMENT.md) for detaile
 - [x] Add Cloud Function deploy step
 - [x] Serve images via the backend
 - [x] Split up terraform configurations into multiple files for readability
-- [ ] Figure out a good way of handling restaurant chains
+- [x] Figure out a good way of handling restaurant chains

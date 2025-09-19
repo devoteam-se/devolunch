@@ -33,5 +33,5 @@ function severity(label: string): string {
 }
 
 export const logger = pino(loggerOptions) as Logger;
+export default logger;
 export type Logger = pino.Logger;
-

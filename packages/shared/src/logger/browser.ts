@@ -7,6 +7,19 @@ const serialize = (ctx?: LogContext) => {
   return { value: ctx };
 };
 
+const isDebug = (() => {
+  try {
+    const g: any = globalThis as any;
+    if (typeof g.DEVOLUNCH_DEBUG === 'boolean') return g.DEVOLUNCH_DEBUG;
+    if (typeof window !== 'undefined' && window.location) {
+      return /localhost|127\.0\.0\.1/.test(window.location.hostname);
+    }
+  } catch {
+    // ignore
+  }
+  return false;
+})();
+
 export const logger = {
   info: (context?: LogContext, msg?: string) => {
     if (msg) console.info(msg, serialize(context));
@@ -21,12 +34,11 @@ export const logger = {
     else if (context) console.error(context);
   },
   debug: (context?: LogContext, msg?: string) => {
-    if (import.meta.env?.DEV) {
-      if (msg) console.debug(msg, serialize(context));
-      else if (context) console.debug(context);
-    }
+    if (!isDebug) return;
+    if (msg) console.debug(msg, serialize(context));
+    else if (context) console.debug(context);
   },
 };
 
 export type Logger = typeof logger;
-
+export default logger;

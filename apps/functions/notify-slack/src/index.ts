@@ -52,7 +52,8 @@ const getTodayNiceFormat = (): string => {
   return d.toISOString().split('T')[0];
 };
 
-ff.http('notify-slack', async (_: ff.Request, res: ff.Response) => {
+ff.http('notify-slack', async (_req: ff.Request, res: ff.Response) => {
+  void _req;
   // send to slack
   const bucket = storage.bucket(BUCKET_NAME);
   const file = await bucket.file('scrape.json').download();

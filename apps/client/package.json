@@ -35,6 +35,9 @@
   },
   "devDependencies": {
     "@devolunch/shared": "workspace:*",
+    "vite": "^7.1.6",
+    "@types/react": "^19.1.13",
+    "@types/react-dom": "^19.1.9",
     "vite-plugin-compression": "^0.5.1",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.1.0",
