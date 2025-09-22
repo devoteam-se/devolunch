@@ -128,11 +128,6 @@ const renderItemForMarkdown = ({ title, dishCollection, locations }: RestaurantP
   return result;
 };
 
-const getTodayNiceFormat = (): string => {
-  const d = new Date();
-  d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
-  return d.toISOString().split('T')[0];
-};
 
 ff.http('notify-slack', async (_req: ff.Request, res: ff.Response) => {
   console.log('🚀 notify-slack function called');
@@ -221,7 +216,7 @@ ff.http('notify-slack', async (_req: ff.Request, res: ff.Response) => {
       }
 
       // Small delay to avoid rate limiting
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise(resolve => globalThis.setTimeout(resolve, 100));
     }
 
     console.log(`✅ All messages sent successfully! Total restaurants: ${totalSent}`);
