@@ -5,9 +5,9 @@ import { fileURLToPath } from 'url';
 import cors from 'cors';
 import compression from 'compression';
 
-import { config } from './config';
+import { config } from './config.js';
 import { logger } from '@devolunch/shared/logger/node';
-import routes from './routes';
+import routes from './routes/index.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);

@@ -1,5 +1,10 @@
 import { z } from 'zod';
 import dotenv from 'dotenv';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const ConfigSchema = z
   .object({
@@ -12,7 +17,9 @@ const ConfigSchema = z
 export type Config = z.infer<typeof ConfigSchema>;
 
 export const createConfig = () => {
-  dotenv.config();
+  // Load .env file from the correct location (one level up from dist)
+  const envPath = join(__dirname, '..', '.env');
+  dotenv.config({ path: envPath });
 
   const config = ConfigSchema.parse({
     development: process.env.NODE_ENV === 'development',
@@ -20,5 +27,5 @@ export const createConfig = () => {
     slackOauthToken: process.env.SLACK_OAUTH_TOKEN || '',
   });
 
-  return ConfigSchema.parse(config);
+  return config;
 };

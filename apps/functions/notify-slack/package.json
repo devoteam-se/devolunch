@@ -18,13 +18,10 @@
     "@google-cloud/storage": "^5.20.5",
     "pino": "^9.10.0",
     "dotenv": "16.0.3",
-    "form-data": "^4.0.0",
-    "node-fetch": "^2.7.0",
     "zod": "^3.22.4"
   },
   "devDependencies": {
     "@devolunch/shared": "workspace:^",
-    "@pnpm/make-dedicated-lockfile": "^0.5.10",
-    "@types/node-fetch": "^2.6.7"
+    "@pnpm/make-dedicated-lockfile": "^0.5.10"
   }
 }
