@@ -7,6 +7,7 @@
   "scripts": {
     "start": "pnpm build && functions-framework --target=scrape --port=8081",
     "scrape": "pnpm build && node dist/apps/functions/scraper/src/scraper.js",
+    "dev": "pnpm build && node dist/apps/functions/scraper/src/scraper.js | pnpm pino-pretty",
     "build": "tsc",
     "typecheck": "tsc --noEmit",
     "lint": "eslint src --ext ts --max-warnings 0",
