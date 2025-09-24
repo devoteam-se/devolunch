@@ -1,6 +1,3 @@
-#!/usr/bin/env sh
-. "$(dirname -- "$0")/_/husky.sh"
-
 msgFile="$1"
 subject="$(head -n1 "$msgFile" | tr -d '\r')"
 
@@ -22,4 +19,3 @@ echo "  feat(server): add health endpoint"
 echo "  fix(scraper): handle empty PDF"
 echo "Got: $subject\n"
 exit 1
-

@@ -1,6 +1,3 @@
-#!/usr/bin/env sh
-. "$(dirname -- "$0")/_/husky.sh"
-
 set -e
 
 echo "husky pre-push: running tests"
@@ -10,4 +7,3 @@ echo "husky pre-push: running build"
 pnpm build
 
 echo "husky pre-push: OK"
-
