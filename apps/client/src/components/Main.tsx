@@ -5,6 +5,9 @@ import RestaurantGrid from '@/components/RestaurantGrid';
 import { screenSize } from '@/utils/theme';
 
 import { RestaurantGridProps } from '@devolunch/shared';
+import { useMemo, useState } from 'react';
+import { useRestaurants } from '@/hooks/useRestaurants';
+import { filterRestaurants } from '@/utils/filter-restaurants';
 
 const mainStyles = css`
   display: flex;
@@ -28,12 +31,16 @@ const optionsStyles = css`
 `;
 
 export default function Main({ restaurants }: RestaurantGridProps) {
+  const { language } = useRestaurants();
+  const [query, setQuery] = useState<string>('');
+  const filtered = useMemo(() => filterRestaurants(restaurants, query, language), [restaurants, query, language]);
+
   return (
     <main css={mainStyles}>
       <div css={optionsStyles}>
-        <Options />
+        <Options onQueryChange={setQuery} />
       </div>
-      <RestaurantGrid restaurants={restaurants} />
+      <RestaurantGrid restaurants={filtered} />
     </main>
   );
 }
