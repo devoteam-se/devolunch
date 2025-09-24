@@ -24,6 +24,21 @@ export interface RestaurantProps {
 export interface DishCollectionProps {
   language: string;
   dishes: DishProps[];
+  lunchInfo?: LunchMetadata;
+}
+
+export interface LunchMetadata {
+  servingTimes?: string; // e.g., "11:30-14:00", "Lunch serveras 11-15"
+  includedItems?: string[]; // e.g., ["sallad", "bröd", "smör", "kaffe"]
+  specialNotes?: string; // e.g., "Hämtlunch", "Buffé", "Vegetariska alternativ finns alltid"
+  closureInfo?: ClosureInfo; // Information about restaurant closures
+}
+
+export interface ClosureInfo {
+  isClosed: boolean;
+  reason?: string; // e.g., "Closed Mondays and Tuesdays"
+  reopensOn?: string; // e.g., "Wednesday", "Tomorrow", specific date
+  closedDays?: string[]; // e.g., ["monday", "tuesday"]
 }
 
 export interface DishProps {

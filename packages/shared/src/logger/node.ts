@@ -1,17 +1,30 @@
 import pino from 'pino';
 
 const logLevel = process.env.LOG_LEVEL || 'info';
+const isDevelopment = process.env.NODE_ENV === 'development';
 
-const loggerOptions = {
-  formatters: {
-    level: (label: string): object => ({ severity: severity(label) }),
-  },
-  base: null,
-  // Google Cloud Logging prefers a 'message' key
-  messageKey: 'message',
-  timestamp: false,
-  level: logLevel,
-};
+const loggerOptions = isDevelopment
+  ? {
+      level: logLevel,
+      transport: {
+        target: 'pino-pretty',
+        options: {
+          colorize: true,
+          translateTime: 'HH:MM:ss',
+          ignore: 'pid,hostname',
+        }
+      }
+    }
+  : {
+      formatters: {
+        level: (label: string): object => ({ severity: severity(label) }),
+      },
+      base: null,
+      // Google Cloud Logging prefers a 'message' key
+      messageKey: 'message',
+      timestamp: false,
+      level: logLevel,
+    };
 
 function severity(label: string): string {
   switch (label) {

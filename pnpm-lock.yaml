@@ -76,7 +76,7 @@ importers:
     devDependencies:
       '@devolunch/shared':
         specifier: workspace:*
-        version: link:../../packages/shared
+        version: file:packages/shared(pino@9.10.0)(typescript@5.9.2)
       '@testing-library/jest-dom':
         specifier: ^6.6.3
         version: 6.8.0
@@ -125,7 +125,7 @@ importers:
     devDependencies:
       '@devolunch/shared':
         specifier: workspace:^
-        version: link:../../../packages/shared
+        version: file:packages/shared(pino@9.10.0)(typescript@5.9.2)
       '@pnpm/make-dedicated-lockfile':
         specifier: ^0.5.10
         version: 0.5.15
@@ -165,7 +165,7 @@ importers:
     devDependencies:
       '@devolunch/shared':
         specifier: workspace:^
-        version: link:../../../packages/shared
+        version: file:packages/shared(pino@9.10.0)(typescript@5.9.2)
       '@pnpm/make-dedicated-lockfile':
         specifier: ^0.5.10
         version: 0.5.15
@@ -174,7 +174,7 @@ importers:
     dependencies:
       '@devolunch/shared':
         specifier: workspace:*
-        version: link:../../packages/shared
+        version: file:packages/shared(pino@9.10.0)(typescript@5.9.2)
       '@google-cloud/storage':
         specifier: ^7.15.0
         version: 7.17.1
@@ -221,6 +221,9 @@ importers:
       pino:
         specifier: ^9.10.0
         version: 9.10.0
+      pino-pretty:
+        specifier: ^13.1.1
+        version: 13.1.1
       typescript:
         specifier: '*'
         version: 5.9.2
@@ -785,6 +788,15 @@ packages:
   '@csstools/css-tokenizer@3.0.4':
     resolution: {integrity: sha512-Vd/9EVDiu6PPJt9yAh6roZP6El1xHrdvIVGjyBsHR0RYwNHgL7FJPyIIW4fANJNG6FtyZfvlRPpFI4ZM/lubvw==}
     engines: {node: '>=18'}
+
+  '@devolunch/shared@file:packages/shared':
+    resolution: {directory: packages/shared, type: directory}
+    peerDependencies:
+      pino: ^9.10.0
+      typescript: '*'
+    peerDependenciesMeta:
+      pino:
+        optional: true
 
   '@emotion/babel-plugin@11.13.5':
     resolution: {integrity: sha512-pxHCpT2ex+0q+HH91/zsdHkw/lXd468DIN2zvfvLtPKLLMo6gQj7oLObq8PhkrxOZb/gGCq03S3Z7PDhS8pduQ==}
@@ -5520,6 +5532,12 @@ snapshots:
       '@csstools/css-tokenizer': 3.0.4
 
   '@csstools/css-tokenizer@3.0.4': {}
+
+  '@devolunch/shared@file:packages/shared(pino@9.10.0)(typescript@5.9.2)':
+    dependencies:
+      typescript: 5.9.2
+    optionalDependencies:
+      pino: 9.10.0
 
   '@emotion/babel-plugin@11.13.5':
     dependencies:

@@ -1,10 +1,12 @@
 import { css } from '@emotion/react';
 
 import Dish from '@/components/Dish';
+import LunchInfo from '@/components/LunchInfo';
 
 import LocationIcon from '@/assets/location.svg?react';
 import ExternalLinkIcon from '@/assets/external-link.svg?react';
 import DirectionIcon from '@/assets/direction.svg?react';
+import ClockIcon from '@/assets/clock.svg?react';
 import { useRestaurants } from '@/hooks/useRestaurants';
 import { color } from '@/utils/theme';
 import { calculateDistance } from '@/utils/distance';
@@ -44,6 +46,7 @@ const restaurantTitleStyles = css`
 const restaurantDistanceStyles = css`
   display: flex;
   align-items: center;
+  justify-content: space-between;
   color: ${color.black};
   margin: 0.75rem 0;
 `;
@@ -137,8 +140,28 @@ const locationInfoContainerStyles = css``;
 const locationDistanceStyles = css`
   display: flex;
   align-items: center;
+  justify-content: space-between;
   color: ${color.black};
   margin: 0.75rem 0;
+`;
+
+const distanceInfoStyles = css`
+  display: flex;
+  align-items: center;
+`;
+
+const openingTimesStyles = css`
+  display: flex;
+  align-items: center;
+  font-size: 0.875rem;
+  color: ${color.blackOlive};
+`;
+
+const clockIconStyles = css`
+  width: 0.875rem;
+  height: 0.875rem;
+  margin-right: 0.25rem;
+  color: ${color.blackOlive};
 `;
 
 const cycleButtonStyles = css`
@@ -259,16 +282,40 @@ export default function Restaurant({
       {isMultiLocation && !loading && (
         <div css={locationInfoContainerStyles}>
           <div css={locationDistanceStyles}>
-            <LocationIcon css={restaurantLocationIconStyles} />
-            {distanceText} • {currentLocation?.title}
+            <div css={distanceInfoStyles}>
+              <LocationIcon css={restaurantLocationIconStyles} />
+              {distanceText} • {currentLocation?.title}
+            </div>
+            {(() => {
+              const dishCollection = currentDishCollection?.find((dc: DishCollectionProps) => dc.language === language);
+              const lunchInfo = dishCollection?.lunchInfo;
+              return lunchInfo?.servingTimes ? (
+                <div css={openingTimesStyles}>
+                  <ClockIcon css={clockIconStyles} />
+                  {lunchInfo.servingTimes}
+                </div>
+              ) : null;
+            })()}
           </div>
         </div>
       )}
 
       {!isMultiLocation && (
         <div css={restaurantDistanceStyles}>
-          <LocationIcon css={restaurantLocationIconStyles} />
-          {!loading && distanceText}
+          <div css={distanceInfoStyles}>
+            <LocationIcon css={restaurantLocationIconStyles} />
+            {!loading && distanceText}
+          </div>
+          {!loading && (() => {
+            const dishCollection = currentDishCollection?.find((dc: DishCollectionProps) => dc.language === language);
+            const lunchInfo = dishCollection?.lunchInfo;
+            return lunchInfo?.servingTimes ? (
+              <div css={openingTimesStyles}>
+                <ClockIcon css={clockIconStyles} />
+                {lunchInfo.servingTimes}
+              </div>
+            ) : null;
+          })()}
         </div>
       )}
       <a href={currentUrl} css={restaurantImageLinkStyles}>
@@ -284,11 +331,20 @@ export default function Restaurant({
       </a>
       {currentDishCollection && currentDishCollection.filter((a: DishCollectionProps) => a.dishes?.length).length
         ? (() => {
-            const dishes =
-              currentDishCollection.find((dc: DishCollectionProps) => dc.language === language)?.dishes || [];
+            const dishCollection = currentDishCollection.find((dc: DishCollectionProps) => dc.language === language);
+            const dishes = dishCollection?.dishes || [];
+            const lunchInfo = dishCollection?.lunchInfo;
             const visible = expanded ? dishes : dishes.slice(0, APP_CONFIG.VISIBLE_DISHES_COLLAPSED);
             return (
               <>
+                {lunchInfo && (
+                  <LunchInfo
+                    lunchInfo={{
+                      ...lunchInfo,
+                      servingTimes: undefined // Don't show serving times here as they're shown inline
+                    }}
+                  />
+                )}
                 {visible.map((dish: DishProps, index: number) => (
                   <Dish key={`dish-${index}`} type={dish.type} title={dish.title} />
                 ))}
@@ -302,7 +358,15 @@ export default function Restaurant({
               </>
             );
           })()
-        : !loading && <div css={unableToScrapeStyles}>Closed or ¯\_(ツ)_/¯</div>}
+        : !loading && (() => {
+            // Check if we have closure info even without dishes
+            const dishCollection = currentDishCollection?.find((dc: DishCollectionProps) => dc.language === language);
+            const lunchInfo = dishCollection?.lunchInfo;
+
+            return lunchInfo?.closureInfo?.isClosed
+              ? <LunchInfo lunchInfo={lunchInfo} />
+              : <div css={unableToScrapeStyles}>Closed or ¯\_(ツ)_/¯</div>;
+          })()}
       <div css={restaurantLinksStyles}>
         <a href={currentUrl} css={restaurantWebsiteIconStyles}>
           <ExternalLinkIcon css={restaurantLinksIconStyles} />

@@ -17,7 +17,7 @@
   "scripts": {
     "build": "turbo build",
     "dev": "turbo dev",
-    "scrape:dev": "cd apps/functions/scraper && NODE_ENV=development pnpm dev",
+    "scrape:dev": "cd apps/functions/scraper && NODE_ENV=development pnpm scrape",
     "lint": "eslint . --ext ts,tsx",
     "lint:fix": "eslint . --ext ts,tsx --fix",
     "format": "prettier --write .",

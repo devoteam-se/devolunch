@@ -97,8 +97,8 @@ export const extractCleanContent = (): CleanedPageContent => {
   });
 
   return {
-    text: fullContent.slice(0, 20000), // Generous limit to preserve content
-    html: strippedHtml.slice(0, 30000), // Keep HTML structure but without attributes
+    text: fullContent.slice(0, 50000), // Significantly increased for Sankt Knut
+    html: strippedHtml.slice(0, 60000), // Increased HTML limit as well
     title: document.title,
     url: window.location.href,
     images: menuImages.length > 0 ? menuImages : undefined,

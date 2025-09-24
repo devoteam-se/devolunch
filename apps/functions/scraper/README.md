@@ -20,6 +20,7 @@ Configuration
   - `DEFAULT_LANGUAGE` (default: `sv`)
   - `TRANSLATE_LANGUAGES` (comma-separated, default: `en`)
   - `USE_CONTENT_CLEANER` (default: true; set `false` to disable)
+  - `TEST_OVERRIDE`: override restaurant title for testing AI extraction on a specific restaurant (e.g., `TEST_OVERRIDE="Marie Antoinette" NODE_ENV=development pnpm scrape`)
 - Secrets/credentials: use your local environment or GCP runtime config for Google APIs and OpenAI.
 - Logging level via `LOG_LEVEL` (info by default).
 
@@ -51,6 +52,22 @@ Restaurant Metadata
     - `type: 'filtered'` — scrape once; use regex filters to narrow content per location
       - Each location can specify a `locationFilter` (regex or alternation string)
     - `type: 'separate'` — each location has its own `url` and is scraped separately
+
+Closure Detection
+- Automatic closure detection based on known restaurant schedules
+- Configured in `src/utils/closureDetection.ts` via `KNOWN_CLOSURES` object:
+  ```ts
+  const KNOWN_CLOSURES: Record<string, string[]> = {
+    'marie antoinette': ['monday', 'tuesday'],
+    'marvin': ['monday', 'tuesday'],
+    // Add more restaurants as needed
+  };
+  ```
+- When a restaurant is detected as closed:
+  - Dishes array is emptied (`dishes: []`)
+  - Closure info is added to `lunchInfo.closureInfo` with reason and reopening details
+  - AI extraction still runs but results are discarded to respect closure status
+- Restaurant names are normalized to lowercase for matching
 
 Output
 - Development: writes `scrape.json` next to the source for quick inspection
