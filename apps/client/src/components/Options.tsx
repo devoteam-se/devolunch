@@ -4,6 +4,7 @@ import Sort from '@/components/Sort';
 import LanguageSelector from '@/components/LanguageSelector';
 import { screenSize } from '@/utils/theme';
 import Search from '@/components/Search';
+import McpStatus from '@/components/McpStatus';
 
 const optionsStyles = css`
   display: flex;
@@ -25,6 +26,7 @@ export default function Options({ onQueryChange }: OptionsProps) {
       <Search onChange={onQueryChange} />
       <Sort />
       <LanguageSelector />
+      <McpStatus />
     </div>
   );
 }

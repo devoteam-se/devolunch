@@ -12,7 +12,9 @@
   },
   "dependencies": {
     "@devolunch/shared": "workspace:*",
+    "@modelcontextprotocol/sdk": "^0.7.0",
     "@google-cloud/storage": "^7.15.0",
+    "ws": "^8.18.0",
     "compression": "^1.7.5",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
@@ -26,6 +28,7 @@
     "@types/compression": "1.8.1",
     "@types/cors": "^2.8.15",
     "@types/express": "^5.0.3",
-    "pino-pretty": "^13.1.1"
+    "pino-pretty": "^13.1.1",
+    "@types/ws": "^8.5.12"
   }
 }

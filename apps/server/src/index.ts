@@ -1,4 +1,5 @@
 import express from 'express';
+import http from 'http';
 import type { Request, Response } from 'express';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
@@ -37,6 +38,15 @@ app.get('/', (_, res) => {
 
 app.use('/api/v1', routes);
 
-app.listen(config.port, () => {
+const server = http.createServer(app);
+
+// Attach WebSocket MCP gateway
+import { setupWsGateway } from './wsGateway.js';
+import { warmMcp } from './services/mcpClient.js';
+setupWsGateway(server);
+// Warm MCP child in background for lower first-hit latency
+warmMcp();
+
+server.listen(config.port, () => {
   logger.info(`App listening on port ${config.port}`);
 });

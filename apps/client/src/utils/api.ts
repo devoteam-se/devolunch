@@ -94,6 +94,22 @@ export const apiRequest = async <T>(
   }
 };
 
+// What: AI search API call
+// Why: Client calls the server's REST bridge to the MCP search
+export type AiSearchResult = {
+  query: string;
+  results: { restaurant: { title: string; url: string; googleMapsUrl: string }; reason?: string; dishes: unknown[] }[];
+};
+
+export const fetchAiSearch = async (
+  query: string,
+  language: string,
+  options?: { expand?: boolean },
+): Promise<AiSearchResult | null> => {
+  const params = new URLSearchParams({ query, language, expand: options?.expand === false ? 'false' : 'true' });
+  return apiRequest<AiSearchResult>(`${API_CONFIG.ENDPOINTS.AI_SEARCH}?${params.toString()}`);
+};
+
 // =============================================================================
 // API STATUS UTILITIES
 // =============================================================================

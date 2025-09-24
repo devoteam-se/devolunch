@@ -19,6 +19,7 @@ export const API_CONFIG = {
   DEV_ROOT: 'http://localhost:8080/api/v1',
   ENDPOINTS: {
     RESTAURANTS: '/restaurants',
+    AI_SEARCH: '/ai/search',
   },
 } as const;
 

@@ -58,6 +58,9 @@ importers:
       '@emotion/react':
         specifier: ^11.14.0
         version: 11.14.0(@types/react@19.1.13)(react@18.3.1)
+      '@modelcontextprotocol/sdk':
+        specifier: ^0.7.0
+        version: 0.7.0
       '@vitejs/plugin-react':
         specifier: ^4.4.2
         version: 4.7.0(vite@7.1.6(@types/node@24.5.2)(terser@5.44.0)(tsx@4.20.5))
@@ -178,6 +181,9 @@ importers:
       '@google-cloud/storage':
         specifier: ^7.15.0
         version: 7.17.1
+      '@modelcontextprotocol/sdk':
+        specifier: ^0.7.0
+        version: 0.7.0
       compression:
         specifier: ^1.7.5
         version: 1.8.1
@@ -193,6 +199,9 @@ importers:
       pino:
         specifier: ^9.10.0
         version: 9.10.0
+      ws:
+        specifier: ^8.18.0
+        version: 8.18.3
       zod:
         specifier: ^3.24.1
         version: 3.25.76
@@ -206,6 +215,9 @@ importers:
       '@types/express':
         specifier: ^5.0.3
         version: 5.0.3
+      '@types/ws':
+        specifier: ^8.5.12
+        version: 8.18.1
       nodemon:
         specifier: ^3.1.10
         version: 3.1.10
@@ -1729,6 +1741,9 @@ packages:
 
   '@types/trusted-types@2.0.7':
     resolution: {integrity: sha512-ScaPdn1dQczgbl0QFTeTOmVHFULt394XJgOQNoyVhZ6r2vLnMLJfBPd53SB52T/3G36VI1/g2MZaX0cwDuXsfw==}
+
+  '@types/ws@8.18.1':
+    resolution: {integrity: sha512-ThVF6DCVhA8kUGy+aazFQ4kXQ7E1Ty7A3ypFOe0IcJV8O/M511G99AW24irKrW56Wt44yG9+ij8FaqoBGkuBXg==}
 
   '@types/yauzl@2.10.3':
     resolution: {integrity: sha512-oJoftv0LSuaDZE3Le4DbKX+KS9G36NzOeSap90UIK0yMA/NhKJhqlSGtNDORNRaIbQfzjXDrQa0ytJ6mNRGz/Q==}
@@ -6534,6 +6549,10 @@ snapshots:
   '@types/tough-cookie@4.0.5': {}
 
   '@types/trusted-types@2.0.7': {}
+
+  '@types/ws@8.18.1':
+    dependencies:
+      '@types/node': 24.5.2
 
   '@types/yauzl@2.10.3':
     dependencies:
