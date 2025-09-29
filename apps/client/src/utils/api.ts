@@ -110,6 +110,25 @@ export const fetchAiSearch = async (
   return apiRequest<AiSearchResult>(`${API_CONFIG.ENDPOINTS.AI_SEARCH}?${params.toString()}`);
 };
 
+export type AiSuggestionResult = {
+  query: string;
+  results: { restaurant: string; dish?: string; reason?: string }[];
+};
+
+export const fetchAiSuggestions = async (
+  query: string,
+  language: string,
+  options?: { topK?: number; useLLM?: boolean }
+): Promise<AiSuggestionResult | null> => {
+  const params = new URLSearchParams({
+    query,
+    language,
+    topK: String(options?.topK ?? 5),
+    useLLM: String(options?.useLLM ?? true)
+  });
+  return apiRequest<AiSuggestionResult>(`/ai/suggest?${params.toString()}`);
+};
+
 // =============================================================================
 // API STATUS UTILITIES
 // =============================================================================

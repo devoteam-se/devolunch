@@ -1,6 +1,8 @@
 import { css } from '@emotion/react';
 
 import Icon from '@/assets/devoteam-round.svg?react';
+import Sort from '@/components/Sort';
+import LanguageSelector from '@/components/LanguageSelector';
 import { color, screenSize } from '@/utils/theme';
 
 const headerStyles = css`
@@ -14,6 +16,9 @@ const headerStyles = css`
   animation-duration: 1s;
   background-color: ${color.white};
   height: 5.625rem;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 `;
 
 const linkStyles = css`
@@ -74,6 +79,12 @@ const headerIconStyles = css`
   fill: ${color.devoteam};
 `;
 
+const headerRightStyles = css`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+`;
+
 interface HeaderI {
   scrapeDate: Date | null;
 }
@@ -101,9 +112,13 @@ export default function Header({ scrapeDate }: HeaderI) {
             : ' '}
         </div>
       </div>
-      <a href='https://se.devoteam.com/' aria-label='Go to Devoteam Creative Tech website'>
-        <Icon css={headerIconStyles} />
-      </a>
+      <div css={headerRightStyles}>
+        <Sort />
+        <LanguageSelector />
+        <a href='https://se.devoteam.com/' aria-label='Go to Devoteam Creative Tech website'>
+          <Icon css={headerIconStyles} />
+        </a>
+      </div>
     </header>
   );
 }

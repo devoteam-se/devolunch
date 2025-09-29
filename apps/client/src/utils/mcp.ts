@@ -60,7 +60,28 @@ async function getClient(): Promise<Client> {
 export async function mcpSearch(query: string, language: string, expand = true): Promise<AiSearchResult> {
   const client = await getClient();
   const result = await client.callTool({ name: 'search_dishes', arguments: { query, language, expand } });
-  const first = (result as any).content?.[0];
+  const first = (result as { content?: Array<{ type: string; text: string }> }).content?.[0];
+  if (!first || first.type !== 'text') throw new Error('invalid_tool_result');
+  return JSON.parse(first.text);
+}
+
+export type AiSuggestionResult = {
+  query: string;
+  results: { restaurant: string; dish?: string; reason?: string }[];
+};
+
+export async function mcpSuggestMeal(
+  query: string,
+  language: string,
+  topK = 5,
+  useLLM = true
+): Promise<AiSuggestionResult> {
+  const client = await getClient();
+  const result = await client.callTool({
+    name: 'suggest_meal',
+    arguments: { query, language, topK, useLLM }
+  });
+  const first = (result as { content?: Array<{ type: string; text: string }> }).content?.[0];
   if (!first || first.type !== 'text') throw new Error('invalid_tool_result');
   return JSON.parse(first.text);
 }

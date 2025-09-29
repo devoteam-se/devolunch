@@ -209,8 +209,9 @@ async function main() {
       const scrape = await fetchScrape();
       const extra = useLLM ? await llmExpandTokens(query, language || 'sv') : [];
       const prelim = filterRestaurants(scrape.restaurants, query, language, true, extra);
+
       // Flatten candidates (cap to keep prompt small)
-      const candidates: { restaurant: string; dish: string }[] = [];
+      let candidates: { restaurant: string; dish: string }[] = [];
       for (const r of prelim) {
         for (const d of r.matches) {
           candidates.push({ restaurant: r.restaurant.title, dish: d.title });
@@ -219,13 +220,33 @@ async function main() {
         if (candidates.length >= 40) break;
       }
 
+      // If no candidates found and AI is enabled, use ALL dishes for concept-based matching
+      if (candidates.length === 0 && (useLLM ?? true)) {
+        console.log(`No text matches for "${query}", using AI concept matching with all dishes`);
+        for (const r of scrape.restaurants) {
+          const collections = r.dishCollection || [];
+          const relevant = language ? collections.filter((c) => c.language === language) : collections;
+          const scan = relevant.length ? relevant : collections;
+
+          for (const col of scan) {
+            for (const dish of col.dishes) {
+              candidates.push({ restaurant: r.title, dish: dish.title });
+              if (candidates.length >= 60) break; // More dishes for concept matching
+            }
+            if (candidates.length >= 60) break;
+          }
+          if (candidates.length >= 60) break;
+        }
+      }
+
       let suggestions: unknown = null;
       if (OPENAI_API_KEY && (useLLM ?? true) && candidates.length) {
         try {
-          const sys = 'You are a helpful lunch assistant. Rank and justify dish choices based on user intent.';
-          const usr = `User query: ${query}\nLanguage: ${language || 'sv'}\nCandidates (restaurant - dish):\n${candidates
+          const sys = `You are a helpful lunch assistant in Sweden. Understand Swedish food concepts and cuisine styles. Rank and justify dish choices based on user intent. ${language === 'sv' ? 'Always respond with reasons in Swedish.' : 'Respond in the user\'s language.'}\n\nSwedish food concepts to understand:\n- "husmanskost" = traditional Swedish home cooking (meat, potatoes, sauce dishes)\n- "italienskt" = Italian cuisine (pasta, pizza, Italian dishes)\n- "asiatiskt" = Asian food (Chinese, Thai, Vietnamese, Japanese, Korean)\n- "fräscht" = fresh, light, healthy dishes (salads, vegetables, grilled items)`;
+
+          const usr = `User query: ${query}\nLanguage: ${language || 'sv'}\n\nFind dishes that match the concept or style requested. Look for dishes that would satisfy someone asking for "${query}".\n\nCandidates (restaurant - dish):\n${candidates
             .map((c, i) => `${i + 1}. ${c.restaurant} - ${c.dish}`)
-            .join('\n')}\nReturn JSON {"suggestions":[{"restaurant":"...","dish":"...","reason":"..."}]}, max ${(topK ?? 5)} entries.`;
+            .join('\n')}\n\nReturn JSON {"suggestions":[{"restaurant":"...","dish":"...","reason":"..."}]}, max ${(topK ?? 5)} entries. ${language === 'sv' ? 'Make sure the "reason" field is in Swedish and explains why this dish matches the concept.' : 'Explain why each dish matches the request.'}`;
           const json = await callOpenAIChatJSON(sys, usr);
           suggestions = json?.suggestions;
         } catch {

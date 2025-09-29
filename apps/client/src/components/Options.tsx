@@ -18,12 +18,13 @@ const optionsStyles = css`
   }
 `;
 
-interface OptionsProps { onQueryChange: (v: string) => void }
+interface OptionsProps { onQueryChange?: (v: string) => void; variant?: 'default' | 'lower' }
 
-export default function Options({ onQueryChange }: OptionsProps) {
+export default function Options({ onQueryChange, variant = 'default' }: OptionsProps) {
+  if (variant === 'lower') return null;
   return (
     <div css={optionsStyles}>
-      <Search onChange={onQueryChange} />
+      {onQueryChange && <Search onChange={onQueryChange} />}
       <Sort />
       <LanguageSelector />
       <McpStatus />

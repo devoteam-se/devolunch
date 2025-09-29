@@ -27,6 +27,8 @@ export default [
         Image: 'readonly',
         HTMLElement: 'readonly',
         HTMLButtonElement: 'readonly',
+        HTMLDivElement: 'readonly',
+        HTMLInputElement: 'readonly',
       },
     },
     plugins: {

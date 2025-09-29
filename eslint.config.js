@@ -85,6 +85,7 @@ export default [
         Image: 'readonly',
         HTMLElement: 'readonly',
         HTMLButtonElement: 'readonly',
+        HTMLInputElement: 'readonly',
         setInterval: 'readonly',
         clearInterval: 'readonly',
         setTimeout: 'readonly',
