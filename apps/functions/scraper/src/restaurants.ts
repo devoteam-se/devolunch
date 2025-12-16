@@ -179,7 +179,7 @@ export const restaurants: RestaurantMetaProps[] = [
     imageUrl: 'https://www.spoonery.se/wp-content/uploads/2024/11/241015_Spoonery__Slotts_01_NY.webp',
     googleMapsUrl: 'https://maps.app.goo.gl/1dxLU2ZUpH3ggFQg8', // Using first location as default
     coordinate: { lat: 55.59717, lon: 12.97902 }, // Using first location as default
-    useContentCleaner: false,
+    useContentCleaner: true, // Enable content cleaner for all locations
     multiLocation: {
       type: 'separate',
       locations: [
@@ -215,7 +215,7 @@ export const restaurants: RestaurantMetaProps[] = [
     coordinate: { lat: 55.6122023, lon: 12.9908859 },
   },
   {
-    title: 'Sauvage Malmö',
+    title: 'Sauvage',
     url: 'https://restaurangsauvage.se/lunchmeny',
     imageUrl: 'https://highfiveskane.se/wp-content/uploads/2024/04/sauvage-18-scaled.jpeg',
     googleMapsUrl: 'https://maps.app.goo.gl/BgoSgesjSSxsen7s5',
@@ -386,7 +386,7 @@ export const restaurants: RestaurantMetaProps[] = [
   },
   {
     title: 'Green Mango',
-    url: 'https://www.greenmango.se/',
+    url: 'https://www.greenmango.se/lunch',
     imageUrl:
       'https://static.wixstatic.com/media/4ef303_bf12a28909dc4040b74d79fb22ebef0a~mv2.jpg/v1/fit/w_513,h_685,q_90,enc_avif,quality_auto/4ef303_bf12a28909dc4040b74d79fb22ebef0a~mv2.jpg',
     googleMapsUrl: 'https://maps.app.goo.gl/kZ4DrgTLP9Rpk3iG8',
@@ -440,7 +440,7 @@ export const restaurants: RestaurantMetaProps[] = [
     title: 'Operagrillen',
     url: 'https://www.malmoopera.se/mat-och-dryck/lunch-i-operagrillen',
     imageUrl:
-      'https://www.malmoopera.se/sites/default/files/styles/hero_performance_sm/public/2025-05/Lunch_1920x1080.jpg',
+      'https://www.malmoopera.se/sites/default/files/styles/hero_performance_sm_2x/public/2025-05/Lunch_1920x1080.jpg.webp?itok=HXawlwZi',
     googleMapsUrl: 'https://maps.app.goo.gl/s1inU9BDZbz9SSMW9',
     coordinate: { lat: 55.5966206, lon: 12.9959032 },
   },
@@ -516,10 +516,18 @@ export const restaurants: RestaurantMetaProps[] = [
   },
   {
     title: 'Byn matbar',
-    url: 'https://bynmatbar.se/',
+    url: 'https://bynmatbar.se/meny/',
     imageUrl: 'https://lh3.googleusercontent.com/p/AF1QipOW3E33RI7D150klP22EI-VTur0HIfPG7cJI_Ek=w600-h988-p-k-no',
     googleMapsUrl: 'https://maps.app.goo.gl/aEu4ZgrVqdsYdxzJ6',
     coordinate: { lat: 55.6076746, lon: 13.0211793 },
+    useContentCleaner: false,
+  },
+  {
+    title: 'Restaurang P2',
+    url: 'https://restaurangp2.se/#lunch',
+    imageUrl: 'https://restaurangp2.se/wp-content/uploads/2024/10/RESTAURANG_P2-6.webp',
+    googleMapsUrl: 'https://maps.app.goo.gl/ZSF3vZKajQBtBWSS8',
+    coordinate: { lat: 55.6143387, lon: 12.9857794 },
     useContentCleaner: false,
   },
 ];

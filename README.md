@@ -83,21 +83,6 @@ See [docs/DEPENDENCY_MANAGEMENT.md](./docs/DEPENDENCY_MANAGEMENT.md) for detaile
 
 # TODO
 
-- [x] Make open source
-  - [x] Implement Terraform support
-  - [x] Add instructions on how to make a scraper
-  - [x] Move scrape call to Cloud Function
-  - [x] Add deploy on Github release
-  - [x] Block main branch from anyone outside of the org (unless default)
-- [x] Add husky/lint-staged and make sure pre-commit is triggered to run lint/tests
-- [x] Add API definition
-- [x] Add API versioning
-- [x] Change filesOverride to be read from environment instead of code
-- [x] Change scraper to run PDF parse from within `browserScrapeFunction`
-- [x] Fix shared npm packages for functions
-- [x] Host images in a bucket
-- [x] Add a separate service account for Cloud Run instead of using the default Compute Engine service account
-- [x] Add Cloud Function deploy step
-- [x] Serve images via the backend
-- [x] Split up terraform configurations into multiple files for readability
-- [x] Figure out a good way of handling restaurant chains
+- [ ] Fix the scraper (i.e. hook it up to a AI service for dish extraction)
+- [ ] Fix Slack integration
+

@@ -19,7 +19,20 @@ const WEEKDAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Satur
 /**
  * Detects closure information for a restaurant based on current day and known patterns
  */
-export function detectClosureInfo(restaurantName: string): ClosureInfo | null {
+export function detectClosureInfo(restaurantName: string, pageContent?: string): ClosureInfo | null {
+  // First check for dynamic closure/booking patterns in page content
+  if (pageContent) {
+    const dynamicClosure = detectDynamicClosure(pageContent);
+    if (dynamicClosure) {
+      logger.info({
+        restaurant: restaurantName,
+        reason: dynamicClosure.reason
+      }, 'Detected dynamic closure/booking');
+      return dynamicClosure;
+    }
+  }
+
+  // Fall back to known closure patterns
   const normalizedName = restaurantName.toLowerCase();
   const closedDays = KNOWN_CLOSURES[normalizedName];
 
@@ -55,6 +68,52 @@ export function detectClosureInfo(restaurantName: string): ClosureInfo | null {
     reopensOn,
     closedDays
   };
+}
+
+/**
+ * Detects dynamic closure patterns like "ABONNERAT" (booked/private event)
+ */
+function detectDynamicClosure(pageContent: string): ClosureInfo | null {
+  const today = new Date();
+  const todaySv = ['söndag', 'måndag', 'tisdag', 'onsdag', 'torsdag', 'fredag', 'lördag'][today.getDay()];
+
+  // Check for "ABONNERAT" or similar booking patterns
+  const bookingPatterns = [
+    /abonnerat/i,
+    /privat\s+event/i,
+    /stängt\s+för\s+privat/i,
+    /fully\s+booked/i,
+    /helt\s+bokad/i,
+  ];
+
+  const hasBookingText = bookingPatterns.some(pattern => pattern.test(pageContent));
+
+  if (!hasBookingText) {
+    return null;
+  }
+
+  // Check if today is affected
+  const lines = pageContent.toLowerCase().split('\n');
+  const todayAffected = lines.some(line => {
+    const lineContainsTodaySv = line.includes(todaySv);
+    const lineContainsBooking = bookingPatterns.some(pattern => pattern.test(line));
+    return lineContainsTodaySv && lineContainsBooking;
+  });
+
+  // Also check for "hela veckan" (whole week) patterns
+  const wholeWeekPattern = /hela\s+veckan|entire\s+week|whole\s+week/i;
+  const isWholeWeekBooked = wholeWeekPattern.test(pageContent) && hasBookingText;
+
+  if (todayAffected || isWholeWeekBooked) {
+    return {
+      isClosed: true,
+      reason: 'Private event (Abonnerat)',
+      reopensOn: 'Check website for availability',
+      closedDays: [] // Dynamic, not regular closure pattern
+    };
+  }
+
+  return null;
 }
 
 /**
@@ -110,9 +169,10 @@ function calculateReopeningDay(closedDays: string[], currentDate: Date): string 
  */
 export function addClosureInfoToLunchMetadata(
   restaurantName: string,
-  lunchMetadata: any
+  lunchMetadata: any,
+  pageContent?: string
 ): any {
-  const closureInfo = detectClosureInfo(restaurantName);
+  const closureInfo = detectClosureInfo(restaurantName, pageContent);
 
   if (!closureInfo) {
     return lunchMetadata;

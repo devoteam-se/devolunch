@@ -33,6 +33,7 @@ export const extractMenuWithAI = async (
       model: 'gpt-4o-mini', // Cost-effective model good for structured tasks
       max_tokens: 3000, // Increased to handle many dishes
       temperature: 0.0, // Use lowest temperature to reduce hallucinations
+      response_format: { type: 'json_object' },
       messages: [
         {
           role: 'system',
@@ -112,6 +113,7 @@ const extractMenuFromImagesWithAI = async (
       model: 'gpt-4o', // Vision requires gpt-4o
       max_tokens: 3000,
       temperature: 0.0,
+      response_format: { type: 'json_object' },
       messages,
     });
 

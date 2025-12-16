@@ -24,10 +24,11 @@ const scrapeFromUrl = async (
   url: string,
   locationFilter?: string,
   otherLocationFilters?: string[],
-): Promise<MenuExtractionResult> => {
+): Promise<MenuExtractionResult & { pageText?: string }> => {
   try {
     const content = await buildPageContent(page, meta, url);
-    return await extractDishesWithFallback(page, content, meta, locationFilter, otherLocationFilters);
+    const result = await extractDishesWithFallback(page, content, meta, locationFilter, otherLocationFilters);
+    return { ...result, pageText: content.text };
   } catch (error) {
     logger.error({ title: meta.title, locationFilter, err: error }, 'Error scraping');
     return { dishes: [], confidence: 0, reasoning: 'Error during scraping', lunchInfo: undefined };
@@ -57,7 +58,7 @@ const processRestaurants = async (browser: Browser, metas: RestaurantMetaProps[]
             const extractionResult = await scrapeFromUrl(page, meta, meta.url);
             const sorted = extractionResult.dishes?.sort(compareDish) || [];
             // Add closure detection to lunch metadata
-            const lunchInfoWithClosure = addClosureInfoToLunchMetadata(meta.title, extractionResult.lunchInfo || {});
+            const lunchInfoWithClosure = addClosureInfoToLunchMetadata(meta.title, extractionResult.lunchInfo || {}, extractionResult.pageText);
 
             const locs = locations.map((loc) => ({
               ...loc,
@@ -89,7 +90,7 @@ const processRestaurants = async (browser: Browser, metas: RestaurantMetaProps[]
                 try {
                   const extractionResult = await scrapeFromUrl(locationPage, meta, loc.url || meta.url, loc.title);
                   const sorted = extractionResult.dishes?.sort(compareDish) || [];
-                  const lunchInfoWithClosure = addClosureInfoToLunchMetadata(meta.title, extractionResult.lunchInfo || {});
+                  const lunchInfoWithClosure = addClosureInfoToLunchMetadata(meta.title, extractionResult.lunchInfo || {}, extractionResult.pageText);
 
                   return {
                     ...loc,
@@ -131,7 +132,7 @@ const processRestaurants = async (browser: Browser, metas: RestaurantMetaProps[]
                 // Reuse the base content but with location-specific filtering
                 const extractionResult = await extractDishesWithFallback(page, content, meta, loc.locationFilter || loc.title, otherLocationFilters);
                 const sorted = extractionResult.dishes?.sort(compareDish) || [];
-                const lunchInfoWithClosure = addClosureInfoToLunchMetadata(meta.title, extractionResult.lunchInfo || {});
+                const lunchInfoWithClosure = addClosureInfoToLunchMetadata(meta.title, extractionResult.lunchInfo || {}, content.text);
 
                 return {
                   ...loc,
@@ -163,7 +164,7 @@ const processRestaurants = async (browser: Browser, metas: RestaurantMetaProps[]
         // Single-location restaurant
         const extractionResult = await scrapeFromUrl(page, meta, meta.url);
         const sorted = extractionResult.dishes?.sort(compareDish) || [];
-        const lunchInfoWithClosure = addClosureInfoToLunchMetadata(meta.title, extractionResult.lunchInfo || {});
+        const lunchInfoWithClosure = addClosureInfoToLunchMetadata(meta.title, extractionResult.lunchInfo || {}, extractionResult.pageText);
 
         const restaurant: RestaurantProps = {
           title: meta.title,

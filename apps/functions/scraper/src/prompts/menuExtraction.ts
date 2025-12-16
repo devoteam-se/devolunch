@@ -45,11 +45,11 @@ CRITICAL WEEKDAY FILTERING RULES:
 • Weekly specials ("Veckans") are available every day - always extract these
 
 CRITICAL VECKANS RULE:
-• If you see "Veckans" followed by any dish name, EXTRACT IT
-• "Veckans Moo Tod" = extract as "Moo Tod - [full description]"
-• "Veckans vegetariska" = extract the vegetarian dish
-• "Veckans fisk" = extract the fish dish
-• These are weekly specials available every day
+• If you see "Veckans" followed by a COMPLETE dish name and description, EXTRACT IT
+• "Veckans Moo Tod [with full description]" = extract as "Moo Tod - [full description]"
+• "Veckans fisk: Lax med dillsås" = extract as "Lax med dillsås"
+• DO NOT extract labels like "Veckans vegetariska" or "Veckans fisk" if they appear WITHOUT the actual dish name and description
+• Only extract "Veckans X" items when X is followed by the complete dish details (ingredients, preparation, etc.)
 
 EXTRACTION BOUNDARIES - HARD STOP RULES:
 • IMMEDIATELY STOP reading when you see "Bärstronomi" - extract NOTHING after this word
@@ -80,6 +80,8 @@ WHAT TO EXCLUDE - ZERO TOLERANCE:
 • Weekend dishes (lördag, söndag) - these are never extracted
 • Dishes specifically labeled for other weekdays (e.g., "Tisdag:", "Onsdag:") - BUT ALWAYS INCLUDE vegetarian/vegan dishes regardless of their weekday labels
 • CRITICAL EXCEPTION: ALWAYS extract "Vegetarisk/Vegetarian", "Vegan", "Alltid/Always" items even if they span multiple weekdays (e.g., "Mån-Ons", "Måndag-Onsdag")
+• Informational text/notes that are NOT actual dishes (e.g., "Alla dagens går utmärkt att få vegetariskt", "Vi serverar", "Ingår i priset", general information about the restaurant or menu policies)
+• Incomplete dish labels without actual dish names (e.g., "Veckans vegetariska", "Veckans fisk", "Dagens kött" when appearing alone without the complete dish description)
 
 REMEMBER: "Bärstronomi" = FULL STOP. Extract ALL lunch items that appear BEFORE this section.
 
@@ -148,7 +150,7 @@ RESTAURANT: ${restaurantMeta.title}
 SOURCE_URL: ${pageContent.url}
 PAGE_TEXT:
 """
-${filteredText.slice(0, 8000)}
+${filteredText.slice(0, 30000)}
 """
 
 ${instructions}`;

@@ -48,6 +48,8 @@ export const normalizeResult = (result: MenuExtractionResult): MenuExtractionRes
     /(kväll|kvällsmeny|afton|middag|à\s*la\s*carte|after\s*work|\bAW\b|helgmeny|från\s*(1[7-9]|2[0-3])|\b1[7-9][:.,]|\b2[0-3][:.,])/i;
   const nonMainCues = /(förrätt|efterrätt|dessert|tillval|smårätter|snacks|dryck)/i;
   const headingCues = /(^lunchmeny$|^veck[aå]ns?\s*(lunch|meny)$)/i;
+  // Filter out incomplete dish labels and informational text
+  const incompleteLabelCues = /(^veckans\s+(vegetarisk|fisk|kött|vego)$|^dagens\s+(vegetarisk|fisk|kött|vego)$|går\s+(utmärkt|bra)\s+att\s+få\s+vegetarisk|alla\s+dagens|vi\s+serverar|ingår\s+i\s+priset)/i;
 
   const mapType = (t: string, title: string): 'meat' | 'fish' | 'veg' | 'misc' | 'vegan' => {
     const lt = String(t).toLowerCase();
@@ -83,6 +85,9 @@ export const normalizeResult = (result: MenuExtractionResult): MenuExtractionRes
 
       // Skip menu headings that were extracted as dishes
       if (headingCues.test(title)) return false;
+
+      // Skip incomplete dish labels and informational text
+      if (incompleteLabelCues.test(title)) return false;
 
       return true;
     })

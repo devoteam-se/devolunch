@@ -69,7 +69,8 @@ export const extractDishesWithFallback = async (
     const cleanedContent = await page.evaluate(extractCleanContent);
     const sankKnutContent: PageContent = {
       html: cleanedContent.html,
-      text: narrowTextByLocation(cleanedContent.text),
+      // Don't narrow by location since we're already on the Sankt Knut-specific page
+      text: cleanedContent.text,
       title: cleanedContent.title,
       url: cleanedContent.url,
       images: undefined, // No images for Spoonery - text extraction only
