@@ -1,8 +1,8 @@
 import { css } from '@emotion/react';
 
-import { ReactComponent as Devoteam } from '@/assets/devoteam-round.svg';
-import { ReactComponent as Github } from '@/assets/github-mark.svg';
-import { ReactComponent as LinkedIn } from '@/assets/linkedin.svg';
+import Devoteam from '@/assets/devoteam-round.svg?react';
+import Github from '@/assets/github-mark.svg?react';
+import LinkedIn from '@/assets/linkedin.svg?react';
 import { color, screenSize } from '@/utils/theme';
 
 const footerStyles = css`

@@ -1,6 +1,7 @@
 # Devolunch
 
 <a href="https://github.com/jayway/devolunch/blob/main/LICENSE.md"><img src="https://img.shields.io/npm/l/heroicons.svg" alt="License"></a>
+<a href="./docs/README.md"><img src="https://img.shields.io/badge/docs-available-brightgreen" alt="Docs"></a>
 
 Devolunch is an app that presents today's lunch menu on scraped restaurants. It's hosted on [Google Cloud Platform](https://cloud.google.com/).
 
@@ -65,25 +66,23 @@ The Slack notifier is a simple service that retrieves the data scraped by the [S
 
 <a href="https://github.com/jayway/devolunch/pulls" target="_blank"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs Welcome"></a>
 
-Excited to work alongside you! Follow the instructions in [CONTRIBUTING](./CONTRIBUTING.md) and code away.
+Excited to work alongside you! See [docs](./docs/README.md) for development details, and follow the instructions in [CONTRIBUTING](.github/CONTRIBUTING.md).
+
+# Maintenance
+
+## Automated Dependency Updates
+
+This project uses [Renovate](https://renovatebot.com/) for automated dependency management:
+
+- 📅 **Weekly Updates**: Dependencies are updated every Monday morning
+- 🔒 **Security First**: Vulnerability alerts trigger immediate updates
+- 🚀 **Auto-merge**: Safe updates (patch/minor dev dependencies) merge automatically
+- 📊 **Grouped Updates**: Related packages updated together (React, TypeScript, etc.)
+
+See [docs/DEPENDENCY_MANAGEMENT.md](./docs/DEPENDENCY_MANAGEMENT.md) for detailed setup and configuration information.
 
 # TODO
 
-- [x] Make open source
-  - [x] Implement Terraform support
-  - [x] Add instructions on how to make a scraper
-  - [x] Move scrape call to Cloud Function
-  - [x] Add deploy on Github release
-  - [x] Block main branch from anyone outside of the org (unless default)
-- [x] Add husky/lint-staged and make sure pre-commit is triggered to run lint/tests
-- [x] Add API definition
-- [x] Add API versioning
-- [x] Change filesOverride to be read from environment instead of code
-- [x] Change scraper to run PDF parse from within `browserScrapeFunction`
-- [x] Fix shared npm packages for functions
-- [x] Host images in a bucket
-- [x] Add a separate service account for Cloud Run instead of using the default Compute Engine service account
-- [x] Add Cloud Function deploy step
-- [x] Serve images via the backend
-- [x] Split up terraform configurations into multiple files for readability
-- [ ] Figure out a good way of handling restaurant chains
+- [ ] Fix the scraper (i.e. hook it up to a AI service for dish extraction)
+- [ ] Fix Slack integration
+

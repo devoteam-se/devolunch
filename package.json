@@ -1,27 +1,53 @@
 {
   "name": "devolunch",
   "version": "1.17.0",
+  "type": "module",
+  "packageManager": "pnpm@10.15.0",
   "description": "DevoLunch is an lunch app used for providing the todays lunch menus nearby the office.",
   "license": "MIT",
+  "engines": {
+    "node": ">=22.0.0",
+    "pnpm": ">=10.0.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jayway/devolunch.git"
   },
   "homepage": "https://github.com/jayway/devolunch#readme",
   "scripts": {
+    "build": "turbo build",
     "dev": "turbo dev",
-    "lint": "turbo lint --color --cache-dir=.turbo",
-    "format": "turbo format",
-    "typecheck": "turbo typecheck --color --cache-dir=.turbo",
+    "scrape:dev": "cd apps/functions/scraper && NODE_ENV=development pnpm scrape",
+    "lint": "eslint . --ext ts,tsx",
+    "lint:fix": "eslint . --ext ts,tsx --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "typecheck": "turbo typecheck",
+    "test": "turbo test",
+    "test:watch": "turbo test:watch",
     "clean": "turbo clean",
-    "test": "turbo test --color --cache-dir=.turbo",
-    "test:watch": "turbo test --color --cache-dir=.turbo -- --watch",
     "prepare": "husky install",
     "preinstall": "npx only-allow pnpm"
   },
   "devDependencies": {
-    "husky": "^8.0.3",
-    "prettier": "^2.8.8",
-    "turbo": "1.10.7"
+    "@eslint/js": "^9.0.0",
+    "@types/node": "^24.5.2",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
+    "@vitest/coverage-v8": "3.2.4",
+    "eslint": "^9.0.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.20",
+    "husky": "^9.1.7",
+    "prettier": "^3.6.2",
+    "turbo": "2.5.6",
+    "typescript": "^5.7.3",
+    "vitest": "3.2.4"
+  },
+  "pnpm": {
+    "overrides": {
+      "pino": "^9.10.0",
+      "pino-pretty": "^13.1.1"
+    }
   }
 }

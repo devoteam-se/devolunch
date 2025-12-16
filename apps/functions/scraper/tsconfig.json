@@ -1,14 +1,10 @@
 {
+  "extends": "../../../tsconfig.base.json",
   "compilerOptions": {
-    "target": "ESNext",
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
-    "lib": ["ESNext", "dom", "dom.iterable"],
-    "esModuleInterop": true,
-    "strict": true,
     "outDir": "dist",
-    "skipLibCheck": true
+    "noEmit": false,
+    "lib": ["ESNext", "dom", "dom.iterable"]
   },
-  "include": ["./src/**/*"],
-  "exclude": ["node_modules", "src/**/*.test.ts"]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist", "src/**/*.test.ts"]
 }

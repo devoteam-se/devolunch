@@ -1,7 +1,8 @@
 import { css } from '@emotion/react';
 
-import { useRestaurants } from '@/contexts/restaurants';
+import { useRestaurants } from '@/hooks/useRestaurants';
 import { color } from '@/utils/theme';
+import { setUrlParam } from '@/utils/common';
 
 const languageSelectorStyles = css`
   padding: 0;
@@ -31,9 +32,7 @@ export default function LanguageSelector() {
   const { language, setLanguage } = useRestaurants();
 
   const setLang = (lang: string) => {
-    const url = new URL(window.location.toString());
-    url.searchParams.set('lang', lang);
-    window.history.pushState(null, '', url.toString());
+    setUrlParam('lang', lang);
     setLanguage(lang);
   };
 

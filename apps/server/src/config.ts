@@ -2,16 +2,16 @@ import { z } from 'zod';
 import dotenv from 'dotenv';
 dotenv.config();
 
-const Config = z
+const ConfigSchema = z
   .object({
     development: z.boolean(),
     port: z.number(),
   })
   .strict();
 
-export type Config = z.infer<typeof Config>;
+export type Config = z.infer<typeof ConfigSchema>;
 
-export const config = Config.parse({
+export const config = ConfigSchema.parse({
   development: process.env.NODE_ENV === 'development',
   port: parseInt(process.env.PORT || '8080', 10),
 });

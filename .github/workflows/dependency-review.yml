@@ -1,0 +1,79 @@
+name: 'Dependency Review'
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - '**/package.json'
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  dependency-review:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.user.login == 'renovate[bot]'
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Dependency Review
+        uses: actions/dependency-review-action@v4
+        with:
+          fail-on-severity: critical
+          deny-licenses: GPL-2.0, GPL-3.0
+          comment-summary-in-pr: always
+
+  auto-approve-renovate:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.user.login == 'renovate[bot]'
+    needs: dependency-review
+
+    steps:
+      - name: Auto-approve Renovate PRs
+        uses: hmarr/auto-approve-action@v4
+        with:
+          github-token: "${{ secrets.GITHUB_TOKEN }}"
+
+  security-audit:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.user.login == 'renovate[bot]'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
+        with:
+          version: 10
+          run_install: false
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - uses: actions/cache@v4
+        name: Setup pnpm cache
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Security audit
+        run: pnpm audit
+        continue-on-error: false

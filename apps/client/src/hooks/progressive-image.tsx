@@ -20,6 +20,6 @@ export const useProgressiveImg = (
 
   return {
     src: src,
-    blur: src === (lowQualitySrc ? lowQualitySrc : highQualitySrc),
+    blur: Boolean(lowQualitySrc && src === lowQualitySrc),
   };
 };

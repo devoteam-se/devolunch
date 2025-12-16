@@ -1,0 +1,21 @@
+msgFile="$1"
+subject="$(head -n1 "$msgFile" | tr -d '\r')"
+
+# Allow merge commits and reverts
+case "$subject" in
+  Merge\ *) exit 0 ;;
+  Revert\ *) exit 0 ;;
+esac
+
+pattern='^(build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test)(\([a-z0-9\-\/]+\))?(!)?: .+'
+
+if echo "$subject" | grep -Eq "$pattern"; then
+  exit 0
+fi
+
+echo "\n⛔ Invalid commit message."
+echo "Follow Conventional Commits, e.g.:"
+echo "  feat(server): add health endpoint"
+echo "  fix(scraper): handle empty PDF"
+echo "Got: $subject\n"
+exit 1

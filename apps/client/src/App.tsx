@@ -3,11 +3,16 @@ import { css, Global } from '@emotion/react';
 import Header from '@/components/Header';
 import Main from '@/components/Main';
 import Footer from '@/components/Footer';
-import { useRestaurants } from '@/contexts/restaurants';
+import ComponentErrorBoundary from '@/components/ComponentErrorBoundary';
+import { useRestaurants } from '@/hooks/useRestaurants';
 import { color } from './utils/theme';
-import LoadingSkeleton from './components/LoadingSkeleton';
+import PromptPanel from './components/PromptPanel';
+import ScrollToSection from './components/ScrollToSection';
 
 const globalStyles = css`
+  html {
+    scroll-behavior: smooth;
+  }
   body {
     background-color: ${color.ivory};
     height: 100vh;
@@ -27,22 +32,29 @@ const noRestaurantsStyles = css`
 `;
 
 function App() {
-  const { restaurants, scrapeDate, loading } = useRestaurants();
+  const { restaurants, scrapeDate, loading, language } = useRestaurants();
 
   return (
     <>
       <Global styles={globalStyles} />
-      {loading && !restaurants?.length ? (
-        <LoadingSkeleton />
-      ) : !loading && restaurants?.length ? (
-        <>
-          <Header scrapeDate={scrapeDate} />
-          <Main restaurants={restaurants} />
-          <Footer />
-        </>
-      ) : (
-        !loading && !restaurants.length && <div css={noRestaurantsStyles}>Come back later!</div>
-      )}
+      <ComponentErrorBoundary componentName="Header">
+        <Header scrapeDate={scrapeDate} />
+      </ComponentErrorBoundary>
+      <ComponentErrorBoundary componentName="Prompt">
+        <PromptPanel language={language} />
+      </ComponentErrorBoundary>
+      <ScrollToSection
+        targetSection="restaurants-section"
+        label="Se vad som finns i närheten"
+        ariaLabel="Se vad som finns i närheten"
+      />
+      <ComponentErrorBoundary componentName="Main Content">
+        <Main restaurants={restaurants} />
+      </ComponentErrorBoundary>
+      {!loading && !restaurants.length && <div css={noRestaurantsStyles}>Come back later!</div>}
+      <ComponentErrorBoundary componentName="Footer">
+        <Footer />
+      </ComponentErrorBoundary>
     </>
   );
 }

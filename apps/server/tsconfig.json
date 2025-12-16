@@ -1,30 +1,19 @@
 {
-  "extends": "@tsconfig/node18/tsconfig.json",
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "lib": ["ESNext", "dom", "dom.iterable"],
     "outDir": "dist",
-    "target": "ESNext",
-    "strict": true,
-    "noErrorTruncation": true,
-    "strictNullChecks": true,
-    "esModuleInterop": true,
+    "lib": ["ESNext"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "noEmit": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "noUnusedLocals": true,
-    "skipLibCheck": true,
-    "sourceMap": true,
-    "moduleResolution": "NodeNext",
-    "composite": false,
     "baseUrl": "."
   },
-  "include": ["src", ".eslintrc.js"],
-  "exclude": ["node_modules"],
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"],
   "ts-node": {
-    "files": true
-  },
-  "references": [
-    {
-      "path": "../../packages/tsconfig/base.tsconfig.json"
-    }
-  ]
+    "files": true,
+    "esm": true
+  }
 }

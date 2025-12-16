@@ -1,79 +1,44 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import { RestaurantProps, Scrape } from '@devolunch/shared';
+import { RestaurantProps, Coordinate } from '@devolunch/shared';
+import { RestaurantsContext } from './RestaurantsContext';
 import { sortRestaurants } from '@/utils/sort-restaurants';
-
-type ContextType = {
-  loading: boolean;
-  scrapeDate: Date | null;
-  realPosition: boolean;
-  language: string;
-  setLanguage: (language: string) => void;
-  restaurants: RestaurantProps[];
-  setRestaurants: (restaurants: RestaurantProps[]) => void;
-};
-
-enum Endpoints {
-  RESTAURANTS = '/restaurants',
-}
-
-const API_ROOT_PROD = '/api/v1';
-const API_ROOT_DEV = 'http://localhost:8080/api/v1';
-
-const RestaurantsContext = React.createContext<ContextType | null>(null);
-
-const isDev = import.meta.env.DEV;
-
-export const useRestaurants = () => {
-  const context = useContext(RestaurantsContext);
-  if (!context) {
-    throw new Error('context not defined');
-  }
-  return context;
-};
-
-const rootUrl = isDev ? API_ROOT_DEV : API_ROOT_PROD;
-
-const fetchRestaurants = async () => {
-  try {
-    const res = await fetch(`${rootUrl}${Endpoints.RESTAURANTS}`);
-    const data = await res.json();
-    return data as Scrape;
-  } catch (err) {
-    return null;
-  }
-};
+import { fetchRestaurants } from '@/utils/api';
+import { APP_CONFIG } from '@/utils/constants';
+import { getUrlParam } from '@/utils/common';
 
 const RestaurantsProvider = ({ children }: { children: React.ReactNode }) => {
-  const [language, setLanguage] = useState<string>('sv');
+  const [language, setLanguage] = useState<string>(APP_CONFIG.DEFAULT_LANGUAGE);
   const [restaurants, setRestaurants] = useState<RestaurantProps[]>([]);
   const [scrapeDate, setScrapeDate] = useState<Date | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [realPosition] = useState<boolean>(false);
+  const [userPosition, setUserPosition] = useState<Coordinate | null>(null);
 
   useEffect(() => {
     const get = async () => {
-      const language = new URLSearchParams(window.location.search).get('lang');
+      const urlLanguage = getUrlParam('lang');
 
       setLoading(true);
-      if (language) {
-        setLanguage(language);
+      if (urlLanguage) {
+        setLanguage(urlLanguage);
       }
 
-      const r = await fetchRestaurants();
+      const data = await fetchRestaurants();
 
-      if (r) {
-        setRestaurants(sortRestaurants(r.restaurants));
-        setScrapeDate(new Date(r.date));
+      if (data) {
+        setRestaurants(sortRestaurants(data.restaurants));
+        setScrapeDate(new Date(data.date));
       }
       setLoading(false);
     };
 
     get();
 
-    setInterval(async () => {
-      await get();
-    }, 3600000);
+    const intervalId = setInterval(get, APP_CONFIG.REFRESH_INTERVAL_MS);
+
+    // Cleanup interval on unmount
+    return () => clearInterval(intervalId);
   }, []);
 
   return (
@@ -86,6 +51,8 @@ const RestaurantsProvider = ({ children }: { children: React.ReactNode }) => {
         restaurants,
         setRestaurants,
         loading,
+        userPosition,
+        setUserPosition,
       }}
     >
       {children}

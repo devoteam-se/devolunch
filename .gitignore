@@ -33,3 +33,6 @@ lerna-debug.log*
 
 # Zip files created to deploy to Cloud Functions
 **/*.zip
+
+# Local scrape output (not for version control)
+apps/functions/scraper/scrape.json

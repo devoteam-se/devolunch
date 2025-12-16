@@ -1,0 +1,30 @@
+{
+  "name": "@devolunch/mcp-server",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "lint": "eslint src --ext ts --max-warnings 0",
+    "format": "prettier --write .",
+    "clean": "rimraf dist",
+    "start": "node dist/mcp-server/src/index.js",
+    "smoke": "pnpm -s build && node dist/mcp-server/src/scripts/smoke.js"
+  },
+  "dependencies": {
+    "@devolunch/shared": "workspace:*",
+    "@modelcontextprotocol/sdk": "^0.7.0"
+  },
+  "devDependencies": {
+    "rimraf": "^6.0.1"
+  }
+}

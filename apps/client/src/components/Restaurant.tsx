@@ -1,20 +1,36 @@
 import { css } from '@emotion/react';
 
 import Dish from '@/components/Dish';
+import LunchInfo from '@/components/LunchInfo';
 
-import { ReactComponent as LocationIcon } from '@/assets/location.svg';
-import { ReactComponent as ExternalLinkIcon } from '@/assets/external-link.svg';
-import { ReactComponent as DirectionIcon } from '@/assets/direction.svg';
-import { useRestaurants } from '@/contexts/restaurants';
+import LocationIcon from '@/assets/location.svg?react';
+import ExternalLinkIcon from '@/assets/external-link.svg?react';
+import DirectionIcon from '@/assets/direction.svg?react';
+import ClockIcon from '@/assets/clock.svg?react';
+import { useRestaurants } from '@/hooks/useRestaurants';
 import { color } from '@/utils/theme';
+import { calculateDistance } from '@/utils/distance';
+import { DEVOTEAM_LOCATION, APP_CONFIG } from '@/utils/constants';
+import { formatDistance } from '@/utils/common';
 
 import { RestaurantProps, DishCollectionProps, DishProps } from '@devolunch/shared';
 import { useProgressiveImg } from '@/hooks/progressive-image';
+import { useState, useEffect } from 'react';
 
 const restaurantStyles = css`
   display: flex;
   flex-direction: column;
   padding: 0;
+`;
+
+const titleContainerStyles = css`
+  display: flex;
+  align-items: center;
+  padding: 0;
+  min-height: 3rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid ${color.black};
+  margin-bottom: 0.75rem;
 `;
 
 const restaurantTitleStyles = css`
@@ -24,13 +40,13 @@ const restaurantTitleStyles = css`
   font-weight: 500;
   font-size: 1.25rem;
   margin: 0;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid ${color.black};
+  flex: 1;
 `;
 
 const restaurantDistanceStyles = css`
   display: flex;
   align-items: center;
+  justify-content: space-between;
   color: ${color.black};
   margin: 0.75rem 0;
 `;
@@ -95,32 +111,214 @@ const restaurantLinksIconStyles = css`
 
 const restaurantDirectionStyles = css``;
 
+const showMoreContainerStyles = css`
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 0.5rem;
+`;
+
+const showMoreButtonStyles = css`
+  display: inline-flex;
+  align-items: center;
+  color: ${color.blue};
+  background-color: ${color.white};
+  border: 1px solid ${color.blue};
+  border-radius: 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 0.25rem 0.5rem;
+  text-decoration: none;
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${color.orange};
+  }
+`;
+
+const locationInfoContainerStyles = css``;
+
+const locationDistanceStyles = css`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: ${color.black};
+  margin: 0.75rem 0;
+`;
+
+const distanceInfoStyles = css`
+  display: flex;
+  align-items: center;
+`;
+
+const openingTimesStyles = css`
+  display: flex;
+  align-items: center;
+  font-size: 0.875rem;
+  color: ${color.blackOlive};
+`;
+
+const clockIconStyles = css`
+  width: 0.875rem;
+  height: 0.875rem;
+  margin-right: 0.25rem;
+  color: ${color.blackOlive};
+`;
+
+const cycleButtonStyles = css`
+  background: none;
+  border: none;
+  color: ${color.blackOlive};
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0.5rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+
+  &:hover:not(:disabled) {
+    background-color: ${color.blackOlive};
+    color: ${color.white};
+    border-radius: 0.25rem;
+  }
+
+  &:disabled {
+    color: ${color.blackOlive};
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+`;
+
 export default function Restaurant({
   title,
   imageUrl,
   imageUrlLowQuality,
-  distance,
   url,
   dishCollection,
   googleMapsUrl,
+  locations,
+  coordinate,
 }: RestaurantProps) {
-  const { loading, language } = useRestaurants();
+  const { loading, language, userPosition } = useRestaurants();
   const { src, blur } = useProgressiveImg(imageUrlLowQuality, imageUrl);
+  const [expanded, setExpanded] = useState(false);
+  // Find the closest location index if user position is available
+  const getClosestLocationIndex = () => {
+    if (!locations || !userPosition) return 0;
+
+    const distances = locations.map((loc) => calculateDistance(userPosition, loc.coordinate));
+    return distances.indexOf(Math.min(...distances));
+  };
+
+  const [currentLocationIndex, setCurrentLocationIndex] = useState(() => getClosestLocationIndex());
+
+  // Update location index when user position changes
+  useEffect(() => {
+    if (userPosition && locations) {
+      const distances = locations.map((loc) => calculateDistance(userPosition, loc.coordinate));
+      const closestIndex = distances.indexOf(Math.min(...distances));
+      setCurrentLocationIndex(closestIndex);
+    }
+  }, [userPosition, locations]);
+
+  // For multi-location restaurants, use the current location data
+  const isMultiLocation = locations && locations.length >= 1;
+  const hasMultipleLocations = locations && locations.length > 1;
+  const currentLocation = isMultiLocation ? locations[currentLocationIndex] : null;
+  const currentUrl = currentLocation?.url || url;
+  const currentGoogleMapsUrl = currentLocation?.googleMapsUrl || googleMapsUrl;
+  const currentDishCollection = currentLocation?.dishCollection || dishCollection;
+
+  // Calculate distance for current location if multi-location
+  const currentDistance = (() => {
+    const referencePosition = userPosition || DEVOTEAM_LOCATION;
+
+    if (currentLocation) {
+      // For multi-location: calculate distance to the specific location
+      return calculateDistance(referencePosition, currentLocation.coordinate);
+    } else {
+      // For single location: calculate distance to main coordinate
+      return calculateDistance(referencePosition, coordinate);
+    }
+  })();
 
   const distanceText = loading
     ? ' '
-    : distance && distance < 1
-    ? `${(distance * 1000)?.toFixed(0)} m`
-    : `${distance?.toFixed(2)} km`;
+    : currentDistance
+    ? formatDistance(currentDistance)
+    : '';
+
+  const nextLocation = () => {
+    if (hasMultipleLocations) {
+      setCurrentLocationIndex((prev) => (prev + 1) % locations!.length);
+    }
+  };
+
+  const prevLocation = () => {
+    if (hasMultipleLocations) {
+      setCurrentLocationIndex((prev) => (prev - 1 + locations!.length) % locations!.length);
+    }
+  };
 
   return (
     <div css={restaurantStyles}>
-      <h2 css={restaurantTitleStyles}>{loading ? ' ' : title}</h2>
-      <div css={restaurantDistanceStyles}>
-        <LocationIcon css={restaurantLocationIconStyles} />
-        {!loading && distanceText}
+      <div css={titleContainerStyles}>
+        {isMultiLocation && hasMultipleLocations && !loading && (
+          <button css={cycleButtonStyles} onClick={prevLocation} disabled={!hasMultipleLocations}>
+            ←
+          </button>
+        )}
+        <h2 css={restaurantTitleStyles}>{loading ? ' ' : title}</h2>
+        {isMultiLocation && hasMultipleLocations && !loading && (
+          <button css={cycleButtonStyles} onClick={nextLocation} disabled={!hasMultipleLocations}>
+            →
+          </button>
+        )}
       </div>
-      <a href={url} css={restaurantImageLinkStyles}>
+
+      {isMultiLocation && !loading && (
+        <div css={locationInfoContainerStyles}>
+          <div css={locationDistanceStyles}>
+            <div css={distanceInfoStyles}>
+              <LocationIcon css={restaurantLocationIconStyles} />
+              {distanceText} • {currentLocation?.title}
+            </div>
+            {(() => {
+              const dishCollection = currentDishCollection?.find((dc: DishCollectionProps) => dc.language === language);
+              const lunchInfo = dishCollection?.lunchInfo;
+              return lunchInfo?.servingTimes ? (
+                <div css={openingTimesStyles}>
+                  <ClockIcon css={clockIconStyles} />
+                  {lunchInfo.servingTimes}
+                </div>
+              ) : null;
+            })()}
+          </div>
+        </div>
+      )}
+
+      {!isMultiLocation && (
+        <div css={restaurantDistanceStyles}>
+          <div css={distanceInfoStyles}>
+            <LocationIcon css={restaurantLocationIconStyles} />
+            {!loading && distanceText}
+          </div>
+          {!loading && (() => {
+            const dishCollection = currentDishCollection?.find((dc: DishCollectionProps) => dc.language === language);
+            const lunchInfo = dishCollection?.lunchInfo;
+            return lunchInfo?.servingTimes ? (
+              <div css={openingTimesStyles}>
+                <ClockIcon css={clockIconStyles} />
+                {lunchInfo.servingTimes}
+              </div>
+            ) : null;
+          })()}
+        </div>
+      )}
+      <a href={currentUrl} css={restaurantImageLinkStyles}>
         <img
           src={src}
           style={{
@@ -131,19 +329,50 @@ export default function Restaurant({
           alt={title}
         />
       </a>
-      {dishCollection && dishCollection.filter((a: DishCollectionProps) => a.dishes?.length).length
-        ? dishCollection
-            .find((dc: DishCollectionProps) => dc.language === language)
-            ?.dishes.map((dish: DishProps, index: number) => (
-              <Dish key={`dish-${index}`} type={dish.type} title={dish.title} />
-            ))
-        : !loading && <div css={unableToScrapeStyles}>Closed or ¯\_(ツ)_/¯</div>}
+      {currentDishCollection && currentDishCollection.filter((a: DishCollectionProps) => a.dishes?.length).length
+        ? (() => {
+            const dishCollection = currentDishCollection.find((dc: DishCollectionProps) => dc.language === language);
+            const dishes = dishCollection?.dishes || [];
+            const lunchInfo = dishCollection?.lunchInfo;
+            const visible = expanded ? dishes : dishes.slice(0, APP_CONFIG.VISIBLE_DISHES_COLLAPSED);
+            return (
+              <>
+                {lunchInfo && (
+                  <LunchInfo
+                    lunchInfo={{
+                      ...lunchInfo,
+                      servingTimes: undefined // Don't show serving times here as they're shown inline
+                    }}
+                  />
+                )}
+                {visible.map((dish: DishProps, index: number) => (
+                  <Dish key={`dish-${index}`} type={dish.type} title={dish.title} />
+                ))}
+                {dishes.length > 4 && (
+                  <div css={showMoreContainerStyles}>
+                    <button type='button' css={showMoreButtonStyles} onClick={() => setExpanded((v) => !v)}>
+                      {expanded ? 'Show less' : `Show more (${dishes.length - 4})`}
+                    </button>
+                  </div>
+                )}
+              </>
+            );
+          })()
+        : !loading && (() => {
+            // Check if we have closure info even without dishes
+            const dishCollection = currentDishCollection?.find((dc: DishCollectionProps) => dc.language === language);
+            const lunchInfo = dishCollection?.lunchInfo;
+
+            return lunchInfo?.closureInfo?.isClosed
+              ? <LunchInfo lunchInfo={lunchInfo} />
+              : <div css={unableToScrapeStyles}>Closed or ¯\_(ツ)_/¯</div>;
+          })()}
       <div css={restaurantLinksStyles}>
-        <a href={url} css={restaurantWebsiteIconStyles}>
+        <a href={currentUrl} css={restaurantWebsiteIconStyles}>
           <ExternalLinkIcon css={restaurantLinksIconStyles} />
           Website
         </a>
-        <a href={googleMapsUrl} css={restaurantDirectionStyles}>
+        <a href={currentGoogleMapsUrl} css={restaurantDirectionStyles}>
           <DirectionIcon css={restaurantLinksIconStyles} />
           Directions
         </a>

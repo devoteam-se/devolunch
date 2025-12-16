@@ -63,7 +63,7 @@ export default function LoadingSkeleton() {
         <div css={spinnerStyles}></div>
       </div>
       <Header scrapeDate={null} />
-      <Main restaurants={mockedRestaurants} />;
+      <Main restaurants={mockedRestaurants} />
       <Footer />
     </>
   );

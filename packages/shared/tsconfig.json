@@ -1,15 +1,11 @@
 {
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "strict": true,
     "outDir": "dist",
-    "strictNullChecks": true,
-    "esModuleInterop": true,
+    "noEmit": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "noUnusedLocals": true,
-    "skipLibCheck": true,
-    "sourceMap": true,
-    "moduleResolution": "node"
+    "lib": ["ESNext", "DOM"]
   },
   "include": ["src/**/*"]
 }

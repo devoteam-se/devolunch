@@ -1,9 +1,12 @@
 import express from 'express';
-const router = express.Router();
+import type { Router } from 'express';
+const router: Router = express.Router();
 
-import restaurants from './restaurants';
+import restaurants from './restaurants.js';
+import ai from './ai.js';
 
 router.get('/health', (_, res) => res.send("I'm healthy!"));
 router.use('/restaurants', restaurants);
+router.use('/ai', ai);
 
 export default router;

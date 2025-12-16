@@ -1,9 +1,9 @@
-import { Request, Response } from 'express';
 import express from 'express';
+import type { Request, Response, Router } from 'express';
 
-import { getScrape } from '../services/storage';
+import { getScrape } from '../services/storage.js';
 
-const router = express.Router();
+const router: Router = express.Router();
 
 router.get('/', async (_: Request, res: Response) => {
   const scrape = await getScrape();
